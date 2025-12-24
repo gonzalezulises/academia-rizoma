@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 import type { Course, Profile } from '@/types'
 import Navbar from '@/components/Navbar'
 
@@ -200,6 +201,12 @@ export default function AdminCoursesPage() {
                   </span>
                 </div>
                 <div className="flex gap-2">
+                  <Link
+                    href={`/admin/courses/${course.id}`}
+                    className="px-3 py-1 bg-blue-100 text-blue-700 rounded-lg text-sm hover:bg-blue-200"
+                  >
+                    Editar
+                  </Link>
                   <button
                     onClick={() => handlePublish(course.id, !course.is_published)}
                     className={`px-3 py-1 rounded-lg text-sm ${
