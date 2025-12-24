@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
 import { MarkdownRenderer } from '@/components/course/MarkdownRenderer'
+import { VideoPlayer } from '@/components/course/VideoPlayer'
 import type { LessonFull, Quiz } from '@/types'
 
 interface LessonPlayerProps {
@@ -100,16 +101,11 @@ export default function LessonPlayer({
     switch (lesson.lesson_type) {
       case 'video':
         return (
-          <div className="aspect-video bg-black rounded-xl overflow-hidden mb-6">
+          <div className="mb-6">
             {lesson.video_url ? (
-              <iframe
-                src={lesson.video_url}
-                className="w-full h-full"
-                allowFullScreen
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              />
+              <VideoPlayer url={lesson.video_url} />
             ) : (
-              <div className="w-full h-full flex items-center justify-center text-gray-400">
+              <div className="aspect-video bg-black rounded-xl overflow-hidden flex items-center justify-center text-gray-400">
                 <div className="text-center">
                   <span className="text-6xl block mb-4">🎬</span>
                   <p>Video no disponible</p>

@@ -16,21 +16,21 @@ export function MarkdownRenderer({ content, className = '' }: MarkdownRendererPr
         remarkPlugins={[remarkGfm]}
         rehypePlugins={[rehypeHighlight]}
         components={{
-          // Custom styling for code blocks
+          // Custom styling for code blocks - let hljs handle styling
           pre: ({ children, ...props }) => (
-            <pre className="overflow-x-auto rounded-lg bg-gray-900 p-4" {...props}>
+            <pre className="not-prose my-4" {...props}>
               {children}
             </pre>
           ),
           code: ({ className, children, ...props }) => {
             const match = /language-(\w+)/.exec(className || '')
-            const isInline = !match
+            const isInline = !match && !className?.includes('hljs')
             return isInline ? (
-              <code className="bg-gray-100 dark:bg-gray-800 px-1.5 py-0.5 rounded text-sm font-mono" {...props}>
+              <code className="bg-gray-200 dark:bg-gray-700 px-1.5 py-0.5 rounded text-sm font-mono text-gray-800 dark:text-gray-200" {...props}>
                 {children}
               </code>
             ) : (
-              <code className={className} {...props}>
+              <code className={`${className || ''} hljs`} {...props}>
                 {children}
               </code>
             )
