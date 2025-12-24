@@ -333,3 +333,39 @@ export interface Announcement {
 export interface AnnouncementWithAuthor extends Announcement {
   author: Profile
 }
+
+// Content Version types
+export interface ContentVersion {
+  id: string
+  lesson_id: string
+  version_number: number
+  content: string | null
+  video_url: string | null
+  change_notes: string | null
+  created_by: string | null
+  created_at: string
+  is_active: boolean
+}
+
+export interface ContentVersionWithCreator extends ContentVersion {
+  creator?: Profile | null
+}
+
+// Resource types
+export interface Resource {
+  id: string
+  lesson_id: string
+  title: string
+  description: string | null
+  file_url: string
+  file_type: string | null
+  file_size: number | null
+  download_count: number
+  created_by: string | null
+  created_at: string
+  updated_at: string
+}
+
+export interface ResourceWithCreator extends Resource {
+  creator?: Profile | null
+}

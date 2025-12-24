@@ -3,7 +3,8 @@ import { notFound, redirect } from 'next/navigation'
 import Link from 'next/link'
 import Navbar from '@/components/Navbar'
 import LessonPlayer from '@/components/course/LessonPlayer'
-import type { Lesson, Module, Quiz } from '@/types'
+import LessonResources from './LessonResources'
+import type { Lesson, Module, Quiz, Resource } from '@/types'
 
 interface LessonPageProps {
   params: Promise<{ id: string; lessonId: string }>
@@ -77,6 +78,13 @@ export default async function LessonPage({ params }: LessonPageProps) {
   if (quizData) {
     quiz = quizData as Quiz
   }
+
+  // Get resources for this lesson
+  const { data: resources } = await supabase
+    .from('resources')
+    .select('*')
+    .eq('lesson_id', lessonId)
+    .order('created_at', { ascending: true })
 
   // Get all lessons for navigation
   const { data: allLessons } = await supabase
@@ -239,6 +247,16 @@ export default async function LessonPage({ params }: LessonPageProps) {
               isCompleted={isCompleted}
               quiz={quiz}
             />
+
+            {/* Resources */}
+            {user && (
+              <LessonResources
+                lessonId={lessonId}
+                userId={user.id}
+                isInstructor={isInstructor}
+                initialResources={(resources || []) as Resource[]}
+              />
+            )}
 
             {/* Navigation */}
             <div className="flex items-center justify-between mt-8 pt-8 border-t border-gray-200 dark:border-gray-700">
