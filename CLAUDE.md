@@ -67,3 +67,39 @@ npm run build    # Build de produccion
 npm run lint     # Linter
 npx standard-version  # Generar nueva version + CHANGELOG
 ```
+
+## Supabase CLI (Migraciones)
+
+El proyecto esta configurado con Supabase CLI para gestionar migraciones de base de datos.
+
+### Configuracion
+```bash
+# El proyecto ya esta vinculado. Si necesitas re-vincular:
+SUPABASE_ACCESS_TOKEN=$SUPABASE_ACCESS_TOKEN supabase link --project-ref mcssewqlcyfsuznuvtmh
+```
+
+### Crear nueva migracion
+```bash
+# Genera archivo en supabase/migrations/ con timestamp
+supabase migration new nombre_descriptivo
+```
+
+### Ver estado de migraciones
+```bash
+SUPABASE_ACCESS_TOKEN=$SUPABASE_ACCESS_TOKEN supabase migration list
+```
+
+### Aplicar migraciones pendientes
+```bash
+SUPABASE_ACCESS_TOKEN=$SUPABASE_ACCESS_TOKEN supabase db push
+```
+
+### Migraciones existentes
+| Archivo | Descripcion |
+|---------|-------------|
+| 20251201000001_initial_schema.sql | Schema inicial (profiles, courses, lessons, enrollments, progress) |
+| 20251201000002_modules_hierarchy.sql | Modulos y jerarquia de contenido |
+| 20251201000003_progress_tracking.sql | Tracking avanzado de progreso |
+| 20251201000004_quizzes.sql | Sistema de evaluaciones |
+| 20251201000005_forums.sql | Foros y notificaciones |
+| 20251201000006_content_management.sql | Recursos y versionado de contenido |
