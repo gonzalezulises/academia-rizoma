@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
 import type { Profile } from '@/types'
+import { NotificationBell } from '@/components/notifications'
 
 export default function Navbar() {
   const [user, setUser] = useState<Profile | null>(null)
@@ -85,6 +86,7 @@ export default function Navbar() {
               <div className="w-8 h-8 rounded-full bg-gray-200 dark:bg-gray-700 animate-pulse" />
             ) : user ? (
               <div className="flex items-center gap-4">
+                <NotificationBell userId={user.id} />
                 <span className="text-sm text-gray-600 dark:text-gray-400">
                   {user.full_name || user.role}
                 </span>

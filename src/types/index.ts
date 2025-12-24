@@ -241,3 +241,95 @@ export interface SubmissionWithDetails extends Submission {
   user?: Profile
   assignment?: Assignment
 }
+
+// Forum types
+export interface Forum {
+  id: string
+  course_id: string
+  module_id: string | null
+  title: string
+  description: string | null
+  is_locked: boolean
+  post_count: number
+  created_at: string
+  updated_at: string
+}
+
+export interface ForumPost {
+  id: string
+  forum_id: string
+  user_id: string
+  title: string
+  content: string
+  is_pinned: boolean
+  is_resolved: boolean
+  is_locked: boolean
+  views: number
+  reply_count: number
+  last_reply_at: string | null
+  last_reply_by: string | null
+  created_at: string
+  updated_at: string
+}
+
+export interface ForumReply {
+  id: string
+  post_id: string
+  user_id: string
+  parent_reply_id: string | null
+  content: string
+  is_answer: boolean
+  is_edited: boolean
+  created_at: string
+  updated_at: string
+}
+
+export interface ForumPostWithAuthor extends ForumPost {
+  author: Profile
+  last_reply_author?: Profile | null
+}
+
+export interface ForumReplyWithAuthor extends ForumReply {
+  author: Profile
+  replies?: ForumReplyWithAuthor[]
+}
+
+export interface ForumPostFull extends ForumPost {
+  author: Profile
+  replies: ForumReplyWithAuthor[]
+  forum?: Forum
+}
+
+// Notification types
+export type NotificationType = 'reply' | 'mention' | 'announcement' | 'grade' | 'reminder' | 'answer'
+
+export interface Notification {
+  id: string
+  user_id: string
+  type: NotificationType
+  title: string
+  content: string | null
+  related_url: string | null
+  related_id: string | null
+  is_read: boolean
+  created_at: string
+}
+
+// Announcement types
+export type AnnouncementSegment = 'all' | 'not_started' | 'in_progress' | 'completed'
+
+export interface Announcement {
+  id: string
+  course_id: string
+  user_id: string
+  title: string
+  content: string
+  is_pinned: boolean
+  target_segment: AnnouncementSegment
+  created_at: string
+  updated_at: string
+}
+
+export interface AnnouncementWithAuthor extends Announcement {
+  author: Profile
+}
