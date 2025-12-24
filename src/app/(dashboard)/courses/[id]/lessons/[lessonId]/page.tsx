@@ -5,6 +5,32 @@ import Navbar from '@/components/Navbar'
 import LessonPlayer from '@/components/course/LessonPlayer'
 import LessonResources from './LessonResources'
 import type { Lesson, Module, Quiz, Resource } from '@/types'
+import { promises as fs } from 'fs'
+import path from 'path'
+
+// Helper to extract file path from content and read markdown
+async function getMarkdownContent(content: string | null): Promise<string | null> {
+  if (!content) return null
+
+  // Check if content references a file path (e.g., "Ver archivo: content/courses/nextjs-14/module-01/lesson-01.md")
+  const filePathMatch = content.match(/Ver archivo:\s*(.+\.md)$/i)
+
+  if (filePathMatch) {
+    const relativePath = filePathMatch[1].trim()
+    const absolutePath = path.join(process.cwd(), relativePath)
+
+    try {
+      const markdownContent = await fs.readFile(absolutePath, 'utf-8')
+      return markdownContent
+    } catch (error) {
+      console.error(`Error reading markdown file: ${absolutePath}`, error)
+      return `Error: No se pudo cargar el contenido del archivo "${relativePath}"`
+    }
+  }
+
+  // If not a file reference, return the content as-is
+  return content
+}
 
 interface LessonPageProps {
   params: Promise<{ id: string; lessonId: string }>
@@ -121,10 +147,14 @@ export default async function LessonPage({ params }: LessonPageProps) {
     })
   }
 
+  // Read markdown content if lesson content references a file
+  const markdownContent = await getMarkdownContent(lesson.content)
+
   const lessonWithType = {
     ...lesson,
     lesson_type: lesson.lesson_type || 'video',
-    is_required: lesson.is_required ?? true
+    is_required: lesson.is_required ?? true,
+    parsedContent: markdownContent
   }
 
   return (

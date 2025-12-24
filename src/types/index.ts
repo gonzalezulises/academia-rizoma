@@ -137,6 +137,7 @@ export interface LessonFull extends Lesson {
   progress?: Progress | null
   module?: Module | null
   course?: Course
+  parsedContent?: string | null // Markdown content read from filesystem
 }
 
 // Quiz types

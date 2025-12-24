@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
+import { MarkdownRenderer } from '@/components/course/MarkdownRenderer'
 import type { LessonFull, Quiz } from '@/types'
 
 interface LessonPlayerProps {
@@ -120,9 +121,11 @@ export default function LessonPlayer({
 
       case 'text':
         return (
-          <div className="prose dark:prose-invert max-w-none mb-6">
-            {lesson.content ? (
-              <div dangerouslySetInnerHTML={{ __html: lesson.content }} />
+          <div className="mb-6">
+            {lesson.parsedContent ? (
+              <MarkdownRenderer content={lesson.parsedContent} />
+            ) : lesson.content ? (
+              <MarkdownRenderer content={lesson.content} />
             ) : (
               <p className="text-gray-500">Sin contenido disponible.</p>
             )}
@@ -208,10 +211,10 @@ export default function LessonPlayer({
       {renderContent()}
 
       {/* Text content below video if exists */}
-      {lesson.lesson_type === 'video' && lesson.content && (
-        <div className="prose dark:prose-invert max-w-none mb-6">
-          <h3>Notas de la leccion</h3>
-          <div dangerouslySetInnerHTML={{ __html: lesson.content }} />
+      {lesson.lesson_type === 'video' && (lesson.parsedContent || lesson.content) && (
+        <div className="mb-6">
+          <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Notas de la leccion</h3>
+          <MarkdownRenderer content={lesson.parsedContent || lesson.content || ''} />
         </div>
       )}
 
