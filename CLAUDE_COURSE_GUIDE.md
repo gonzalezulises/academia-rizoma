@@ -6,6 +6,39 @@ Este documento contiene toda la informacion necesaria para crear un nuevo curso 
 
 ---
 
+## Como Iniciar una Nueva Sesion de Claude Code
+
+### Opcion A: Iniciar desde el proyecto (Recomendado)
+
+```bash
+cd /Users/ulisesgonzalez/Documents/data_science_projects/edu-platform
+claude
+```
+
+Luego en el prompt:
+```
+Lee CLAUDE_COURSE_GUIDE.md y ~/.edu-platform-credentials.
+Quiero crear un curso de [TEMA] con el diseño en [RUTA_AL_ZIP].
+```
+
+### Opcion B: Usar rutas absolutas
+
+```bash
+claude "Lee /Users/ulisesgonzalez/Documents/data_science_projects/edu-platform/CLAUDE_COURSE_GUIDE.md y ~/.edu-platform-credentials. Quiero crear un curso de [TEMA] con el diseño en /ruta/completa/al/archivo.zip"
+```
+
+### Rutas Importantes
+
+| Recurso | Ruta Absoluta |
+|---------|---------------|
+| Proyecto | `/Users/ulisesgonzalez/Documents/data_science_projects/edu-platform` |
+| Esta guia | `/Users/ulisesgonzalez/Documents/data_science_projects/edu-platform/CLAUDE_COURSE_GUIDE.md` |
+| Credenciales | `~/.edu-platform-credentials` |
+| Contenido cursos | `/Users/ulisesgonzalez/Documents/data_science_projects/edu-platform/content/courses/` |
+| Migraciones | `/Users/ulisesgonzalez/Documents/data_science_projects/edu-platform/supabase/migrations/` |
+
+---
+
 ## IMPORTANTE: Credenciales Locales
 
 Antes de comenzar, lee el archivo de credenciales:
@@ -28,13 +61,15 @@ Este archivo contiene:
 
 ## Tabla de Contenidos
 
-1. [Resumen del Proyecto](#resumen-del-proyecto)
-2. [Arquitectura del Sistema de Ejercicios](#arquitectura-del-sistema-de-ejercicios)
-3. [Paso a Paso: Crear un Nuevo Curso](#paso-a-paso-crear-un-nuevo-curso)
-4. [Referencia de Formatos](#referencia-de-formatos)
-5. [Agregar a la Base de Datos](#agregar-a-la-base-de-datos)
-6. [Deploy](#deploy)
-7. [Troubleshooting](#troubleshooting)
+1. [Como Iniciar una Nueva Sesion](#como-iniciar-una-nueva-sesion-de-claude-code)
+2. [Credenciales Locales](#importante-credenciales-locales)
+3. [Resumen del Proyecto](#resumen-del-proyecto)
+4. [Arquitectura del Sistema de Ejercicios](#arquitectura-del-sistema-de-ejercicios)
+5. [Paso a Paso: Crear un Nuevo Curso](#paso-a-paso-crear-un-nuevo-curso)
+6. [Referencia de Formatos](#referencia-de-formatos)
+7. [Agregar a la Base de Datos](#agregar-a-la-base-de-datos)
+8. [Deploy](#deploy)
+9. [Troubleshooting](#troubleshooting)
 
 ---
 
