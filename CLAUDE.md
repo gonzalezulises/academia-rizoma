@@ -1,105 +1,124 @@
 # EduPlatform - Contexto del Proyecto
 
 ## Descripcion
-Plataforma educativa con cursos, lecciones, autenticacion y tracking de progreso.
+Plataforma educativa con cursos, lecciones, **ejercicios interactivos de codigo**, quizzes y tracking de progreso.
 
 ## Stack Tecnologico
 - **Frontend**: Next.js 14 (App Router)
 - **Base de datos**: Supabase (PostgreSQL)
 - **Autenticacion**: Auth.js + Supabase Auth
-- **Storage**: Supabase Storage
+- **Ejercicios Python**: Pyodide (WebAssembly)
+- **Ejercicios SQL**: sql.js (WebAssembly)
+- **Editor**: Monaco Editor
 - **Estilos**: Tailwind CSS
 - **Deploy**: Vercel con CI/CD automatico
 
-## Funcionalidades
-- Cursos y lecciones estructurados
-- Login/registro con Auth.js
-- Tracking de progreso por usuario
-- Subida de archivos (videos, PDFs, imagenes)
+## Funcionalidades Principales
+- Cursos con modulos y lecciones
+- **Ejercicios interactivos** (Python, SQL, Colab)
+- Quizzes con calificacion automatica
+- Foros de discusion
+- Tracking de progreso
 - Roles: student, instructor, admin
+
+## Sistema de Ejercicios Interactivos
+
+### Arquitectura
+```
+content/courses/[curso]/module-XX/
+├── lessons/       # Markdown con <!-- exercise:id -->
+└── exercises/     # YAML con codigo, tests, hints
+```
+
+### Componentes Clave
+| Archivo | Funcion |
+|---------|---------|
+| `src/components/exercises/CodePlayground.tsx` | Editor + runner Python |
+| `src/components/exercises/SQLPlayground.tsx` | Editor + runner SQL |
+| `src/hooks/usePyodide.ts` | Carga Pyodide |
+| `src/lib/content/loaders.ts` | Carga YAML |
+| `src/app/api/exercises/[id]/route.ts` | API de ejercicios |
+
+### Crear Nuevo Curso
+**Ver:** `CLAUDE_COURSE_GUIDE.md` para instrucciones completas.
+
+Resumen rapido:
+1. Crear carpetas en `content/courses/[slug]/module-01/{lessons,exercises}`
+2. Crear `course.yaml` y `module.yaml`
+3. Crear lecciones `.md` con embeds `<!-- exercise:id -->`
+4. Crear ejercicios `.yaml`
+5. Crear migracion SQL en `supabase/migrations/`
+6. Aplicar: `source .env.local && supabase db push --linked`
+7. Push a main para deploy
 
 ## Estructura de Carpetas
 ```
 src/
 ├── app/
 │   ├── (auth)/login, register
-│   ├── (dashboard)/courses, profile
-│   └── api/auth
+│   ├── (dashboard)/courses/[id]/lessons/[lessonId]
+│   └── api/exercises/[exerciseId]
 ├── components/
-├── lib/supabase/
+│   ├── exercises/     # Playgrounds interactivos
+│   └── course/        # LessonPlayer, MarkdownRenderer
+├── hooks/             # usePyodide, useSQLite
+├── lib/content/       # Loaders, embed-parser
 └── types/
+content/
+├── courses/           # Cursos con ejercicios
+└── shared/            # Datasets, schemas
 ```
 
 ## Base de Datos (Supabase)
+
 Tablas principales:
-- `profiles` - Usuarios extendidos
+- `profiles` - Usuarios con roles
 - `courses` - Cursos
-- `lessons` - Lecciones
-- `progress` - Progreso del estudiante
-- `enrollments` - Inscripciones
+- `modules` - Modulos
+- `lessons` - Lecciones (contenido markdown)
+- `progress` - Progreso por leccion
+- `exercise_progress` - Progreso por ejercicio
+- `quizzes`, `quiz_questions`, `quiz_attempts`
+- `forums`, `forum_posts`, `forum_replies`
 
-## Versionado
-- Conventional Commits (feat, fix, docs, chore)
-- Husky + Commitlint para validacion
-- Standard Version para CHANGELOG automatico
-
-## Seguridad
-- Headers de seguridad en next.config.js
-- Auditoria con https://web-check.xyz post-deploy
-- RLS (Row Level Security) en Supabase
-
-## Variables de Entorno Requeridas
+## Variables de Entorno
 ```
 NEXT_PUBLIC_SUPABASE_URL=
 NEXT_PUBLIC_SUPABASE_ANON_KEY=
 SUPABASE_SERVICE_ROLE_KEY=
-NEXTAUTH_SECRET=
-NEXTAUTH_URL=
+SUPABASE_ACCESS_TOKEN=
 ```
-
-## Plan Completo
-Ver: ~/.claude/plans/wiggly-baking-teapot.md
 
 ## Comandos Utiles
 ```bash
-npm run dev      # Desarrollo local
-npm run build    # Build de produccion
-npm run lint     # Linter
-npx standard-version  # Generar nueva version + CHANGELOG
+npm run dev              # Desarrollo local
+npm run build            # Build produccion
+npm run lint             # Linter
+
+# Migraciones
+source .env.local && supabase db push --linked
+source .env.local && supabase migration list
 ```
 
-## Supabase CLI (Migraciones)
-
-El proyecto esta configurado con Supabase CLI para gestionar migraciones de base de datos.
-
-### Configuracion
-```bash
-# El proyecto ya esta vinculado. Si necesitas re-vincular:
-SUPABASE_ACCESS_TOKEN=$SUPABASE_ACCESS_TOKEN supabase link --project-ref mcssewqlcyfsuznuvtmh
-```
-
-### Crear nueva migracion
-```bash
-# Genera archivo en supabase/migrations/ con timestamp
-supabase migration new nombre_descriptivo
-```
-
-### Ver estado de migraciones
-```bash
-SUPABASE_ACCESS_TOKEN=$SUPABASE_ACCESS_TOKEN supabase migration list
-```
-
-### Aplicar migraciones pendientes
-```bash
-SUPABASE_ACCESS_TOKEN=$SUPABASE_ACCESS_TOKEN supabase db push
-```
-
-### Migraciones existentes
+## Migraciones Existentes
 | Archivo | Descripcion |
 |---------|-------------|
-| 20251201000001_initial_schema.sql | Schema inicial (profiles, courses, lessons, enrollments, progress) |
-| 20251201000002_modules_hierarchy.sql | Modulos y jerarquia de contenido |
-| 20251201000003_progress_tracking.sql | Tracking avanzado de progreso |
-| 20251201000004_quizzes.sql | Sistema de evaluaciones |
-| 20251201000005_forums.sql | Foros y notificaciones |
-| 20251201000006_content_management.sql | Recursos y versionado de contenido |
+| 20251201000001_initial_schema.sql | Schema inicial |
+| 20251201000002_modules_hierarchy.sql | Modulos |
+| 20251201000003_progress_tracking.sql | Tracking |
+| 20251201000004_quizzes.sql | Evaluaciones |
+| 20251201000005_forums.sql | Foros |
+| 20251201000006_content_management.sql | Recursos |
+| 20251225000001_interactive_exercises.sql | Tabla exercise_progress |
+| 20251225000002_seed_python_course.sql | Curso Python |
+| 20251225000003_update_python_course_content.sql | Contenido markdown |
+
+## Cursos Existentes
+| Curso | Slug | Ejercicios |
+|-------|------|------------|
+| Introduccion a Python | python-data-science | 13 |
+
+## Documentacion
+- `README.md` - Documentacion publica
+- `CLAUDE.md` - Este archivo (contexto rapido)
+- `CLAUDE_COURSE_GUIDE.md` - Guia completa para crear cursos
