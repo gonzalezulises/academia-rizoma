@@ -1,35 +1,36 @@
 # EduPlatform
 
-<!-- Status Badges -->
-[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://github.com/gonzalezulises/edu-platform/blob/main/LICENSE)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/gonzalezulises/edu-platform/pulls)
-[![Made with Claude Code](https://img.shields.io/badge/Made%20with-Claude%20Code-blueviolet?logo=anthropic&logoColor=white)](https://claude.ai)
+<p align="center">
+  <a href="https://github.com/gonzalezulises/edu-platform/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-MIT-green.svg" alt="MIT License"/></a>
+  <a href="https://github.com/gonzalezulises/edu-platform/pulls"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" alt="PRs Welcome"/></a>
+  <a href="https://claude.ai"><img src="https://img.shields.io/badge/Made%20with-Claude%20Code-blueviolet?logo=anthropic&logoColor=white" alt="Made with Claude Code"/></a>
+</p>
 
-<!-- Core Framework -->
-[![Next.js](https://img.shields.io/badge/Next.js-14-black?logo=next.js&logoColor=white)](https://nextjs.org/)
-[![React](https://img.shields.io/badge/React-18-61DAFB?logo=react&logoColor=black)](https://react.dev/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-[![Node.js](https://img.shields.io/badge/Node.js-18+-339933?logo=node.js&logoColor=white)](https://nodejs.org/)
+<p align="center">
+  <a href="https://nextjs.org/"><img src="https://img.shields.io/badge/Next.js-14-black?logo=next.js&logoColor=white" alt="Next.js"/></a>
+  <a href="https://react.dev/"><img src="https://img.shields.io/badge/React-18-61DAFB?logo=react&logoColor=black" alt="React"/></a>
+  <a href="https://www.typescriptlang.org/"><img src="https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white" alt="TypeScript"/></a>
+  <a href="https://nodejs.org/"><img src="https://img.shields.io/badge/Node.js-18+-339933?logo=node.js&logoColor=white" alt="Node.js"/></a>
+  <a href="https://tailwindcss.com/"><img src="https://img.shields.io/badge/Tailwind_CSS-3-06B6D4?logo=tailwindcss&logoColor=white" alt="Tailwind CSS"/></a>
+</p>
 
-<!-- Styling -->
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3-06B6D4?logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
+<p align="center">
+  <a href="https://supabase.com/"><img src="https://img.shields.io/badge/Supabase-Database-3FCF8E?logo=supabase&logoColor=white" alt="Supabase"/></a>
+  <a href="https://www.postgresql.org/"><img src="https://img.shields.io/badge/PostgreSQL-15-4169E1?logo=postgresql&logoColor=white" alt="PostgreSQL"/></a>
+</p>
 
-<!-- Backend & Database -->
-[![Supabase](https://img.shields.io/badge/Supabase-Database-3FCF8E?logo=supabase&logoColor=white)](https://supabase.com/)
-[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-4169E1?logo=postgresql&logoColor=white)](https://www.postgresql.org/)
+<p align="center">
+  <a href="https://pyodide.org/"><img src="https://img.shields.io/badge/Pyodide-Python%20WASM-3776AB?logo=python&logoColor=white" alt="Pyodide"/></a>
+  <a href="https://sql.js.org/"><img src="https://img.shields.io/badge/sql.js-SQLite%20WASM-003B57?logo=sqlite&logoColor=white" alt="sql.js"/></a>
+  <a href="https://webassembly.org/"><img src="https://img.shields.io/badge/WebAssembly-Enabled-654FF0?logo=webassembly&logoColor=white" alt="WebAssembly"/></a>
+  <a href="https://microsoft.github.io/monaco-editor/"><img src="https://img.shields.io/badge/Monaco-Editor-007ACC?logo=visualstudiocode&logoColor=white" alt="Monaco Editor"/></a>
+  <a href="https://eslint.org/"><img src="https://img.shields.io/badge/ESLint-Configured-4B32C3?logo=eslint&logoColor=white" alt="ESLint"/></a>
+</p>
 
-<!-- Interactive Code Execution -->
-[![Pyodide](https://img.shields.io/badge/Pyodide-Python%20WASM-3776AB?logo=python&logoColor=white)](https://pyodide.org/)
-[![sql.js](https://img.shields.io/badge/sql.js-SQLite%20WASM-003B57?logo=sqlite&logoColor=white)](https://sql.js.org/)
-[![WebAssembly](https://img.shields.io/badge/WebAssembly-Enabled-654FF0?logo=webassembly&logoColor=white)](https://webassembly.org/)
-
-<!-- Editor & Tools -->
-[![Monaco Editor](https://img.shields.io/badge/Monaco-Editor-007ACC?logo=visualstudiocode&logoColor=white)](https://microsoft.github.io/monaco-editor/)
-[![ESLint](https://img.shields.io/badge/ESLint-Configured-4B32C3?logo=eslint&logoColor=white)](https://eslint.org/)
-
-<!-- Cloud & Deploy -->
-[![Vercel](https://img.shields.io/badge/Vercel-Deploy-000000?logo=vercel&logoColor=white)](https://vercel.com/)
-[![Google Colab](https://img.shields.io/badge/Google_Colab-Integration-F9AB00?logo=googlecolab&logoColor=white)](https://colab.research.google.com/)
+<p align="center">
+  <a href="https://vercel.com/"><img src="https://img.shields.io/badge/Vercel-Deploy-000000?logo=vercel&logoColor=white" alt="Vercel"/></a>
+  <a href="https://colab.research.google.com/"><img src="https://img.shields.io/badge/Google_Colab-Integration-F9AB00?logo=googlecolab&logoColor=white" alt="Google Colab"/></a>
+</p>
 
 ---
 
