@@ -2,7 +2,6 @@
 
 <!-- Status Badges -->
 [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://github.com/gonzalezulises/edu-platform/blob/main/LICENSE)
-[![Deploy with Vercel](https://img.shields.io/badge/Vercel-Deployed-black?logo=vercel&logoColor=white)](https://vercel.com)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/gonzalezulises/edu-platform/pulls)
 [![Made with Claude Code](https://img.shields.io/badge/Made%20with-Claude%20Code-blueviolet?logo=anthropic&logoColor=white)](https://claude.ai)
 
@@ -382,7 +381,7 @@ Este proyecto esta licenciado bajo la **MIT License** - ver el archivo [LICENSE]
 
 ## Autor
 
-**Ulises Gonzalez** - *Cientifico de Negocios* @ [Rizo.ma](https://rizo.ma)
+**Ulises Gonzalez** - *Fundador de Rizoma* @ [Rizo.ma](https://rizo.ma)
 
 [![Website](https://img.shields.io/badge/Website-ulises--gonzalez-blue?style=flat-square&logo=google-chrome&logoColor=white)](https://ulises-gonzalez-site.vercel.app)
 [![GitHub](https://img.shields.io/badge/GitHub-gonzalezulises-181717?style=flat-square&logo=github&logoColor=white)](https://github.com/gonzalezulises)
@@ -399,9 +398,7 @@ Este proyecto esta licenciado bajo la **MIT License** - ver el archivo [LICENSE]
 
 Desarrollado con asistencia de **Claude Code** (Anthropic).
 
-```
-Co-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>
-```
+
 
 ---
 
