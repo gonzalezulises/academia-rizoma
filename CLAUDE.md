@@ -71,6 +71,14 @@ content/
 
 ## Base de Datos (Supabase)
 
+**IMPORTANTE: NO se necesita Connection String URI ni conexion directa a PostgreSQL.**
+
+Este proyecto usa:
+- **Frontend**: Supabase JS Client (`NEXT_PUBLIC_SUPABASE_URL` + `ANON_KEY`)
+- **Migraciones**: Supabase CLI (`supabase db push --linked` con `SUPABASE_ACCESS_TOKEN`)
+
+Las credenciales en `.env.local` son suficientes. Nunca pidas Connection String.
+
 Tablas principales:
 - `profiles` - Usuarios con roles
 - `courses` - Cursos
@@ -82,10 +90,19 @@ Tablas principales:
 - `forums`, `forum_posts`, `forum_replies`
 
 ## Variables de Entorno
+
+**Archivo de credenciales local:** `~/.edu-platform-credentials`
+
+Contiene todas las claves, tokens y configuracion del proyecto.
+Para cargar en una nueva sesion:
+```bash
+cat ~/.edu-platform-credentials
+```
+
+Variables requeridas en `.env.local`:
 ```
 NEXT_PUBLIC_SUPABASE_URL=
 NEXT_PUBLIC_SUPABASE_ANON_KEY=
-SUPABASE_SERVICE_ROLE_KEY=
 SUPABASE_ACCESS_TOKEN=
 ```
 

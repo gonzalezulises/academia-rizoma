@@ -6,6 +6,26 @@ Este documento contiene toda la informacion necesaria para crear un nuevo curso 
 
 ---
 
+## IMPORTANTE: Credenciales Locales
+
+Antes de comenzar, lee el archivo de credenciales:
+```bash
+cat ~/.edu-platform-credentials
+```
+
+Este archivo contiene:
+- URLs y claves de Supabase
+- Token de acceso para CLI
+- Rutas del proyecto
+- IDs de cursos existentes
+- Comandos utiles
+
+**NO se necesita Connection String URI ni conexion directa a PostgreSQL.**
+- Frontend usa Supabase JS Client (`NEXT_PUBLIC_SUPABASE_URL` + `ANON_KEY`)
+- Migraciones usan `supabase db push --linked` con `SUPABASE_ACCESS_TOKEN`
+
+---
+
 ## Tabla de Contenidos
 
 1. [Resumen del Proyecto](#resumen-del-proyecto)
