@@ -1,5 +1,39 @@
 # EduPlatform
 
+<!-- Status Badges -->
+[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://github.com/gonzalezulises/edu-platform/blob/main/LICENSE)
+[![Deploy with Vercel](https://img.shields.io/badge/Vercel-Deployed-black?logo=vercel&logoColor=white)](https://vercel.com)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/gonzalezulises/edu-platform/pulls)
+[![Made with Claude Code](https://img.shields.io/badge/Made%20with-Claude%20Code-blueviolet?logo=anthropic&logoColor=white)](https://claude.ai)
+
+<!-- Core Framework -->
+[![Next.js](https://img.shields.io/badge/Next.js-14-black?logo=next.js&logoColor=white)](https://nextjs.org/)
+[![React](https://img.shields.io/badge/React-18-61DAFB?logo=react&logoColor=black)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Node.js](https://img.shields.io/badge/Node.js-18+-339933?logo=node.js&logoColor=white)](https://nodejs.org/)
+
+<!-- Styling -->
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3-06B6D4?logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
+
+<!-- Backend & Database -->
+[![Supabase](https://img.shields.io/badge/Supabase-Database-3FCF8E?logo=supabase&logoColor=white)](https://supabase.com/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-4169E1?logo=postgresql&logoColor=white)](https://www.postgresql.org/)
+
+<!-- Interactive Code Execution -->
+[![Pyodide](https://img.shields.io/badge/Pyodide-Python%20WASM-3776AB?logo=python&logoColor=white)](https://pyodide.org/)
+[![sql.js](https://img.shields.io/badge/sql.js-SQLite%20WASM-003B57?logo=sqlite&logoColor=white)](https://sql.js.org/)
+[![WebAssembly](https://img.shields.io/badge/WebAssembly-Enabled-654FF0?logo=webassembly&logoColor=white)](https://webassembly.org/)
+
+<!-- Editor & Tools -->
+[![Monaco Editor](https://img.shields.io/badge/Monaco-Editor-007ACC?logo=visualstudiocode&logoColor=white)](https://microsoft.github.io/monaco-editor/)
+[![ESLint](https://img.shields.io/badge/ESLint-Configured-4B32C3?logo=eslint&logoColor=white)](https://eslint.org/)
+
+<!-- Cloud & Deploy -->
+[![Vercel](https://img.shields.io/badge/Vercel-Deploy-000000?logo=vercel&logoColor=white)](https://vercel.com/)
+[![Google Colab](https://img.shields.io/badge/Google_Colab-Integration-F9AB00?logo=googlecolab&logoColor=white)](https://colab.research.google.com/)
+
+---
+
 Plataforma educativa completa con cursos, evaluaciones, **ejercicios interactivos de codigo**, foros y tracking de progreso. Desarrollada con Next.js 14, Supabase y Tailwind CSS.
 
 ## Tabla de Contenidos
@@ -342,7 +376,22 @@ El proyecto se despliega automaticamente en **Vercel** con cada push a `main`.
 
 ## Licencia
 
-MIT License
+Este proyecto esta licenciado bajo la **MIT License** - ver el archivo [LICENSE](LICENSE) para mas detalles.
+
+---
+
+## Autor
+
+**Ulises Gonzalez** - *Cientifico de Negocios* @ [Rizo.ma](https://rizo.ma)
+
+[![Website](https://img.shields.io/badge/Website-ulises--gonzalez-blue?style=flat-square&logo=google-chrome&logoColor=white)](https://ulises-gonzalez-site.vercel.app)
+[![GitHub](https://img.shields.io/badge/GitHub-gonzalezulises-181717?style=flat-square&logo=github&logoColor=white)](https://github.com/gonzalezulises)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-ulisesgonzalez-0A66C2?style=flat-square&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/ulisesgonzalez/)
+[![Kaggle](https://img.shields.io/badge/Kaggle-ulisesgonzalez-20BEFF?style=flat-square&logo=kaggle&logoColor=white)](https://www.kaggle.com/ulisesgonzalez)
+[![Medium](https://img.shields.io/badge/Medium-gonzalezulises-000000?style=flat-square&logo=medium&logoColor=white)](https://medium.com/@gonzalezulises)
+
+[![Email](https://img.shields.io/badge/Email-ulises%40rizo.ma-EA4335?style=flat-square&logo=gmail&logoColor=white)](mailto:ulises@rizo.ma)
+[![Calendly](https://img.shields.io/badge/Calendly-Schedule%20Meeting-006BFF?style=flat-square&logo=calendly&logoColor=white)](https://calendly.com/gonzalezulises)
 
 ---
 
@@ -353,3 +402,9 @@ Desarrollado con asistencia de **Claude Code** (Anthropic).
 ```
 Co-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>
 ```
+
+---
+
+<p align="center">
+  <sub>Built with passion in Panama</sub>
+</p>
