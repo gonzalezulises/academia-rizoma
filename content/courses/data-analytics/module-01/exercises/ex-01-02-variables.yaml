@@ -1,0 +1,80 @@
+id: ex-01-02-variables
+type: code-python
+title: "Crear variables"
+description: "Aprende a almacenar valores en variables y usarlas."
+
+instructions: |
+  Crea tres variables:
+  
+  1. `nombre` con el valor `"Python"`
+  2. `version` con el valor `3`
+  3. `es_popular` con el valor `True`
+  
+  Luego imprime las tres variables usando `print()`.
+
+difficulty: beginner
+estimated_time_minutes: 3
+points: 10
+order: 2
+
+starter_code: |
+  # Crea las variables aquí
+  nombre = 
+  version = 
+  es_popular = 
+  
+  # Imprime las variables
+  print(nombre)
+  print(version)
+  print(es_popular)
+
+solution_code: |
+  # Crea las variables aquí
+  nombre = "Python"
+  version = 3
+  es_popular = True
+  
+  # Imprime las variables
+  print(nombre)
+  print(version)
+  print(es_popular)
+
+test_cases:
+  - id: test-nombre
+    name: "Variable nombre"
+    test_code: |
+      assert 'nombre' in dir(), "❌ La variable 'nombre' no está definida"
+      assert nombre == "Python", f"❌ 'nombre' debería ser 'Python', pero es '{nombre}'"
+      print("✅ Variable 'nombre' correcta")
+    points: 3
+
+  - id: test-version
+    name: "Variable version"
+    test_code: |
+      assert 'version' in dir(), "❌ La variable 'version' no está definida"
+      assert version == 3, f"❌ 'version' debería ser 3, pero es {version}"
+      assert isinstance(version, int), f"❌ 'version' debería ser un número entero, no {type(version).__name__}"
+      print("✅ Variable 'version' correcta")
+    points: 3
+
+  - id: test-es-popular
+    name: "Variable es_popular"
+    test_code: |
+      assert 'es_popular' in dir(), "❌ La variable 'es_popular' no está definida"
+      assert es_popular == True, f"❌ 'es_popular' debería ser True, pero es {es_popular}"
+      assert isinstance(es_popular, bool), f"❌ 'es_popular' debería ser booleano, no {type(es_popular).__name__}"
+      print("✅ Variable 'es_popular' correcta")
+    points: 4
+
+hints:
+  - "Los textos van entre comillas: nombre = \"Python\""
+  - "Los números van sin comillas: version = 3"
+  - "True y False son valores booleanos (sin comillas, con mayúscula inicial)"
+
+tags:
+  - variables
+  - asignacion
+  - tipos-basicos
+
+concepts:
+  - variables_y_tipos

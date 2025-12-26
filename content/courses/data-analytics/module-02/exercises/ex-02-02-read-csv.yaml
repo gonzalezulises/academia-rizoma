@@ -1,0 +1,68 @@
+id: ex-02-02-read-csv
+type: code-python
+title: "Leer archivo CSV"
+description: "Carga un archivo CSV en un DataFrame."
+
+instructions: |
+  El archivo `drinks.csv` contiene datos sobre consumo de alcohol por país.
+  
+  1. Importa pandas como `pd`
+  2. Lee el archivo usando `pd.read_csv()`
+  3. Guarda el resultado en una variable llamada `df`
+  4. Muestra las primeras 5 filas con `head()`
+
+difficulty: beginner
+estimated_time_minutes: 3
+points: 10
+order: 2
+
+datasets:
+  - drinks.csv
+
+starter_code: |
+  import pandas as pd
+
+  # Lee el archivo CSV
+  df = 
+
+  # Muestra las primeras 5 filas
+  print(df.head())
+
+solution_code: |
+  import pandas as pd
+
+  # Lee el archivo CSV
+  df = pd.read_csv("drinks.csv")
+
+  # Muestra las primeras 5 filas
+  print(df.head())
+
+test_cases:
+  - id: test-df-exists
+    name: "DataFrame creado"
+    test_code: |
+      assert 'df' in dir(), "❌ Variable 'df' no definida"
+      assert hasattr(df, 'shape'), "❌ 'df' no es un DataFrame"
+      print("✅ DataFrame creado correctamente")
+    points: 5
+
+  - id: test-df-content
+    name: "Datos cargados"
+    test_code: |
+      assert len(df) > 0, "❌ El DataFrame está vacío"
+      assert 'country' in df.columns, "❌ No se encontró la columna 'country'"
+      print(f"✅ {len(df)} filas cargadas")
+    points: 5
+
+hints:
+  - "Usa pd.read_csv(\"nombre_archivo.csv\")"
+  - "El nombre del archivo es 'drinks.csv'"
+  - "df = pd.read_csv(\"drinks.csv\")"
+
+tags:
+  - pandas
+  - read_csv
+  - dataframe
+
+concepts:
+  - read_csv_read_excel

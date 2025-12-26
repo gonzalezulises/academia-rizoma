@@ -1,0 +1,55 @@
+id: ex-06-03-confusion-matrix
+type: code-python
+title: "Matriz de confusión"
+description: "Analiza errores con la matriz de confusión."
+instructions: |
+  1. Calcula la matriz de confusión
+  2. Identifica TP, TN, FP, FN
+difficulty: intermediate
+estimated_time_minutes: 5
+points: 12
+order: 3
+starter_code: |
+  from sklearn.metrics import confusion_matrix
+  import numpy as np
+  
+  # Ejemplo de predicciones
+  y_test = np.array([1, 0, 1, 1, 0, 1, 0, 0, 1, 1])
+  y_pred = np.array([1, 0, 1, 0, 0, 1, 1, 0, 1, 1])
+  
+  # Matriz de confusión
+  cm = 
+  
+  # Extraer valores
+  tn, fp, fn, tp = cm.ravel()
+  
+  print("Matriz de confusión:")
+  print(cm)
+  print(f"\nTN={tn}, FP={fp}, FN={fn}, TP={tp}")
+solution_code: |
+  from sklearn.metrics import confusion_matrix
+  import numpy as np
+  
+  y_test = np.array([1, 0, 1, 1, 0, 1, 0, 0, 1, 1])
+  y_pred = np.array([1, 0, 1, 0, 0, 1, 1, 0, 1, 1])
+  
+  cm = confusion_matrix(y_test, y_pred)
+  
+  tn, fp, fn, tp = cm.ravel()
+  
+  print("Matriz de confusión:")
+  print(cm)
+  print(f"\nTN={tn}, FP={fp}, FN={fn}, TP={tp}")
+test_cases:
+  - id: test-cm
+    name: "Matriz calculada"
+    test_code: |
+      assert cm.shape == (2, 2), "❌ Matriz debe ser 2x2"
+      assert tn + fp + fn + tp == 10, "❌ Suma debe ser 10"
+      print("✅ Matriz de confusión correcta")
+    points: 12
+hints:
+  - "confusion_matrix(y_test, y_pred)"
+  - "cm.ravel() extrae los 4 valores"
+tags: [sklearn, confusion-matrix]
+concepts: [metricas_clasificacion]

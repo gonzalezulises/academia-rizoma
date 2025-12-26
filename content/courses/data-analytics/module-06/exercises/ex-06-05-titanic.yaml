@@ -1,0 +1,72 @@
+id: ex-06-05-titanic
+type: code-python
+title: "Caso práctico: Titanic"
+description: "Pipeline completo de clasificación."
+instructions: |
+  Implementa el pipeline para predecir supervivencia en Titanic.
+difficulty: intermediate
+estimated_time_minutes: 8
+points: 15
+order: 5
+starter_code: |
+  import pandas as pd
+  from sklearn.model_selection import train_test_split
+  from sklearn.linear_model import LogisticRegression
+  from sklearn.metrics import accuracy_score
+  
+  df = pd.read_csv("titanic.csv")
+  
+  # Preparar datos
+  df["Sex"] = df["Sex"].map({"male": 0, "female": 1})
+  df = df.dropna(subset=["Age", "Fare", "Survived"])
+  
+  features = ["Pclass", "Sex", "Age", "Fare"]
+  X = df[features]
+  y = df["Survived"]
+  
+  # Split
+  X_train, X_test, y_train, y_test = 
+  
+  # Entrenar
+  model = 
+  
+  # Evaluar
+  y_pred = 
+  accuracy = 
+  
+  print(f"Accuracy: {accuracy:.3f}")
+solution_code: |
+  import pandas as pd
+  from sklearn.model_selection import train_test_split
+  from sklearn.linear_model import LogisticRegression
+  from sklearn.metrics import accuracy_score
+  
+  df = pd.read_csv("titanic.csv")
+  
+  df["Sex"] = df["Sex"].map({"male": 0, "female": 1})
+  df = df.dropna(subset=["Age", "Fare", "Survived"])
+  
+  features = ["Pclass", "Sex", "Age", "Fare"]
+  X = df[features]
+  y = df["Survived"]
+  
+  X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+  
+  model = LogisticRegression()
+  model.fit(X_train, y_train)
+  
+  y_pred = model.predict(X_test)
+  accuracy = accuracy_score(y_test, y_pred)
+  
+  print(f"Accuracy: {accuracy:.3f}")
+test_cases:
+  - id: test-titanic
+    name: "Pipeline Titanic"
+    test_code: |
+      assert accuracy > 0.6, "❌ Accuracy muy bajo"
+      print(f"✅ Modelo Titanic - Accuracy: {accuracy:.3f}")
+    points: 15
+hints:
+  - "Sigue el pipeline: split, create, fit, predict, evaluate"
+tags: [sklearn, titanic, pipeline]
+concepts: [pipeline_clasificacion]

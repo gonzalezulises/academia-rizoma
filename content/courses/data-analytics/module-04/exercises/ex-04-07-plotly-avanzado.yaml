@@ -1,0 +1,49 @@
+id: ex-04-07-plotly-avanzado
+type: code-python
+title: "Plotly con color y tamaño"
+description: "Agrega dimensiones adicionales a tus gráficos."
+instructions: |
+  Crea un scatter donde:
+  - Color represente total_litres_of_pure_alcohol
+  - Tamaño represente spirit_servings
+difficulty: intermediate
+estimated_time_minutes: 5
+points: 12
+order: 7
+starter_code: |
+  import plotly.express as px
+  import pandas as pd
+  
+  df = pd.read_csv("drinks.csv")
+  
+  fig = px.scatter(df, 
+                   x="beer_servings", 
+                   y="wine_servings",
+                   color=,
+                   size=,
+                   hover_name="country")
+  fig.show()
+solution_code: |
+  import plotly.express as px
+  import pandas as pd
+  
+  df = pd.read_csv("drinks.csv")
+  
+  fig = px.scatter(df, 
+                   x="beer_servings", 
+                   y="wine_servings",
+                   color="total_litres_of_pure_alcohol",
+                   size="spirit_servings",
+                   hover_name="country")
+  fig.show()
+test_cases:
+  - id: test-dims
+    name: "Dimensiones adicionales"
+    test_code: |
+      print("✅ Scatter con color y tamaño creado")
+    points: 12
+hints:
+  - "color='columna' colorea por valores"
+  - "size='columna' ajusta tamaño de puntos"
+tags: [plotly, scatter, multidimensional]
+concepts: [plotly_basico]

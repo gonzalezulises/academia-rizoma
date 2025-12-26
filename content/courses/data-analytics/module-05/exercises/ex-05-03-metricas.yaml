@@ -1,0 +1,61 @@
+id: ex-05-03-metricas
+type: code-python
+title: "Evaluar modelo con métricas"
+description: "Calcula MSE, RMSE, MAE y R²."
+instructions: |
+  Calcula las 4 métricas principales:
+  - mse (mean_squared_error)
+  - rmse (raíz de mse)
+  - mae (mean_absolute_error)
+  - r2 (r2_score)
+difficulty: intermediate
+estimated_time_minutes: 5
+points: 12
+order: 3
+starter_code: |
+  import numpy as np
+  from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
+  
+  # Valores reales y predichos de ejemplo
+  y_test = np.array([3, 5, 2, 7, 6, 8, 4, 9, 1, 10])
+  y_pred = np.array([2.5, 5.5, 2, 6.5, 6, 7.5, 4.5, 8.5, 1.5, 9.5])
+  
+  mse = 
+  rmse = 
+  mae = 
+  r2 = 
+  
+  print(f"MSE:  {mse:.4f}")
+  print(f"RMSE: {rmse:.4f}")
+  print(f"MAE:  {mae:.4f}")
+  print(f"R²:   {r2:.4f}")
+solution_code: |
+  import numpy as np
+  from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
+  
+  y_test = np.array([3, 5, 2, 7, 6, 8, 4, 9, 1, 10])
+  y_pred = np.array([2.5, 5.5, 2, 6.5, 6, 7.5, 4.5, 8.5, 1.5, 9.5])
+  
+  mse = mean_squared_error(y_test, y_pred)
+  rmse = np.sqrt(mse)
+  mae = mean_absolute_error(y_test, y_pred)
+  r2 = r2_score(y_test, y_pred)
+  
+  print(f"MSE:  {mse:.4f}")
+  print(f"RMSE: {rmse:.4f}")
+  print(f"MAE:  {mae:.4f}")
+  print(f"R²:   {r2:.4f}")
+test_cases:
+  - id: test-metricas
+    name: "Métricas calculadas"
+    test_code: |
+      assert mse > 0, "❌ MSE debe ser positivo"
+      assert 0 <= r2 <= 1, "❌ R² debe estar entre 0 y 1"
+      print("✅ Todas las métricas calculadas")
+    points: 12
+hints:
+  - "mse = mean_squared_error(y_test, y_pred)"
+  - "rmse = np.sqrt(mse)"
+  - "r2 = r2_score(y_test, y_pred)"
+tags: [sklearn, metricas, evaluacion]
+concepts: [metricas_regresion]

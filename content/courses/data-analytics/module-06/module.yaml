@@ -1,0 +1,53 @@
+# Módulo 6: Clasificación
+# Estrategia: Híbrido (6 ejercicios + 2 Colab notebooks)
+
+id: module-06
+title: "Clasificación: Regresión Logística y Árboles"
+description: |
+  Aprende a clasificar datos con regresión logística y árboles de decisión.
+  Evalúa modelos con matrices de confusión y métricas de clasificación.
+order: 6
+is_locked: false
+
+lessons:
+  - id: lesson-06-01
+    file: lessons/01-regresion-logistica.md
+    title: "Regresión Logística"
+    type: text
+    order: 1
+    duration_minutes: 30
+    exercises:
+      - ex-06-01-logistic-regression
+      - ex-06-02-predict-proba
+
+  - id: lesson-06-02
+    file: lessons/02-matriz-confusion.md
+    title: "Matriz de Confusión"
+    type: text
+    order: 2
+    duration_minutes: 25
+    exercises:
+      - ex-06-03-confusion-matrix
+      - ex-06-04-precision-recall
+
+  - id: lesson-06-03
+    file: lessons/03-arboles-decision.md
+    title: "Árboles de Decisión"
+    type: text
+    order: 3
+    duration_minutes: 30
+    exercises:
+      - ex-06-05-decision-tree
+      - ex-06-06-roc-auc
+
+  - id: lesson-06-04
+    file: lessons/04-practica-titanic.md
+    title: "Práctica: Supervivencia Titanic"
+    type: colab
+    order: 4
+    duration_minutes: 60
+    colab_url: "TBD"
+
+# Datasets: titanic.csv
+# Ejercicios interactivos: 6
+# Notebooks Colab: 1

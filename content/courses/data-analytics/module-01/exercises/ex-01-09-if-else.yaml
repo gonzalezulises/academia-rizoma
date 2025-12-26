@@ -1,0 +1,98 @@
+id: ex-01-09-if-else
+type: code-python
+title: "Decisiones con if-else"
+description: "Aprende a ejecutar código condicionalmente usando if, elif y else."
+
+instructions: |
+  Escribe un programa que clasifique una temperatura:
+  
+  - Si `temperatura` es mayor o igual a 30: asigna `"Caliente"` a `clasificacion`
+  - Si `temperatura` está entre 15 y 29 (inclusive): asigna `"Templado"` a `clasificacion`
+  - Si `temperatura` es menor a 15: asigna `"Frío"` a `clasificacion`
+  
+  La variable `temperatura` ya está definida. Solo necesitas escribir el if-elif-else.
+
+difficulty: intermediate
+estimated_time_minutes: 5
+points: 10
+order: 9
+
+starter_code: |
+  temperatura = 22  # Prueba con diferentes valores
+  
+  # Escribe tu código aquí
+  if :
+      clasificacion = 
+  elif :
+      clasificacion = 
+  else:
+      clasificacion = 
+  
+  print(f"Temperatura {temperatura}°C es: {clasificacion}")
+
+solution_code: |
+  temperatura = 22  # Prueba con diferentes valores
+  
+  # Escribe tu código aquí
+  if temperatura >= 30:
+      clasificacion = "Caliente"
+  elif temperatura >= 15:
+      clasificacion = "Templado"
+  else:
+      clasificacion = "Frío"
+  
+  print(f"Temperatura {temperatura}°C es: {clasificacion}")
+
+test_cases:
+  - id: test-caliente
+    name: "Temperatura caliente (30+)"
+    test_code: |
+      temperatura = 35
+      exec(user_code.split("temperatura = 22")[0] + "temperatura = 35" + user_code.split("temperatura = 22")[1])
+      assert clasificacion == "Caliente", f"❌ Con 35°C debería ser 'Caliente', obtuviste '{clasificacion}'"
+      print("✅ 35°C → Caliente")
+    points: 3
+
+  - id: test-templado
+    name: "Temperatura templada (15-29)"
+    test_code: |
+      temperatura = 22
+      if temperatura >= 30:
+          clasificacion = "Caliente"
+      elif temperatura >= 15:
+          clasificacion = "Templado"
+      else:
+          clasificacion = "Frío"
+      # Re-ejecutar con el código del usuario
+      exec(user_code)
+      assert clasificacion == "Templado", f"❌ Con 22°C debería ser 'Templado', obtuviste '{clasificacion}'"
+      print("✅ 22°C → Templado")
+    points: 4
+
+  - id: test-frio
+    name: "Temperatura fría (<15)"
+    test_code: |
+      # Probar con valor frío
+      temperatura = 10
+      if temperatura >= 30:
+          clasificacion = "Caliente"
+      elif temperatura >= 15:
+          clasificacion = "Templado"
+      else:
+          clasificacion = "Frío"
+      assert clasificacion == "Frío", f"❌ Con 10°C debería ser 'Frío'"
+      print("✅ Lógica de clasificación correcta")
+    points: 3
+
+hints:
+  - "La primera condición es: if temperatura >= 30:"
+  - "Para 'Templado' puedes usar: elif temperatura >= 15: (porque ya sabes que no es >= 30)"
+  - "El else captura todo lo que queda (menor a 15)"
+
+tags:
+  - if-else
+  - condicionales
+  - comparacion
+
+concepts:
+  - control_de_flujo_if

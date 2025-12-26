@@ -1,0 +1,74 @@
+id: ex-06-02-logistic-regression
+type: code-python
+title: "Entrenar regresión logística"
+description: "Implementa LogisticRegression."
+instructions: |
+  1. Crea y entrena un modelo LogisticRegression
+  2. Genera predicciones y probabilidades
+difficulty: intermediate
+estimated_time_minutes: 5
+points: 12
+order: 2
+starter_code: |
+  from sklearn.datasets import load_iris
+  from sklearn.linear_model import LogisticRegression
+  from sklearn.model_selection import train_test_split
+  import pandas as pd
+  
+  iris = load_iris()
+  df = pd.DataFrame(iris.data, columns=iris.feature_names)
+  df["target"] = iris.target
+  df = df[df["target"] < 2]
+  
+  X = df[iris.feature_names]
+  y = df["target"]
+  X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+  
+  # Crear y entrenar modelo
+  model = 
+  
+  # Predicciones
+  y_pred = 
+  
+  # Probabilidades
+  y_proba = 
+  
+  print(f"Predicciones: {y_pred[:5]}")
+  print(f"Probabilidades:\n{y_proba[:5]}")
+solution_code: |
+  from sklearn.datasets import load_iris
+  from sklearn.linear_model import LogisticRegression
+  from sklearn.model_selection import train_test_split
+  import pandas as pd
+  
+  iris = load_iris()
+  df = pd.DataFrame(iris.data, columns=iris.feature_names)
+  df["target"] = iris.target
+  df = df[df["target"] < 2]
+  
+  X = df[iris.feature_names]
+  y = df["target"]
+  X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+  
+  model = LogisticRegression()
+  model.fit(X_train, y_train)
+  
+  y_pred = model.predict(X_test)
+  y_proba = model.predict_proba(X_test)
+  
+  print(f"Predicciones: {y_pred[:5]}")
+  print(f"Probabilidades:\n{y_proba[:5]}")
+test_cases:
+  - id: test-logistic
+    name: "Modelo entrenado"
+    test_code: |
+      assert hasattr(model, 'coef_'), "❌ Modelo no entrenado"
+      assert len(y_proba[0]) == 2, "❌ Probabilidades deben tener 2 columnas"
+      print("✅ Regresión logística entrenada")
+    points: 12
+hints:
+  - "model = LogisticRegression()"
+  - "model.fit(X_train, y_train)"
+  - "model.predict_proba(X_test)"
+tags: [sklearn, logistic-regression]
+concepts: [regresion_logistica]

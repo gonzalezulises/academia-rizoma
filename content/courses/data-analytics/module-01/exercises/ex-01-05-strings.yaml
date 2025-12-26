@@ -1,0 +1,91 @@
+id: ex-01-05-strings
+type: code-python
+title: "Trabajando con texto"
+description: "Aprende a concatenar texto y usar f-strings para formatear."
+
+instructions: |
+  Tienes las siguientes variables predefinidas:
+  
+  ```python
+  producto = "Laptop"
+  precio = 999.99
+  cantidad = 3
+  ```
+  
+  Crea una variable `mensaje` usando un f-string que contenga exactamente:
+  
+  ```
+  Producto: Laptop - Precio: $999.99 - Cantidad: 3
+  ```
+  
+  Usa las variables dentro del f-string, no escribas los valores directamente.
+
+difficulty: beginner
+estimated_time_minutes: 4
+points: 10
+order: 5
+
+starter_code: |
+  # Variables dadas (no modificar)
+  producto = "Laptop"
+  precio = 999.99
+  cantidad = 3
+  
+  # Crea el mensaje usando f-string
+  mensaje = f""
+  
+  print(mensaje)
+
+solution_code: |
+  # Variables dadas (no modificar)
+  producto = "Laptop"
+  precio = 999.99
+  cantidad = 3
+  
+  # Crea el mensaje usando f-string
+  mensaje = f"Producto: {producto} - Precio: ${precio} - Cantidad: {cantidad}"
+  
+  print(mensaje)
+
+test_cases:
+  - id: test-mensaje-existe
+    name: "Variable mensaje definida"
+    test_code: |
+      assert 'mensaje' in dir(), "❌ La variable 'mensaje' no está definida"
+      assert isinstance(mensaje, str), f"❌ 'mensaje' debería ser string, es {type(mensaje).__name__}"
+      print("✅ Variable mensaje creada")
+    points: 3
+
+  - id: test-contenido
+    name: "Contenido correcto"
+    test_code: |
+      expected = "Producto: Laptop - Precio: $999.99 - Cantidad: 3"
+      assert mensaje == expected, f"❌ El mensaje no es correcto.\nEsperado: '{expected}'\nObtenido: '{mensaje}'"
+      print("✅ Contenido del mensaje correcto")
+    points: 4
+
+  - id: test-usa-variables
+    name: "Usa las variables"
+    test_code: |
+      # Cambiar valores para verificar que usa variables
+      producto_test = "Test"
+      precio_test = 1.0
+      cantidad_test = 1
+      
+      # Verificar que el código original usa las variables
+      assert "producto" in mensaje or "{producto}" in repr(mensaje) or "Laptop" in mensaje, "Parece que usaste el valor literal en vez de la variable"
+      print("✅ Usa las variables correctamente")
+    points: 3
+
+hints:
+  - "Un f-string empieza con f antes de las comillas: f\"texto\""
+  - "Dentro del f-string, usa {variable} para insertar valores"
+  - "La solución es: f\"Producto: {producto} - Precio: ${precio} - Cantidad: {cantidad}\""
+
+tags:
+  - strings
+  - f-strings
+  - formato
+
+concepts:
+  - strings_y_formato

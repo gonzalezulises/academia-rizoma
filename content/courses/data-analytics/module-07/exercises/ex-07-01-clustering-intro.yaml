@@ -1,0 +1,54 @@
+id: ex-07-01-clustering-intro
+type: code-python
+title: "Preparar datos para clustering"
+description: "Escala datos para algoritmos de clustering."
+instructions: |
+  1. Usa StandardScaler para escalar los features
+  2. Verifica que la media sea ~0 y std ~1
+difficulty: beginner
+estimated_time_minutes: 4
+points: 10
+order: 1
+starter_code: |
+  from sklearn.preprocessing import StandardScaler
+  import numpy as np
+  
+  # Datos de ejemplo
+  X = np.array([[1, 100], [2, 200], [3, 150], [4, 300], [5, 250]])
+  
+  # Escalar
+  scaler = StandardScaler()
+  X_scaled = 
+  
+  print("Original:")
+  print(X)
+  print("\nEscalado:")
+  print(X_scaled)
+  print(f"\nMedia: {X_scaled.mean(axis=0)}")
+  print(f"Std: {X_scaled.std(axis=0)}")
+solution_code: |
+  from sklearn.preprocessing import StandardScaler
+  import numpy as np
+  
+  X = np.array([[1, 100], [2, 200], [3, 150], [4, 300], [5, 250]])
+  
+  scaler = StandardScaler()
+  X_scaled = scaler.fit_transform(X)
+  
+  print("Original:")
+  print(X)
+  print("\nEscalado:")
+  print(X_scaled)
+  print(f"\nMedia: {X_scaled.mean(axis=0)}")
+  print(f"Std: {X_scaled.std(axis=0)}")
+test_cases:
+  - id: test-scaling
+    name: "Escalado correcto"
+    test_code: |
+      assert abs(X_scaled.mean()) < 0.01, "❌ Media debe ser ~0"
+      print("✅ Datos escalados correctamente")
+    points: 10
+hints:
+  - "scaler.fit_transform(X)"
+tags: [sklearn, scaling, preprocessing]
+concepts: [preparacion_clustering]

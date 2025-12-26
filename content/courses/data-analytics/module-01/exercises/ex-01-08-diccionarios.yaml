@@ -1,0 +1,111 @@
+id: ex-01-08-diccionarios
+type: code-python
+title: "Diccionarios básicos"
+description: "Aprende a crear diccionarios y acceder a sus valores."
+
+instructions: |
+  Crea un diccionario llamado `producto` con las siguientes claves y valores:
+  
+  | Clave | Valor |
+  |-------|-------|
+  | nombre | "Laptop Pro" |
+  | precio | 1299.99 |
+  | stock | 50 |
+  | disponible | True |
+  
+  Luego:
+  1. Guarda el valor de "precio" en la variable `precio_actual`
+  2. Agrega una nueva clave "categoria" con valor "Electrónica"
+  3. Modifica el "stock" a 45
+
+difficulty: beginner
+estimated_time_minutes: 5
+points: 10
+order: 8
+
+starter_code: |
+  # Crea el diccionario
+  producto = {
+      
+  }
+  
+  # Obtén el precio
+  precio_actual = 
+  
+  # Agrega categoria
+  
+  
+  # Modifica stock a 45
+  
+  
+  # Verificación
+  print(f"producto: {producto}")
+  print(f"precio_actual: {precio_actual}")
+
+solution_code: |
+  # Crea el diccionario
+  producto = {
+      "nombre": "Laptop Pro",
+      "precio": 1299.99,
+      "stock": 50,
+      "disponible": True
+  }
+  
+  # Obtén el precio
+  precio_actual = producto["precio"]
+  
+  # Agrega categoria
+  producto["categoria"] = "Electrónica"
+  
+  # Modifica stock a 45
+  producto["stock"] = 45
+  
+  # Verificación
+  print(f"producto: {producto}")
+  print(f"precio_actual: {precio_actual}")
+
+test_cases:
+  - id: test-producto-base
+    name: "Diccionario producto"
+    test_code: |
+      assert 'producto' in dir(), "❌ Variable 'producto' no definida"
+      assert isinstance(producto, dict), f"❌ producto debe ser un diccionario, es {type(producto).__name__}"
+      assert producto.get("nombre") == "Laptop Pro", "❌ producto['nombre'] debería ser 'Laptop Pro'"
+      assert producto.get("disponible") == True, "❌ producto['disponible'] debería ser True"
+      print("✅ Diccionario producto creado correctamente")
+    points: 3
+
+  - id: test-precio
+    name: "Precio extraído"
+    test_code: |
+      assert 'precio_actual' in dir(), "❌ Variable 'precio_actual' no definida"
+      assert precio_actual == 1299.99, f"❌ precio_actual debería ser 1299.99, obtuviste {precio_actual}"
+      print("✅ precio_actual = 1299.99")
+    points: 2
+
+  - id: test-categoria
+    name: "Categoría agregada"
+    test_code: |
+      assert "categoria" in producto, "❌ La clave 'categoria' no existe en producto"
+      assert producto["categoria"] == "Electrónica", f"❌ categoria debería ser 'Electrónica', es '{producto['categoria']}'"
+      print("✅ categoria agregada correctamente")
+    points: 3
+
+  - id: test-stock
+    name: "Stock modificado"
+    test_code: |
+      assert producto.get("stock") == 45, f"❌ stock debería ser 45, es {producto.get('stock')}"
+      print("✅ stock modificado a 45")
+    points: 2
+
+hints:
+  - "Los diccionarios se crean con llaves: {\"clave\": valor, ...}"
+  - "Para acceder a un valor: diccionario[\"clave\"]"
+  - "Para agregar o modificar: diccionario[\"clave\"] = nuevo_valor"
+
+tags:
+  - diccionarios
+  - clave-valor
+
+concepts:
+  - listas_y_diccionarios

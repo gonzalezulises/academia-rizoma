@@ -1,0 +1,61 @@
+id: ex-08-03-streamlit-basico
+type: code-python
+title: "Streamlit básico"
+description: "Estructura básica de una app Streamlit."
+instructions: |
+  Completa el código de una app Streamlit básica.
+  (Este ejercicio muestra la estructura, no se ejecuta en browser)
+difficulty: beginner
+estimated_time_minutes: 4
+points: 10
+order: 3
+starter_code: |
+  # Este código se ejecutaría con: streamlit run app.py
+  import streamlit as st
+  import pandas as pd
+  
+  # Título
+  st.title()
+  
+  # Crear DataFrame de ejemplo
+  df = pd.DataFrame({
+      "Producto": ["A", "B", "C"],
+      "Ventas": [100, 150, 80]
+  })
+  
+  # Mostrar DataFrame
+  st.dataframe()
+  
+  # Mostrar métrica
+  total = df["Ventas"].sum()
+  st.metric("Total ventas", f"${total}")
+  
+  print("Estructura de app Streamlit correcta")
+solution_code: |
+  import streamlit as st
+  import pandas as pd
+  
+  st.title("Mi Dashboard")
+  
+  df = pd.DataFrame({
+      "Producto": ["A", "B", "C"],
+      "Ventas": [100, 150, 80]
+  })
+  
+  st.dataframe(df)
+  
+  total = df["Ventas"].sum()
+  st.metric("Total ventas", f"${total}")
+  
+  print("Estructura de app Streamlit correcta")
+test_cases:
+  - id: test-streamlit
+    name: "Estructura Streamlit"
+    test_code: |
+      print("✅ Estructura de Streamlit correcta")
+    points: 10
+hints:
+  - "st.title('Texto')"
+  - "st.dataframe(df)"
+tags: [streamlit, dashboard]
+concepts: [streamlit_basico]

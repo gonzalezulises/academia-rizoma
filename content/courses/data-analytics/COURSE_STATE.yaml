@@ -1,0 +1,460 @@
+# COURSE_STATE.yaml
+# Contrato de progresión pedagógica para Data Analytics
+# CRÍTICO: Claude Code DEBE leer este archivo antes de crear contenido
+
+meta:
+  course_id: data-analytics
+  last_updated: "2025-12-26"
+  last_module_completed: module-01
+  total_exercises_created: 12
+  migration_status: "in_progress"
+
+# ============================================================================
+# PROGRESIÓN PEDAGÓGICA EXPLÍCITA
+# ============================================================================
+
+learning_progression:
+  concepts_introduced:
+    module-01:  # Python Básico
+      - variables_y_tipos
+      - operadores_aritmeticos
+      - strings_y_formato
+      - listas_y_diccionarios
+      - control_de_flujo_if
+      - bucles_for_while
+      - funciones_basicas
+      - print_e_input
+
+    module-02:  # Pandas Básico
+      - import_pandas_as_pd
+      - read_csv_read_excel
+      - dataframe_basico
+      - series_basica
+      - head_tail_shape
+      - dtypes_info
+      - seleccion_columnas
+      - seleccion_filas_iloc_loc
+
+    module-03:  # EDA
+      - describe_estadisticas
+      - value_counts
+      - groupby_agg
+      - merge_join
+      - missing_values_isna
+      - fillna_dropna
+      - tipos_de_datos_conversion
+      - filtrado_condicional
+
+    module-04:  # Visualización
+      - matplotlib_pyplot
+      - plot_basico
+      - histogramas
+      - scatter_plots
+      - bar_charts
+      - seaborn_basico
+      - plotly_express
+      - subplots_y_layouts
+
+    module-05:  # Regresión
+      - train_test_split
+      - linear_regression
+      - fit_predict
+      - mse_rmse_r2
+      - feature_engineering_basico
+      - cross_validation_intro
+
+    module-06:  # Clasificación
+      - logistic_regression
+      - decision_trees
+      - confusion_matrix
+      - precision_recall_f1
+      - roc_auc
+      - class_imbalance
+
+    module-07:  # Clustering
+      - kmeans
+      - elbow_method
+      - silhouette_score
+      - dbscan
+      - hierarchical_clustering
+      - pca_para_visualizacion
+
+    module-08:  # Dashboards
+      - plotly_graph_objects
+      - dash_layout
+      - callbacks_basicos
+      - streamlit_intro
+      - deploy_basics
+
+  skills_assumed:
+    module-01: []  # No prerequisitos técnicos
+    module-02: [variables_y_tipos, listas_y_diccionarios, bucles_for_while]
+    module-03: [import_pandas_as_pd, dataframe_basico, seleccion_columnas]
+    module-04: [describe_estadisticas, groupby_agg, filtrado_condicional]
+    module-05: [matplotlib_pyplot, scatter_plots, dataframe_basico]
+    module-06: [train_test_split, fit_predict, mse_rmse_r2]
+    module-07: [logistic_regression, confusion_matrix, train_test_split]
+    module-08: [plotly_express, groupby_agg, filtrado_condicional]
+
+  complexity_trajectory:
+    module-01:
+      lines_of_code: 3-15
+      datasets: 0
+      new_libraries: []
+      exercise_count_target: 12
+
+    module-02:
+      lines_of_code: 5-20
+      datasets: 3
+      new_libraries: [pandas]
+      exercise_count_target: 10
+
+    module-03:
+      lines_of_code: 10-30
+      datasets: 2
+      new_libraries: []
+      exercise_count_target: 12
+
+    module-04:
+      lines_of_code: 10-25
+      datasets: 2
+      new_libraries: [matplotlib, seaborn, plotly]
+      exercise_count_target: 10
+
+    module-05:
+      lines_of_code: 15-40
+      datasets: 2
+      new_libraries: [sklearn]
+      exercise_count_target: 6
+      colab_notebooks: 2
+
+    module-06:
+      lines_of_code: 20-50
+      datasets: 2
+      new_libraries: []
+      exercise_count_target: 6
+      colab_notebooks: 2
+
+    module-07:
+      lines_of_code: 20-50
+      datasets: 2
+      new_libraries: []
+      exercise_count_target: 5
+      colab_notebooks: 2
+
+    module-08:
+      lines_of_code: 30-80
+      datasets: 1
+      new_libraries: [plotly.graph_objects, streamlit]
+      exercise_count_target: 8
+
+# ============================================================================
+# CONVENCIONES DE CÓDIGO - RESPETAR EN TODO EL CURSO
+# ============================================================================
+
+code_conventions:
+  variable_names:
+    dataframe: df
+    dataframe_secondary: df2
+    features: X
+    target: y
+    train_features: X_train
+    train_target: y_train
+    test_features: X_test
+    test_target: y_test
+    model: model
+    predictions: y_pred
+    cluster_labels: labels
+    figure: fig
+    axis: ax
+
+  import_style: |
+    # Módulo 1: Sin imports (Python puro)
+    
+    # Módulo 2+: Pandas
+    import pandas as pd
+    
+    # Módulo 3+: Numpy cuando necesario
+    import numpy as np
+    
+    # Módulo 4: Visualización
+    import matplotlib.pyplot as plt
+    import seaborn as sns
+    import plotly.express as px
+    
+    # Módulo 5+: Machine Learning
+    from sklearn.model_selection import train_test_split
+    from sklearn.linear_model import LinearRegression
+    from sklearn.metrics import mean_squared_error, r2_score
+
+  test_pattern: |
+    # Patrón estándar para tests de ejercicios
+    assert 'variable' in dir(), "❌ Variable 'variable' no está definida"
+    assert isinstance(variable, expected_type), f"❌ Se esperaba {expected_type}, obtuviste {type(variable)}"
+    assert condition, f"❌ Mensaje descriptivo del error"
+    print("✅ Test pasado!")
+
+  error_messages:
+    missing_variable: "❌ La variable '{name}' no está definida. ¿Olvidaste crearla?"
+    wrong_type: "❌ '{name}' debería ser {expected}, pero es {actual}"
+    wrong_value: "❌ El valor de '{name}' es {actual}, pero esperábamos {expected}"
+    success: "✅ ¡Correcto! {message}"
+
+# ============================================================================
+# DATASETS DEL CURSO
+# ============================================================================
+
+datasets:
+  module-02:
+    - name: drinks.csv
+      source: "fivethirtyeight"
+      description: "Consumo de alcohol por país"
+      rows: 193
+      columns: [country, beer_servings, spirit_servings, wine_servings, total_litres]
+      
+    - name: movies.csv
+      source: "movielens-100k"
+      description: "Información de usuarios de MovieLens"
+      rows: 943
+      columns: [user_id, age, gender, occupation, zip_code]
+
+  module-03:
+    - name: ufo.csv
+      source: "nuforc.org"
+      description: "Avistamientos de OVNIs"
+      columns: [City, Colors Reported, Shape Reported, State, Time]
+      
+    - name: titanic.csv
+      source: "kaggle"
+      description: "Pasajeros del Titanic"
+      rows: 891
+      target: Survived
+
+  module-04:
+    - name: tips.csv
+      source: "seaborn-builtin"
+      description: "Propinas en restaurante"
+      
+    - name: iris.csv
+      source: "sklearn-builtin"
+      description: "Dataset clásico de clasificación"
+
+  module-05:
+    - name: bikeshare.csv
+      source: "kaggle-bikeshare"
+      description: "Demanda de bicicletas compartidas"
+      target: count
+      
+  module-07:
+    - name: customers.csv
+      source: "synthetic"
+      description: "Clientes para segmentación"
+      features: [Annual Income, Spending Score, Age]
+
+# ============================================================================
+# REGISTRO DE EJERCICIOS (se llena conforme se crean)
+# ============================================================================
+
+exercises_registry:
+  ex-01-01-hello-world:
+    module: module-01
+    concepts: [print]
+    difficulty: beginner
+    status: completed
+
+  ex-01-02-variables:
+    module: module-01
+    concepts: [variables_y_tipos]
+    difficulty: beginner
+    status: completed
+
+  ex-01-03-tipos-datos:
+    module: module-01
+    concepts: [int, float, str, bool]
+    difficulty: beginner
+    status: completed
+
+  ex-01-04-operaciones:
+    module: module-01
+    concepts: [operadores_aritmeticos]
+    difficulty: beginner
+    status: completed
+
+  ex-01-05-strings:
+    module: module-01
+    concepts: [strings_y_formato]
+    difficulty: beginner
+    status: completed
+
+  ex-01-06-listas-crear:
+    module: module-01
+    concepts: [listas]
+    difficulty: beginner
+    status: completed
+
+  ex-01-07-listas-acceso:
+    module: module-01
+    concepts: [listas, indexing, slicing]
+    difficulty: beginner
+    status: completed
+
+  ex-01-08-diccionarios:
+    module: module-01
+    concepts: [diccionarios]
+    difficulty: beginner
+    status: completed
+
+  ex-01-09-if-else:
+    module: module-01
+    concepts: [control_de_flujo_if]
+    difficulty: intermediate
+    status: completed
+
+  ex-01-10-for-loop:
+    module: module-01
+    concepts: [bucles_for_while]
+    difficulty: intermediate
+    status: completed
+
+  ex-01-11-while-loop:
+    module: module-01
+    concepts: [bucles_for_while]
+    difficulty: intermediate
+    status: completed
+
+  ex-01-12-funciones:
+    module: module-01
+    concepts: [funciones_basicas]
+    difficulty: intermediate
+    status: completed
+
+# ============================================================================
+# ESPECIFICACIÓN DEL PRÓXIMO MÓDULO A CREAR
+# ============================================================================
+
+next_module_spec:
+  id: module-02
+  title: "Obtención de Datos con Pandas"
+  
+  prerequisites_from_previous:
+    - variables_y_tipos
+    - listas_y_diccionarios
+    - bucles_for_while
+    - funciones_basicas
+  
+  new_concepts_to_introduce:
+    - import_pandas_as_pd
+    - read_csv_read_excel
+    - dataframe_basico
+    - series_basica
+    - head_tail_shape
+    - dtypes_info
+    - seleccion_columnas
+    - seleccion_filas_iloc_loc
+  
+  exercises_planned:
+    - id: ex-02-01-import-pandas
+      title: "Importar Pandas"
+      concepts: [import_pandas_as_pd]
+      difficulty: beginner
+      
+    - id: ex-02-02-read-csv
+      title: "Leer archivo CSV"
+      concepts: [read_csv]
+      difficulty: beginner
+      
+    - id: ex-02-03-explorar-df
+      title: "Explorar un DataFrame"
+      concepts: [dataframe_basico]
+      difficulty: beginner
+      
+    - id: ex-02-04-head-tail
+      title: "Ver primeras y últimas filas"
+      concepts: [head_tail_shape]
+      difficulty: beginner
+      
+    - id: ex-02-05-shape-dtypes
+      title: "Dimensiones y tipos"
+      concepts: [shape, dtypes]
+      difficulty: beginner
+      
+    - id: ex-02-06-seleccion-columnas
+      title: "Seleccionar columnas"
+      concepts: [seleccion_columnas]
+      difficulty: beginner
+      
+    - id: ex-02-07-iloc-loc
+      title: "Selección con iloc y loc"
+      concepts: [iloc, loc]
+      difficulty: intermediate
+      
+    - id: ex-02-08-filtrado-basico
+      title: "Filtrar filas"
+      concepts: [filtrado]
+      difficulty: intermediate
+      
+    - id: ex-02-09-read-excel
+      title: "Leer archivo Excel"
+      concepts: [read_excel]
+      difficulty: beginner
+      
+    - id: ex-02-10-crear-dataframe
+      title: "Crear DataFrame desde diccionario"
+      concepts: [dataframe_basico]
+      difficulty: intermediate
+
+  estimated_exercises: 10
+  estimated_lessons: 4
+  
+  datasets_required:
+    - drinks.csv
+    - movies.csv
+
+# ============================================================================
+# ESTILO PEDAGÓGICO - MANTENER CONSISTENTE
+# ============================================================================
+
+pedagogical_style:
+  lesson_structure:
+    - "Introducción breve (2-3 párrafos, sin fluff)"
+    - "Código de ejemplo comentado"
+    - "Ejercicio embebido <!-- exercise:id -->"
+    - "Tip o nota de buenas prácticas"
+    - "Conexión con siguiente tema"
+
+  exercise_difficulty_curve:
+    beginner: "Completar 1-2 líneas con ejemplo visible"
+    intermediate: "Completar función con hints"
+    advanced: "Implementar desde cero con especificación"
+
+  hints_policy:
+    count: 3
+    progression:
+      - "Concepto: qué función/método usar"
+      - "Sintaxis: cómo escribirlo"
+      - "Solución casi completa"
+
+  feedback_tone: "Directo, sin condescendencia. Celebra brevemente el éxito con emoji ✅"
+
+  language: "Español neutro (tú, no vos). Términos técnicos en inglés cuando son estándar."
+
+# ============================================================================
+# NOTAS DE MIGRACIÓN
+# ============================================================================
+
+migration_notes:
+  source_notebooks:
+    - "01_Introducción_Python_Aprendizaje.ipynb"
+    - "02_Obtención_Datos_e_iniciacion_con_Pandas.ipynb"
+    - "03_analisis_exploratorio_de_datos (EDA).ipynb"
+    - "04_Visualization_de_Datos_1.ipynb"
+    - "05_Evaluación_de_modelos_de_pronosticos.ipynb"
+    - "06_logistic_regression.ipynb"
+    - "07_knn_sklearn.ipynb"
+    - "08_tableau (reemplazado por Plotly/Streamlit)"
+
+  decisions:
+    - "Módulos 1-4: Ejercicios granulares (10-15 por módulo)"
+    - "Módulos 5-8: Híbrido (5-6 ejercicios + Colab notebooks)"
+    - "Tableau reemplazado por Plotly/Streamlit (ejecutable en browser)"
+    - "Datasets movidos a content/shared/datasets/"

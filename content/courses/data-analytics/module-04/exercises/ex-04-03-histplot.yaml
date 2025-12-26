@@ -1,0 +1,44 @@
+id: ex-04-03-histplot
+type: code-python
+title: "Histograma con Seaborn"
+description: "Visualiza distribuciones con histplot."
+instructions: |
+  Con drinks.csv, crea un histograma de total_litres_of_pure_alcohol con KDE.
+difficulty: beginner
+estimated_time_minutes: 4
+points: 10
+order: 3
+starter_code: |
+  import seaborn as sns
+  import matplotlib.pyplot as plt
+  import pandas as pd
+  
+  df = pd.read_csv("drinks.csv")
+  
+  plt.figure(figsize=(10, 6))
+  
+  # Histograma con KDE
+  
+  plt.title("Distribución del consumo de alcohol")
+  plt.show()
+solution_code: |
+  import seaborn as sns
+  import matplotlib.pyplot as plt
+  import pandas as pd
+  
+  df = pd.read_csv("drinks.csv")
+  
+  plt.figure(figsize=(10, 6))
+  sns.histplot(df["total_litres_of_pure_alcohol"], kde=True)
+  plt.title("Distribución del consumo de alcohol")
+  plt.show()
+test_cases:
+  - id: test-hist
+    name: "Histograma creado"
+    test_code: |
+      print("✅ Histograma con KDE creado")
+    points: 10
+hints:
+  - "sns.histplot(df['columna'], kde=True)"
+tags: [seaborn, histplot, distribucion]
+concepts: [seaborn_basico]

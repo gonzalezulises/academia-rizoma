@@ -1,0 +1,55 @@
+id: ex-06-04-metricas-clasificacion
+type: code-python
+title: "Métricas de clasificación"
+description: "Calcula accuracy, precision, recall y F1."
+instructions: |
+  Calcula las 4 métricas principales de clasificación.
+difficulty: intermediate
+estimated_time_minutes: 5
+points: 12
+order: 4
+starter_code: |
+  from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
+  import numpy as np
+  
+  y_test = np.array([1, 0, 1, 1, 0, 1, 0, 0, 1, 1])
+  y_pred = np.array([1, 0, 1, 0, 0, 1, 1, 0, 1, 1])
+  
+  accuracy = 
+  precision = 
+  recall = 
+  f1 = 
+  
+  print(f"Accuracy:  {accuracy:.3f}")
+  print(f"Precision: {precision:.3f}")
+  print(f"Recall:    {recall:.3f}")
+  print(f"F1 Score:  {f1:.3f}")
+solution_code: |
+  from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
+  import numpy as np
+  
+  y_test = np.array([1, 0, 1, 1, 0, 1, 0, 0, 1, 1])
+  y_pred = np.array([1, 0, 1, 0, 0, 1, 1, 0, 1, 1])
+  
+  accuracy = accuracy_score(y_test, y_pred)
+  precision = precision_score(y_test, y_pred)
+  recall = recall_score(y_test, y_pred)
+  f1 = f1_score(y_test, y_pred)
+  
+  print(f"Accuracy:  {accuracy:.3f}")
+  print(f"Precision: {precision:.3f}")
+  print(f"Recall:    {recall:.3f}")
+  print(f"F1 Score:  {f1:.3f}")
+test_cases:
+  - id: test-metricas
+    name: "Métricas calculadas"
+    test_code: |
+      assert 0 <= accuracy <= 1, "❌ Accuracy fuera de rango"
+      assert 0 <= f1 <= 1, "❌ F1 fuera de rango"
+      print("✅ Métricas de clasificación calculadas")
+    points: 12
+hints:
+  - "accuracy_score(y_test, y_pred)"
+  - "precision_score(y_test, y_pred)"
+tags: [sklearn, metricas, clasificacion]
+concepts: [metricas_clasificacion]

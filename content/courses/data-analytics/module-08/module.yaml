@@ -1,0 +1,60 @@
+# Módulo 8: Visualización Interactiva con Plotly
+# Estrategia: Granular (8 ejercicios)
+# NOTA: Este módulo reemplaza la sesión original de Tableau
+
+id: module-08
+title: "Dashboards Interactivos"
+description: |
+  Crea dashboards y visualizaciones interactivas con Plotly y Streamlit.
+  Aprende a comunicar insights de manera profesional y ejecutable en el navegador.
+order: 8
+is_locked: false
+
+lessons:
+  - id: lesson-08-01
+    file: lessons/01-plotly-avanzado.md
+    title: "Plotly Graph Objects"
+    type: text
+    order: 1
+    duration_minutes: 30
+    exercises:
+      - ex-08-01-graph-objects
+      - ex-08-02-layout-styling
+
+  - id: lesson-08-02
+    file: lessons/02-graficos-combinados.md
+    title: "Gráficos combinados"
+    type: text
+    order: 2
+    duration_minutes: 25
+    exercises:
+      - ex-08-03-subplots-advanced
+      - ex-08-04-dual-axis
+
+  - id: lesson-08-03
+    file: lessons/03-streamlit-intro.md
+    title: "Introducción a Streamlit"
+    type: text
+    order: 3
+    duration_minutes: 30
+    exercises:
+      - ex-08-05-streamlit-basico
+      - ex-08-06-widgets
+
+  - id: lesson-08-04
+    file: lessons/04-dashboard-completo.md
+    title: "Construyendo un dashboard"
+    type: text
+    order: 4
+    duration_minutes: 40
+    exercises:
+      - ex-08-07-dashboard-layout
+      - ex-08-08-interactividad
+
+# Por qué Plotly/Streamlit en vez de Tableau:
+# - Ejecutable en browser (WebAssembly)
+# - Código reproducible
+# - Sin licencias de software
+# - Integración natural con Python
+
+# Ejercicios interactivos: 8

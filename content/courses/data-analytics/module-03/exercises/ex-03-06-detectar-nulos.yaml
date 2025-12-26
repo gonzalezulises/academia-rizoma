@@ -1,0 +1,61 @@
+id: ex-03-06-detectar-nulos
+type: code-python
+title: "Detectar valores nulos"
+description: "Identifica valores faltantes en un DataFrame."
+instructions: |
+  1. Cuenta nulos por columna → `nulos_por_col`
+  2. Cuenta total de nulos → `total_nulos`
+  3. Calcula porcentaje de filas completas → `pct_completas`
+difficulty: intermediate
+estimated_time_minutes: 4
+points: 10
+order: 6
+starter_code: |
+  import pandas as pd
+  import numpy as np
+  
+  # Crear datos con nulos
+  df = pd.DataFrame({
+      "A": [1, 2, np.nan, 4, 5],
+      "B": [np.nan, 2, 3, np.nan, 5],
+      "C": [1, 2, 3, 4, 5]
+  })
+  
+  nulos_por_col = 
+  total_nulos = 
+  pct_completas = 
+  
+  print("Nulos por columna:")
+  print(nulos_por_col)
+  print(f"\nTotal nulos: {total_nulos}")
+  print(f"% filas completas: {pct_completas:.1f}%")
+solution_code: |
+  import pandas as pd
+  import numpy as np
+  
+  df = pd.DataFrame({
+      "A": [1, 2, np.nan, 4, 5],
+      "B": [np.nan, 2, 3, np.nan, 5],
+      "C": [1, 2, 3, 4, 5]
+  })
+  
+  nulos_por_col = df.isnull().sum()
+  total_nulos = df.isnull().sum().sum()
+  pct_completas = (len(df.dropna()) / len(df)) * 100
+  
+  print("Nulos por columna:")
+  print(nulos_por_col)
+  print(f"\nTotal nulos: {total_nulos}")
+  print(f"% filas completas: {pct_completas:.1f}%")
+test_cases:
+  - id: test-nulos
+    name: "Nulos detectados"
+    test_code: |
+      assert total_nulos == 3, f"❌ Hay 3 nulos, obtuviste {total_nulos}"
+      print("✅ Nulos detectados correctamente")
+    points: 10
+hints:
+  - "df.isnull().sum() cuenta nulos por columna"
+  - "df.isnull().sum().sum() cuenta total"
+tags: [pandas, isnull, nulos]
+concepts: [valores_faltantes]

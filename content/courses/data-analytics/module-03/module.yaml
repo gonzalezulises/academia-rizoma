@@ -1,0 +1,58 @@
+# Módulo 3: Análisis Exploratorio de Datos (EDA)
+# Estrategia: Granular (12 ejercicios interactivos)
+
+id: module-03
+title: "Análisis Exploratorio de Datos"
+description: |
+  Descubre patrones, detecta anomalías y verifica supuestos en tus datos.
+  Aprende técnicas de agregación, limpieza y transformación.
+order: 3
+is_locked: false
+
+lessons:
+  - id: lesson-03-01
+    file: lessons/01-estadisticas-descriptivas.md
+    title: "Estadísticas descriptivas"
+    type: text
+    order: 1
+    duration_minutes: 20
+    exercises:
+      - ex-03-01-describe
+      - ex-03-02-value-counts
+      - ex-03-03-unique-nunique
+
+  - id: lesson-03-02
+    file: lessons/02-agrupacion.md
+    title: "Agrupación y agregación"
+    type: text
+    order: 2
+    duration_minutes: 25
+    exercises:
+      - ex-03-04-groupby-simple
+      - ex-03-05-groupby-agg
+      - ex-03-06-pivot-table
+
+  - id: lesson-03-03
+    file: lessons/03-datos-faltantes.md
+    title: "Manejo de datos faltantes"
+    type: text
+    order: 3
+    duration_minutes: 20
+    exercises:
+      - ex-03-07-isna-sum
+      - ex-03-08-fillna
+      - ex-03-09-dropna
+
+  - id: lesson-03-04
+    file: lessons/04-combinacion.md
+    title: "Combinar DataFrames"
+    type: text
+    order: 4
+    duration_minutes: 25
+    exercises:
+      - ex-03-10-merge
+      - ex-03-11-concat
+      - ex-03-12-filtrado-avanzado
+
+# Datasets: ufo.csv, titanic.csv
+# Total ejercicios: 12

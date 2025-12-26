@@ -1,0 +1,63 @@
+id: ex-05-02-linear-regression
+type: code-python
+title: "Entrenar regresión lineal"
+description: "Crea y entrena un modelo de regresión lineal."
+instructions: |
+  1. Crea un modelo LinearRegression
+  2. Entrena con X_train, y_train
+  3. Haz predicciones en X_test
+difficulty: intermediate
+estimated_time_minutes: 5
+points: 12
+order: 2
+starter_code: |
+  import numpy as np
+  from sklearn.linear_model import LinearRegression
+  from sklearn.model_selection import train_test_split
+  
+  # Datos sintéticos
+  np.random.seed(42)
+  X = np.random.randn(100, 2)
+  y = 3*X[:, 0] + 2*X[:, 1] + np.random.randn(100)*0.5
+  
+  X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+  
+  # Crea el modelo
+  model = 
+  
+  # Entrena
+  
+  # Predice
+  y_pred = 
+  
+  print(f"Primeras 5 predicciones: {y_pred[:5]}")
+solution_code: |
+  import numpy as np
+  from sklearn.linear_model import LinearRegression
+  from sklearn.model_selection import train_test_split
+  
+  np.random.seed(42)
+  X = np.random.randn(100, 2)
+  y = 3*X[:, 0] + 2*X[:, 1] + np.random.randn(100)*0.5
+  
+  X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+  
+  model = LinearRegression()
+  model.fit(X_train, y_train)
+  y_pred = model.predict(X_test)
+  
+  print(f"Primeras 5 predicciones: {y_pred[:5]}")
+test_cases:
+  - id: test-model
+    name: "Modelo entrenado"
+    test_code: |
+      assert hasattr(model, 'coef_'), "❌ Modelo no entrenado"
+      assert len(y_pred) == 20, "❌ Predicciones incorrectas"
+      print("✅ Modelo entrenado y predicciones generadas")
+    points: 12
+hints:
+  - "model = LinearRegression()"
+  - "model.fit(X_train, y_train)"
+  - "y_pred = model.predict(X_test)"
+tags: [sklearn, linear-regression]
+concepts: [regresion_lineal]

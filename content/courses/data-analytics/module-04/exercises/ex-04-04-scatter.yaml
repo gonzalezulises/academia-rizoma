@@ -1,0 +1,44 @@
+id: ex-04-04-scatter
+type: code-python
+title: "Scatter plot con Seaborn"
+description: "Visualiza relaciones entre variables."
+instructions: |
+  Crea un scatter plot de beer_servings vs wine_servings.
+difficulty: beginner
+estimated_time_minutes: 4
+points: 10
+order: 4
+starter_code: |
+  import seaborn as sns
+  import matplotlib.pyplot as plt
+  import pandas as pd
+  
+  df = pd.read_csv("drinks.csv")
+  
+  plt.figure(figsize=(10, 6))
+  
+  # Scatter plot
+  
+  plt.title("Cerveza vs Vino")
+  plt.show()
+solution_code: |
+  import seaborn as sns
+  import matplotlib.pyplot as plt
+  import pandas as pd
+  
+  df = pd.read_csv("drinks.csv")
+  
+  plt.figure(figsize=(10, 6))
+  sns.scatterplot(x="beer_servings", y="wine_servings", data=df)
+  plt.title("Cerveza vs Vino")
+  plt.show()
+test_cases:
+  - id: test-scatter
+    name: "Scatter creado"
+    test_code: |
+      print("✅ Scatter plot creado")
+    points: 10
+hints:
+  - "sns.scatterplot(x='col1', y='col2', data=df)"
+tags: [seaborn, scatter, relacion]
+concepts: [seaborn_basico]

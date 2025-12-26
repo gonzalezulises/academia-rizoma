@@ -1,0 +1,92 @@
+id: ex-02-06-seleccion-columnas
+type: code-python
+title: "Seleccionar columnas"
+description: "Extrae columnas específicas de un DataFrame."
+
+instructions: |
+  Con el DataFrame `df` de drinks.csv:
+  
+  1. Extrae la columna `country` como Series y guárdala en `paises`
+  2. Extrae las columnas `country` y `beer_servings` como DataFrame y guárdalo en `paises_cerveza`
+  3. Extrae las columnas `wine_servings` y `total_litres_of_pure_alcohol` en `vino_alcohol`
+
+difficulty: beginner
+estimated_time_minutes: 4
+points: 10
+order: 6
+
+starter_code: |
+  import pandas as pd
+  df = pd.read_csv("drinks.csv")
+
+  # Una columna (Series)
+  paises = 
+
+  # Dos columnas (DataFrame)
+  paises_cerveza = 
+
+  # Otras dos columnas
+  vino_alcohol = 
+
+  print("Países (primeros 5):")
+  print(paises.head())
+  print("\nPaíses y cerveza:")
+  print(paises_cerveza.head())
+
+solution_code: |
+  import pandas as pd
+  df = pd.read_csv("drinks.csv")
+
+  # Una columna (Series)
+  paises = df["country"]
+
+  # Dos columnas (DataFrame)
+  paises_cerveza = df[["country", "beer_servings"]]
+
+  # Otras dos columnas
+  vino_alcohol = df[["wine_servings", "total_litres_of_pure_alcohol"]]
+
+  print("Países (primeros 5):")
+  print(paises.head())
+  print("\nPaíses y cerveza:")
+  print(paises_cerveza.head())
+
+test_cases:
+  - id: test-paises
+    name: "Columna paises"
+    test_code: |
+      import pandas as pd
+      assert isinstance(paises, pd.Series), "❌ paises debería ser una Series"
+      assert paises.name == "country", "❌ paises debería ser la columna 'country'"
+      print("✅ paises es una Series con los países")
+    points: 3
+
+  - id: test-paises-cerveza
+    name: "DataFrame paises_cerveza"
+    test_code: |
+      import pandas as pd
+      assert isinstance(paises_cerveza, pd.DataFrame), "❌ paises_cerveza debería ser un DataFrame"
+      assert list(paises_cerveza.columns) == ["country", "beer_servings"], "❌ Columnas incorrectas"
+      print("✅ paises_cerveza tiene las columnas correctas")
+    points: 4
+
+  - id: test-vino-alcohol
+    name: "DataFrame vino_alcohol"
+    test_code: |
+      assert "wine_servings" in vino_alcohol.columns, "❌ Falta wine_servings"
+      assert "total_litres_of_pure_alcohol" in vino_alcohol.columns, "❌ Falta total_litres_of_pure_alcohol"
+      print("✅ vino_alcohol correcto")
+    points: 3
+
+hints:
+  - "Una columna: df[\"nombre_columna\"]"
+  - "Varias columnas: df[[\"col1\", \"col2\"]] (dobles corchetes)"
+  - "Los nombres de columnas son sensibles a mayúsculas y espacios"
+
+tags:
+  - pandas
+  - seleccion
+  - columnas
+
+concepts:
+  - seleccion_columnas

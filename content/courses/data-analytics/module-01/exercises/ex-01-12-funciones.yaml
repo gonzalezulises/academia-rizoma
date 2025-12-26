@@ -1,0 +1,104 @@
+id: ex-01-12-funciones
+type: code-python
+title: "Tu primera función"
+description: "Aprende a definir funciones con parámetros y return."
+
+instructions: |
+  Crea una función llamada `calcular_descuento` que:
+  
+  1. Reciba dos parámetros: `precio` y `porcentaje`
+  2. Calcule el precio con descuento aplicado
+  3. Devuelva (return) el precio final
+  
+  Fórmula: `precio_final = precio * (1 - porcentaje / 100)`
+  
+  Ejemplo:
+  - `calcular_descuento(100, 20)` → debe devolver `80.0` (20% de descuento sobre $100)
+  - `calcular_descuento(50, 10)` → debe devolver `45.0`
+
+difficulty: intermediate
+estimated_time_minutes: 6
+points: 12
+order: 12
+
+starter_code: |
+  # Define la función
+  def calcular_descuento(precio, porcentaje):
+      # Calcula el precio final
+      
+      # Devuelve el resultado
+      
+  
+  # Pruebas (no modificar)
+  resultado1 = calcular_descuento(100, 20)
+  resultado2 = calcular_descuento(50, 10)
+  resultado3 = calcular_descuento(200, 15)
+  
+  print(f"$100 con 20% descuento: ${resultado1}")
+  print(f"$50 con 10% descuento: ${resultado2}")
+  print(f"$200 con 15% descuento: ${resultado3}")
+
+solution_code: |
+  # Define la función
+  def calcular_descuento(precio, porcentaje):
+      # Calcula el precio final
+      precio_final = precio * (1 - porcentaje / 100)
+      # Devuelve el resultado
+      return precio_final
+  
+  # Pruebas (no modificar)
+  resultado1 = calcular_descuento(100, 20)
+  resultado2 = calcular_descuento(50, 10)
+  resultado3 = calcular_descuento(200, 15)
+  
+  print(f"$100 con 20% descuento: ${resultado1}")
+  print(f"$50 con 10% descuento: ${resultado2}")
+  print(f"$200 con 15% descuento: ${resultado3}")
+
+test_cases:
+  - id: test-funcion-existe
+    name: "Función definida"
+    test_code: |
+      assert 'calcular_descuento' in dir(), "❌ La función 'calcular_descuento' no está definida"
+      assert callable(calcular_descuento), "❌ 'calcular_descuento' debe ser una función"
+      print("✅ Función calcular_descuento definida")
+    points: 2
+
+  - id: test-caso1
+    name: "Caso: 100, 20% → 80"
+    test_code: |
+      resultado = calcular_descuento(100, 20)
+      assert resultado is not None, "❌ La función no devuelve nada. ¿Olvidaste el return?"
+      assert abs(resultado - 80.0) < 0.01, f"❌ calcular_descuento(100, 20) debería ser 80.0, obtuviste {resultado}"
+      print("✅ calcular_descuento(100, 20) = 80.0")
+    points: 3
+
+  - id: test-caso2
+    name: "Caso: 50, 10% → 45"
+    test_code: |
+      resultado = calcular_descuento(50, 10)
+      assert abs(resultado - 45.0) < 0.01, f"❌ calcular_descuento(50, 10) debería ser 45.0, obtuviste {resultado}"
+      print("✅ calcular_descuento(50, 10) = 45.0")
+    points: 3
+
+  - id: test-caso3
+    name: "Caso: 200, 15% → 170"
+    test_code: |
+      resultado = calcular_descuento(200, 15)
+      assert abs(resultado - 170.0) < 0.01, f"❌ calcular_descuento(200, 15) debería ser 170.0, obtuviste {resultado}"
+      print("✅ calcular_descuento(200, 15) = 170.0")
+    points: 4
+
+hints:
+  - "La fórmula es: precio * (1 - porcentaje / 100)"
+  - "Ejemplo: 100 * (1 - 20/100) = 100 * 0.8 = 80"
+  - "No olvides usar return para devolver el resultado"
+
+tags:
+  - funciones
+  - def
+  - return
+  - parametros
+
+concepts:
+  - funciones_basicas

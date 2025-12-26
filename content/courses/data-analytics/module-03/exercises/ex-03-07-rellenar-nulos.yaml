@@ -1,0 +1,62 @@
+id: ex-03-07-rellenar-nulos
+type: code-python
+title: "Rellenar valores nulos"
+description: "Usa fillna() para manejar valores faltantes."
+instructions: |
+  1. Rellena nulos de columna A con 0 → `df_ceros`
+  2. Rellena nulos de columna B con la media → `df_media`
+difficulty: intermediate
+estimated_time_minutes: 4
+points: 10
+order: 7
+starter_code: |
+  import pandas as pd
+  import numpy as np
+  
+  df = pd.DataFrame({
+      "A": [1, 2, np.nan, 4, 5],
+      "B": [np.nan, 2, 3, np.nan, 5]
+  })
+  
+  df_ceros = df.copy()
+  df_ceros["A"] = 
+  
+  df_media = df.copy()
+  df_media["B"] = 
+  
+  print("Con ceros:")
+  print(df_ceros)
+  print("\nCon media:")
+  print(df_media)
+solution_code: |
+  import pandas as pd
+  import numpy as np
+  
+  df = pd.DataFrame({
+      "A": [1, 2, np.nan, 4, 5],
+      "B": [np.nan, 2, 3, np.nan, 5]
+  })
+  
+  df_ceros = df.copy()
+  df_ceros["A"] = df_ceros["A"].fillna(0)
+  
+  df_media = df.copy()
+  df_media["B"] = df_media["B"].fillna(df_media["B"].mean())
+  
+  print("Con ceros:")
+  print(df_ceros)
+  print("\nCon media:")
+  print(df_media)
+test_cases:
+  - id: test-fillna
+    name: "Nulos rellenados"
+    test_code: |
+      assert df_ceros["A"].isnull().sum() == 0
+      assert df_media["B"].isnull().sum() == 0
+      print("✅ Nulos rellenados correctamente")
+    points: 10
+hints:
+  - "columna.fillna(valor)"
+  - "columna.fillna(columna.mean())"
+tags: [pandas, fillna, nulos]
+concepts: [valores_faltantes]

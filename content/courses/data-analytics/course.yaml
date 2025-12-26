@@ -1,0 +1,99 @@
+# Curso: Data Analytics con Python
+# Migrado desde: https://github.com/gonzalezulises/101_Data_Analytics_Rizoma
+
+id: data-analytics
+title: "Data Analytics con Python"
+description: |
+  Curso completo de Data Analytics que cubre las tres direcciones principales 
+  de Business Analytics: Análisis Descriptivo, Predictivo y Prescriptivo.
+  
+  Aprenderás a extraer valor comercial de los datos, tomar decisiones basadas 
+  en evidencia e implementar principios efectivos de gestión de datos usando 
+  Python, Pandas, Scikit-Learn y herramientas de visualización.
+
+slug: data-analytics
+thumbnail_url: "/images/courses/data-analytics-thumbnail.png"
+is_published: false  # Cambiar a true cuando esté listo
+instructor_id: null  # Se asigna al migrar a Supabase
+
+# Configuración de ejercicios
+exercise_config:
+  default_runtime: pyodide
+  allow_solution_view: true
+  max_attempts: null  # Sin límite
+
+# Módulos del curso (8 sesiones)
+modules:
+  - id: module-01
+    title: "Introducción a Python"
+    description: "Fundamentos de Python para análisis de datos"
+    order: 1
+    strategy: granular  # 10-15 ejercicios interactivos
+
+  - id: module-02
+    title: "Obtención de Datos con Pandas"
+    description: "Cargar datos desde CSV, Excel, SQL y APIs"
+    order: 2
+    strategy: granular
+
+  - id: module-03
+    title: "Análisis Exploratorio de Datos (EDA)"
+    description: "Descubrir patrones, anomalías y verificar supuestos"
+    order: 3
+    strategy: granular
+
+  - id: module-04
+    title: "Visualización de Datos"
+    description: "Matplotlib, Seaborn y Plotly para comunicar insights"
+    order: 4
+    strategy: granular
+
+  - id: module-05
+    title: "Modelos de Pronóstico y Regresión"
+    description: "Regresión lineal y evaluación de modelos"
+    order: 5
+    strategy: hybrid  # Ejercicios + Colab
+
+  - id: module-06
+    title: "Clasificación: Regresión Logística y Árboles"
+    description: "Clasificación binaria y multiclase"
+    order: 6
+    strategy: hybrid
+
+  - id: module-07
+    title: "Clustering y Segmentación"
+    description: "K-Means, DBSCAN y evaluación de clusters"
+    order: 7
+    strategy: hybrid
+
+  - id: module-08
+    title: "Visualización Interactiva con Plotly"
+    description: "Dashboards y visualizaciones interactivas"
+    order: 8
+    strategy: granular  # Reemplaza Tableau
+
+# Prerequisitos
+prerequisites:
+  - "Conocimientos básicos de matemáticas (álgebra)"
+  - "Familiaridad con hojas de cálculo (Excel/Sheets)"
+  - "No se requiere experiencia previa en programación"
+
+# Tags para búsqueda
+tags:
+  - python
+  - pandas
+  - data-analytics
+  - machine-learning
+  - visualizacion
+  - business-intelligence
+  - principiantes
+
+# Duración estimada
+estimated_duration_hours: 40
+difficulty: beginner-to-intermediate
+
+# Origen del contenido
+source:
+  repository: "https://github.com/gonzalezulises/101_Data_Analytics_Rizoma"
+  original_format: "jupyter-notebooks"
+  migration_date: "2025-12-25"

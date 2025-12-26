@@ -1,0 +1,50 @@
+id: ex-04-05-barplot
+type: code-python
+title: "Barplot con Seaborn"
+description: "Crea barras agrupadas con estadísticas."
+instructions: |
+  Crea un barplot que muestre la media de beer_servings por nivel de alcohol.
+difficulty: intermediate
+estimated_time_minutes: 5
+points: 10
+order: 5
+starter_code: |
+  import seaborn as sns
+  import matplotlib.pyplot as plt
+  import pandas as pd
+  
+  df = pd.read_csv("drinks.csv")
+  df["nivel"] = df["total_litres_of_pure_alcohol"].apply(
+      lambda x: "Alto" if x > 5 else "Bajo"
+  )
+  
+  plt.figure(figsize=(8, 6))
+  
+  # Barplot
+  
+  plt.title("Media de cerveza por nivel de alcohol")
+  plt.show()
+solution_code: |
+  import seaborn as sns
+  import matplotlib.pyplot as plt
+  import pandas as pd
+  
+  df = pd.read_csv("drinks.csv")
+  df["nivel"] = df["total_litres_of_pure_alcohol"].apply(
+      lambda x: "Alto" if x > 5 else "Bajo"
+  )
+  
+  plt.figure(figsize=(8, 6))
+  sns.barplot(x="nivel", y="beer_servings", data=df)
+  plt.title("Media de cerveza por nivel de alcohol")
+  plt.show()
+test_cases:
+  - id: test-barplot
+    name: "Barplot creado"
+    test_code: |
+      print("✅ Barplot con estadísticas creado")
+    points: 10
+hints:
+  - "sns.barplot(x='categoria', y='valor', data=df)"
+tags: [seaborn, barplot]
+concepts: [seaborn_basico]

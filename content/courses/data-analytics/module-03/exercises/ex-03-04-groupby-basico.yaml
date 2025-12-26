@@ -1,0 +1,46 @@
+id: ex-03-04-groupby-basico
+type: code-python
+title: "Agrupación básica con groupby()"
+description: "Agrupa datos y calcula estadísticas por grupo."
+instructions: |
+  Agrupa por una columna calculada y obtén estadísticas:
+  1. Crea columna `nivel_alcohol` ("Alto" si total_litres > 5, "Bajo" si no)
+  2. Agrupa por `nivel_alcohol` y calcula media de `beer_servings` → `media_por_nivel`
+difficulty: intermediate
+estimated_time_minutes: 5
+points: 12
+order: 4
+starter_code: |
+  import pandas as pd
+  df = pd.read_csv("drinks.csv")
+  
+  # Crear columna de nivel
+  df["nivel_alcohol"] = df["total_litres_of_pure_alcohol"].apply(
+      lambda x: "Alto" if x > 5 else "Bajo"
+  )
+  
+  media_por_nivel = 
+  
+  print(media_por_nivel)
+solution_code: |
+  import pandas as pd
+  df = pd.read_csv("drinks.csv")
+  
+  df["nivel_alcohol"] = df["total_litres_of_pure_alcohol"].apply(
+      lambda x: "Alto" if x > 5 else "Bajo"
+  )
+  
+  media_por_nivel = df.groupby("nivel_alcohol")["beer_servings"].mean()
+  
+  print(media_por_nivel)
+test_cases:
+  - id: test-groupby
+    name: "groupby ejecutado"
+    test_code: |
+      assert "Alto" in media_por_nivel.index or "Bajo" in media_por_nivel.index
+      print("✅ groupby correcto")
+    points: 12
+hints:
+  - "df.groupby('columna')['otra_columna'].mean()"
+tags: [pandas, groupby, agregacion]
+concepts: [groupby_basico]

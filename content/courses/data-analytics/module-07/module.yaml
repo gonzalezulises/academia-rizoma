@@ -1,0 +1,52 @@
+# Módulo 7: Clustering y Segmentación
+# Estrategia: Híbrido (5 ejercicios + 2 Colab notebooks)
+
+id: module-07
+title: "Clustering y Segmentación"
+description: |
+  Agrupa datos similares usando K-Means y DBSCAN.
+  Aprende a segmentar clientes y evaluar la calidad de clusters.
+order: 7
+is_locked: false
+
+lessons:
+  - id: lesson-07-01
+    file: lessons/01-intro-clustering.md
+    title: "Introducción al Clustering"
+    type: text
+    order: 1
+    duration_minutes: 20
+    exercises:
+      - ex-07-01-kmeans-basico
+
+  - id: lesson-07-02
+    file: lessons/02-kmeans.md
+    title: "K-Means en detalle"
+    type: text
+    order: 2
+    duration_minutes: 30
+    exercises:
+      - ex-07-02-elbow-method
+      - ex-07-03-silhouette
+
+  - id: lesson-07-03
+    file: lessons/03-dbscan.md
+    title: "DBSCAN"
+    type: text
+    order: 3
+    duration_minutes: 25
+    exercises:
+      - ex-07-04-dbscan
+      - ex-07-05-comparar-algoritmos
+
+  - id: lesson-07-04
+    file: lessons/04-practica-segmentacion.md
+    title: "Práctica: Segmentación de clientes"
+    type: colab
+    order: 4
+    duration_minutes: 60
+    colab_url: "TBD"
+
+# Datasets: customers.csv
+# Ejercicios interactivos: 5
+# Notebooks Colab: 1

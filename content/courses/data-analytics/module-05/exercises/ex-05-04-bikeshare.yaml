@@ -1,0 +1,77 @@
+id: ex-05-04-bikeshare
+type: code-python
+title: "Caso práctico: Bikeshare"
+description: "Pipeline completo de regresión con datos reales."
+instructions: |
+  Implementa el pipeline completo:
+  1. Carga bikeshare.csv
+  2. Selecciona features y target
+  3. Divide en train/test
+  4. Entrena LinearRegression
+  5. Calcula R² y MAE
+difficulty: intermediate
+estimated_time_minutes: 8
+points: 15
+order: 4
+starter_code: |
+  import pandas as pd
+  from sklearn.model_selection import train_test_split
+  from sklearn.linear_model import LinearRegression
+  from sklearn.metrics import r2_score, mean_absolute_error
+  
+  # 1. Cargar datos
+  df = pd.read_csv("bikeshare.csv")
+  
+  # 2. Features y target
+  features = ["temp", "humidity", "windspeed"]
+  X = df[features]
+  y = df["count"]
+  
+  # 3. Split
+  X_train, X_test, y_train, y_test = 
+  
+  # 4. Entrenar
+  model = 
+  
+  # 5. Evaluar
+  y_pred = model.predict(X_test)
+  r2 = 
+  mae = 
+  
+  print(f"R²: {r2:.3f}")
+  print(f"MAE: {mae:.1f}")
+solution_code: |
+  import pandas as pd
+  from sklearn.model_selection import train_test_split
+  from sklearn.linear_model import LinearRegression
+  from sklearn.metrics import r2_score, mean_absolute_error
+  
+  df = pd.read_csv("bikeshare.csv")
+  
+  features = ["temp", "humidity", "windspeed"]
+  X = df[features]
+  y = df["count"]
+  
+  X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+  
+  model = LinearRegression()
+  model.fit(X_train, y_train)
+  
+  y_pred = model.predict(X_test)
+  r2 = r2_score(y_test, y_pred)
+  mae = mean_absolute_error(y_test, y_pred)
+  
+  print(f"R²: {r2:.3f}")
+  print(f"MAE: {mae:.1f}")
+test_cases:
+  - id: test-pipeline
+    name: "Pipeline completo"
+    test_code: |
+      assert r2 > 0, "❌ R² debe ser positivo"
+      assert mae > 0, "❌ MAE debe ser positivo"
+      print(f"✅ Pipeline completo - R²: {r2:.3f}")
+    points: 15
+hints:
+  - "Sigue el orden: split, create, fit, predict, evaluate"
+tags: [sklearn, pipeline, caso-practico]
+concepts: [pipeline_ml]

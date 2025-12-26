@@ -1,0 +1,93 @@
+id: ex-01-03-tipos-datos
+type: code-python
+title: "Identificar tipos de datos"
+description: "Practica creando variables de diferentes tipos y verificando su tipo."
+
+instructions: |
+  Crea cuatro variables, cada una de un tipo diferente:
+  
+  1. `mi_entero` → un número entero (por ejemplo, 42)
+  2. `mi_decimal` → un número con decimales (por ejemplo, 3.14)
+  3. `mi_texto` → una cadena de texto (por ejemplo, "hola")
+  4. `mi_booleano` → un valor True o False
+  
+  El código ya incluye las verificaciones con `type()`.
+
+difficulty: beginner
+estimated_time_minutes: 3
+points: 10
+order: 3
+
+starter_code: |
+  # Crea las cuatro variables
+  mi_entero = 
+  mi_decimal = 
+  mi_texto = 
+  mi_booleano = 
+  
+  # Verificación (no modificar)
+  print(f"mi_entero es tipo: {type(mi_entero)}")
+  print(f"mi_decimal es tipo: {type(mi_decimal)}")
+  print(f"mi_texto es tipo: {type(mi_texto)}")
+  print(f"mi_booleano es tipo: {type(mi_booleano)}")
+
+solution_code: |
+  # Crea las cuatro variables
+  mi_entero = 42
+  mi_decimal = 3.14
+  mi_texto = "hola"
+  mi_booleano = True
+  
+  # Verificación (no modificar)
+  print(f"mi_entero es tipo: {type(mi_entero)}")
+  print(f"mi_decimal es tipo: {type(mi_decimal)}")
+  print(f"mi_texto es tipo: {type(mi_texto)}")
+  print(f"mi_booleano es tipo: {type(mi_booleano)}")
+
+test_cases:
+  - id: test-int
+    name: "Variable entera"
+    test_code: |
+      assert 'mi_entero' in dir(), "❌ La variable 'mi_entero' no está definida"
+      assert isinstance(mi_entero, int), f"❌ 'mi_entero' debería ser int, pero es {type(mi_entero).__name__}"
+      print("✅ mi_entero es un entero")
+    points: 2
+
+  - id: test-float
+    name: "Variable decimal"
+    test_code: |
+      assert 'mi_decimal' in dir(), "❌ La variable 'mi_decimal' no está definida"
+      assert isinstance(mi_decimal, float), f"❌ 'mi_decimal' debería ser float, pero es {type(mi_decimal).__name__}"
+      print("✅ mi_decimal es un decimal")
+    points: 3
+
+  - id: test-str
+    name: "Variable texto"
+    test_code: |
+      assert 'mi_texto' in dir(), "❌ La variable 'mi_texto' no está definida"
+      assert isinstance(mi_texto, str), f"❌ 'mi_texto' debería ser str, pero es {type(mi_texto).__name__}"
+      print("✅ mi_texto es un string")
+    points: 2
+
+  - id: test-bool
+    name: "Variable booleana"
+    test_code: |
+      assert 'mi_booleano' in dir(), "❌ La variable 'mi_booleano' no está definida"
+      assert isinstance(mi_booleano, bool), f"❌ 'mi_booleano' debería ser bool, pero es {type(mi_booleano).__name__}"
+      print("✅ mi_booleano es un booleano")
+    points: 3
+
+hints:
+  - "Los enteros son números sin punto decimal: 42, -5, 0"
+  - "Los decimales tienen punto: 3.14, 0.5, -2.7"
+  - "Los booleanos son True o False (con mayúscula inicial, sin comillas)"
+
+tags:
+  - tipos
+  - int
+  - float
+  - str
+  - bool
+
+concepts:
+  - variables_y_tipos

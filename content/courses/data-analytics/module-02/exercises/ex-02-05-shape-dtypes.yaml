@@ -1,0 +1,90 @@
+id: ex-02-05-shape-dtypes
+type: code-python
+title: "Dimensiones y tipos de datos"
+description: "Examina la estructura de un DataFrame."
+
+instructions: |
+  Con el DataFrame `df`:
+  
+  1. Guarda los tipos de datos en `tipos` (usa dtypes)
+  2. Guarda la lista de nombres de columnas en `columnas` (usa columns)
+  3. Cuenta cuántas columnas son numéricas (int64 o float64) y guarda en `num_numericas`
+
+difficulty: beginner
+estimated_time_minutes: 4
+points: 10
+order: 5
+
+starter_code: |
+  import pandas as pd
+  df = pd.read_csv("drinks.csv")
+
+  # Tipos de datos
+  tipos = 
+
+  # Nombres de columnas
+  columnas = 
+
+  # Contar columnas numéricas
+  num_numericas = 
+
+  print("Tipos de datos:")
+  print(tipos)
+  print(f"\nColumnas: {list(columnas)}")
+  print(f"Columnas numéricas: {num_numericas}")
+
+solution_code: |
+  import pandas as pd
+  df = pd.read_csv("drinks.csv")
+
+  # Tipos de datos
+  tipos = df.dtypes
+
+  # Nombres de columnas
+  columnas = df.columns
+
+  # Contar columnas numéricas
+  num_numericas = df.select_dtypes(include=['int64', 'float64']).shape[1]
+
+  print("Tipos de datos:")
+  print(tipos)
+  print(f"\nColumnas: {list(columnas)}")
+  print(f"Columnas numéricas: {num_numericas}")
+
+test_cases:
+  - id: test-tipos
+    name: "Tipos obtenidos"
+    test_code: |
+      assert tipos is not None, "❌ tipos no está definido"
+      assert len(tipos) == len(df.columns), "❌ tipos debería tener un tipo por columna"
+      print("✅ tipos de datos obtenidos")
+    points: 4
+
+  - id: test-columnas
+    name: "Columnas obtenidas"
+    test_code: |
+      assert columnas is not None, "❌ columnas no está definido"
+      assert 'country' in columnas, "❌ 'country' debería estar en columnas"
+      print(f"✅ {len(columnas)} columnas encontradas")
+    points: 3
+
+  - id: test-numericas
+    name: "Columnas numéricas"
+    test_code: |
+      expected = df.select_dtypes(include=['int64', 'float64']).shape[1]
+      assert num_numericas == expected, f"❌ Hay {expected} columnas numéricas, obtuviste {num_numericas}"
+      print(f"✅ {num_numericas} columnas numéricas")
+    points: 3
+
+hints:
+  - "df.dtypes devuelve los tipos de cada columna"
+  - "df.columns devuelve los nombres de columnas"
+  - "df.select_dtypes(include=['int64', 'float64']) filtra solo columnas numéricas"
+
+tags:
+  - pandas
+  - dtypes
+  - columns
+
+concepts:
+  - dtypes_info

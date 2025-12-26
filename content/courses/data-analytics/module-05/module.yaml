@@ -1,0 +1,53 @@
+# Módulo 5: Modelos de Pronóstico y Regresión
+# Estrategia: Híbrido (6 ejercicios + 2 Colab notebooks)
+
+id: module-05
+title: "Modelos de Pronóstico y Regresión"
+description: |
+  Introducción al machine learning con regresión lineal.
+  Aprende a entrenar, evaluar y mejorar modelos predictivos.
+order: 5
+is_locked: false
+
+lessons:
+  - id: lesson-05-01
+    file: lessons/01-intro-ml.md
+    title: "Introducción al Machine Learning"
+    type: text
+    order: 1
+    duration_minutes: 20
+    exercises:
+      - ex-05-01-train-test-split
+
+  - id: lesson-05-02
+    file: lessons/02-regresion-lineal.md
+    title: "Regresión Lineal"
+    type: text
+    order: 2
+    duration_minutes: 30
+    exercises:
+      - ex-05-02-linear-regression
+      - ex-05-03-fit-predict
+
+  - id: lesson-05-03
+    file: lessons/03-evaluacion-modelos.md
+    title: "Evaluación de modelos"
+    type: text
+    order: 3
+    duration_minutes: 25
+    exercises:
+      - ex-05-04-mse-rmse
+      - ex-05-05-r2-score
+      - ex-05-06-cross-validation
+
+  - id: lesson-05-04
+    file: lessons/04-practica-bikeshare.md
+    title: "Práctica: Predicción de demanda"
+    type: colab
+    order: 4
+    duration_minutes: 45
+    colab_url: "TBD"  # Se genera al crear el notebook
+
+# Datasets: bikeshare.csv
+# Ejercicios interactivos: 6
+# Notebooks Colab: 1

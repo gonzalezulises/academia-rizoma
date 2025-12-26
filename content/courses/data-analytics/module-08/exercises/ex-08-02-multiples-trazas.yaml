@@ -1,0 +1,49 @@
+id: ex-08-02-multiples-trazas
+type: code-python
+title: "Múltiples trazas"
+description: "Agrega varias series a un gráfico."
+instructions: |
+  Crea un gráfico con 2 líneas:
+  - Serie "Ventas": y1 = [100, 120, 115, 130, 145]
+  - Serie "Costos": y2 = [80, 85, 90, 95, 100]
+difficulty: beginner
+estimated_time_minutes: 4
+points: 10
+order: 2
+starter_code: |
+  import plotly.graph_objects as go
+  
+  x = [1, 2, 3, 4, 5]
+  y1 = [100, 120, 115, 130, 145]
+  y2 = [80, 85, 90, 95, 100]
+  
+  fig = go.Figure()
+  
+  # Agrega dos trazas
+  
+  fig.update_layout(title="Ventas vs Costos")
+  fig.show()
+solution_code: |
+  import plotly.graph_objects as go
+  
+  x = [1, 2, 3, 4, 5]
+  y1 = [100, 120, 115, 130, 145]
+  y2 = [80, 85, 90, 95, 100]
+  
+  fig = go.Figure()
+  fig.add_trace(go.Scatter(x=x, y=y1, name='Ventas'))
+  fig.add_trace(go.Scatter(x=x, y=y2, name='Costos'))
+  fig.update_layout(title="Ventas vs Costos")
+  fig.show()
+test_cases:
+  - id: test-trazas
+    name: "Múltiples trazas"
+    test_code: |
+      assert len(fig.data) == 2, "❌ Deben ser 2 trazas"
+      print("✅ Gráfico con 2 series")
+    points: 10
+hints:
+  - "fig.add_trace() para cada serie"
+  - "name='Nombre' para leyenda"
+tags: [plotly, trazas]
+concepts: [plotly_avanzado]

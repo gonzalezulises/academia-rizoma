@@ -1,0 +1,72 @@
+id: ex-08-05-dashboard
+type: code-python
+title: "Dashboard completo"
+description: "Estructura de un dashboard profesional."
+instructions: |
+  Estudia la estructura de un dashboard completo con Streamlit + Plotly.
+difficulty: intermediate
+estimated_time_minutes: 8
+points: 15
+order: 5
+starter_code: |
+  # Template de dashboard profesional
+  import streamlit as st
+  import pandas as pd
+  import plotly.express as px
+  
+  # Configuración
+  # st.set_page_config(page_title="Dashboard", layout="wide")
+  
+  # Simular datos
+  df = pd.DataFrame({
+      "mes": ["Ene", "Feb", "Mar", "Abr", "May"],
+      "ventas": [100, 120, 115, 140, 160],
+      "categoria": ["A", "B", "A", "B", "A"]
+  })
+  
+  # Layout con columnas
+  col1, col2 = st.columns(2) if hasattr(st, 'columns') else (None, None)
+  
+  # Métricas
+  total_ventas = df["ventas"].sum()
+  promedio = df["ventas"].mean()
+  
+  print(f"Total ventas: ${total_ventas}")
+  print(f"Promedio: ${promedio:.0f}")
+  
+  # Gráfico
+  fig = px.line(df, x="mes", y="ventas", title="Tendencia de ventas")
+  print("Dashboard estructurado correctamente")
+solution_code: |
+  import streamlit as st
+  import pandas as pd
+  import plotly.express as px
+  
+  df = pd.DataFrame({
+      "mes": ["Ene", "Feb", "Mar", "Abr", "May"],
+      "ventas": [100, 120, 115, 140, 160],
+      "categoria": ["A", "B", "A", "B", "A"]
+  })
+  
+  col1, col2 = st.columns(2) if hasattr(st, 'columns') else (None, None)
+  
+  total_ventas = df["ventas"].sum()
+  promedio = df["ventas"].mean()
+  
+  print(f"Total ventas: ${total_ventas}")
+  print(f"Promedio: ${promedio:.0f}")
+  
+  fig = px.line(df, x="mes", y="ventas", title="Tendencia de ventas")
+  print("Dashboard estructurado correctamente")
+test_cases:
+  - id: test-dashboard
+    name: "Dashboard estructurado"
+    test_code: |
+      assert total_ventas == 635, "❌ Total incorrecto"
+      print("✅ Dashboard completo")
+    points: 15
+hints:
+  - "st.columns(2) crea 2 columnas"
+  - "st.plotly_chart(fig) muestra gráficos Plotly"
+tags: [streamlit, plotly, dashboard]
+concepts: [dashboard_completo]

@@ -1,0 +1,59 @@
+id: ex-04-02-barras
+type: code-python
+title: "Gráfico de barras"
+description: "Crea un gráfico de barras para comparar categorías."
+instructions: |
+  Con los datos de drinks.csv:
+  1. Toma los 5 países con mayor beer_servings
+  2. Crea un gráfico de barras con sus valores
+difficulty: intermediate
+estimated_time_minutes: 5
+points: 12
+order: 2
+starter_code: |
+  import matplotlib.pyplot as plt
+  import pandas as pd
+  
+  df = pd.read_csv("drinks.csv")
+  
+  # Top 5 países por cerveza
+  top5 = df.nlargest(5, "beer_servings")
+  
+  # Gráfico de barras
+  plt.figure(figsize=(10, 6))
+  
+  
+  plt.title("Top 5 países - Consumo de cerveza")
+  plt.xlabel("País")
+  plt.ylabel("Beer servings")
+  plt.xticks(rotation=45)
+  plt.tight_layout()
+  plt.show()
+solution_code: |
+  import matplotlib.pyplot as plt
+  import pandas as pd
+  
+  df = pd.read_csv("drinks.csv")
+  
+  top5 = df.nlargest(5, "beer_servings")
+  
+  plt.figure(figsize=(10, 6))
+  plt.bar(top5["country"], top5["beer_servings"])
+  plt.title("Top 5 países - Consumo de cerveza")
+  plt.xlabel("País")
+  plt.ylabel("Beer servings")
+  plt.xticks(rotation=45)
+  plt.tight_layout()
+  plt.show()
+test_cases:
+  - id: test-bar
+    name: "Barras creadas"
+    test_code: |
+      assert len(top5) == 5, "❌ Deben ser 5 países"
+      print("✅ Gráfico de barras correcto")
+    points: 12
+hints:
+  - "df.nlargest(n, columna) obtiene los n mayores"
+  - "plt.bar(x, y) crea barras"
+tags: [matplotlib, bar, barras]
+concepts: [matplotlib_basico]

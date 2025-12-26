@@ -1,0 +1,57 @@
+id: ex-03-09-merge
+type: code-python
+title: "Combinar con merge()"
+description: "Une DataFrames por columnas clave."
+instructions: |
+  1. Haz merge de clientes y pedidos por "cliente_id" → `df_merged`
+  2. Usa left join para mantener todos los clientes
+difficulty: intermediate
+estimated_time_minutes: 5
+points: 12
+order: 9
+starter_code: |
+  import pandas as pd
+  
+  clientes = pd.DataFrame({
+      "cliente_id": [1, 2, 3],
+      "nombre": ["Ana", "Juan", "María"]
+  })
+  
+  pedidos = pd.DataFrame({
+      "cliente_id": [1, 1, 2],
+      "producto": ["Laptop", "Mouse", "Teclado"],
+      "monto": [999, 25, 75]
+  })
+  
+  df_merged = 
+  
+  print(df_merged)
+solution_code: |
+  import pandas as pd
+  
+  clientes = pd.DataFrame({
+      "cliente_id": [1, 2, 3],
+      "nombre": ["Ana", "Juan", "María"]
+  })
+  
+  pedidos = pd.DataFrame({
+      "cliente_id": [1, 1, 2],
+      "producto": ["Laptop", "Mouse", "Teclado"],
+      "monto": [999, 25, 75]
+  })
+  
+  df_merged = pd.merge(clientes, pedidos, on="cliente_id", how="left")
+  
+  print(df_merged)
+test_cases:
+  - id: test-merge
+    name: "Merge correcto"
+    test_code: |
+      assert "nombre" in df_merged.columns and "producto" in df_merged.columns
+      assert len(df_merged) >= 3, "❌ Left join debe mantener todos los clientes"
+      print("✅ Merge correcto")
+    points: 12
+hints:
+  - "pd.merge(df1, df2, on='columna', how='left')"
+tags: [pandas, merge, join]
+concepts: [concat_merge]

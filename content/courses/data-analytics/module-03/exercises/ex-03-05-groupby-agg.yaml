@@ -1,0 +1,43 @@
+id: ex-03-05-groupby-agg
+type: code-python
+title: "Múltiples agregaciones con agg()"
+description: "Aplica varias funciones de agregación a la vez."
+instructions: |
+  Con groupby y agg(), calcula para cada nivel_alcohol:
+  - media, suma y conteo de beer_servings
+  Guarda en `resultado`
+difficulty: intermediate
+estimated_time_minutes: 5
+points: 12
+order: 5
+starter_code: |
+  import pandas as pd
+  df = pd.read_csv("drinks.csv")
+  df["nivel_alcohol"] = df["total_litres_of_pure_alcohol"].apply(
+      lambda x: "Alto" if x > 5 else "Bajo"
+  )
+  
+  resultado = df.groupby("nivel_alcohol")["beer_servings"].agg()
+  
+  print(resultado)
+solution_code: |
+  import pandas as pd
+  df = pd.read_csv("drinks.csv")
+  df["nivel_alcohol"] = df["total_litres_of_pure_alcohol"].apply(
+      lambda x: "Alto" if x > 5 else "Bajo"
+  )
+  
+  resultado = df.groupby("nivel_alcohol")["beer_servings"].agg(["mean", "sum", "count"])
+  
+  print(resultado)
+test_cases:
+  - id: test-agg
+    name: "agg con múltiples funciones"
+    test_code: |
+      assert "mean" in resultado.columns and "sum" in resultado.columns
+      print("✅ agg() con múltiples funciones correcto")
+    points: 12
+hints:
+  - ".agg(['mean', 'sum', 'count'])"
+tags: [pandas, groupby, agg]
+concepts: [groupby_agg]

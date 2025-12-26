@@ -1,0 +1,58 @@
+id: ex-05-01-train-test-split
+type: code-python
+title: "Dividir datos en train y test"
+description: "Usa train_test_split para preparar datos."
+instructions: |
+  Divide el DataFrame en conjuntos de entrenamiento y prueba:
+  - 80% entrenamiento, 20% prueba
+  - random_state=42 para reproducibilidad
+difficulty: beginner
+estimated_time_minutes: 4
+points: 10
+order: 1
+starter_code: |
+  import pandas as pd
+  from sklearn.model_selection import train_test_split
+  
+  # Datos de ejemplo
+  df = pd.DataFrame({
+      "x1": range(100),
+      "x2": range(100, 200),
+      "y": range(200, 300)
+  })
+  
+  X = df[["x1", "x2"]]
+  y = df["y"]
+  
+  # Divide los datos
+  X_train, X_test, y_train, y_test = 
+  
+  print(f"Train: {len(X_train)}, Test: {len(X_test)}")
+solution_code: |
+  import pandas as pd
+  from sklearn.model_selection import train_test_split
+  
+  df = pd.DataFrame({
+      "x1": range(100),
+      "x2": range(100, 200),
+      "y": range(200, 300)
+  })
+  
+  X = df[["x1", "x2"]]
+  y = df["y"]
+  
+  X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+  
+  print(f"Train: {len(X_train)}, Test: {len(X_test)}")
+test_cases:
+  - id: test-split
+    name: "División correcta"
+    test_code: |
+      assert len(X_train) == 80, f"❌ X_train debe tener 80 filas"
+      assert len(X_test) == 20, f"❌ X_test debe tener 20 filas"
+      print("✅ División 80/20 correcta")
+    points: 10
+hints:
+  - "train_test_split(X, y, test_size=0.2, random_state=42)"
+tags: [sklearn, train_test_split]
+concepts: [preparacion_datos_ml]

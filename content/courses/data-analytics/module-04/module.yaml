@@ -1,0 +1,56 @@
+# Módulo 4: Visualización de Datos
+# Estrategia: Granular (10 ejercicios interactivos)
+
+id: module-04
+title: "Visualización de Datos"
+description: |
+  Aprende a crear visualizaciones efectivas con Matplotlib, Seaborn y Plotly.
+  Comunica insights de manera clara y profesional.
+order: 4
+is_locked: false
+
+lessons:
+  - id: lesson-04-01
+    file: lessons/01-matplotlib-basico.md
+    title: "Matplotlib básico"
+    type: text
+    order: 1
+    duration_minutes: 25
+    exercises:
+      - ex-04-01-plot-linea
+      - ex-04-02-scatter
+      - ex-04-03-bar-chart
+
+  - id: lesson-04-02
+    file: lessons/02-histogramas-boxplots.md
+    title: "Distribuciones"
+    type: text
+    order: 2
+    duration_minutes: 20
+    exercises:
+      - ex-04-04-histograma
+      - ex-04-05-boxplot
+
+  - id: lesson-04-03
+    file: lessons/03-seaborn.md
+    title: "Visualización con Seaborn"
+    type: text
+    order: 3
+    duration_minutes: 25
+    exercises:
+      - ex-04-06-seaborn-scatter
+      - ex-04-07-heatmap
+
+  - id: lesson-04-04
+    file: lessons/04-plotly-interactivo.md
+    title: "Gráficos interactivos con Plotly"
+    type: text
+    order: 4
+    duration_minutes: 25
+    exercises:
+      - ex-04-08-plotly-scatter
+      - ex-04-09-plotly-bar
+      - ex-04-10-subplots
+
+# Datasets: tips.csv, iris.csv
+# Total ejercicios: 10

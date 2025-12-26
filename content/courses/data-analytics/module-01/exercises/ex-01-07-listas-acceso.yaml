@@ -1,0 +1,107 @@
+id: ex-01-07-listas-acceso
+type: code-python
+title: "Acceder a elementos de listas"
+description: "Practica el acceso a elementos usando índices y slicing."
+
+instructions: |
+  Dada la siguiente lista:
+  
+  ```python
+  datos = ["A", "B", "C", "D", "E", "F", "G"]
+  ```
+  
+  Usa índices y slicing para obtener:
+  
+  1. `primero` → el primer elemento ("A")
+  2. `ultimo` → el último elemento usando índice negativo ("G")
+  3. `tercero` → el tercer elemento ("C")
+  4. `sublista` → los elementos del índice 2 al 4 (inclusive el 2, exclusive el 5): ["C", "D", "E"]
+  5. `ultimos_tres` → los últimos 3 elementos: ["E", "F", "G"]
+
+difficulty: beginner
+estimated_time_minutes: 5
+points: 10
+order: 7
+
+starter_code: |
+  datos = ["A", "B", "C", "D", "E", "F", "G"]
+  
+  # Obtén los elementos
+  primero = 
+  ultimo = 
+  tercero = 
+  sublista = 
+  ultimos_tres = 
+  
+  # Verificación
+  print(f"primero: {primero}")
+  print(f"ultimo: {ultimo}")
+  print(f"tercero: {tercero}")
+  print(f"sublista: {sublista}")
+  print(f"ultimos_tres: {ultimos_tres}")
+
+solution_code: |
+  datos = ["A", "B", "C", "D", "E", "F", "G"]
+  
+  # Obtén los elementos
+  primero = datos[0]
+  ultimo = datos[-1]
+  tercero = datos[2]
+  sublista = datos[2:5]
+  ultimos_tres = datos[-3:]
+  
+  # Verificación
+  print(f"primero: {primero}")
+  print(f"ultimo: {ultimo}")
+  print(f"tercero: {tercero}")
+  print(f"sublista: {sublista}")
+  print(f"ultimos_tres: {ultimos_tres}")
+
+test_cases:
+  - id: test-primero
+    name: "Primer elemento"
+    test_code: |
+      assert primero == "A", f"❌ primero debería ser 'A', obtuviste '{primero}'"
+      print("✅ primero = 'A'")
+    points: 2
+
+  - id: test-ultimo
+    name: "Último elemento"
+    test_code: |
+      assert ultimo == "G", f"❌ ultimo debería ser 'G', obtuviste '{ultimo}'"
+      print("✅ ultimo = 'G'")
+    points: 2
+
+  - id: test-tercero
+    name: "Tercer elemento"
+    test_code: |
+      assert tercero == "C", f"❌ tercero debería ser 'C', obtuviste '{tercero}'. Recuerda que los índices empiezan en 0."
+      print("✅ tercero = 'C'")
+    points: 2
+
+  - id: test-sublista
+    name: "Sublista [2:5]"
+    test_code: |
+      assert sublista == ["C", "D", "E"], f"❌ sublista debería ser ['C', 'D', 'E'], obtuviste {sublista}"
+      print("✅ sublista = ['C', 'D', 'E']")
+    points: 2
+
+  - id: test-ultimos
+    name: "Últimos tres"
+    test_code: |
+      assert ultimos_tres == ["E", "F", "G"], f"❌ ultimos_tres debería ser ['E', 'F', 'G'], obtuviste {ultimos_tres}"
+      print("✅ ultimos_tres = ['E', 'F', 'G']")
+    points: 2
+
+hints:
+  - "El primer elemento está en índice 0: lista[0]"
+  - "El último elemento se obtiene con índice -1: lista[-1]"
+  - "Para slicing usa lista[inicio:fin] donde fin no se incluye. Para los últimos N elementos: lista[-N:]"
+
+tags:
+  - listas
+  - indexing
+  - slicing
+
+concepts:
+  - listas_y_diccionarios

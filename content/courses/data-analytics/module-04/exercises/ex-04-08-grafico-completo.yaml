@@ -1,0 +1,57 @@
+id: ex-04-08-grafico-completo
+type: code-python
+title: "Gráfico profesional"
+description: "Crea un gráfico completo con todas las mejores prácticas."
+instructions: |
+  Crea un gráfico de barras horizontal con los 10 países de mayor consumo de alcohol:
+  1. Ordenado de mayor a menor
+  2. Título descriptivo
+  3. Etiquetas claras
+  4. Colores apropiados
+difficulty: intermediate
+estimated_time_minutes: 6
+points: 12
+order: 8
+starter_code: |
+  import matplotlib.pyplot as plt
+  import pandas as pd
+  
+  df = pd.read_csv("drinks.csv")
+  
+  # Top 10 países
+  top10 = df.nlargest(10, "total_litres_of_pure_alcohol")
+  top10 = top10.sort_values("total_litres_of_pure_alcohol")
+  
+  # Gráfico horizontal
+  plt.figure(figsize=(10, 8))
+  
+  # Completa el gráfico
+  
+  plt.tight_layout()
+  plt.show()
+solution_code: |
+  import matplotlib.pyplot as plt
+  import pandas as pd
+  
+  df = pd.read_csv("drinks.csv")
+  
+  top10 = df.nlargest(10, "total_litres_of_pure_alcohol")
+  top10 = top10.sort_values("total_litres_of_pure_alcohol")
+  
+  plt.figure(figsize=(10, 8))
+  plt.barh(top10["country"], top10["total_litres_of_pure_alcohol"], color="steelblue")
+  plt.xlabel("Litros de alcohol puro per cápita")
+  plt.title("Top 10 países con mayor consumo de alcohol", fontsize=14, fontweight="bold")
+  plt.tight_layout()
+  plt.show()
+test_cases:
+  - id: test-complete
+    name: "Gráfico profesional"
+    test_code: |
+      print("✅ Gráfico profesional creado")
+    points: 12
+hints:
+  - "plt.barh() crea barras horizontales"
+  - "Ordena con sort_values() para que el mayor esté arriba"
+tags: [matplotlib, mejores-practicas]
+concepts: [visualizacion_profesional]

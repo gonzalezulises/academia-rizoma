@@ -1,0 +1,78 @@
+id: ex-02-09-read-excel
+type: code-python
+title: "Leer archivo Excel"
+description: "Carga datos desde un archivo Excel."
+
+instructions: |
+  Pandas puede leer Excel igual que CSV. La sintaxis es:
+  
+  ```python
+  df = pd.read_excel("archivo.xlsx")
+  df = pd.read_excel("archivo.xlsx", sheet_name="NombreHoja")
+  ```
+  
+  Para este ejercicio, simularemos la lectura (ya que el entorno no tiene Excel).
+  
+  1. Completa el código para que `leer_excel` sea una función que lea un archivo Excel
+  2. La función debe aceptar `archivo` y opcionalmente `hoja`
+
+difficulty: beginner
+estimated_time_minutes: 3
+points: 10
+order: 9
+
+starter_code: |
+  import pandas as pd
+
+  def leer_excel(archivo, hoja=None):
+      """Lee un archivo Excel y devuelve un DataFrame."""
+      if hoja:
+          df = pd.read_excel(archivo, sheet_name=hoja)
+      else:
+          df = 
+      return df
+
+  # Ejemplo de uso (no se ejecuta, solo muestra la sintaxis)
+  print("Función leer_excel definida correctamente")
+  print("Uso: df = leer_excel('datos.xlsx')")
+  print("Uso con hoja: df = leer_excel('datos.xlsx', hoja='Ventas')")
+
+solution_code: |
+  import pandas as pd
+
+  def leer_excel(archivo, hoja=None):
+      """Lee un archivo Excel y devuelve un DataFrame."""
+      if hoja:
+          df = pd.read_excel(archivo, sheet_name=hoja)
+      else:
+          df = pd.read_excel(archivo)
+      return df
+
+  # Ejemplo de uso (no se ejecuta, solo muestra la sintaxis)
+  print("Función leer_excel definida correctamente")
+  print("Uso: df = leer_excel('datos.xlsx')")
+  print("Uso con hoja: df = leer_excel('datos.xlsx', hoja='Ventas')")
+
+test_cases:
+  - id: test-funcion
+    name: "Función definida"
+    test_code: |
+      assert callable(leer_excel), "❌ leer_excel debe ser una función"
+      import inspect
+      params = inspect.signature(leer_excel).parameters
+      assert 'archivo' in params, "❌ La función debe tener parámetro 'archivo'"
+      print("✅ Función leer_excel definida correctamente")
+    points: 10
+
+hints:
+  - "pd.read_excel() funciona igual que pd.read_csv()"
+  - "Sin especificar hoja, lee la primera hoja"
+  - "El else debería ser: pd.read_excel(archivo)"
+
+tags:
+  - pandas
+  - read_excel
+  - excel
+
+concepts:
+  - read_csv_read_excel

@@ -1,0 +1,80 @@
+id: ex-02-03-explorar-df
+type: code-python
+title: "Explorar un DataFrame"
+description: "Usa info() y describe() para explorar datos."
+
+instructions: |
+  Con el DataFrame `df` ya cargado:
+  
+  1. Usa `df.info()` para ver información estructural
+  2. Usa `df.describe()` para ver estadísticas
+  3. Guarda el número de filas en `num_filas`
+  4. Guarda el número de columnas en `num_columnas`
+
+difficulty: beginner
+estimated_time_minutes: 4
+points: 10
+order: 3
+
+starter_code: |
+  import pandas as pd
+  df = pd.read_csv("drinks.csv")
+
+  # Muestra información estructural
+  print(df.info())
+  print()
+
+  # Muestra estadísticas
+  print(df.describe())
+
+  # Guarda dimensiones
+  num_filas = 
+  num_columnas = 
+
+  print(f"\nFilas: {num_filas}, Columnas: {num_columnas}")
+
+solution_code: |
+  import pandas as pd
+  df = pd.read_csv("drinks.csv")
+
+  # Muestra información estructural
+  print(df.info())
+  print()
+
+  # Muestra estadísticas
+  print(df.describe())
+
+  # Guarda dimensiones
+  num_filas = df.shape[0]
+  num_columnas = df.shape[1]
+
+  print(f"\nFilas: {num_filas}, Columnas: {num_columnas}")
+
+test_cases:
+  - id: test-filas
+    name: "Número de filas"
+    test_code: |
+      assert num_filas == len(df), f"❌ num_filas debería ser {len(df)}"
+      print(f"✅ num_filas = {num_filas}")
+    points: 5
+
+  - id: test-columnas
+    name: "Número de columnas"
+    test_code: |
+      assert num_columnas == len(df.columns), f"❌ num_columnas debería ser {len(df.columns)}"
+      print(f"✅ num_columnas = {num_columnas}")
+    points: 5
+
+hints:
+  - "df.shape devuelve (filas, columnas)"
+  - "Para filas: df.shape[0] o len(df)"
+  - "Para columnas: df.shape[1] o len(df.columns)"
+
+tags:
+  - pandas
+  - info
+  - describe
+  - shape
+
+concepts:
+  - dataframe_basico

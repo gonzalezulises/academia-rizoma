@@ -1,0 +1,59 @@
+id: ex-01-01-hello-world
+type: code-python
+title: "Tu primer programa"
+description: "Aprende a usar print() para mostrar mensajes en pantalla."
+
+instructions: |
+  Usa la función `print()` para mostrar el mensaje exacto:
+  
+  ```
+  Hola, Data Analytics
+  ```
+  
+  Recuerda que el texto debe ir entre comillas.
+
+difficulty: beginner
+estimated_time_minutes: 2
+points: 10
+order: 1
+
+starter_code: |
+  # Escribe tu código aquí
+
+
+solution_code: |
+  print("Hola, Data Analytics")
+
+test_cases:
+  - id: test-output
+    name: "Verifica el mensaje"
+    test_code: |
+      import io
+      import sys
+      
+      # Capturar salida
+      captured = io.StringIO()
+      sys.stdout = captured
+      
+      # Ejecutar código del estudiante
+      exec(user_code)
+      
+      sys.stdout = sys.__stdout__
+      output = captured.getvalue().strip()
+      
+      assert output == "Hola, Data Analytics", f"❌ Se esperaba 'Hola, Data Analytics', pero obtuviste '{output}'"
+      print("✅ ¡Correcto! Tu primer programa funciona.")
+    points: 10
+
+hints:
+  - "La función para mostrar texto es print()"
+  - "El texto va entre comillas: print(\"texto\")"
+  - "La solución es: print(\"Hola, Data Analytics\")"
+
+tags:
+  - print
+  - basico
+  - output
+
+concepts:
+  - print

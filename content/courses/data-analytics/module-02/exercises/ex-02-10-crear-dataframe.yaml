@@ -1,0 +1,99 @@
+id: ex-02-10-crear-dataframe
+type: code-python
+title: "Crear DataFrame desde diccionario"
+description: "Crea un DataFrame a partir de datos en Python."
+
+instructions: |
+  Crea un DataFrame llamado `ventas` con la siguiente información:
+  
+  | producto | precio | cantidad |
+  |----------|--------|----------|
+  | Laptop   | 999    | 5        |
+  | Mouse    | 25     | 50       |
+  | Teclado  | 75     | 30       |
+  | Monitor  | 300    | 15       |
+  
+  1. Crea un diccionario con las columnas como claves
+  2. Convierte el diccionario a DataFrame con `pd.DataFrame()`
+  3. Calcula el total de ventas por producto (precio * cantidad) en una nueva columna `total`
+
+difficulty: intermediate
+estimated_time_minutes: 5
+points: 12
+order: 10
+
+starter_code: |
+  import pandas as pd
+
+  # Crea el diccionario con los datos
+  datos = {
+      "producto": ,
+      "precio": ,
+      "cantidad": 
+  }
+
+  # Convierte a DataFrame
+  ventas = 
+
+  # Agrega columna 'total' (precio * cantidad)
+  ventas["total"] = 
+
+  print(ventas)
+  print(f"\nVentas totales: ${ventas['total'].sum()}")
+
+solution_code: |
+  import pandas as pd
+
+  # Crea el diccionario con los datos
+  datos = {
+      "producto": ["Laptop", "Mouse", "Teclado", "Monitor"],
+      "precio": [999, 25, 75, 300],
+      "cantidad": [5, 50, 30, 15]
+  }
+
+  # Convierte a DataFrame
+  ventas = pd.DataFrame(datos)
+
+  # Agrega columna 'total' (precio * cantidad)
+  ventas["total"] = ventas["precio"] * ventas["cantidad"]
+
+  print(ventas)
+  print(f"\nVentas totales: ${ventas['total'].sum()}")
+
+test_cases:
+  - id: test-estructura
+    name: "DataFrame creado"
+    test_code: |
+      assert isinstance(ventas, pd.DataFrame), "❌ ventas debe ser un DataFrame"
+      assert len(ventas) == 4, f"❌ Debe tener 4 filas, tiene {len(ventas)}"
+      print("✅ DataFrame con 4 productos creado")
+    points: 4
+
+  - id: test-columnas
+    name: "Columnas correctas"
+    test_code: |
+      expected = ["producto", "precio", "cantidad", "total"]
+      assert all(col in ventas.columns for col in expected), f"❌ Faltan columnas. Esperadas: {expected}"
+      print("✅ Todas las columnas presentes")
+    points: 4
+
+  - id: test-total
+    name: "Cálculo de total"
+    test_code: |
+      laptop_total = ventas[ventas["producto"] == "Laptop"]["total"].values[0]
+      assert laptop_total == 999 * 5, f"❌ Total de Laptop debería ser {999*5}, es {laptop_total}"
+      print("✅ Columna total calculada correctamente")
+    points: 4
+
+hints:
+  - "Diccionario: {\"columna\": [val1, val2, val3, val4]}"
+  - "Para crear DataFrame: pd.DataFrame(diccionario)"
+  - "Nueva columna: df[\"nueva\"] = df[\"col1\"] * df[\"col2\"]"
+
+tags:
+  - pandas
+  - crear-dataframe
+  - diccionario
+
+concepts:
+  - dataframe_basico

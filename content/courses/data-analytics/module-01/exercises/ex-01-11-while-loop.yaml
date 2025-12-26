@@ -1,0 +1,86 @@
+id: ex-01-11-while-loop
+type: code-python
+title: "Bucles while"
+description: "Aprende a usar while para repetir hasta que una condición cambie."
+
+instructions: |
+  Simula el crecimiento de una inversión:
+  
+  - Capital inicial: $1000
+  - Tasa de interés anual: 5% (0.05)
+  - Meta: alcanzar $1500
+  
+  Usa un bucle `while` para calcular:
+  1. `capital` → el capital final cuando supere $1500
+  2. `anos` → cuántos años tomó alcanzar la meta
+  
+  En cada iteración:
+  - Multiplica el capital por (1 + tasa)
+  - Incrementa el contador de años
+
+difficulty: intermediate
+estimated_time_minutes: 6
+points: 10
+order: 11
+
+starter_code: |
+  # Valores iniciales
+  capital = 1000
+  tasa = 0.05
+  meta = 1500
+  anos = 0
+  
+  # Repite mientras el capital sea menor a la meta
+  while :
+      capital = 
+      anos = 
+  
+  print(f"Capital final: ${capital:.2f}")
+  print(f"Años necesarios: {anos}")
+
+solution_code: |
+  # Valores iniciales
+  capital = 1000
+  tasa = 0.05
+  meta = 1500
+  anos = 0
+  
+  # Repite mientras el capital sea menor a la meta
+  while capital < meta:
+      capital = capital * (1 + tasa)
+      anos = anos + 1
+  
+  print(f"Capital final: ${capital:.2f}")
+  print(f"Años necesarios: {anos}")
+
+test_cases:
+  - id: test-capital
+    name: "Capital supera meta"
+    test_code: |
+      assert 'capital' in dir(), "❌ Variable 'capital' no definida"
+      assert capital >= 1500, f"❌ capital debería ser >= 1500, obtuviste {capital:.2f}"
+      assert capital < 1600, f"❌ capital parece demasiado alto ({capital:.2f}). ¿El while terminó correctamente?"
+      print(f"✅ capital = ${capital:.2f} (supera la meta)")
+    points: 5
+
+  - id: test-anos
+    name: "Años correctos"
+    test_code: |
+      assert 'anos' in dir(), "❌ Variable 'anos' no definida"
+      # 1000 * 1.05^9 = 1551.33 (9 años para superar 1500)
+      assert anos == 9, f"❌ anos debería ser 9, obtuviste {anos}"
+      print(f"✅ anos = {anos}")
+    points: 5
+
+hints:
+  - "La condición del while es: while capital < meta:"
+  - "Para aplicar interés: capital = capital * (1 + tasa)"
+  - "No olvides incrementar años: anos = anos + 1 (o anos += 1)"
+
+tags:
+  - while-loop
+  - iteracion
+  - simulacion
+
+concepts:
+  - bucles_for_while

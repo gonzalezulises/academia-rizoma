@@ -1,0 +1,41 @@
+id: ex-04-06-plotly-basico
+type: code-python
+title: "Gráfico interactivo con Plotly"
+description: "Crea tu primer gráfico con Plotly Express."
+instructions: |
+  Usa Plotly Express para crear un scatter plot de beer vs wine servings.
+difficulty: beginner
+estimated_time_minutes: 4
+points: 10
+order: 6
+starter_code: |
+  import plotly.express as px
+  import pandas as pd
+  
+  df = pd.read_csv("drinks.csv")
+  
+  # Scatter con Plotly
+  fig = 
+  
+  fig.show()
+solution_code: |
+  import plotly.express as px
+  import pandas as pd
+  
+  df = pd.read_csv("drinks.csv")
+  
+  fig = px.scatter(df, x="beer_servings", y="wine_servings", 
+                   hover_name="country", title="Cerveza vs Vino")
+  fig.show()
+test_cases:
+  - id: test-plotly
+    name: "Plotly creado"
+    test_code: |
+      assert fig is not None, "❌ fig no definido"
+      print("✅ Gráfico Plotly creado")
+    points: 10
+hints:
+  - "px.scatter(df, x='col1', y='col2')"
+  - "hover_name muestra info al pasar el mouse"
+tags: [plotly, scatter, interactivo]
+concepts: [plotly_basico]

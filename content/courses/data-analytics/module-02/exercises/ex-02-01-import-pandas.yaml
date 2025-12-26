@@ -1,0 +1,49 @@
+id: ex-02-01-import-pandas
+type: code-python
+title: "Importar Pandas"
+description: "Aprende la convención estándar para importar Pandas."
+
+instructions: |
+  Importa la biblioteca Pandas usando el alias estándar `pd`.
+  
+  Luego verifica que funciona imprimiendo la versión con `pd.__version__`.
+
+difficulty: beginner
+estimated_time_minutes: 2
+points: 10
+order: 1
+
+starter_code: |
+  # Importa pandas con el alias pd
+
+
+  # Imprime la versión
+  print(pd.__version__)
+
+solution_code: |
+  # Importa pandas con el alias pd
+  import pandas as pd
+
+  # Imprime la versión
+  print(pd.__version__)
+
+test_cases:
+  - id: test-import
+    name: "Pandas importado correctamente"
+    test_code: |
+      assert 'pd' in dir(), "❌ 'pd' no está definido. ¿Usaste 'import pandas as pd'?"
+      assert pd.__name__ == 'pandas', "❌ 'pd' no es pandas"
+      print(f"✅ Pandas {pd.__version__} importado correctamente")
+    points: 10
+
+hints:
+  - "La sintaxis es: import biblioteca as alias"
+  - "El alias estándar para pandas es 'pd'"
+  - "import pandas as pd"
+
+tags:
+  - pandas
+  - import
+
+concepts:
+  - import_pandas_as_pd

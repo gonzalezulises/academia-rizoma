@@ -1,0 +1,89 @@
+id: ex-02-04-head-tail
+type: code-python
+title: "Ver primeras y últimas filas"
+description: "Usa head() y tail() para previsualizar datos."
+
+instructions: |
+  Con el DataFrame `df`:
+  
+  1. Guarda las primeras 3 filas en `primeras`
+  2. Guarda las últimas 3 filas en `ultimas`
+  3. Guarda la primera fila como Series en `primera_fila` (usa iloc)
+
+difficulty: beginner
+estimated_time_minutes: 3
+points: 10
+order: 4
+
+starter_code: |
+  import pandas as pd
+  df = pd.read_csv("drinks.csv")
+
+  # Primeras 3 filas
+  primeras = 
+
+  # Últimas 3 filas
+  ultimas = 
+
+  # Primera fila (como Series)
+  primera_fila = 
+
+  print("Primeras 3:")
+  print(primeras)
+  print("\nÚltimas 3:")
+  print(ultimas)
+
+solution_code: |
+  import pandas as pd
+  df = pd.read_csv("drinks.csv")
+
+  # Primeras 3 filas
+  primeras = df.head(3)
+
+  # Últimas 3 filas
+  ultimas = df.tail(3)
+
+  # Primera fila (como Series)
+  primera_fila = df.iloc[0]
+
+  print("Primeras 3:")
+  print(primeras)
+  print("\nÚltimas 3:")
+  print(ultimas)
+
+test_cases:
+  - id: test-primeras
+    name: "Primeras 3 filas"
+    test_code: |
+      assert len(primeras) == 3, f"❌ primeras debería tener 3 filas, tiene {len(primeras)}"
+      print("✅ primeras tiene 3 filas")
+    points: 4
+
+  - id: test-ultimas
+    name: "Últimas 3 filas"
+    test_code: |
+      assert len(ultimas) == 3, f"❌ ultimas debería tener 3 filas"
+      print("✅ ultimas tiene 3 filas")
+    points: 3
+
+  - id: test-primera-fila
+    name: "Primera fila como Series"
+    test_code: |
+      import pandas as pd
+      assert isinstance(primera_fila, pd.Series), "❌ primera_fila debería ser una Series"
+      print("✅ primera_fila es una Series")
+    points: 3
+
+hints:
+  - "head(n) devuelve las primeras n filas"
+  - "tail(n) devuelve las últimas n filas"
+  - "iloc[0] devuelve la primera fila como Series"
+
+tags:
+  - pandas
+  - head
+  - tail
+  - iloc
+
+concepts:
+  - head_tail_shape

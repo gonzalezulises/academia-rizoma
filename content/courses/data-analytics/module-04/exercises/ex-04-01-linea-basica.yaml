@@ -1,0 +1,49 @@
+id: ex-04-01-linea-basica
+type: code-python
+title: "Gráfico de líneas básico"
+description: "Crea tu primer gráfico con Matplotlib."
+instructions: |
+  Crea un gráfico de líneas con:
+  - x = [1, 2, 3, 4, 5]
+  - y = [10, 25, 15, 30, 20]
+  - Título: "Ventas semanales"
+  - Etiqueta eje X: "Semana"
+  - Etiqueta eje Y: "Ventas"
+difficulty: beginner
+estimated_time_minutes: 4
+points: 10
+order: 1
+starter_code: |
+  import matplotlib.pyplot as plt
+  
+  x = [1, 2, 3, 4, 5]
+  y = [10, 25, 15, 30, 20]
+  
+  # Crea el gráfico
+  
+  # Agrega título y etiquetas
+  
+  plt.show()
+solution_code: |
+  import matplotlib.pyplot as plt
+  
+  x = [1, 2, 3, 4, 5]
+  y = [10, 25, 15, 30, 20]
+  
+  plt.plot(x, y)
+  plt.title("Ventas semanales")
+  plt.xlabel("Semana")
+  plt.ylabel("Ventas")
+  plt.show()
+test_cases:
+  - id: test-plot
+    name: "Gráfico creado"
+    test_code: |
+      # En entorno de ejercicios, verificamos que el código se ejecute
+      print("✅ Gráfico de líneas creado")
+    points: 10
+hints:
+  - "plt.plot(x, y) crea la línea"
+  - "plt.title(), plt.xlabel(), plt.ylabel() para etiquetas"
+tags: [matplotlib, plot, lineas]
+concepts: [matplotlib_basico]

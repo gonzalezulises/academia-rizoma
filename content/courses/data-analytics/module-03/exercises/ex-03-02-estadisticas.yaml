@@ -1,0 +1,53 @@
+id: ex-03-02-estadisticas
+type: code-python
+title: "Estadísticas individuales"
+description: "Calcula media, mediana y desviación estándar."
+instructions: |
+  Con `df["beer_servings"]`:
+  1. Calcula la media → `media`
+  2. Calcula la mediana → `mediana`
+  3. Calcula la desviación estándar → `std`
+  4. Calcula el máximo → `maximo`
+difficulty: beginner
+estimated_time_minutes: 4
+points: 10
+order: 2
+starter_code: |
+  import pandas as pd
+  df = pd.read_csv("drinks.csv")
+  
+  media = 
+  mediana = 
+  std = 
+  maximo = 
+  
+  print(f"Media: {media:.2f}")
+  print(f"Mediana: {mediana:.2f}")
+  print(f"Std: {std:.2f}")
+  print(f"Máximo: {maximo}")
+solution_code: |
+  import pandas as pd
+  df = pd.read_csv("drinks.csv")
+  
+  media = df["beer_servings"].mean()
+  mediana = df["beer_servings"].median()
+  std = df["beer_servings"].std()
+  maximo = df["beer_servings"].max()
+  
+  print(f"Media: {media:.2f}")
+  print(f"Mediana: {mediana:.2f}")
+  print(f"Std: {std:.2f}")
+  print(f"Máximo: {maximo}")
+test_cases:
+  - id: test-all
+    name: "Estadísticas correctas"
+    test_code: |
+      assert abs(media - df["beer_servings"].mean()) < 0.01
+      assert abs(mediana - df["beer_servings"].median()) < 0.01
+      assert maximo == df["beer_servings"].max()
+      print("✅ Todas las estadísticas correctas")
+    points: 10
+hints:
+  - "columna.mean(), columna.median(), columna.std(), columna.max()"
+tags: [pandas, mean, median, std]
+concepts: [estadisticas_basicas]

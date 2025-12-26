@@ -1,0 +1,115 @@
+id: ex-01-04-operaciones
+type: code-python
+title: "Operaciones aritméticas"
+description: "Practica las operaciones matemáticas básicas en Python."
+
+instructions: |
+  Calcula las siguientes operaciones y guarda cada resultado en la variable indicada:
+  
+  1. `suma` → 15 + 27
+  2. `resta` → 100 - 37
+  3. `producto` → 8 * 7
+  4. `division` → 45 / 9
+  5. `potencia` → 2 elevado a la 10 (usa `**`)
+  6. `resto` → el resto de dividir 17 entre 5 (usa `%`)
+
+difficulty: beginner
+estimated_time_minutes: 4
+points: 12
+order: 4
+
+starter_code: |
+  # Realiza las operaciones
+  suma = 
+  resta = 
+  producto = 
+  division = 
+  potencia = 
+  resto = 
+  
+  # Verificación
+  print(f"suma = {suma}")
+  print(f"resta = {resta}")
+  print(f"producto = {producto}")
+  print(f"division = {division}")
+  print(f"potencia = {potencia}")
+  print(f"resto = {resto}")
+
+solution_code: |
+  # Realiza las operaciones
+  suma = 15 + 27
+  resta = 100 - 37
+  producto = 8 * 7
+  division = 45 / 9
+  potencia = 2 ** 10
+  resto = 17 % 5
+  
+  # Verificación
+  print(f"suma = {suma}")
+  print(f"resta = {resta}")
+  print(f"producto = {producto}")
+  print(f"division = {division}")
+  print(f"potencia = {potencia}")
+  print(f"resto = {resto}")
+
+test_cases:
+  - id: test-suma
+    name: "Suma"
+    test_code: |
+      assert 'suma' in dir(), "❌ Variable 'suma' no definida"
+      assert suma == 42, f"❌ suma debería ser 42, obtuviste {suma}"
+      print("✅ suma = 42")
+    points: 2
+
+  - id: test-resta
+    name: "Resta"
+    test_code: |
+      assert 'resta' in dir(), "❌ Variable 'resta' no definida"
+      assert resta == 63, f"❌ resta debería ser 63, obtuviste {resta}"
+      print("✅ resta = 63")
+    points: 2
+
+  - id: test-producto
+    name: "Multiplicación"
+    test_code: |
+      assert 'producto' in dir(), "❌ Variable 'producto' no definida"
+      assert producto == 56, f"❌ producto debería ser 56, obtuviste {producto}"
+      print("✅ producto = 56")
+    points: 2
+
+  - id: test-division
+    name: "División"
+    test_code: |
+      assert 'division' in dir(), "❌ Variable 'division' no definida"
+      assert division == 5.0, f"❌ division debería ser 5.0, obtuviste {division}"
+      print("✅ division = 5.0")
+    points: 2
+
+  - id: test-potencia
+    name: "Potencia"
+    test_code: |
+      assert 'potencia' in dir(), "❌ Variable 'potencia' no definida"
+      assert potencia == 1024, f"❌ potencia debería ser 1024, obtuviste {potencia}"
+      print("✅ potencia = 1024")
+    points: 2
+
+  - id: test-resto
+    name: "Módulo (resto)"
+    test_code: |
+      assert 'resto' in dir(), "❌ Variable 'resto' no definida"
+      assert resto == 2, f"❌ resto debería ser 2, obtuviste {resto}"
+      print("✅ resto = 2")
+    points: 2
+
+hints:
+  - "Operadores: + (suma), - (resta), * (multiplicación), / (división)"
+  - "Para potencias usa **: 2 ** 10 significa 2 elevado a 10"
+  - "El operador % devuelve el resto: 17 % 5 = 2 porque 17 = 5*3 + 2"
+
+tags:
+  - operadores
+  - aritmetica
+  - matematicas
+
+concepts:
+  - operadores_aritmeticos

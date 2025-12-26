@@ -1,0 +1,90 @@
+id: ex-01-10-for-loop
+type: code-python
+title: "Bucles for"
+description: "Aprende a iterar sobre listas y acumular valores."
+
+instructions: |
+  Dada la siguiente lista de ventas diarias:
+  
+  ```python
+  ventas = [150, 200, 180, 220, 190, 210, 175]
+  ```
+  
+  Usa un bucle `for` para:
+  
+  1. Calcular la suma total de ventas y guardarla en `total`
+  2. Contar cuántos días tuvieron ventas mayores a 190 y guardarlo en `dias_buenos`
+  
+  No uses las funciones `sum()` ni `len()` con filtros—practica el patrón del acumulador.
+
+difficulty: intermediate
+estimated_time_minutes: 6
+points: 12
+order: 10
+
+starter_code: |
+  ventas = [150, 200, 180, 220, 190, 210, 175]
+  
+  # Inicializa los acumuladores
+  total = 0
+  dias_buenos = 0
+  
+  # Itera sobre ventas
+  for venta in ventas:
+      # Suma al total
+      
+      # Cuenta si es mayor a 190
+      
+  
+  print(f"Total de ventas: ${total}")
+  print(f"Días con ventas > $190: {dias_buenos}")
+
+solution_code: |
+  ventas = [150, 200, 180, 220, 190, 210, 175]
+  
+  # Inicializa los acumuladores
+  total = 0
+  dias_buenos = 0
+  
+  # Itera sobre ventas
+  for venta in ventas:
+      # Suma al total
+      total = total + venta
+      # Cuenta si es mayor a 190
+      if venta > 190:
+          dias_buenos = dias_buenos + 1
+  
+  print(f"Total de ventas: ${total}")
+  print(f"Días con ventas > $190: {dias_buenos}")
+
+test_cases:
+  - id: test-total
+    name: "Suma total"
+    test_code: |
+      assert 'total' in dir(), "❌ Variable 'total' no definida"
+      expected = 150 + 200 + 180 + 220 + 190 + 210 + 175
+      assert total == expected, f"❌ total debería ser {expected}, obtuviste {total}"
+      print(f"✅ total = {total}")
+    points: 6
+
+  - id: test-dias
+    name: "Días buenos contados"
+    test_code: |
+      assert 'dias_buenos' in dir(), "❌ Variable 'dias_buenos' no definida"
+      # Mayor a 190: 200, 220, 210 = 3 días
+      assert dias_buenos == 3, f"❌ dias_buenos debería ser 3 (200, 220, 210 son > 190), obtuviste {dias_buenos}"
+      print(f"✅ dias_buenos = {dias_buenos}")
+    points: 6
+
+hints:
+  - "Para sumar: total = total + venta (o total += venta)"
+  - "Para contar con condición: if venta > 190: dias_buenos += 1"
+  - "Recuerda que el if va DENTRO del for, con indentación adicional"
+
+tags:
+  - for-loop
+  - iteracion
+  - acumulador
+
+concepts:
+  - bucles_for_while

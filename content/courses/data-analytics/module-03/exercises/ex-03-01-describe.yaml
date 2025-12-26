@@ -1,0 +1,50 @@
+id: ex-03-01-describe
+type: code-python
+title: "Estadísticas con describe()"
+description: "Usa describe() para obtener un resumen estadístico."
+instructions: |
+  Con el DataFrame `df` de drinks.csv:
+  1. Usa `describe()` y guarda el resultado en `stats`
+  2. Extrae la media de `beer_servings` y guárdala en `media_cerveza`
+difficulty: beginner
+estimated_time_minutes: 4
+points: 10
+order: 1
+starter_code: |
+  import pandas as pd
+  df = pd.read_csv("drinks.csv")
+  
+  stats = 
+  media_cerveza = 
+  
+  print(stats)
+  print(f"\nMedia de cerveza: {media_cerveza:.2f}")
+solution_code: |
+  import pandas as pd
+  df = pd.read_csv("drinks.csv")
+  
+  stats = df.describe()
+  media_cerveza = stats.loc["mean", "beer_servings"]
+  
+  print(stats)
+  print(f"\nMedia de cerveza: {media_cerveza:.2f}")
+test_cases:
+  - id: test-stats
+    name: "describe() ejecutado"
+    test_code: |
+      assert stats is not None, "❌ stats no definido"
+      assert "mean" in stats.index, "❌ stats debería tener 'mean'"
+      print("✅ describe() ejecutado correctamente")
+    points: 5
+  - id: test-media
+    name: "Media extraída"
+    test_code: |
+      expected = df["beer_servings"].mean()
+      assert abs(media_cerveza - expected) < 0.01, f"❌ Media incorrecta"
+      print(f"✅ media_cerveza = {media_cerveza:.2f}")
+    points: 5
+hints:
+  - "stats = df.describe()"
+  - "Para extraer un valor: stats.loc['mean', 'columna']"
+tags: [pandas, describe, estadisticas]
+concepts: [describe_estadisticas]

@@ -1,0 +1,56 @@
+# Módulo 2: Obtención de Datos con Pandas
+# Estrategia: Granular (10 ejercicios interactivos)
+
+id: module-02
+title: "Obtención de Datos con Pandas"
+description: |
+  Aprende a cargar, explorar y manipular datos con Pandas.
+  Trabajarás con archivos CSV, Excel y estructuras de DataFrames.
+order: 2
+is_locked: false
+
+lessons:
+  - id: lesson-02-01
+    file: lessons/01-intro-pandas.md
+    title: "Introducción a Pandas"
+    type: text
+    order: 1
+    duration_minutes: 20
+    exercises:
+      - ex-02-01-import-pandas
+      - ex-02-02-read-csv
+
+  - id: lesson-02-02
+    file: lessons/02-dataframes.md
+    title: "DataFrames y Series"
+    type: text
+    order: 2
+    duration_minutes: 25
+    exercises:
+      - ex-02-03-explorar-df
+      - ex-02-04-head-tail
+      - ex-02-05-shape-dtypes
+
+  - id: lesson-02-03
+    file: lessons/03-seleccion.md
+    title: "Selección de datos"
+    type: text
+    order: 3
+    duration_minutes: 25
+    exercises:
+      - ex-02-06-seleccion-columnas
+      - ex-02-07-iloc-loc
+      - ex-02-08-filtrado-basico
+
+  - id: lesson-02-04
+    file: lessons/04-fuentes-datos.md
+    title: "Otras fuentes de datos"
+    type: text
+    order: 4
+    duration_minutes: 20
+    exercises:
+      - ex-02-09-read-excel
+      - ex-02-10-crear-dataframe
+
+# Datasets requeridos: drinks.csv, movies.csv
+# Total ejercicios: 10

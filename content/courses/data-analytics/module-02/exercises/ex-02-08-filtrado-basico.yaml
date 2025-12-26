@@ -1,0 +1,86 @@
+id: ex-02-08-filtrado-basico
+type: code-python
+title: "Filtrar filas con condiciones"
+description: "Selecciona filas que cumplan condiciones específicas."
+
+instructions: |
+  Con el DataFrame `df` de drinks.csv:
+  
+  1. Filtra países con más de 200 `beer_servings`, guarda en `grandes_bebedores_cerveza`
+  2. Filtra países con `total_litres_of_pure_alcohol` mayor a 10, guarda en `alto_consumo`
+  3. Filtra países con más de 100 `beer_servings` Y más de 100 `wine_servings`, guarda en `ambos_altos`
+
+difficulty: intermediate
+estimated_time_minutes: 5
+points: 12
+order: 8
+
+starter_code: |
+  import pandas as pd
+  df = pd.read_csv("drinks.csv")
+
+  # Países con más de 200 beer_servings
+  grandes_bebedores_cerveza = 
+
+  # Países con alcohol total > 10
+  alto_consumo = 
+
+  # Países con cerveza > 100 Y vino > 100
+  ambos_altos = 
+
+  print(f"Grandes bebedores de cerveza: {len(grandes_bebedores_cerveza)} países")
+  print(f"Alto consumo de alcohol: {len(alto_consumo)} países")
+  print(f"Alto en ambos: {len(ambos_altos)} países")
+
+solution_code: |
+  import pandas as pd
+  df = pd.read_csv("drinks.csv")
+
+  # Países con más de 200 beer_servings
+  grandes_bebedores_cerveza = df[df["beer_servings"] > 200]
+
+  # Países con alcohol total > 10
+  alto_consumo = df[df["total_litres_of_pure_alcohol"] > 10]
+
+  # Países con cerveza > 100 Y vino > 100
+  ambos_altos = df[(df["beer_servings"] > 100) & (df["wine_servings"] > 100)]
+
+  print(f"Grandes bebedores de cerveza: {len(grandes_bebedores_cerveza)} países")
+  print(f"Alto consumo de alcohol: {len(alto_consumo)} países")
+  print(f"Alto en ambos: {len(ambos_altos)} países")
+
+test_cases:
+  - id: test-cerveza
+    name: "Filtro cerveza"
+    test_code: |
+      assert all(grandes_bebedores_cerveza["beer_servings"] > 200), "❌ Todos deberían tener beer_servings > 200"
+      print(f"✅ {len(grandes_bebedores_cerveza)} países con beer_servings > 200")
+    points: 4
+
+  - id: test-alcohol
+    name: "Filtro alcohol"
+    test_code: |
+      assert all(alto_consumo["total_litres_of_pure_alcohol"] > 10), "❌ Todos deberían tener alcohol > 10"
+      print(f"✅ {len(alto_consumo)} países con alcohol > 10")
+    points: 4
+
+  - id: test-ambos
+    name: "Filtro combinado"
+    test_code: |
+      assert all(ambos_altos["beer_servings"] > 100), "❌ Todos deberían tener beer > 100"
+      assert all(ambos_altos["wine_servings"] > 100), "❌ Todos deberían tener wine > 100"
+      print(f"✅ {len(ambos_altos)} países con ambos > 100")
+    points: 4
+
+hints:
+  - "Filtro simple: df[df[\"columna\"] > valor]"
+  - "Múltiples condiciones: usa & (and) o | (or)"
+  - "Cada condición debe ir entre paréntesis: (condicion1) & (condicion2)"
+
+tags:
+  - pandas
+  - filtrado
+  - condiciones
+
+concepts:
+  - filtrado_condicional

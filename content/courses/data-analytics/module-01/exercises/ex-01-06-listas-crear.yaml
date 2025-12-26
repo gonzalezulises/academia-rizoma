@@ -1,0 +1,103 @@
+id: ex-01-06-listas-crear
+type: code-python
+title: "Crear listas"
+description: "Aprende a crear listas y usar operaciones básicas."
+
+instructions: |
+  Crea las siguientes listas:
+  
+  1. `numeros` → una lista con los números del 1 al 5: [1, 2, 3, 4, 5]
+  2. `ciudades` → una lista con: "Lima", "Bogotá", "Santiago"
+  3. `vacia` → una lista vacía
+  
+  Luego:
+  4. Usa `append()` para agregar "Caracas" a la lista `ciudades`
+  5. Calcula la longitud de `numeros` y guárdala en `cantidad`
+
+difficulty: beginner
+estimated_time_minutes: 4
+points: 10
+order: 6
+
+starter_code: |
+  # Crea las listas
+  numeros = 
+  ciudades = 
+  vacia = 
+  
+  # Agrega "Caracas" a ciudades
+  
+  
+  # Calcula la longitud de numeros
+  cantidad = 
+  
+  # Verificación
+  print(f"numeros: {numeros}")
+  print(f"ciudades: {ciudades}")
+  print(f"vacia: {vacia}")
+  print(f"cantidad: {cantidad}")
+
+solution_code: |
+  # Crea las listas
+  numeros = [1, 2, 3, 4, 5]
+  ciudades = ["Lima", "Bogotá", "Santiago"]
+  vacia = []
+  
+  # Agrega "Caracas" a ciudades
+  ciudades.append("Caracas")
+  
+  # Calcula la longitud de numeros
+  cantidad = len(numeros)
+  
+  # Verificación
+  print(f"numeros: {numeros}")
+  print(f"ciudades: {ciudades}")
+  print(f"vacia: {vacia}")
+  print(f"cantidad: {cantidad}")
+
+test_cases:
+  - id: test-numeros
+    name: "Lista numeros"
+    test_code: |
+      assert 'numeros' in dir(), "❌ Variable 'numeros' no definida"
+      assert numeros == [1, 2, 3, 4, 5], f"❌ numeros debería ser [1, 2, 3, 4, 5], obtuviste {numeros}"
+      print("✅ numeros = [1, 2, 3, 4, 5]")
+    points: 2
+
+  - id: test-ciudades
+    name: "Lista ciudades con append"
+    test_code: |
+      assert 'ciudades' in dir(), "❌ Variable 'ciudades' no definida"
+      assert "Caracas" in ciudades, "❌ 'Caracas' no está en ciudades. ¿Usaste append()?"
+      assert len(ciudades) == 4, f"❌ ciudades debería tener 4 elementos, tiene {len(ciudades)}"
+      print("✅ ciudades tiene 4 ciudades incluyendo Caracas")
+    points: 3
+
+  - id: test-vacia
+    name: "Lista vacía"
+    test_code: |
+      assert 'vacia' in dir(), "❌ Variable 'vacia' no definida"
+      assert vacia == [], f"❌ vacia debería ser [], obtuviste {vacia}"
+      print("✅ vacia = []")
+    points: 2
+
+  - id: test-cantidad
+    name: "Longitud calculada"
+    test_code: |
+      assert 'cantidad' in dir(), "❌ Variable 'cantidad' no definida"
+      assert cantidad == 5, f"❌ cantidad debería ser 5, obtuviste {cantidad}"
+      print("✅ cantidad = 5")
+    points: 3
+
+hints:
+  - "Las listas se crean con corchetes: [elemento1, elemento2, ...]"
+  - "Para agregar usa: lista.append(elemento)"
+  - "Para obtener la longitud usa: len(lista)"
+
+tags:
+  - listas
+  - append
+  - len
+
+concepts:
+  - listas_y_diccionarios

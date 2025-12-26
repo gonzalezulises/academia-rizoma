@@ -1,0 +1,67 @@
+# Módulo 1: Introducción a Python
+# Estrategia: Granular (10-15 ejercicios interactivos)
+
+id: module-01
+title: "Introducción a Python"
+description: |
+  Aprende los fundamentos de Python desde cero. Este módulo cubre variables,
+  tipos de datos, operadores, estructuras de control y funciones básicas.
+order: 1
+is_locked: false
+
+# Lecciones del módulo
+lessons:
+  - id: lesson-01-01
+    file: lessons/01-primeros-pasos.md
+    title: "Primeros pasos con Python"
+    type: text
+    order: 1
+    duration_minutes: 15
+    exercises:
+      - ex-01-01-hello-world
+      - ex-01-02-variables
+
+  - id: lesson-01-02
+    file: lessons/02-tipos-datos.md
+    title: "Tipos de datos y operaciones"
+    type: text
+    order: 2
+    duration_minutes: 20
+    exercises:
+      - ex-01-03-tipos-datos
+      - ex-01-04-operaciones
+      - ex-01-05-strings
+
+  - id: lesson-01-03
+    file: lessons/03-colecciones.md
+    title: "Listas y diccionarios"
+    type: text
+    order: 3
+    duration_minutes: 25
+    exercises:
+      - ex-01-06-listas-crear
+      - ex-01-07-listas-acceso
+      - ex-01-08-diccionarios
+
+  - id: lesson-01-04
+    file: lessons/04-control-flujo.md
+    title: "Control de flujo"
+    type: text
+    order: 4
+    duration_minutes: 25
+    exercises:
+      - ex-01-09-if-else
+      - ex-01-10-for-loop
+      - ex-01-11-while-loop
+
+  - id: lesson-01-05
+    file: lessons/05-funciones.md
+    title: "Funciones básicas"
+    type: text
+    order: 5
+    duration_minutes: 20
+    exercises:
+      - ex-01-12-funciones
+
+# Total ejercicios planificados: 12
+# Estado: pendiente

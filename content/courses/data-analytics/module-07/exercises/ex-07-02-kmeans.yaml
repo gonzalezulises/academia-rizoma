@@ -1,0 +1,55 @@
+id: ex-07-02-kmeans
+type: code-python
+title: "K-Means básico"
+description: "Implementa clustering con K-Means."
+instructions: |
+  1. Crea un modelo KMeans con 3 clusters
+  2. Ajusta y obtén las etiquetas
+difficulty: intermediate
+estimated_time_minutes: 5
+points: 12
+order: 2
+starter_code: |
+  from sklearn.cluster import KMeans
+  from sklearn.preprocessing import StandardScaler
+  from sklearn.datasets import make_blobs
+  
+  # Datos sintéticos
+  X, _ = make_blobs(n_samples=100, centers=3, random_state=42)
+  
+  scaler = StandardScaler()
+  X_scaled = scaler.fit_transform(X)
+  
+  # K-Means
+  kmeans = 
+  clusters = 
+  
+  print(f"Clusters asignados: {clusters[:10]}")
+  print(f"Centroides:\n{kmeans.cluster_centers_}")
+solution_code: |
+  from sklearn.cluster import KMeans
+  from sklearn.preprocessing import StandardScaler
+  from sklearn.datasets import make_blobs
+  
+  X, _ = make_blobs(n_samples=100, centers=3, random_state=42)
+  
+  scaler = StandardScaler()
+  X_scaled = scaler.fit_transform(X)
+  
+  kmeans = KMeans(n_clusters=3, random_state=42)
+  clusters = kmeans.fit_predict(X_scaled)
+  
+  print(f"Clusters asignados: {clusters[:10]}")
+  print(f"Centroides:\n{kmeans.cluster_centers_}")
+test_cases:
+  - id: test-kmeans
+    name: "K-Means entrenado"
+    test_code: |
+      assert len(set(clusters)) == 3, "❌ Deben ser 3 clusters"
+      print("✅ K-Means con 3 clusters")
+    points: 12
+hints:
+  - "KMeans(n_clusters=3, random_state=42)"
+  - "kmeans.fit_predict(X_scaled)"
+tags: [sklearn, kmeans, clustering]
+concepts: [kmeans]

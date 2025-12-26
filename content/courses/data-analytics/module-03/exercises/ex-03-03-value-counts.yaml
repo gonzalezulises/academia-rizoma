@@ -1,0 +1,52 @@
+id: ex-03-03-value-counts
+type: code-python
+title: "Frecuencias con value_counts()"
+description: "Cuenta la frecuencia de valores en una columna."
+instructions: |
+  Crea un DataFrame de ejemplo y usa value_counts():
+  1. Crea `conteo` con value_counts() de la columna "continent" (simulada)
+  2. Obtén el continente más frecuente en `mas_comun`
+difficulty: beginner
+estimated_time_minutes: 4
+points: 10
+order: 3
+starter_code: |
+  import pandas as pd
+  df = pd.read_csv("drinks.csv")
+  
+  # Crear columna de continente simulada basada en patrones
+  df["continent"] = "Other"
+  df.loc[df["country"].isin(["USA", "Canada", "Mexico"]), "continent"] = "Americas"
+  df.loc[df["country"].isin(["France", "Germany", "Spain", "Italy"]), "continent"] = "Europe"
+  
+  conteo = 
+  mas_comun = 
+  
+  print(conteo)
+  print(f"\nMás común: {mas_comun}")
+solution_code: |
+  import pandas as pd
+  df = pd.read_csv("drinks.csv")
+  
+  df["continent"] = "Other"
+  df.loc[df["country"].isin(["USA", "Canada", "Mexico"]), "continent"] = "Americas"
+  df.loc[df["country"].isin(["France", "Germany", "Spain", "Italy"]), "continent"] = "Europe"
+  
+  conteo = df["continent"].value_counts()
+  mas_comun = conteo.index[0]
+  
+  print(conteo)
+  print(f"\nMás común: {mas_comun}")
+test_cases:
+  - id: test-conteo
+    name: "value_counts ejecutado"
+    test_code: |
+      assert len(conteo) > 0, "❌ conteo está vacío"
+      assert mas_comun == conteo.index[0], "❌ mas_comun incorrecto"
+      print("✅ value_counts correcto")
+    points: 10
+hints:
+  - "conteo = df['columna'].value_counts()"
+  - "El primer índice es el más frecuente: conteo.index[0]"
+tags: [pandas, value_counts, frecuencias]
+concepts: [value_counts]

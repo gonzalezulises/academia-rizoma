@@ -1,0 +1,93 @@
+id: ex-02-07-iloc-loc
+type: code-python
+title: "Selección con iloc y loc"
+description: "Selecciona filas y columnas por posición y etiqueta."
+
+instructions: |
+  Con el DataFrame `df`:
+  
+  1. Usa `iloc` para obtener las filas 10 a 14 (5 filas) y guárdalas en `filas_10_14`
+  2. Usa `iloc` para obtener la fila 0, columnas 0 y 1, guarda en `celda_esquina`
+  3. Usa `loc` para obtener las filas 5 a 10 (inclusive), solo columna 'country', guarda en `paises_5_10`
+
+difficulty: intermediate
+estimated_time_minutes: 5
+points: 12
+order: 7
+
+starter_code: |
+  import pandas as pd
+  df = pd.read_csv("drinks.csv")
+
+  # Filas 10 a 14 (por posición)
+  filas_10_14 = 
+
+  # Fila 0, columnas 0 y 1
+  celda_esquina = 
+
+  # Filas 5 a 10, columna 'country' (por etiqueta)
+  paises_5_10 = 
+
+  print("Filas 10-14:")
+  print(filas_10_14)
+  print("\nEsquina:")
+  print(celda_esquina)
+  print("\nPaíses 5-10:")
+  print(paises_5_10)
+
+solution_code: |
+  import pandas as pd
+  df = pd.read_csv("drinks.csv")
+
+  # Filas 10 a 14 (por posición)
+  filas_10_14 = df.iloc[10:15]
+
+  # Fila 0, columnas 0 y 1
+  celda_esquina = df.iloc[0, 0:2]
+
+  # Filas 5 a 10, columna 'country' (por etiqueta)
+  paises_5_10 = df.loc[5:10, "country"]
+
+  print("Filas 10-14:")
+  print(filas_10_14)
+  print("\nEsquina:")
+  print(celda_esquina)
+  print("\nPaíses 5-10:")
+  print(paises_5_10)
+
+test_cases:
+  - id: test-iloc-filas
+    name: "iloc filas 10-14"
+    test_code: |
+      assert len(filas_10_14) == 5, f"❌ Deberían ser 5 filas, obtuviste {len(filas_10_14)}"
+      assert filas_10_14.index[0] == 10, "❌ La primera fila debería ser índice 10"
+      print("✅ filas_10_14 correctas")
+    points: 4
+
+  - id: test-iloc-celda
+    name: "iloc esquina"
+    test_code: |
+      assert len(celda_esquina) == 2, "❌ celda_esquina debería tener 2 valores"
+      print("✅ celda_esquina correcta")
+    points: 4
+
+  - id: test-loc
+    name: "loc paises"
+    test_code: |
+      assert len(paises_5_10) == 6, f"❌ loc incluye ambos extremos, deberían ser 6 valores, obtuviste {len(paises_5_10)}"
+      print("✅ paises_5_10 correctos (loc incluye ambos extremos)")
+    points: 4
+
+hints:
+  - "iloc[10:15] obtiene filas 10, 11, 12, 13, 14 (excluye 15)"
+  - "iloc[fila, columnas] para seleccionar fila y columnas específicas"
+  - "loc[5:10] INCLUYE el 10 (diferente a iloc)"
+
+tags:
+  - pandas
+  - iloc
+  - loc
+  - seleccion
+
+concepts:
+  - seleccion_filas_iloc_loc

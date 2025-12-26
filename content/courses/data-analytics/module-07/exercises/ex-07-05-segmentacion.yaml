@@ -1,0 +1,61 @@
+id: ex-07-05-segmentacion
+type: code-python
+title: "Segmentación de clientes"
+description: "Pipeline completo de segmentación."
+instructions: |
+  Implementa segmentación de clientes con K-Means.
+difficulty: intermediate
+estimated_time_minutes: 8
+points: 15
+order: 5
+starter_code: |
+  import pandas as pd
+  from sklearn.cluster import KMeans
+  from sklearn.preprocessing import StandardScaler
+  
+  df = pd.read_csv("customers.csv")
+  
+  features = ["annual_income", "spending_score"]
+  X = df[features]
+  
+  # Escalar
+  scaler = StandardScaler()
+  X_scaled = 
+  
+  # Clustering
+  kmeans = 
+  df["cluster"] = 
+  
+  # Analizar
+  resumen = df.groupby("cluster")[features].mean()
+  print(resumen)
+solution_code: |
+  import pandas as pd
+  from sklearn.cluster import KMeans
+  from sklearn.preprocessing import StandardScaler
+  
+  df = pd.read_csv("customers.csv")
+  
+  features = ["annual_income", "spending_score"]
+  X = df[features]
+  
+  scaler = StandardScaler()
+  X_scaled = scaler.fit_transform(X)
+  
+  kmeans = KMeans(n_clusters=5, random_state=42)
+  df["cluster"] = kmeans.fit_predict(X_scaled)
+  
+  resumen = df.groupby("cluster")[features].mean()
+  print(resumen)
+test_cases:
+  - id: test-segmentacion
+    name: "Segmentación completa"
+    test_code: |
+      assert "cluster" in df.columns, "❌ Falta columna cluster"
+      assert len(df["cluster"].unique()) == 5, "❌ Deben ser 5 clusters"
+      print("✅ Segmentación de clientes completada")
+    points: 15
+hints:
+  - "Sigue: escalar, crear KMeans, fit_predict"
+tags: [sklearn, segmentacion, caso-practico]
+concepts: [segmentacion_clientes]

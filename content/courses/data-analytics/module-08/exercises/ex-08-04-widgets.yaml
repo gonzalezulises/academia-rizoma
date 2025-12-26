@@ -1,0 +1,55 @@
+id: ex-08-04-widgets
+type: code-python
+title: "Widgets de Streamlit"
+description: "Aprende los widgets interactivos de Streamlit."
+instructions: |
+  Familiarízate con los widgets principales de Streamlit.
+difficulty: beginner
+estimated_time_minutes: 4
+points: 10
+order: 4
+starter_code: |
+  # Widgets de Streamlit (referencia)
+  import streamlit as st
+  
+  # Los principales widgets son:
+  widgets = {
+      "slider": "st.slider('Edad', 0, 100, 25)",
+      "selectbox": "st.selectbox('Opción', ['A', 'B', 'C'])",
+      "multiselect": "st.multiselect('Productos', ['P1', 'P2'])",
+      "text_input": "st.text_input('Nombre')",
+      "button": "st.button('Calcular')",
+      "checkbox": "st.checkbox('Activar')",
+      "radio": "st.radio('Género', ['M', 'F'])",
+      "date_input": "st.date_input('Fecha')"
+  }
+  
+  for widget, sintaxis in widgets.items():
+      print(f"{widget}: {sintaxis}")
+solution_code: |
+  import streamlit as st
+  
+  widgets = {
+      "slider": "st.slider('Edad', 0, 100, 25)",
+      "selectbox": "st.selectbox('Opción', ['A', 'B', 'C'])",
+      "multiselect": "st.multiselect('Productos', ['P1', 'P2'])",
+      "text_input": "st.text_input('Nombre')",
+      "button": "st.button('Calcular')",
+      "checkbox": "st.checkbox('Activar')",
+      "radio": "st.radio('Género', ['M', 'F'])",
+      "date_input": "st.date_input('Fecha')"
+  }
+  
+  for widget, sintaxis in widgets.items():
+      print(f"{widget}: {sintaxis}")
+test_cases:
+  - id: test-widgets
+    name: "Widgets conocidos"
+    test_code: |
+      assert "slider" in widgets, "❌ Falta slider"
+      print("✅ Widgets de Streamlit")
+    points: 10
+hints:
+  - "Los widgets devuelven el valor seleccionado"
+tags: [streamlit, widgets]
+concepts: [streamlit_widgets]
