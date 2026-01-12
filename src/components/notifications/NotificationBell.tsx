@@ -154,7 +154,7 @@ export default function NotificationBell({ userId }: NotificationBellProps) {
             {unreadCount > 0 && (
               <button
                 onClick={markAllAsRead}
-                className="text-sm text-blue-600 dark:text-blue-400 hover:underline"
+                className="text-sm text-rizoma-green dark:text-rizoma-green-light hover:underline"
               >
                 Marcar todas
               </button>
@@ -172,7 +172,7 @@ export default function NotificationBell({ userId }: NotificationBellProps) {
                   href={notification.related_url || '#'}
                   onClick={() => markAsRead(notification.id)}
                   className={`block px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-700/50 border-b border-gray-100 dark:border-gray-700/50 last:border-0 ${
-                    !notification.is_read ? 'bg-blue-50/50 dark:bg-blue-900/10' : ''
+                    !notification.is_read ? 'bg-rizoma-green/5/50 dark:bg-rizoma-green-dark/10' : ''
                   }`}
                 >
                   <div className="flex items-start gap-3">
@@ -193,7 +193,7 @@ export default function NotificationBell({ userId }: NotificationBellProps) {
                       </p>
                     </div>
                     {!notification.is_read && (
-                      <span className="w-2 h-2 bg-blue-500 rounded-full flex-shrink-0 mt-2" />
+                      <span className="w-2 h-2 bg-rizoma-green rounded-full flex-shrink-0 mt-2" />
                     )}
                   </div>
                 </Link>
@@ -210,7 +210,7 @@ export default function NotificationBell({ userId }: NotificationBellProps) {
           {notifications.length > 0 && (
             <Link
               href="/notifications"
-              className="block px-4 py-3 text-center text-sm text-blue-600 dark:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-700/50 border-t border-gray-200 dark:border-gray-700"
+              className="block px-4 py-3 text-center text-sm text-rizoma-green dark:text-rizoma-green-light hover:bg-gray-50 dark:hover:bg-gray-700/50 border-t border-gray-200 dark:border-gray-700"
             >
               Ver todas las notificaciones
             </Link>

@@ -52,20 +52,25 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16 items-center">
           <div className="flex items-center gap-8">
-            <Link href="/" className="text-xl font-bold text-gray-900 dark:text-white">
-              EduPlatform
+            <Link href="/" className="flex items-center gap-2">
+              <div className="w-8 h-8 bg-rizoma-green rounded-lg flex items-center justify-center">
+                <span className="text-white font-bold">R</span>
+              </div>
+              <span className="text-lg font-semibold text-gray-900 dark:text-white">
+                Rizoma <span className="text-rizoma-green">Academia</span>
+              </span>
             </Link>
             <div className="hidden md:flex gap-6">
               <Link
                 href="/courses"
-                className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
+                className="text-gray-600 dark:text-gray-300 hover:text-rizoma-green dark:hover:text-rizoma-green-light transition-colors"
               >
                 Cursos
               </Link>
               {user && (
                 <Link
                   href="/dashboard"
-                  className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
+                  className="text-gray-600 dark:text-gray-300 hover:text-rizoma-green dark:hover:text-rizoma-green-light transition-colors"
                 >
                   Mi progreso
                 </Link>
@@ -73,7 +78,7 @@ export default function Navbar() {
               {isAdmin && (
                 <Link
                   href="/admin/courses"
-                  className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300"
+                  className="text-rizoma-cyan dark:text-rizoma-cyan-light hover:text-rizoma-cyan-dark dark:hover:text-rizoma-cyan transition-colors"
                 >
                   Admin
                 </Link>
@@ -90,12 +95,12 @@ export default function Navbar() {
                 <span className="text-sm text-gray-600 dark:text-gray-400">
                   {user.full_name || user.role}
                 </span>
-                <span className="text-xs px-2 py-1 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400">
+                <span className="text-xs px-2 py-1 rounded-full bg-rizoma-green/10 text-rizoma-green">
                   {user.role}
                 </span>
                 <button
                   onClick={handleLogout}
-                  className="text-sm text-red-600 hover:text-red-700"
+                  className="text-sm text-rizoma-red hover:text-rizoma-red-dark transition-colors"
                 >
                   Salir
                 </button>
@@ -104,13 +109,13 @@ export default function Navbar() {
               <div className="flex gap-4">
                 <Link
                   href="/login"
-                  className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
+                  className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
                 >
-                  Iniciar sesion
+                  Iniciar sesión
                 </Link>
                 <Link
                   href="/register"
-                  className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+                  className="px-4 py-2 bg-rizoma-green text-white rounded-lg hover:bg-rizoma-green-dark transition-colors"
                 >
                   Registrarse
                 </Link>

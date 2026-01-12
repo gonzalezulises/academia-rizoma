@@ -37,8 +37,8 @@ export default function PostCard({ post, courseId }: PostCardProps) {
               className="w-10 h-10 rounded-full object-cover"
             />
           ) : (
-            <div className="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">
-              <span className="text-blue-600 dark:text-blue-400 font-medium">
+            <div className="w-10 h-10 rounded-full bg-rizoma-green/10 dark:bg-rizoma-green-dark/30 flex items-center justify-center">
+              <span className="text-rizoma-green dark:text-rizoma-green-light font-medium">
                 {(post.author.full_name || 'U')[0].toUpperCase()}
               </span>
             </div>

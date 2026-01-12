@@ -142,7 +142,7 @@ export default function LessonPlayer({
 
       case 'quiz':
         return (
-          <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl p-8 text-center mb-6">
+          <div className="bg-rizoma-green/5 dark:bg-rizoma-green-dark/20 border border-rizoma-green/20 dark:border-rizoma-green-dark rounded-xl p-8 text-center mb-6">
             <span className="text-5xl block mb-4">❓</span>
             <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
               {quiz?.title || 'Quiz disponible'}
@@ -153,7 +153,7 @@ export default function LessonPlayer({
             {quiz && courseId ? (
               <Link
                 href={`/courses/${courseId}/quiz/${quiz.id}`}
-                className="inline-block px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+                className="inline-block px-6 py-2 bg-rizoma-green text-white rounded-lg hover:bg-rizoma-green-dark"
               >
                 Comenzar Quiz
               </Link>
@@ -232,7 +232,7 @@ export default function LessonPlayer({
 
       {/* Quiz section for non-quiz lessons that have an associated quiz */}
       {lesson.lesson_type !== 'quiz' && quiz && courseId && (
-        <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl p-6 mb-6">
+        <div className="bg-rizoma-green/5 dark:bg-rizoma-green-dark/20 border border-rizoma-green/20 dark:border-rizoma-green-dark rounded-xl p-6 mb-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
               <span className="text-4xl">❓</span>
@@ -247,7 +247,7 @@ export default function LessonPlayer({
             </div>
             <Link
               href={`/courses/${courseId}/quiz/${quiz.id}`}
-              className="px-5 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors"
+              className="px-5 py-2 bg-rizoma-green text-white rounded-lg font-medium hover:bg-rizoma-green-dark transition-colors"
             >
               Tomar Quiz
             </Link>

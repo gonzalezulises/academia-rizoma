@@ -92,7 +92,7 @@ export default function CreateAnnouncement({
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             placeholder="Ej: Recordatorio de entrega"
-            className="w-full px-4 py-3 border border-gray-200 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full px-4 py-3 border border-gray-200 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 focus:ring-2 focus:ring-rizoma-green focus:border-transparent"
           />
         </div>
 
@@ -107,7 +107,7 @@ export default function CreateAnnouncement({
             onChange={(e) => setContent(e.target.value)}
             rows={5}
             placeholder="Escribe el contenido del anuncio..."
-            className="w-full px-4 py-3 border border-gray-200 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+            className="w-full px-4 py-3 border border-gray-200 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 focus:ring-2 focus:ring-rizoma-green focus:border-transparent resize-none"
           />
         </div>
 
@@ -122,7 +122,7 @@ export default function CreateAnnouncement({
               id="segment"
               value={targetSegment}
               onChange={(e) => setTargetSegment(e.target.value as AnnouncementSegment)}
-              className="w-full px-4 py-2 border border-gray-200 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-4 py-2 border border-gray-200 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-rizoma-green focus:border-transparent"
             >
               <option value="all">Todos los estudiantes</option>
               <option value="not_started">No han iniciado</option>
@@ -138,7 +138,7 @@ export default function CreateAnnouncement({
                 type="checkbox"
                 checked={isPinned}
                 onChange={(e) => setIsPinned(e.target.checked)}
-                className="w-4 h-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                className="w-4 h-4 rounded border-gray-300 text-rizoma-green focus:ring-rizoma-green"
               />
               <span className="text-sm text-gray-700 dark:text-gray-300">
                 Fijar anuncio
@@ -162,7 +162,7 @@ export default function CreateAnnouncement({
         <button
           type="submit"
           disabled={loading || !title.trim() || !content.trim()}
-          className="px-6 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+          className="px-6 py-2 bg-rizoma-green text-white rounded-lg font-medium hover:bg-rizoma-green-dark disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
         >
           {loading ? 'Publicando...' : 'Publicar anuncio'}
         </button>

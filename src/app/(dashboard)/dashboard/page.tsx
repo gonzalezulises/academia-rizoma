@@ -92,7 +92,7 @@ export default async function DashboardPage() {
           </div>
           <div className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-sm">
             <p className="text-sm text-gray-500 dark:text-gray-400">En progreso</p>
-            <p className="text-2xl font-bold text-blue-600 dark:text-blue-400">{totalInProgress}</p>
+            <p className="text-2xl font-bold text-rizoma-green dark:text-rizoma-green-light">{totalInProgress}</p>
           </div>
           <div className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-sm">
             <p className="text-sm text-gray-500 dark:text-gray-400">Completados</p>
@@ -108,13 +108,13 @@ export default async function DashboardPage() {
 
         {/* Resume Section */}
         {recentCourse && (
-          <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl p-6 mb-8 text-white">
+          <div className="bg-gradient-to-r from-rizoma-green to-rizoma-cyan rounded-xl p-6 mb-8 text-white">
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
               <div className="flex-1">
-                <p className="text-blue-100 text-sm mb-1">Continuar donde lo dejaste</p>
+                <p className="text-white/80 text-sm mb-1">Continuar donde lo dejaste</p>
                 <h2 className="text-xl font-bold mb-2">{recentCourse.course.title}</h2>
                 {recentCourse.current_lesson && (
-                  <p className="text-blue-100 text-sm">
+                  <p className="text-white/80 text-sm">
                     Leccion actual: {recentCourse.current_lesson.title}
                   </p>
                 )}
@@ -125,7 +125,7 @@ export default async function DashboardPage() {
                     showLabel={false}
                     color="blue"
                   />
-                  <p className="text-xs text-blue-100 mt-1">
+                  <p className="text-xs text-white/80 mt-1">
                     {Math.round(recentCourse.progress_percentage)}% completado
                   </p>
                 </div>
@@ -136,7 +136,7 @@ export default async function DashboardPage() {
                     ? `/courses/${recentCourse.course.id}/lessons/${recentCourse.current_lesson.id}`
                     : `/courses/${recentCourse.course.id}`
                 }
-                className="px-6 py-3 bg-white text-blue-600 rounded-lg font-semibold hover:bg-blue-50 transition-colors text-center"
+                className="px-6 py-3 bg-white text-rizoma-green rounded-lg font-semibold hover:bg-rizoma-green/5 transition-colors text-center"
               >
                 Retomar curso
               </Link>
@@ -194,7 +194,7 @@ export default async function DashboardPage() {
             </p>
             <Link
               href="/courses"
-              className="px-6 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700"
+              className="px-6 py-3 bg-rizoma-green text-white rounded-lg font-medium hover:bg-rizoma-green-dark"
             >
               Explorar cursos
             </Link>
@@ -213,7 +213,7 @@ export default async function DashboardPage() {
             </p>
             <Link
               href="/courses"
-              className="px-6 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700"
+              className="px-6 py-3 bg-rizoma-green text-white rounded-lg font-medium hover:bg-rizoma-green-dark"
             >
               Ver mis cursos
             </Link>

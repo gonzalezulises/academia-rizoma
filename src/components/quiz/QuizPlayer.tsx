@@ -313,8 +313,8 @@ export default function QuizPlayer({
                 </div>
                 {renderQuestion(q)}
                 {q.explanation && (
-                  <div className="mt-4 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
-                    <p className="text-sm text-blue-800 dark:text-blue-300">
+                  <div className="mt-4 p-4 bg-rizoma-green/5 dark:bg-rizoma-green-dark/20 rounded-lg">
+                    <p className="text-sm text-rizoma-green-dark dark:text-rizoma-green-light">
                       <strong>Explicacion:</strong> {q.explanation}
                     </p>
                   </div>
@@ -354,7 +354,7 @@ export default function QuizPlayer({
       {/* Progress bar */}
       <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded-full mb-8">
         <div
-          className="h-full bg-blue-500 rounded-full transition-all"
+          className="h-full bg-rizoma-green rounded-full transition-all"
           style={{ width: `${((currentIndex + 1) / questions.length) * 100}%` }}
         />
       </div>
@@ -362,7 +362,7 @@ export default function QuizPlayer({
       {/* Question */}
       <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm mb-6">
         <div className="flex items-start gap-3 mb-6">
-          <span className="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-blue-600 dark:text-blue-400 font-bold">
+          <span className="w-10 h-10 rounded-full bg-rizoma-green/10 dark:bg-rizoma-green-dark/30 flex items-center justify-center text-rizoma-green dark:text-rizoma-green-light font-bold">
             {currentIndex + 1}
           </span>
           <div className="flex-1">
@@ -395,7 +395,7 @@ export default function QuizPlayer({
               onClick={() => setCurrentIndex(i)}
               className={`w-8 h-8 rounded-full text-sm font-medium transition-colors ${
                 i === currentIndex
-                  ? 'bg-blue-500 text-white'
+                  ? 'bg-rizoma-green text-white'
                   : answers[questions[i].id]
                     ? 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400'
                     : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400'
@@ -417,7 +417,7 @@ export default function QuizPlayer({
         ) : (
           <button
             onClick={() => setCurrentIndex((i) => Math.min(questions.length - 1, i + 1))}
-            className="px-4 py-2 text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300"
+            className="px-4 py-2 text-rizoma-green dark:text-rizoma-green-light hover:text-rizoma-green-dark dark:hover:text-rizoma-green-light"
           >
             Siguiente &rarr;
           </button>

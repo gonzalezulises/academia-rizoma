@@ -130,7 +130,7 @@ export default function AdminCoursesPage() {
           </h1>
           <button
             onClick={() => setShowForm(!showForm)}
-            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+            className="px-4 py-2 bg-rizoma-green text-white rounded-lg hover:bg-rizoma-green-dark"
           >
             {showForm ? 'Cancelar' : '+ Nuevo Curso'}
           </button>
@@ -203,7 +203,7 @@ export default function AdminCoursesPage() {
                 <div className="flex gap-2">
                   <Link
                     href={`/admin/courses/${course.id}`}
-                    className="px-3 py-1 bg-blue-100 text-blue-700 rounded-lg text-sm hover:bg-blue-200"
+                    className="px-3 py-1 bg-rizoma-green/10 text-rizoma-green-dark rounded-lg text-sm hover:bg-rizoma-green/20"
                   >
                     Editar
                   </Link>

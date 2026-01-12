@@ -60,7 +60,7 @@ export default async function AnnouncementsPage({ params }: AnnouncementsPagePro
           <div>
             <Link
               href={`/courses/${courseId}`}
-              className="text-sm text-blue-600 dark:text-blue-400 hover:underline mb-2 inline-block"
+              className="text-sm text-rizoma-green dark:text-rizoma-green-light hover:underline mb-2 inline-block"
             >
               &larr; Volver al curso
             </Link>

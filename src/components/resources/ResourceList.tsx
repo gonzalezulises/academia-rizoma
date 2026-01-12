@@ -68,9 +68,9 @@ export default function ResourceList({ resources, isInstructor, onDelete }: Reso
           className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-800 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
         >
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center">
+            <div className="w-10 h-10 bg-rizoma-green/10 dark:bg-rizoma-green-dark/30 rounded-lg flex items-center justify-center">
               <svg
-                className="w-5 h-5 text-blue-600 dark:text-blue-400"
+                className="w-5 h-5 text-rizoma-green dark:text-rizoma-green-light"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -110,7 +110,7 @@ export default function ResourceList({ resources, isInstructor, onDelete }: Reso
             <button
               onClick={() => handleDownload(resource)}
               disabled={downloading === resource.id}
-              className="p-2 text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/30 rounded-lg transition-colors disabled:opacity-50"
+              className="p-2 text-rizoma-green dark:text-rizoma-green-light hover:bg-rizoma-green/10 dark:hover:bg-rizoma-green-dark/30 rounded-lg transition-colors disabled:opacity-50"
               title="Descargar"
             >
               {downloading === resource.id ? (

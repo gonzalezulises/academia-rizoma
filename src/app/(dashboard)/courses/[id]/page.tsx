@@ -141,7 +141,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
       <Navbar />
 
       {/* Course Header */}
-      <div className="bg-gradient-to-br from-blue-600 to-purple-700 text-white">
+      <div className="bg-gradient-to-br from-rizoma-green to-rizoma-cyan-dark text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <Link
             href="/courses"
@@ -240,7 +240,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
                     className="w-full h-44 object-cover"
                   />
                 ) : (
-                  <div className="w-full h-44 bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center">
+                  <div className="w-full h-44 bg-gradient-to-br from-rizoma-green-light to-rizoma-cyan/50 flex items-center justify-center">
                     <span className="text-white text-6xl font-bold">
                       {course.title.charAt(0)}
                     </span>
@@ -274,7 +274,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
                       <form action={handleEnroll}>
                         <button
                           type="submit"
-                          className="w-full py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors"
+                          className="w-full py-3 bg-rizoma-green text-white rounded-lg font-medium hover:bg-rizoma-green-dark transition-colors"
                         >
                           Inscribirme al curso
                         </button>
@@ -283,7 +283,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
                   ) : (
                     <Link
                       href="/login"
-                      className="block w-full py-3 bg-blue-600 text-white text-center rounded-lg font-medium hover:bg-blue-700 transition-colors"
+                      className="block w-full py-3 bg-rizoma-green text-white text-center rounded-lg font-medium hover:bg-rizoma-green-dark transition-colors"
                     >
                       Inicia sesion para inscribirte
                     </Link>

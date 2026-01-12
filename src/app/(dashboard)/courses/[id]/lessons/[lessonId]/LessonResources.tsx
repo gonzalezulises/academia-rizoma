@@ -53,7 +53,7 @@ export default function LessonResources({
         {isInstructor && !showUpload && (
           <button
             onClick={() => setShowUpload(true)}
-            className="text-sm text-blue-600 dark:text-blue-400 hover:underline"
+            className="text-sm text-rizoma-green dark:text-rizoma-green-light hover:underline"
           >
             + Agregar recurso
           </button>

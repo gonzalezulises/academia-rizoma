@@ -64,7 +64,7 @@ export default function CourseMap({ modules, courseId, userProgress }: CourseMap
             )}
 
             {/* Module number badge */}
-            <div className="absolute -left-3 top-6 w-8 h-8 rounded-full bg-blue-500 text-white flex items-center justify-center text-sm font-bold shadow-lg z-10">
+            <div className="absolute -left-3 top-6 w-8 h-8 rounded-full bg-rizoma-green text-white flex items-center justify-center text-sm font-bold shadow-lg z-10">
               {index + 1}
             </div>
 

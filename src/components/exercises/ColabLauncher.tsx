@@ -86,14 +86,14 @@ export function ColabLauncher({
         </div>
 
         {/* Completion criteria */}
-        <div className="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
-          <h4 className="font-medium text-blue-800 dark:text-blue-200 mb-2 flex items-center gap-2">
+        <div className="p-4 bg-rizoma-green/5 dark:bg-rizoma-green-dark/20 rounded-lg border border-rizoma-green/20 dark:border-rizoma-green-dark">
+          <h4 className="font-medium text-rizoma-green-dark dark:text-rizoma-green-light mb-2 flex items-center gap-2">
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
             </svg>
             Criterios de completado
           </h4>
-          <p className="text-sm text-blue-700 dark:text-blue-300">
+          <p className="text-sm text-rizoma-green-dark dark:text-rizoma-green-light">
             {exercise.completion_criteria}
           </p>
         </div>

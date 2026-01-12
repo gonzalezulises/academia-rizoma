@@ -78,7 +78,7 @@ export default function CreatePost({ forumId, courseId, currentUser }: CreatePos
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             placeholder="Escribe un titulo descriptivo..."
-            className="w-full px-4 py-3 border border-gray-200 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full px-4 py-3 border border-gray-200 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 focus:ring-2 focus:ring-rizoma-green focus:border-transparent"
           />
         </div>
 
@@ -92,7 +92,7 @@ export default function CreatePost({ forumId, courseId, currentUser }: CreatePos
             onChange={(e) => setContent(e.target.value)}
             placeholder="Describe tu pregunta o tema en detalle..."
             rows={8}
-            className="w-full px-4 py-3 border border-gray-200 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+            className="w-full px-4 py-3 border border-gray-200 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 focus:ring-2 focus:ring-rizoma-green focus:border-transparent resize-none"
           />
           <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
             Tip: Se especifico y proporciona contexto para obtener mejores respuestas.
@@ -111,7 +111,7 @@ export default function CreatePost({ forumId, courseId, currentUser }: CreatePos
         <button
           type="submit"
           disabled={loading || !title.trim() || !content.trim()}
-          className="px-6 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+          className="px-6 py-2 bg-rizoma-green text-white rounded-lg font-medium hover:bg-rizoma-green-dark disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
         >
           {loading ? 'Publicando...' : 'Publicar'}
         </button>

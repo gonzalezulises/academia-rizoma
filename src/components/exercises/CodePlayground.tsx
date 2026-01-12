@@ -146,20 +146,20 @@ export function CodePlayground({
       <div className="p-4 space-y-4">
         {/* Pyodide loading state */}
         {pyodideLoading && (
-          <div className="bg-blue-50 dark:bg-blue-900/20 rounded-md p-3 flex items-center gap-3">
+          <div className="bg-rizoma-green/5 dark:bg-rizoma-green-dark/20 rounded-md p-3 flex items-center gap-3">
             <div className="flex-shrink-0">
-              <svg className="animate-spin h-5 w-5 text-blue-600" fill="none" viewBox="0 0 24 24">
+              <svg className="animate-spin h-5 w-5 text-rizoma-green" fill="none" viewBox="0 0 24 24">
                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
               </svg>
             </div>
             <div className="flex-1">
-              <p className="text-sm text-blue-700 dark:text-blue-300">
+              <p className="text-sm text-rizoma-green-dark dark:text-rizoma-green-light">
                 Cargando Python... {loadProgress}%
               </p>
-              <div className="mt-1 w-full bg-blue-200 dark:bg-blue-800 rounded-full h-1.5">
+              <div className="mt-1 w-full bg-rizoma-green/20 dark:bg-rizoma-green-dark rounded-full h-1.5">
                 <div
-                  className="bg-blue-600 h-1.5 rounded-full transition-all duration-300"
+                  className="bg-rizoma-green h-1.5 rounded-full transition-all duration-300"
                   style={{ width: `${loadProgress}%` }}
                 />
               </div>
@@ -189,7 +189,7 @@ export function CodePlayground({
               {showSolution && (
                 <button
                   onClick={() => setShowSolutionCode(!showSolutionCode)}
-                  className="text-xs text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-200"
+                  className="text-xs text-rizoma-green hover:text-rizoma-green-dark dark:text-rizoma-green-light dark:hover:text-rizoma-green-light"
                 >
                   {showSolutionCode ? 'Ocultar solución' : 'Ver solución'}
                 </button>
@@ -248,7 +248,7 @@ export function CodePlayground({
               onClick={() => setActiveTab('output')}
               className={`px-4 py-2 text-sm font-medium ${
                 activeTab === 'output'
-                  ? 'bg-white dark:bg-gray-800 text-gray-900 dark:text-white border-b-2 border-blue-500'
+                  ? 'bg-white dark:bg-gray-800 text-gray-900 dark:text-white border-b-2 border-rizoma-green'
                   : 'bg-gray-50 dark:bg-gray-900 text-gray-500 dark:text-gray-400 hover:text-gray-700'
               }`}
             >
@@ -258,7 +258,7 @@ export function CodePlayground({
               onClick={() => setActiveTab('tests')}
               className={`px-4 py-2 text-sm font-medium flex items-center gap-2 ${
                 activeTab === 'tests'
-                  ? 'bg-white dark:bg-gray-800 text-gray-900 dark:text-white border-b-2 border-blue-500'
+                  ? 'bg-white dark:bg-gray-800 text-gray-900 dark:text-white border-b-2 border-rizoma-green'
                   : 'bg-gray-50 dark:bg-gray-900 text-gray-500 dark:text-gray-400 hover:text-gray-700'
               }`}
             >

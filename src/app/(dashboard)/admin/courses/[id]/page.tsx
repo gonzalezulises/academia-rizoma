@@ -289,7 +289,7 @@ export default function AdminCourseDetailPage({ params }: PageProps) {
         <div className="mb-8">
           <Link
             href="/admin/courses"
-            className="text-sm text-blue-600 dark:text-blue-400 hover:underline mb-4 inline-block"
+            className="text-sm text-rizoma-green dark:text-rizoma-green-light hover:underline mb-4 inline-block"
           >
             &larr; Volver a mis cursos
           </Link>
@@ -484,13 +484,13 @@ export default function AdminCourseDetailPage({ params }: PageProps) {
           <div className="flex gap-4 mb-8">
             <button
               onClick={() => setShowModuleForm(true)}
-              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+              className="px-4 py-2 bg-rizoma-green text-white rounded-lg hover:bg-rizoma-green-dark"
             >
               + Nuevo modulo
             </button>
             <button
               onClick={() => openLessonFormForModule(null)}
-              className="px-4 py-2 border border-blue-600 text-blue-600 rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/20"
+              className="px-4 py-2 border border-rizoma-green text-rizoma-green rounded-lg hover:bg-rizoma-green/5 dark:hover:bg-rizoma-green-dark/20"
             >
               + Nueva leccion
             </button>
@@ -554,7 +554,7 @@ export default function AdminCourseDetailPage({ params }: PageProps) {
                       <div className="flex gap-2">
                         <button
                           onClick={() => editLesson(lesson)}
-                          className="px-3 py-1 text-sm text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg"
+                          className="px-3 py-1 text-sm text-rizoma-green hover:bg-rizoma-green/5 dark:hover:bg-rizoma-green-dark/20 rounded-lg"
                         >
                           Editar
                         </button>
@@ -606,7 +606,7 @@ export default function AdminCourseDetailPage({ params }: PageProps) {
                     <div className="flex gap-2">
                       <button
                         onClick={() => editLesson(lesson)}
-                        className="px-3 py-1 text-sm text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg"
+                        className="px-3 py-1 text-sm text-rizoma-green hover:bg-rizoma-green/5 dark:hover:bg-rizoma-green-dark/20 rounded-lg"
                       >
                         Editar
                       </button>

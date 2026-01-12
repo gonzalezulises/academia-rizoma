@@ -49,7 +49,7 @@ export default function CourseProgressCard({ progress }: CourseProgressCardProps
               className="w-full h-full object-cover"
             />
           ) : (
-            <div className="w-full h-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
+            <div className="w-full h-full bg-gradient-to-br from-rizoma-green to-rizoma-cyan flex items-center justify-center">
               <span className="text-white text-3xl font-bold">
                 {course.title.charAt(0)}
               </span>
@@ -102,7 +102,7 @@ export default function CourseProgressCard({ progress }: CourseProgressCardProps
           className={`block w-full py-2 text-center rounded-lg font-medium transition-colors ${
             isCompleted
               ? 'bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600'
-              : 'bg-blue-600 text-white hover:bg-blue-700'
+              : 'bg-rizoma-green text-white hover:bg-rizoma-green-dark'
           }`}
         >
           {isCompleted ? 'Revisar curso' : current_lesson ? 'Continuar' : 'Comenzar'}

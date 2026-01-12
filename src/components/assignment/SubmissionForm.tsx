@@ -231,7 +231,7 @@ export default function SubmissionForm({
       <div
         className={`border-2 border-dashed rounded-xl p-8 text-center transition-colors ${
           dragActive
-            ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20'
+            ? 'border-rizoma-green bg-rizoma-green/5 dark:bg-rizoma-green-dark/20'
             : 'border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500'
         }`}
         onDragEnter={handleDrag}
@@ -290,7 +290,7 @@ export default function SubmissionForm({
           onChange={(e) => setComments(e.target.value)}
           rows={3}
           placeholder="Agrega notas o comentarios sobre tu entrega..."
-          className="w-full px-4 py-3 border border-gray-200 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+          className="w-full px-4 py-3 border border-gray-200 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 focus:ring-2 focus:ring-rizoma-green focus:border-transparent resize-none"
         />
       </div>
 

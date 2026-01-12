@@ -134,12 +134,12 @@ export function SQLPlayground({
       <div className="p-4 space-y-4">
         {/* Loading state */}
         {isLoading && (
-          <div className="bg-blue-50 dark:bg-blue-900/20 rounded-md p-3 flex items-center gap-3">
-            <svg className="animate-spin h-5 w-5 text-blue-600" fill="none" viewBox="0 0 24 24">
+          <div className="bg-rizoma-green/5 dark:bg-rizoma-green-dark/20 rounded-md p-3 flex items-center gap-3">
+            <svg className="animate-spin h-5 w-5 text-rizoma-green" fill="none" viewBox="0 0 24 24">
               <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
               <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
             </svg>
-            <p className="text-sm text-blue-700 dark:text-blue-300">Cargando base de datos...</p>
+            <p className="text-sm text-rizoma-green-dark dark:text-rizoma-green-light">Cargando base de datos...</p>
           </div>
         )}
 
@@ -163,7 +163,7 @@ export function SQLPlayground({
               {showSolution && (
                 <button
                   onClick={() => setShowSolutionQuery(!showSolutionQuery)}
-                  className="text-xs text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-200"
+                  className="text-xs text-rizoma-green hover:text-rizoma-green-dark dark:text-rizoma-green-light dark:hover:text-rizoma-green-light"
                 >
                   {showSolutionQuery ? 'Ocultar solución' : 'Ver solución'}
                 </button>
@@ -193,14 +193,14 @@ export function SQLPlayground({
           <button
             onClick={handleRun}
             disabled={!isReady || isRunning}
-            className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            className="flex items-center gap-2 px-4 py-2 bg-rizoma-green text-white rounded-md hover:bg-rizoma-green-dark disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
             Ejecutar Query
-            <kbd className="hidden sm:inline text-xs bg-blue-700 px-1.5 py-0.5 rounded">⌘↵</kbd>
+            <kbd className="hidden sm:inline text-xs bg-rizoma-green-dark px-1.5 py-0.5 rounded">⌘↵</kbd>
           </button>
 
           {executionTime !== null && (

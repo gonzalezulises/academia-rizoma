@@ -93,7 +93,7 @@ export default async function QuizPage({ params }: QuizPageProps) {
         {/* Back link */}
         <Link
           href={`/courses/${courseId}/lessons/${lesson.id}`}
-          className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1 mb-6"
+          className="text-sm text-rizoma-green dark:text-rizoma-green-light hover:underline flex items-center gap-1 mb-6"
         >
           <span>&larr;</span> Volver a la leccion
         </Link>

@@ -54,7 +54,7 @@ export default async function NewPostPage({ params }: NewPostPageProps) {
       {/* Back link */}
       <Link
         href={`/courses/${courseId}/forum`}
-        className="text-sm text-blue-600 dark:text-blue-400 hover:underline mb-6 inline-block"
+        className="text-sm text-rizoma-green dark:text-rizoma-green-light hover:underline mb-6 inline-block"
       >
         &larr; Volver al foro
       </Link>

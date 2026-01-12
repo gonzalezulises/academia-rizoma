@@ -43,7 +43,7 @@ export default function AnnouncementCard({
       announcement.is_pinned ? 'ring-2 ring-yellow-400 dark:ring-yellow-500' : 'border border-gray-200 dark:border-gray-700'
     }`}>
       {/* Header */}
-      <div className="px-5 py-4 border-b border-gray-200 dark:border-gray-700 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20">
+      <div className="px-5 py-4 border-b border-gray-200 dark:border-gray-700 bg-gradient-to-r from-rizoma-green/5 to-rizoma-cyan/5 dark:from-rizoma-green-dark/20 dark:to-rizoma-cyan-dark/20">
         <div className="flex items-start justify-between">
           <div className="flex items-center gap-3">
             <span className="text-2xl">📢</span>

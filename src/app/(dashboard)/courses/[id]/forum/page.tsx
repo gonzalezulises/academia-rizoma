@@ -82,7 +82,7 @@ export default async function ForumPage({ params, searchParams }: ForumPageProps
         <div>
           <Link
             href={`/courses/${courseId}`}
-            className="text-sm text-blue-600 dark:text-blue-400 hover:underline mb-2 inline-block"
+            className="text-sm text-rizoma-green dark:text-rizoma-green-light hover:underline mb-2 inline-block"
           >
             &larr; Volver al curso
           </Link>
@@ -98,7 +98,7 @@ export default async function ForumPage({ params, searchParams }: ForumPageProps
         {!forum.is_locked && (
           <Link
             href={`/courses/${courseId}/forum/new`}
-            className="px-5 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors"
+            className="px-5 py-2 bg-rizoma-green text-white rounded-lg font-medium hover:bg-rizoma-green-dark transition-colors"
           >
             Nuevo Post
           </Link>
@@ -111,7 +111,7 @@ export default async function ForumPage({ params, searchParams }: ForumPageProps
           href={`/courses/${courseId}/forum`}
           className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
             !filter
-              ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300'
+              ? 'bg-rizoma-green/10 dark:bg-rizoma-green-dark/30 text-rizoma-green-dark dark:text-rizoma-green-light'
               : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700'
           }`}
         >
@@ -158,7 +158,7 @@ export default async function ForumPage({ params, searchParams }: ForumPageProps
           {!forum.is_locked && (
             <Link
               href={`/courses/${courseId}/forum/new`}
-              className="inline-block px-5 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700"
+              className="inline-block px-5 py-2 bg-rizoma-green text-white rounded-lg font-medium hover:bg-rizoma-green-dark"
             >
               Crear Post
             </Link>

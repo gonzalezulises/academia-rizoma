@@ -89,7 +89,7 @@ export function ExerciseShell({
                   scorePercentage === 100
                     ? 'bg-green-500'
                     : scorePercentage > 0
-                    ? 'bg-blue-500'
+                    ? 'bg-rizoma-green'
                     : 'bg-gray-300'
                 }`}
                 style={{ width: `${scorePercentage}%` }}
@@ -100,9 +100,9 @@ export function ExerciseShell({
       </div>
 
       {/* Instructions */}
-      <div className="px-4 py-3 bg-blue-50 dark:bg-blue-900/20 border-b border-gray-200 dark:border-gray-700">
-        <h4 className="text-sm font-medium text-blue-800 dark:text-blue-200 mb-1">Instrucciones</h4>
-        <p className="text-sm text-blue-700 dark:text-blue-300">{exercise.instructions}</p>
+      <div className="px-4 py-3 bg-rizoma-green/5 dark:bg-rizoma-green-dark/20 border-b border-gray-200 dark:border-gray-700">
+        <h4 className="text-sm font-medium text-rizoma-green-dark dark:text-rizoma-green-light mb-1">Instrucciones</h4>
+        <p className="text-sm text-rizoma-green-dark dark:text-rizoma-green-light">{exercise.instructions}</p>
       </div>
 
       {/* Main content (playground) */}

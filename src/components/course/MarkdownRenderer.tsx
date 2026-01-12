@@ -73,7 +73,7 @@ function MarkdownSegment({ content, className }: { content: string; className: s
                 href={href}
                 target={isExternal ? '_blank' : undefined}
                 rel={isExternal ? 'noopener noreferrer' : undefined}
-                className="text-blue-600 dark:text-blue-400 hover:underline"
+                className="text-rizoma-green dark:text-rizoma-green-light hover:underline"
                 {...props}
               >
                 {children}
@@ -98,7 +98,7 @@ function MarkdownSegment({ content, className }: { content: string; className: s
           ),
           // Blockquote styling
           blockquote: ({ children, ...props }) => (
-            <blockquote className="border-l-4 border-blue-500 pl-4 italic text-gray-600 dark:text-gray-400 my-4" {...props}>
+            <blockquote className="border-l-4 border-rizoma-green pl-4 italic text-gray-600 dark:text-gray-400 my-4" {...props}>
               {children}
             </blockquote>
           ),
@@ -258,7 +258,7 @@ export function SimpleMarkdownRenderer({ content, className = '' }: { content: s
                 href={href}
                 target={isExternal ? '_blank' : undefined}
                 rel={isExternal ? 'noopener noreferrer' : undefined}
-                className="text-blue-600 dark:text-blue-400 hover:underline"
+                className="text-rizoma-green dark:text-rizoma-green-light hover:underline"
                 {...props}
               >
                 {children}
@@ -283,7 +283,7 @@ export function SimpleMarkdownRenderer({ content, className = '' }: { content: s
           ),
           // Blockquote styling
           blockquote: ({ children, ...props }) => (
-            <blockquote className="border-l-4 border-blue-500 pl-4 italic text-gray-600 dark:text-gray-400 my-4" {...props}>
+            <blockquote className="border-l-4 border-rizoma-green pl-4 italic text-gray-600 dark:text-gray-400 my-4" {...props}>
               {children}
             </blockquote>
           ),

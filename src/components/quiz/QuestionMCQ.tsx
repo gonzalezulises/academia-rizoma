@@ -24,8 +24,8 @@ export default function QuestionMCQ({
 
     if (!showResult) {
       return isSelected
-        ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/30'
-        : 'border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-600'
+        ? 'border-rizoma-green bg-rizoma-green/5 dark:bg-rizoma-green-dark/30'
+        : 'border-gray-200 dark:border-gray-700 hover:border-rizoma-green/30 dark:hover:border-rizoma-green'
     }
 
     // Show results
@@ -52,7 +52,7 @@ export default function QuestionMCQ({
           <div className="flex items-start gap-3">
             <span className={`w-6 h-6 rounded-full border-2 flex items-center justify-center text-sm font-medium ${
               selectedAnswer === option.id
-                ? 'border-blue-500 bg-blue-500 text-white'
+                ? 'border-rizoma-green bg-rizoma-green text-white'
                 : 'border-gray-300 dark:border-gray-600 text-gray-500 dark:text-gray-400'
             }`}>
               {option.id.toUpperCase()}

@@ -21,7 +21,7 @@ export default function ProgressBar({
 
   const colors = {
     green: 'bg-green-500',
-    blue: 'bg-blue-500',
+    blue: 'bg-rizoma-green',
     purple: 'bg-purple-500'
   }
 

@@ -176,7 +176,7 @@ export default function ResourceUpload({
           className={`
             relative border-2 border-dashed rounded-xl p-8 text-center transition-colors
             ${dragActive
-              ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20'
+              ? 'border-rizoma-green bg-rizoma-green/5 dark:bg-rizoma-green-dark/20'
               : file
                 ? 'border-green-500 bg-green-50 dark:bg-green-900/20'
                 : 'border-gray-300 dark:border-gray-600 hover:border-gray-400'
@@ -215,7 +215,7 @@ export default function ResourceUpload({
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
               </svg>
               <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
-                <span className="font-medium text-blue-600 dark:text-blue-400">Haz click para subir</span> o arrastra y suelta
+                <span className="font-medium text-rizoma-green dark:text-rizoma-green-light">Haz click para subir</span> o arrastra y suelta
               </p>
               <p className="mt-1 text-xs text-gray-500">
                 PDF, Word, Excel, PowerPoint, imagenes (max. 50MB)
@@ -235,7 +235,7 @@ export default function ResourceUpload({
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             placeholder="Nombre del recurso"
-            className="w-full px-4 py-3 border border-gray-200 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full px-4 py-3 border border-gray-200 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 focus:ring-2 focus:ring-rizoma-green focus:border-transparent"
           />
         </div>
 
@@ -250,7 +250,7 @@ export default function ResourceUpload({
             onChange={(e) => setDescription(e.target.value)}
             rows={2}
             placeholder="Breve descripcion del recurso..."
-            className="w-full px-4 py-3 border border-gray-200 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+            className="w-full px-4 py-3 border border-gray-200 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 focus:ring-2 focus:ring-rizoma-green focus:border-transparent resize-none"
           />
         </div>
       </div>
@@ -269,7 +269,7 @@ export default function ResourceUpload({
         <button
           type="submit"
           disabled={uploading || !file || !title.trim()}
-          className="px-6 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+          className="px-6 py-2 bg-rizoma-green text-white rounded-lg font-medium hover:bg-rizoma-green-dark disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
         >
           {uploading ? 'Subiendo...' : 'Subir recurso'}
         </button>

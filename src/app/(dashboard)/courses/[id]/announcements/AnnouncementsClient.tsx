@@ -70,7 +70,7 @@ export default function AnnouncementsClient({
           ) : (
             <button
               onClick={() => setShowForm(true)}
-              className="w-full py-4 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-xl text-gray-600 dark:text-gray-400 hover:border-blue-500 hover:text-blue-500 transition-colors"
+              className="w-full py-4 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-xl text-gray-600 dark:text-gray-400 hover:border-rizoma-green hover:text-rizoma-green transition-colors"
             >
               + Crear nuevo anuncio
             </button>

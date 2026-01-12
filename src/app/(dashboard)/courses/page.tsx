@@ -39,7 +39,7 @@ export default async function CoursesPage() {
                     className="w-full h-48 object-cover"
                   />
                 ) : (
-                  <div className="w-full h-48 bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
+                  <div className="w-full h-48 bg-gradient-to-br from-rizoma-green to-rizoma-cyan flex items-center justify-center">
                     <span className="text-white text-4xl font-bold">
                       {course.title.charAt(0)}
                     </span>

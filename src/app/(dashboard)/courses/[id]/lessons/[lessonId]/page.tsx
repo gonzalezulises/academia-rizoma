@@ -167,7 +167,7 @@ export default async function LessonPage({ params }: LessonPageProps) {
           <div className="p-4 border-b border-gray-200 dark:border-gray-700">
             <Link
               href={`/courses/${courseId}`}
-              className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1"
+              className="text-sm text-rizoma-green dark:text-rizoma-green-light hover:underline flex items-center gap-1"
             >
               <span>&larr;</span> {lesson.course?.title}
             </Link>
@@ -191,7 +191,7 @@ export default async function LessonPage({ params }: LessonPageProps) {
                             href={`/courses/${courseId}/lessons/${l.id}`}
                             className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition-colors ${
                               isCurrent
-                                ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 font-medium'
+                                ? 'bg-rizoma-green/5 dark:bg-rizoma-green-dark/30 text-rizoma-green dark:text-rizoma-green-light font-medium'
                                 : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
                             }`}
                           >
@@ -199,7 +199,7 @@ export default async function LessonPage({ params }: LessonPageProps) {
                               isLessonCompleted
                                 ? 'bg-green-500 text-white'
                                 : isCurrent
-                                  ? 'bg-blue-500 text-white'
+                                  ? 'bg-rizoma-green text-white'
                                   : 'bg-gray-200 dark:bg-gray-600 text-gray-600 dark:text-gray-300'
                             }`}>
                               {isLessonCompleted ? '✓' : index + 1}
@@ -224,7 +224,7 @@ export default async function LessonPage({ params }: LessonPageProps) {
                         href={`/courses/${courseId}/lessons/${l.id}`}
                         className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition-colors ${
                           isCurrent
-                            ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 font-medium'
+                            ? 'bg-rizoma-green/5 dark:bg-rizoma-green-dark/30 text-rizoma-green dark:text-rizoma-green-light font-medium'
                             : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
                         }`}
                       >
@@ -232,7 +232,7 @@ export default async function LessonPage({ params }: LessonPageProps) {
                           isLessonCompleted
                             ? 'bg-green-500 text-white'
                             : isCurrent
-                              ? 'bg-blue-500 text-white'
+                              ? 'bg-rizoma-green text-white'
                               : 'bg-gray-200 dark:bg-gray-600 text-gray-600 dark:text-gray-300'
                         }`}>
                           {isLessonCompleted ? '✓' : index + 1}
@@ -254,7 +254,7 @@ export default async function LessonPage({ params }: LessonPageProps) {
             <div className="lg:hidden mb-6">
               <Link
                 href={`/courses/${courseId}`}
-                className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1"
+                className="text-sm text-rizoma-green dark:text-rizoma-green-light hover:underline flex items-center gap-1"
               >
                 <span>&larr;</span> Volver al curso
               </Link>

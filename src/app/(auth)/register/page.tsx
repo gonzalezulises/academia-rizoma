@@ -40,19 +40,27 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 px-4">
+    <div className="min-h-screen flex items-center justify-center bg-cloud-dancer dark:bg-gray-900 px-4">
       <div className="max-w-md w-full space-y-8">
-        <div>
-          <h2 className="mt-6 text-center text-3xl font-bold text-gray-900 dark:text-white">
+        <div className="text-center">
+          <Link href="/" className="inline-flex items-center gap-2 mb-6">
+            <div className="w-10 h-10 bg-rizoma-green rounded-lg flex items-center justify-center">
+              <span className="text-white font-bold text-xl">R</span>
+            </div>
+            <span className="text-xl font-semibold text-gray-900 dark:text-white">
+              Rizoma <span className="text-rizoma-green">Academia</span>
+            </span>
+          </Link>
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white">
             Crear cuenta
           </h2>
-          <p className="mt-2 text-center text-sm text-gray-600 dark:text-gray-400">
-            Unete a nuestra plataforma de aprendizaje
+          <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
+            Únete a la plataforma de aprendizaje de Rizoma
           </p>
         </div>
         <form className="mt-8 space-y-6" onSubmit={handleRegister}>
           {error && (
-            <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-600 dark:text-red-400 px-4 py-3 rounded-lg">
+            <div className="bg-rizoma-red/10 border border-rizoma-red/20 text-rizoma-red px-4 py-3 rounded-lg">
               {error}
             </div>
           )}
@@ -68,8 +76,8 @@ export default function RegisterPage() {
                 required
                 value={fullName}
                 onChange={(e) => setFullName(e.target.value)}
-                className="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:text-white"
-                placeholder="Juan Perez"
+                className="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-rizoma-green focus:border-rizoma-green dark:bg-gray-800 dark:text-white"
+                placeholder="Juan Pérez"
               />
             </div>
             <div>
@@ -84,13 +92,13 @@ export default function RegisterPage() {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:text-white"
+                className="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-rizoma-green focus:border-rizoma-green dark:bg-gray-800 dark:text-white"
                 placeholder="tu@email.com"
               />
             </div>
             <div>
               <label htmlFor="password" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                Contrasena
+                Contraseña
               </label>
               <input
                 id="password"
@@ -101,25 +109,25 @@ export default function RegisterPage() {
                 minLength={6}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:text-white"
+                className="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-rizoma-green focus:border-rizoma-green dark:bg-gray-800 dark:text-white"
                 placeholder="••••••••"
               />
-              <p className="mt-1 text-xs text-gray-500">Minimo 6 caracteres</p>
+              <p className="mt-1 text-xs text-gray-500">Mínimo 6 caracteres</p>
             </div>
           </div>
 
           <button
             type="submit"
             disabled={loading}
-            className="w-full flex justify-center py-2 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full flex justify-center py-2 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-rizoma-green hover:bg-rizoma-green-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rizoma-green disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
           >
             {loading ? 'Creando cuenta...' : 'Crear cuenta'}
           </button>
 
           <p className="text-center text-sm text-gray-600 dark:text-gray-400">
-            Ya tienes cuenta?{' '}
-            <Link href="/login" className="text-blue-600 hover:text-blue-500">
-              Inicia sesion
+            ¿Ya tienes cuenta?{' '}
+            <Link href="/login" className="text-rizoma-green hover:text-rizoma-green-dark font-medium">
+              Inicia sesión
             </Link>
           </p>
         </form>

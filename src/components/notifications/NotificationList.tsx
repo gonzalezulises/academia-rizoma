@@ -99,7 +99,7 @@ export default function NotificationList({ initialNotifications, userId }: Notif
             onClick={() => setFilter('all')}
             className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
               filter === 'all'
-                ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300'
+                ? 'bg-rizoma-green/10 dark:bg-rizoma-green-dark/30 text-rizoma-green-dark dark:text-rizoma-green-light'
                 : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700'
             }`}
           >
@@ -109,7 +109,7 @@ export default function NotificationList({ initialNotifications, userId }: Notif
             onClick={() => setFilter('unread')}
             className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
               filter === 'unread'
-                ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300'
+                ? 'bg-rizoma-green/10 dark:bg-rizoma-green-dark/30 text-rizoma-green-dark dark:text-rizoma-green-light'
                 : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700'
             }`}
           >
@@ -121,7 +121,7 @@ export default function NotificationList({ initialNotifications, userId }: Notif
           {unreadCount > 0 && (
             <button
               onClick={markAllAsRead}
-              className="text-sm text-blue-600 dark:text-blue-400 hover:underline"
+              className="text-sm text-rizoma-green dark:text-rizoma-green-light hover:underline"
             >
               Marcar todas como leidas
             </button>
@@ -145,7 +145,7 @@ export default function NotificationList({ initialNotifications, userId }: Notif
               key={notification.id}
               className={`bg-white dark:bg-gray-800 rounded-xl p-4 shadow-sm border transition-colors ${
                 !notification.is_read
-                  ? 'border-blue-200 dark:border-blue-800 bg-blue-50/30 dark:bg-blue-900/10'
+                  ? 'border-rizoma-green/20 dark:border-rizoma-green-dark bg-rizoma-green/5/30 dark:bg-rizoma-green-dark/10'
                   : 'border-gray-200 dark:border-gray-700'
               }`}
             >
@@ -171,7 +171,7 @@ export default function NotificationList({ initialNotifications, userId }: Notif
                     </div>
 
                     {!notification.is_read && (
-                      <span className="w-2 h-2 bg-blue-500 rounded-full flex-shrink-0 mt-2" />
+                      <span className="w-2 h-2 bg-rizoma-green rounded-full flex-shrink-0 mt-2" />
                     )}
                   </div>
 
@@ -180,7 +180,7 @@ export default function NotificationList({ initialNotifications, userId }: Notif
                       <Link
                         href={notification.related_url}
                         onClick={() => markAsRead(notification.id)}
-                        className="text-sm text-blue-600 dark:text-blue-400 hover:underline"
+                        className="text-sm text-rizoma-green dark:text-rizoma-green-light hover:underline"
                       >
                         Ver detalle
                       </Link>

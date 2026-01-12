@@ -44,7 +44,7 @@ export default function SubmissionReview({
   const getStatusBadge = (status: SubmissionStatus) => {
     const styles = {
       pending: 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400',
-      reviewed: 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400',
+      reviewed: 'bg-rizoma-green/10 dark:bg-rizoma-green-dark/30 text-rizoma-green-dark dark:text-rizoma-green-light',
       approved: 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400',
       rejected: 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400',
       late: 'bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-400'
@@ -159,7 +159,7 @@ export default function SubmissionReview({
               href={submission.file_url}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors"
+              className="px-4 py-2 bg-rizoma-green text-white rounded-lg text-sm font-medium hover:bg-rizoma-green-dark transition-colors"
             >
               Descargar
             </a>
@@ -210,7 +210,7 @@ export default function SubmissionReview({
               value={score}
               onChange={(e) => setScore(e.target.value)}
               placeholder="Ej: 85"
-              className="w-full px-4 py-2 border border-gray-200 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-4 py-2 border border-gray-200 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-rizoma-green focus:border-transparent"
             />
           </div>
 
@@ -222,7 +222,7 @@ export default function SubmissionReview({
             <select
               value={status}
               onChange={(e) => setStatus(e.target.value as SubmissionStatus)}
-              className="w-full px-4 py-2 border border-gray-200 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-4 py-2 border border-gray-200 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-rizoma-green focus:border-transparent"
             >
               <option value="pending">Pendiente</option>
               <option value="reviewed">Revisada</option>
@@ -242,7 +242,7 @@ export default function SubmissionReview({
             onChange={(e) => setFeedback(e.target.value)}
             rows={4}
             placeholder="Escribe comentarios para el estudiante..."
-            className="w-full px-4 py-3 border border-gray-200 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+            className="w-full px-4 py-3 border border-gray-200 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 focus:ring-2 focus:ring-rizoma-green focus:border-transparent resize-none"
           />
         </div>
 
