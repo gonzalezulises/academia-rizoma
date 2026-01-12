@@ -1,0 +1,302 @@
+# Quiz Final: Certificación ONA Fundamentals
+# Tipo: quiz
+
+id: quiz-final
+type: quiz
+title: "Evaluación Final - ONA Fundamentals"
+description: "Demuestra tu dominio de los conceptos fundamentales de Análisis de Redes Organizacionales."
+
+instructions: |
+  **Evaluación Final del Curso**
+
+  Esta evaluación cubre todos los conceptos del curso:
+  - Diferencia entre organigrama y red informal
+  - Métricas de centralidad (grado, intermediación, cercanía)
+  - Diseño de encuestas ONA
+  - Patrones problemáticos (silos, cuellos de botella, dependencia)
+  - Diagnóstico y recomendaciones
+
+  **Reglas:**
+  - 10 preguntas
+  - Puntaje mínimo para aprobar: 70%
+  - Una vez enviado, no se puede repetir
+
+  ¡Buena suerte!
+
+difficulty: intermediate
+estimated_time_minutes: 20
+points: 100
+order: 11
+
+questions:
+  - id: q1
+    question: |
+      ¿Cuál es la PRINCIPAL diferencia entre un organigrama y una red informal?
+    type: mcq
+    options:
+      - id: a
+        text: "El organigrama muestra salarios, la red no"
+        is_correct: false
+      - id: b
+        text: "El organigrama muestra jerarquía formal, la red muestra flujos reales de información"
+        is_correct: true
+      - id: c
+        text: "La red informal solo existe en empresas pequeñas"
+        is_correct: false
+      - id: d
+        text: "No hay diferencia significativa"
+        is_correct: false
+    explanation: |
+      El organigrama representa la estructura jerárquica formal (quién reporta a quién),
+      mientras que ONA revela cómo fluye realmente la información y las consultas
+      en el día a día, que frecuentemente difiere del organigrama.
+    points: 10
+
+  - id: q2
+    question: |
+      Una persona con ALTA intermediación (betweenness) pero BAJO grado (degree) probablemente es:
+    type: mcq
+    options:
+      - id: a
+        text: "Un empleado nuevo sin experiencia"
+        is_correct: false
+      - id: b
+        text: "Un broker que conecta grupos que de otra forma estarían desconectados"
+        is_correct: true
+      - id: c
+        text: "Alguien con muchos amigos en la oficina"
+        is_correct: false
+      - id: d
+        text: "El CEO de la empresa"
+        is_correct: false
+    explanation: |
+      Alta intermediación + bajo grado indica alguien que tiene pocas conexiones
+      pero está en una posición estratégica de puente entre grupos.
+      Ejemplo: la única persona que conecta dos departamentos.
+    points: 10
+
+  - id: q3
+    question: |
+      ¿Cuál de estas preguntas de encuesta ONA está MEJOR diseñada?
+    type: mcq
+    options:
+      - id: a
+        text: "¿Quién es tu jefe?"
+        is_correct: false
+      - id: b
+        text: "¿Con quién hablas?"
+        is_correct: false
+      - id: c
+        text: "En los últimos 3 meses, ¿a quién has consultado para resolver problemas técnicos?"
+        is_correct: true
+      - id: d
+        text: "¿Quién te cae bien en el trabajo?"
+        is_correct: false
+    explanation: |
+      La opción C tiene los tres componentes de una buena pregunta ONA:
+      1. Marco temporal (últimos 3 meses)
+      2. Relación específica (resolver problemas técnicos)
+      3. Relevancia para el negocio
+    points: 10
+
+  - id: q4
+    question: |
+      En ONA, un "silo" se refiere a:
+    type: mcq
+    options:
+      - id: a
+        text: "Un departamento con demasiados empleados"
+        is_correct: false
+      - id: b
+        text: "Grupos que tienen poca o ninguna conexión entre sí"
+        is_correct: true
+      - id: c
+        text: "Una persona que trabaja sola"
+        is_correct: false
+      - id: d
+        text: "Un sistema de almacenamiento de datos"
+        is_correct: false
+    explanation: |
+      Los silos organizacionales son grupos o departamentos que operan de forma
+      aislada, con pocas conexiones con otras partes de la organización.
+      Esto impide el flujo de información y la colaboración efectiva.
+    points: 10
+
+  - id: q5
+    question: |
+      La métrica de CERCANÍA (closeness) alta indica que una persona:
+    type: mcq
+    options:
+      - id: a
+        text: "Tiene muchos amigos cercanos"
+        is_correct: false
+      - id: b
+        text: "Trabaja cerca de la oficina central"
+        is_correct: false
+      - id: c
+        text: "Puede alcanzar a otros en la red con pocos pasos"
+        is_correct: true
+      - id: d
+        text: "Es nueva en la empresa"
+        is_correct: false
+    explanation: |
+      La cercanía mide qué tan "cerca" está una persona del resto de la red.
+      Alta cercanía significa que puede difundir información rápidamente
+      porque requiere pocos intermediarios para llegar a cualquiera.
+    points: 10
+
+  - id: q6
+    question: |
+      ¿Cuál es el PRINCIPAL riesgo de tener una persona con muy alta intermediación?
+    type: mcq
+    options:
+      - id: a
+        text: "Esa persona pedirá aumento de sueldo"
+        is_correct: false
+      - id: b
+        text: "Sobrecarga y dependencia crítica - si se va, se interrumpen flujos"
+        is_correct: true
+      - id: c
+        text: "Tendrá conflictos con sus compañeros"
+        is_correct: false
+      - id: d
+        text: "No hay ningún riesgo"
+        is_correct: false
+    explanation: |
+      Alta intermediación indica que muchos flujos de información pasan por esa persona.
+      Esto crea riesgo de sobrecarga (burnout) y dependencia crítica
+      (si se va, múltiples procesos se ven afectados).
+    points: 10
+
+  - id: q7
+    question: |
+      Un equipo tiene métricas de red MUY similares a su organigrama formal.
+      Esto probablemente indica:
+    type: mcq
+    options:
+      - id: a
+        text: "Cultura muy jerárquica con poca colaboración espontánea"
+        is_correct: true
+      - id: b
+        text: "Un equipo altamente innovador"
+        is_correct: false
+      - id: c
+        text: "Problemas graves de comunicación"
+        is_correct: false
+      - id: d
+        text: "Excelente gestión del conocimiento"
+        is_correct: false
+    explanation: |
+      Cuando la red informal replica exactamente el organigrama, sugiere
+      que las personas solo se comunican a través de canales formales.
+      Esto puede indicar rigidez, miedo a saltarse la jerarquía,
+      o falta de colaboración cross-funcional.
+    points: 10
+
+  - id: q8
+    question: |
+      Para mitigar el riesgo de dependencia de una persona clave, la estrategia MÁS efectiva es:
+    type: mcq
+    options:
+      - id: a
+        text: "Aumentar su salario para retenerla"
+        is_correct: false
+      - id: b
+        text: "Documentar su conocimiento y crear redundancia en conexiones"
+        is_correct: true
+      - id: c
+        text: "Despedirla para forzar redistribución"
+        is_correct: false
+      - id: d
+        text: "Ignorar el problema y esperar que no se vaya"
+        is_correct: false
+    explanation: |
+      La mitigación efectiva reduce la DEPENDENCIA, no solo la probabilidad de salida.
+      Documentar conocimiento y crear conexiones alternativas asegura que los
+      flujos de información puedan continuar sin esa persona.
+    points: 10
+
+  - id: q9
+    question: |
+      ¿Cuál de estas escalas de frecuencia es MÁS útil para una encuesta ONA?
+    type: mcq
+    options:
+      - id: a
+        text: "Sí / No"
+        is_correct: false
+      - id: b
+        text: "1 a 100"
+        is_correct: false
+      - id: c
+        text: "Diariamente / Semanalmente / Mensualmente / Rara vez / Nunca"
+        is_correct: true
+      - id: d
+        text: "Mucho / Poco"
+        is_correct: false
+    explanation: |
+      Una escala de frecuencia con categorías temporales específicas
+      permite ponderar las relaciones (no es lo mismo consultar diariamente
+      que mensualmente) y es fácil de interpretar tanto para respondientes
+      como para analistas.
+    points: 10
+
+  - id: q10
+    question: |
+      Al presentar resultados ONA a un cliente ejecutivo, lo MÁS importante es:
+    type: mcq
+    options:
+      - id: a
+        text: "Mostrar todas las fórmulas matemáticas de las métricas"
+        is_correct: false
+      - id: b
+        text: "Conectar los hallazgos con impacto de negocio y recomendaciones accionables"
+        is_correct: true
+      - id: c
+        text: "Usar la mayor cantidad de gráficos posibles"
+        is_correct: false
+      - id: d
+        text: "Explicar la historia de ONA desde los años 1930"
+        is_correct: false
+    explanation: |
+      Los ejecutivos necesitan entender: (1) qué problema existe,
+      (2) cómo afecta al negocio (tiempo, dinero, clientes),
+      y (3) qué acción tomar. Las métricas son evidencia,
+      pero el mensaje debe ser en términos de negocio.
+    points: 10
+
+passing_score: 70
+shuffle_questions: true
+show_explanation_on_wrong: false
+time_limit_minutes: 30
+
+completion_message: |
+  🎉 ¡Felicitaciones!
+
+  Has completado el curso "Introducción al Análisis de Redes Organizacionales".
+
+  **Lo que aprendiste:**
+  - Diferencia entre organigrama y red informal
+  - Las 3 métricas clave: grado, intermediación y cercanía
+  - Diseño de encuestas ONA efectivas
+  - Identificación de silos, cuellos de botella y dependencias
+  - Diagnóstico y recomendaciones basadas en datos
+
+  **Próximos pasos:**
+  - Aplica ONA en tu organización
+  - Explora herramientas como Gephi o NetworkX
+  - Considera el curso avanzado de ONA
+
+  ¡Gracias por aprender con Rizoma Academia!
+
+tags:
+  - ona
+  - evaluacion
+  - certificacion
+
+concepts:
+  - organigrama-vs-red
+  - metricas-centralidad
+  - diseno-encuesta
+  - silos
+  - dependencia
+  - diagnostico

@@ -1,0 +1,174 @@
+# Ejercicio 6: Auditor de encuestas ONA
+# Tipo: quiz (evaluación de calidad de encuestas)
+
+id: ex-06-auditor-encuestas
+type: quiz
+title: "Auditor de encuestas ONA"
+description: "Evalúa la calidad de encuestas ONA reales e identifica problemas de diseño."
+
+instructions: |
+  Has sido contratado como consultor para auditar encuestas ONA de diferentes empresas.
+
+  Tu trabajo es identificar problemas de diseño que podrían invalidar los resultados
+  o generar datos poco útiles.
+
+  **Criterios de evaluación:**
+  - Marco temporal definido
+  - Relación específica (no genérica)
+  - Escala de frecuencia adecuada
+  - Anonimato protegido
+  - Relevancia para el negocio
+
+difficulty: intermediate
+estimated_time_minutes: 8
+points: 40
+order: 6
+
+questions:
+  - id: q1
+    question: |
+      **Encuesta del Cliente A:**
+
+      "¿Quién es tu mejor amigo en el trabajo?"
+
+      ¿Cuál es el PRINCIPAL problema de esta pregunta?
+    type: mcq
+    options:
+      - id: a
+        text: "No tiene marco temporal"
+        is_correct: false
+      - id: b
+        text: "Mide amistad, no flujo de información relevante para el negocio"
+        is_correct: true
+      - id: c
+        text: "Es demasiado corta"
+        is_correct: false
+      - id: d
+        text: "No tiene opciones de respuesta"
+        is_correct: false
+    explanation: |
+      Esta pregunta mide relaciones personales, no flujos de trabajo.
+      ONA debe capturar interacciones relevantes para objetivos de negocio:
+      - Consultas técnicas
+      - Flujo de información
+      - Colaboración en proyectos
+
+      La amistad puede o no correlacionar con productividad.
+    points: 10
+
+  - id: q2
+    question: |
+      **Encuesta del Cliente B:**
+
+      "En los últimos 6 meses, ¿a quién has consultado para obtener información
+      sobre clientes o el mercado?"
+
+      Esta pregunta es:
+    type: mcq
+    options:
+      - id: a
+        text: "Problemática - 6 meses es un marco temporal muy largo"
+        is_correct: false
+      - id: b
+        text: "Bien diseñada - tiene marco temporal y relación específica"
+        is_correct: true
+      - id: c
+        text: "Problemática - no especifica frecuencia"
+        is_correct: false
+      - id: d
+        text: "Problemática - combina dos temas diferentes"
+        is_correct: false
+    explanation: |
+      Esta pregunta está bien diseñada porque:
+      - Marco temporal claro (6 meses)
+      - Relación específica (información de clientes/mercado)
+      - Relevante para el negocio (inteligencia comercial)
+
+      Nota: Marcos de 3-6 meses son comunes en ONA.
+      La frecuencia se puede capturar en una pregunta complementaria.
+    points: 10
+
+  - id: q3
+    question: |
+      **Encuesta del Cliente C:**
+
+      "Indica con qué frecuencia consultas a cada persona de tu departamento
+      para resolver problemas técnicos:
+
+      - Juan Pérez: [Diario / Semanal / Mensual / Nunca]
+      - María García: [Diario / Semanal / Mensual / Nunca]
+      - Carlos López: [Diario / Semanal / Mensual / Nunca]"
+
+      ¿Qué problema tiene este diseño?
+    type: mcq
+    options:
+      - id: a
+        text: "Compromete el anonimato - los nombres completos identifican a las personas"
+        is_correct: true
+      - id: b
+        text: "La escala de frecuencia no es adecuada"
+        is_correct: false
+      - id: c
+        text: "No tiene marco temporal"
+        is_correct: false
+      - id: d
+        text: "La relación no es específica"
+        is_correct: false
+    explanation: |
+      El problema principal es que usar nombres completos puede:
+      - Generar temor a represalias
+      - Sesgar respuestas hacia lo "políticamente correcto"
+      - Reducir la honestidad de los participantes
+
+      Mejor práctica: Usar identificadores anónimos o sistemas
+      que protejan la identidad individual en los reportes.
+    points: 10
+
+  - id: q4
+    question: |
+      Un cliente quiere medir "innovación" en su organización con ONA.
+
+      ¿Cuál de estas preguntas captura MEJOR el flujo de ideas innovadoras?
+    type: mcq
+    options:
+      - id: a
+        text: "¿Quién es la persona más creativa de tu equipo?"
+        is_correct: false
+      - id: b
+        text: "En los últimos 3 meses, ¿a quién has consultado cuando necesitas ideas nuevas o diferentes perspectivas para un proyecto?"
+        is_correct: true
+      - id: c
+        text: "¿Con quién te gusta hacer brainstorming?"
+        is_correct: false
+      - id: d
+        text: "¿Quién debería recibir el premio a la innovación este año?"
+        is_correct: false
+    explanation: |
+      La opción B es correcta porque:
+      - Marco temporal (3 meses)
+      - Acción concreta (consultar para ideas/perspectivas)
+      - Contexto de trabajo (proyectos)
+
+      Las otras opciones miden percepción o preferencia,
+      no flujo real de ideas.
+    points: 10
+
+passing_score: 30
+shuffle_questions: false
+show_explanation_on_wrong: true
+
+hints:
+  - "Las mejores preguntas ONA capturan comportamiento, no opinión"
+  - "El anonimato es crucial para obtener respuestas honestas"
+  - "Cada pregunta debe tener propósito de negocio claro"
+
+tags:
+  - ona
+  - encuesta
+  - auditoria
+  - diseno-preguntas
+
+concepts:
+  - auditoria-encuesta
+  - calidad-datos
+  - anonimato

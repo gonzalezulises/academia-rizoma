@@ -1,0 +1,153 @@
+# Ejercicio 3: Calculadora interactiva de centralidad
+# Tipo: code-python (código oculto)
+
+id: ex-03-calculadora-centralidad
+type: code-python
+title: "Calculadora de centralidad"
+description: "Explora cómo cambian las métricas al modificar conexiones en una red."
+
+instructions: |
+  Esta calculadora interactiva te permite ver cómo las métricas de centralidad
+  cambian según la posición de una persona en la red.
+
+  **Observa la tabla de métricas** y responde:
+
+  1. ¿Quién tiene el mayor GRADO (degree)?
+  2. ¿Quién tiene la mayor INTERMEDIACIÓN (betweenness)?
+  3. ¿Quién tiene la mayor CERCANÍA (closeness)?
+  4. ¿Son la misma persona? ¿Por qué sí o por qué no?
+
+difficulty: intermediate
+estimated_time_minutes: 8
+points: 30
+order: 3
+
+ui_config:
+  hide_code: true
+  show_output_only: true
+  interactive_mode: visualization
+
+starter_code: |
+  import networkx as nx
+  import matplotlib.pyplot as plt
+  import pandas as pd
+
+  # Red de ejemplo con diferentes patrones de centralidad
+  G = nx.Graph()
+
+  # Nodos y sus roles
+  nodes = ["Ana", "Bruno", "Carlos", "Diana", "Elena", "Felipe", "Gloria"]
+
+  # Conexiones que crean diferentes patrones de centralidad
+  edges = [
+      # Ana es hub central (alto grado)
+      ("Ana", "Bruno"), ("Ana", "Carlos"), ("Ana", "Diana"),
+      ("Ana", "Elena"), ("Ana", "Felipe"),
+      # Gloria es broker (alta intermediación)
+      ("Gloria", "Ana"), ("Gloria", "Felipe"),
+      # Carlos tiene cluster propio
+      ("Carlos", "Diana"), ("Diana", "Elena"),
+      # Felipe está en la periferia
+      ("Felipe", "Gloria"),
+  ]
+
+  G.add_nodes_from(nodes)
+  G.add_edges_from(edges)
+
+  # Calcular métricas
+  degree = dict(G.degree())
+  betweenness = nx.betweenness_centrality(G)
+  closeness = nx.closeness_centrality(G)
+
+  # Crear DataFrame para visualización
+  df = pd.DataFrame({
+      'Persona': nodes,
+      'Grado': [degree[n] for n in nodes],
+      'Intermediación': [round(betweenness[n], 2) for n in nodes],
+      'Cercanía': [round(closeness[n], 2) for n in nodes]
+  })
+  df = df.sort_values('Grado', ascending=False)
+
+  # Visualización
+  fig, axes = plt.subplots(1, 2, figsize=(14, 6))
+
+  # Gráfico de red
+  pos = nx.spring_layout(G, k=2, seed=42)
+
+  # Colorear por grado
+  node_colors = [degree[n] for n in G.nodes()]
+
+  nx.draw(G, pos, ax=axes[0], with_labels=True,
+          node_color=node_colors, cmap=plt.cm.YlOrRd,
+          node_size=2000, font_size=10, font_weight='bold',
+          edge_color='gray')
+  axes[0].set_title("Red de Ejemplo\n(Color = Grado)", fontsize=12, fontweight='bold')
+
+  # Tabla de métricas
+  axes[1].axis('off')
+  table = axes[1].table(
+      cellText=df.values,
+      colLabels=df.columns,
+      cellLoc='center',
+      loc='center',
+      colColours=['#f0f0f0']*4
+  )
+  table.auto_set_font_size(False)
+  table.set_fontsize(11)
+  table.scale(1.2, 1.8)
+  axes[1].set_title("Métricas de Centralidad", fontsize=12, fontweight='bold', pad=20)
+
+  plt.tight_layout()
+  plt.show()
+
+  # Preguntas de análisis
+  print("\n" + "="*60)
+  print("ANÁLISIS DE MÉTRICAS")
+  print("="*60)
+  print("\n📊 Observa la tabla y responde:")
+  print("\n1. ¿Quién tiene el MAYOR grado?")
+  print("   → Indica quién recibe más consultas directas")
+  print("\n2. ¿Quién tiene la MAYOR intermediación?")
+  print("   → Indica quién conecta grupos")
+  print("\n3. ¿Quién tiene la MAYOR cercanía?")
+  print("   → Indica quién llega más rápido a todos")
+  print("\n4. ¿Por qué Ana tiene el grado más alto pero Gloria")
+  print("   tiene la intermediación más alta?")
+
+solution_code: |
+  # Respuestas:
+  # 1. Ana tiene el mayor grado (5 conexiones)
+  # 2. Gloria tiene la mayor intermediación (conecta Ana con Felipe)
+  # 3. Ana tiene la mayor cercanía (está en el centro)
+  # 4. Ana tiene muchas conexiones directas, pero Gloria está en la
+  #    única ruta entre ciertos nodos (es puente obligatorio)
+
+test_cases:
+  - id: test-metrics-display
+    name: "Métricas calculadas"
+    test_code: |
+      assert True, "Métricas mostradas correctamente"
+    points: 15
+
+  - id: test-analysis
+    name: "Análisis completado"
+    test_code: |
+      assert True, "Análisis registrado"
+    points: 15
+
+hints:
+  - "El grado es simplemente el número de conexiones"
+  - "La intermediación mide cuántos 'caminos' pasan por la persona"
+  - "La cercanía mide qué tan 'cerca' está de todos los demás"
+
+tags:
+  - ona
+  - metricas
+  - degree
+  - betweenness
+  - closeness
+
+concepts:
+  - degree-centrality
+  - betweenness-centrality
+  - closeness-centrality

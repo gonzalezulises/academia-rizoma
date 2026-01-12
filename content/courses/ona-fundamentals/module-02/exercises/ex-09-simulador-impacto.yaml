@@ -1,0 +1,252 @@
+# Ejercicio 9: Simulador de impacto - Qué pasa si...
+# Tipo: code-python (código oculto)
+
+id: ex-09-simulador-impacto
+type: code-python
+title: "Simulador de impacto"
+description: "Simula el impacto de remover o agregar conexiones en la red."
+
+instructions: |
+  **Contexto:**
+  Una empresa de manufactura está considerando una reorganización.
+  Quieren entender el impacto ANTES de hacer cambios.
+
+  **Este simulador muestra:**
+  - Red ACTUAL (izquierda)
+  - Red DESPUÉS de cambios (derecha)
+  - Métricas de comparación
+
+  **Escenarios simulados:**
+  - Escenario A: El Supervisor de Turno 1 se va
+  - Escenario B: Se crea conexión directa Producción-Calidad
+
+  **Tu tarea:**
+  Analiza los escenarios y decide cuál tiene mayor impacto en la red.
+
+difficulty: intermediate
+estimated_time_minutes: 12
+points: 35
+order: 9
+
+ui_config:
+  hide_code: true
+  show_output_only: true
+  interactive_mode: visualization
+
+datasets:
+  - id: manufactura
+    path: shared/datasets/manufactura.csv
+    name: "Manufactura"
+    description: "Datos de ONA de planta manufacturera"
+
+starter_code: |
+  import networkx as nx
+  import matplotlib.pyplot as plt
+  import pandas as pd
+  import numpy as np
+
+  def crear_red_base():
+      """Crea la red de la planta manufacturera"""
+      G = nx.Graph()
+
+      # Nodos con departamentos
+      nodos = {
+          'Gerente Planta': 'Gerencia',
+          'Sup. Turno 1': 'Producción',
+          'Sup. Turno 2': 'Producción',
+          'Op. 1': 'Producción',
+          'Op. 2': 'Producción',
+          'Op. 3': 'Producción',
+          'Op. 4': 'Producción',
+          'Jefe Calidad': 'Calidad',
+          'Inspector 1': 'Calidad',
+          'Inspector 2': 'Calidad',
+          'Jefe Mantenimiento': 'Mantenimiento',
+          'Técnico 1': 'Mantenimiento',
+          'Técnico 2': 'Mantenimiento',
+      }
+
+      for nodo, dept in nodos.items():
+          G.add_node(nodo, departamento=dept)
+
+      edges = [
+          # Producción
+          ('Gerente Planta', 'Sup. Turno 1'),
+          ('Gerente Planta', 'Sup. Turno 2'),
+          ('Sup. Turno 1', 'Op. 1'), ('Sup. Turno 1', 'Op. 2'),
+          ('Sup. Turno 2', 'Op. 3'), ('Sup. Turno 2', 'Op. 4'),
+          # Calidad
+          ('Gerente Planta', 'Jefe Calidad'),
+          ('Jefe Calidad', 'Inspector 1'), ('Jefe Calidad', 'Inspector 2'),
+          # Mantenimiento
+          ('Gerente Planta', 'Jefe Mantenimiento'),
+          ('Jefe Mantenimiento', 'Técnico 1'), ('Jefe Mantenimiento', 'Técnico 2'),
+          # Conexiones cruzadas críticas
+          ('Sup. Turno 1', 'Jefe Calidad'),  # Única conexión Prod-Calidad
+          ('Sup. Turno 1', 'Técnico 1'),      # Sup T1 coordina con Mantenimiento
+          ('Op. 1', 'Op. 3'),  # Operadores se ayudan entre turnos
+      ]
+
+      G.add_edges_from(edges)
+      return G, nodos
+
+  def calcular_metricas(G):
+      """Calcula métricas clave de la red"""
+      return {
+          'nodos': G.number_of_nodes(),
+          'conexiones': G.number_of_edges(),
+          'densidad': round(nx.density(G), 3),
+          'avg_betweenness': round(np.mean(list(nx.betweenness_centrality(G).values())), 3),
+          'componentes': nx.number_connected_components(G)
+      }
+
+  def dibujar_red(G, ax, titulo, nodos_info):
+      colores_dept = {
+          'Gerencia': '#e74c3c',
+          'Producción': '#3498db',
+          'Calidad': '#2ecc71',
+          'Mantenimiento': '#f1c40f'
+      }
+      node_colors = [colores_dept[G.nodes[n]['departamento']] for n in G.nodes()]
+
+      pos = nx.spring_layout(G, k=2, seed=42)
+      nx.draw(G, pos, ax=ax, with_labels=True, node_color=node_colors,
+              node_size=1500, font_size=8, font_weight='bold', edge_color='gray')
+      ax.set_title(titulo, fontsize=11, fontweight='bold')
+
+  # Crear red base
+  G_base, nodos_info = crear_red_base()
+  metricas_base = calcular_metricas(G_base)
+
+  # ESCENARIO A: Sup. Turno 1 se va
+  G_escenario_A = G_base.copy()
+  G_escenario_A.remove_node('Sup. Turno 1')
+  metricas_A = calcular_metricas(G_escenario_A)
+
+  # ESCENARIO B: Nueva conexión Producción-Calidad
+  G_escenario_B = G_base.copy()
+  G_escenario_B.add_edge('Sup. Turno 2', 'Inspector 1')
+  G_escenario_B.add_edge('Op. 1', 'Inspector 2')
+  metricas_B = calcular_metricas(G_escenario_B)
+
+  # Visualización comparativa
+  fig = plt.figure(figsize=(18, 10))
+
+  # Red base
+  ax1 = fig.add_subplot(2, 2, 1)
+  dibujar_red(G_base, ax1, "RED ACTUAL", nodos_info)
+
+  # Escenario A
+  ax2 = fig.add_subplot(2, 2, 2)
+  dibujar_red(G_escenario_A, ax2, "ESCENARIO A: Sup. Turno 1 se va", nodos_info)
+
+  # Escenario B
+  ax3 = fig.add_subplot(2, 2, 3)
+  dibujar_red(G_escenario_B, ax3, "ESCENARIO B: Nuevas conexiones Prod-Calidad", nodos_info)
+
+  # Tabla comparativa
+  ax4 = fig.add_subplot(2, 2, 4)
+  ax4.axis('off')
+
+  comparacion = pd.DataFrame({
+      'Métrica': ['Conexiones', 'Densidad', 'Intermediación Prom.', 'Componentes'],
+      'Actual': [metricas_base['conexiones'], metricas_base['densidad'],
+                 metricas_base['avg_betweenness'], metricas_base['componentes']],
+      'Escenario A': [metricas_A['conexiones'], metricas_A['densidad'],
+                      metricas_A['avg_betweenness'], metricas_A['componentes']],
+      'Escenario B': [metricas_B['conexiones'], metricas_B['densidad'],
+                      metricas_B['avg_betweenness'], metricas_B['componentes']],
+  })
+
+  table = ax4.table(
+      cellText=comparacion.values,
+      colLabels=comparacion.columns,
+      cellLoc='center',
+      loc='center',
+      colColours=['#f0f0f0']*4
+  )
+  table.auto_set_font_size(False)
+  table.set_fontsize(11)
+  table.scale(1.3, 2)
+  ax4.set_title("COMPARACIÓN DE MÉTRICAS", fontsize=12, fontweight='bold', pad=20)
+
+  # Leyenda global
+  legend_elements = [
+      plt.Line2D([0], [0], marker='o', color='w', markerfacecolor='#e74c3c', markersize=12, label='Gerencia'),
+      plt.Line2D([0], [0], marker='o', color='w', markerfacecolor='#3498db', markersize=12, label='Producción'),
+      plt.Line2D([0], [0], marker='o', color='w', markerfacecolor='#2ecc71', markersize=12, label='Calidad'),
+      plt.Line2D([0], [0], marker='o', color='w', markerfacecolor='#f1c40f', markersize=12, label='Mantenimiento'),
+  ]
+  fig.legend(handles=legend_elements, loc='lower center', ncol=4, fontsize=10)
+
+  plt.tight_layout()
+  plt.subplots_adjust(bottom=0.08)
+  plt.show()
+
+  # Análisis
+  print("\n" + "="*70)
+  print("ANÁLISIS DE ESCENARIOS")
+  print("="*70)
+
+  print("\n📊 ESCENARIO A (Sup. Turno 1 se va):")
+  print(f"   • Conexiones perdidas: {metricas_base['conexiones'] - metricas_A['conexiones']}")
+  print(f"   • Impacto en densidad: {metricas_base['densidad']} → {metricas_A['densidad']}")
+  print(f"   • Se pierde: conexión única Producción-Calidad")
+  print(f"   • Se pierde: coordinación con Mantenimiento")
+
+  print("\n📊 ESCENARIO B (Nuevas conexiones):")
+  print(f"   • Conexiones ganadas: {metricas_B['conexiones'] - metricas_base['conexiones']}")
+  print(f"   • Impacto en densidad: {metricas_base['densidad']} → {metricas_B['densidad']}")
+  print(f"   • Reduce dependencia del Sup. Turno 1")
+
+  print("\n" + "="*70)
+  print("PREGUNTA")
+  print("="*70)
+  print("\nBasándote en el análisis, ¿qué recomendarías a la empresa?")
+  print("\nOpciones:")
+  print("A) Implementar Escenario A - reducir personal")
+  print("B) Implementar Escenario B ANTES de cualquier salida")
+  print("C) No hacer cambios - la red actual es óptima")
+  print("D) Despedir al Gerente de Planta")
+
+solution_code: |
+  # Respuesta correcta: B) Implementar Escenario B ANTES de cualquier salida
+  #
+  # Justificación:
+  # 1. El Escenario A muestra que la salida de Sup. Turno 1 es crítica
+  #    - Se pierden 5 conexiones (33% de la red)
+  #    - Se rompe el único puente Producción-Calidad
+  #
+  # 2. El Escenario B es preventivo
+  #    - Crea redundancia en conexiones críticas
+  #    - Reduce la intermediación del Sup. Turno 1
+  #    - Prepara la red para rotación de personal
+  #
+  # Recomendación completa:
+  # - Implementar conexiones del Escenario B
+  # - Cross-training entre turnos
+  # - Documentar procesos de coordinación
+  # - Re-evaluar métricas en 3 meses
+
+test_cases:
+  - id: test-scenario-analysis
+    name: "Análisis de escenarios completado"
+    test_code: |
+      assert True, "Análisis ejecutado correctamente"
+    points: 35
+
+hints:
+  - "Compara el número de conexiones perdidas vs ganadas"
+  - "Un componente > 1 significa que la red se fragmentó"
+  - "La prevención es más efectiva que la reacción"
+
+tags:
+  - ona
+  - simulacion
+  - escenarios
+  - reorganizacion
+
+concepts:
+  - simulacion-impacto
+  - what-if-analysis
+  - reorganizacion

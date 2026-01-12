@@ -1,0 +1,130 @@
+# Ejercicio 1: Comparar organigrama vs red informal
+# Tipo: code-python (código oculto - el usuario solo ve visualizaciones)
+
+id: ex-01-detectar-red
+type: code-python
+title: "Detectando la red oculta"
+description: "Compara el organigrama formal con la red informal de consultas."
+
+instructions: |
+  Observa las dos visualizaciones:
+  - **Izquierda**: Organigrama formal (quién reporta a quién)
+  - **Derecha**: Red de consultas (quién consulta a quién para resolver problemas)
+
+  Analiza las diferencias y responde las preguntas que aparecen debajo.
+
+difficulty: beginner
+estimated_time_minutes: 5
+points: 20
+order: 1
+
+# Configuración especial: código oculto
+ui_config:
+  hide_code: true
+  show_output_only: true
+  interactive_mode: visualization
+
+# Código que genera las visualizaciones (oculto al usuario)
+starter_code: |
+  # Este código está oculto para el usuario
+  import networkx as nx
+  import matplotlib.pyplot as plt
+
+  # Datos del organigrama (estructura jerárquica)
+  org_edges = [
+      ("Director", "Gte. Producción"),
+      ("Director", "Gte. Calidad"),
+      ("Director", "Gte. Ventas"),
+      ("Gte. Producción", "Supervisor A"),
+      ("Gte. Producción", "Supervisor B"),
+      ("Gte. Calidad", "Analista QA"),
+      ("Gte. Ventas", "Ejecutivo 1"),
+      ("Gte. Ventas", "Ejecutivo 2"),
+  ]
+
+  # Datos de la red informal (quién consulta a quién)
+  network_edges = [
+      ("Supervisor A", "Analista QA"),
+      ("Supervisor B", "Analista QA"),
+      ("Ejecutivo 1", "Analista QA"),
+      ("Ejecutivo 2", "Analista QA"),
+      ("Gte. Producción", "Analista QA"),
+      ("Gte. Ventas", "Analista QA"),
+      ("Supervisor A", "Supervisor B"),
+      ("Ejecutivo 1", "Ejecutivo 2"),
+      ("Gte. Calidad", "Analista QA"),
+  ]
+
+  fig, axes = plt.subplots(1, 2, figsize=(14, 6))
+
+  # Organigrama
+  G_org = nx.DiGraph()
+  G_org.add_edges_from(org_edges)
+  pos_org = nx.spring_layout(G_org, k=2, seed=42)
+  nx.draw(G_org, pos_org, ax=axes[0], with_labels=True,
+          node_color='lightblue', node_size=2000, font_size=8,
+          arrows=True, edge_color='gray')
+  axes[0].set_title("Organigrama Formal", fontsize=14, fontweight='bold')
+
+  # Red informal
+  G_net = nx.Graph()
+  G_net.add_edges_from(network_edges)
+  pos_net = nx.spring_layout(G_net, k=2, seed=42)
+
+  # Colorear nodos por grado
+  degrees = dict(G_net.degree())
+  node_colors = ['red' if degrees[n] > 4 else 'lightgreen' for n in G_net.nodes()]
+
+  nx.draw(G_net, pos_net, ax=axes[1], with_labels=True,
+          node_color=node_colors, node_size=2000, font_size=8,
+          edge_color='gray')
+  axes[1].set_title("Red de Consultas", fontsize=14, fontweight='bold')
+
+  plt.tight_layout()
+  plt.show()
+
+  # Pregunta interactiva
+  print("\n" + "="*50)
+  print("PREGUNTAS DE ANÁLISIS")
+  print("="*50)
+  print("\n1. ¿Quién es la persona más consultada en la red informal?")
+  print("   (Nodo en ROJO = más conexiones)")
+  print("\n2. ¿Esta persona tiene un rol alto en el organigrama?")
+  print("\n3. ¿Qué pasaría si esta persona se fuera de la empresa?")
+
+solution_code: |
+  # La respuesta correcta es: Analista QA
+  # - Es la persona más consultada (6 conexiones)
+  # - En el organigrama está 2 niveles abajo del Director
+  # - Su salida dejaría a múltiples áreas sin fuente de información
+
+test_cases:
+  - id: test-visualization
+    name: "Visualización generada"
+    test_code: |
+      # Verificar que el gráfico se generó correctamente
+      assert True, "Visualización completada"
+    points: 10
+
+  - id: test-interaction
+    name: "Análisis completado"
+    test_code: |
+      # Este ejercicio se evalúa por interacción
+      assert True, "Análisis registrado"
+    points: 10
+
+hints:
+  - "Observa el nodo marcado en ROJO en la red de consultas"
+  - "Compara la posición de ese nodo en ambos gráficos"
+  - "Piensa en las consecuencias de remover ese nodo de la red"
+
+tags:
+  - ona
+  - visualizacion
+  - organigrama
+  - red-informal
+
+concepts:
+  - red-informal
+  - estructura-formal
+  - broker

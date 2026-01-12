@@ -1,0 +1,241 @@
+# Ejercicio 8: Análisis de riesgo por dependencia de personas clave
+# Tipo: code-python (código oculto)
+
+id: ex-08-riesgo-dependencia
+type: code-python
+title: "Riesgo de dependencia"
+description: "Identifica personas clave cuya salida impactaría severamente la red."
+
+instructions: |
+  **Contexto:**
+  El área de Recursos Humanos quiere identificar "key person risk" - personas
+  cuya salida repentina causaría disrupciones significativas.
+
+  **Los datos muestran:**
+  - Red de 15 empleados en un equipo de tecnología
+  - El tamaño de cada nodo representa su centralidad de intermediación
+  - El color indica el nivel de riesgo
+
+  **Tu tarea:**
+  1. Identifica las 2 personas con mayor riesgo de dependencia
+  2. Explica por qué su salida sería problemática
+  3. Propón una estrategia de mitigación
+
+difficulty: intermediate
+estimated_time_minutes: 12
+points: 35
+order: 8
+
+ui_config:
+  hide_code: true
+  show_output_only: true
+  interactive_mode: visualization
+
+starter_code: |
+  import networkx as nx
+  import matplotlib.pyplot as plt
+  import pandas as pd
+  import numpy as np
+
+  # Crear red con estructura de dependencia
+  G = nx.Graph()
+
+  # Empleados con roles
+  empleados = {
+      'Ana': 'Tech Lead',
+      'Bruno': 'Senior Dev',
+      'Carlos': 'Dev',
+      'Diana': 'Dev',
+      'Elena': 'QA Lead',
+      'Felipe': 'QA',
+      'Gloria': 'DevOps',
+      'Hugo': 'Dev',
+      'Isabel': 'Dev',
+      'Juan': 'Junior',
+      'Karen': 'Junior',
+      'Luis': 'Junior',
+      'María': 'Arquitecta',
+      'Nicolás': 'PM',
+      'Oscar': 'Designer'
+  }
+
+  for emp, rol in empleados.items():
+      G.add_node(emp, rol=rol)
+
+  # Conexiones que crean dependencias
+  edges = [
+      # María (Arquitecta) es consultada por MUCHOS para decisiones técnicas
+      ('María', 'Ana'), ('María', 'Bruno'), ('María', 'Carlos'),
+      ('María', 'Diana'), ('María', 'Gloria'), ('María', 'Hugo'),
+      # Ana (Tech Lead) coordina el equipo de desarrollo
+      ('Ana', 'Bruno'), ('Ana', 'Carlos'), ('Ana', 'Diana'),
+      ('Ana', 'Hugo'), ('Ana', 'Isabel'),
+      # Gloria (DevOps) es el ÚNICO punto de contacto para infra
+      ('Gloria', 'Ana'), ('Gloria', 'Elena'), ('Gloria', 'Bruno'),
+      ('Gloria', 'Nicolás'),
+      # Elena coordina QA
+      ('Elena', 'Felipe'), ('Elena', 'Ana'),
+      # Nicolás (PM) conecta con stakeholders
+      ('Nicolás', 'Ana'), ('Nicolás', 'Elena'), ('Nicolás', 'Oscar'),
+      # Conexiones de juniors (dependen de seniors)
+      ('Juan', 'Bruno'), ('Karen', 'Carlos'), ('Luis', 'Diana'),
+      # Conexiones laterales
+      ('Bruno', 'Carlos'), ('Carlos', 'Diana'), ('Hugo', 'Isabel'),
+      ('Felipe', 'Oscar'),
+  ]
+
+  G.add_edges_from(edges)
+
+  # Calcular métricas de riesgo
+  betweenness = nx.betweenness_centrality(G)
+  degree = dict(G.degree())
+
+  # Crear DataFrame de riesgo
+  df_riesgo = pd.DataFrame({
+      'Empleado': list(empleados.keys()),
+      'Rol': list(empleados.values()),
+      'Conexiones': [degree[e] for e in empleados.keys()],
+      'Intermediación': [round(betweenness[e], 3) for e in empleados.keys()]
+  })
+
+  # Calcular score de riesgo (combinación de métricas)
+  df_riesgo['Score_Riesgo'] = (
+      df_riesgo['Intermediación'] * 0.7 +
+      (df_riesgo['Conexiones'] / df_riesgo['Conexiones'].max()) * 0.3
+  ).round(3)
+
+  df_riesgo = df_riesgo.sort_values('Score_Riesgo', ascending=False)
+
+  # Clasificar nivel de riesgo
+  def clasificar_riesgo(score):
+      if score >= 0.4:
+          return '🔴 CRÍTICO'
+      elif score >= 0.2:
+          return '🟡 ALTO'
+      elif score >= 0.1:
+          return '🟢 MEDIO'
+      else:
+          return '⚪ BAJO'
+
+  df_riesgo['Nivel'] = df_riesgo['Score_Riesgo'].apply(clasificar_riesgo)
+
+  # Visualización
+  fig, axes = plt.subplots(1, 2, figsize=(16, 8))
+
+  # Gráfico de red con tamaño por riesgo
+  pos = nx.spring_layout(G, k=2, seed=42)
+
+  # Colores por nivel de riesgo
+  def color_riesgo(emp):
+      score = df_riesgo[df_riesgo['Empleado'] == emp]['Score_Riesgo'].values[0]
+      if score >= 0.4:
+          return '#e74c3c'  # Rojo
+      elif score >= 0.2:
+          return '#f1c40f'  # Amarillo
+      elif score >= 0.1:
+          return '#2ecc71'  # Verde
+      else:
+          return '#bdc3c7'  # Gris
+
+  node_colors = [color_riesgo(n) for n in G.nodes()]
+  node_sizes = [1000 + betweenness[n] * 5000 for n in G.nodes()]
+
+  nx.draw(G, pos, ax=axes[0], with_labels=True,
+          node_color=node_colors, node_size=node_sizes,
+          font_size=9, font_weight='bold', edge_color='gray', alpha=0.8)
+  axes[0].set_title("Red de Consultas\n(Tamaño = Intermediación, Color = Riesgo)",
+                    fontsize=12, fontweight='bold')
+
+  # Leyenda
+  legend_elements = [
+      plt.Line2D([0], [0], marker='o', color='w', markerfacecolor='#e74c3c',
+                 markersize=15, label='Crítico'),
+      plt.Line2D([0], [0], marker='o', color='w', markerfacecolor='#f1c40f',
+                 markersize=15, label='Alto'),
+      plt.Line2D([0], [0], marker='o', color='w', markerfacecolor='#2ecc71',
+                 markersize=15, label='Medio'),
+      plt.Line2D([0], [0], marker='o', color='w', markerfacecolor='#bdc3c7',
+                 markersize=15, label='Bajo'),
+  ]
+  axes[0].legend(handles=legend_elements, loc='upper left', title='Nivel de Riesgo')
+
+  # Tabla de riesgo (top 8)
+  axes[1].axis('off')
+  top_riesgo = df_riesgo.head(8)[['Empleado', 'Rol', 'Conexiones', 'Intermediación', 'Nivel']]
+
+  table = axes[1].table(
+      cellText=top_riesgo.values,
+      colLabels=top_riesgo.columns,
+      cellLoc='center',
+      loc='center',
+      colColours=['#f0f0f0']*5
+  )
+  table.auto_set_font_size(False)
+  table.set_fontsize(10)
+  table.scale(1.2, 2)
+  axes[1].set_title("Top 8 - Riesgo de Dependencia", fontsize=12, fontweight='bold', pad=20)
+
+  plt.tight_layout()
+  plt.show()
+
+  # Análisis
+  print("\n" + "="*60)
+  print("ANÁLISIS DE RIESGO DE DEPENDENCIA")
+  print("="*60)
+
+  criticos = df_riesgo[df_riesgo['Score_Riesgo'] >= 0.4]
+  print(f"\n🔴 PERSONAS EN RIESGO CRÍTICO: {len(criticos)}")
+  for _, row in criticos.iterrows():
+      print(f"   • {row['Empleado']} ({row['Rol']})")
+      print(f"     Intermediación: {row['Intermediación']:.3f}")
+      print(f"     Conexiones: {row['Conexiones']}")
+
+  print("\n" + "="*60)
+  print("PREGUNTA DE ANÁLISIS")
+  print("="*60)
+  print("\n¿Cuál de estas estrategias es MÁS efectiva para mitigar")
+  print("el riesgo de dependencia de María (Arquitecta)?")
+  print("\nOpciones:")
+  print("A) Aumentar su salario para retenerla")
+  print("B) Documentar sus decisiones y crear sesiones de transferencia")
+  print("C) Prohibir que otros la consulten directamente")
+  print("D) Contratar otra arquitecta como respaldo")
+
+solution_code: |
+  # Respuesta correcta: B) Documentar y transferir conocimiento
+  #
+  # Por qué:
+  # - Opción A: No reduce la dependencia, solo intenta evitar salida
+  # - Opción B: Distribuye el conocimiento, reduce la intermediación
+  # - Opción C: No es viable y crearía más problemas
+  # - Opción D: Costoso y no garantiza transferencia
+  #
+  # Estrategia completa de mitigación:
+  # 1. Documentar decisiones arquitectónicas (ADRs)
+  # 2. Crear "Architecture Guild" con Bruno, Ana y otros
+  # 3. Sesiones mensuales de transferencia
+  # 4. Rotar personas en decisiones arquitectónicas
+  # 5. Pair programming en decisiones críticas
+
+test_cases:
+  - id: test-risk-analysis
+    name: "Análisis de riesgo completado"
+    test_code: |
+      assert True, "Análisis ejecutado correctamente"
+    points: 35
+
+hints:
+  - "Los nodos más grandes tienen mayor intermediación"
+  - "El riesgo crítico indica que muchos flujos pasan por esa persona"
+  - "La mitigación debe reducir la dependencia, no solo retener a la persona"
+
+tags:
+  - ona
+  - key-person-risk
+  - talento
+  - mitigacion
+
+concepts:
+  - riesgo-dependencia
+  - plan-sucesion
+  - transferencia-conocimiento

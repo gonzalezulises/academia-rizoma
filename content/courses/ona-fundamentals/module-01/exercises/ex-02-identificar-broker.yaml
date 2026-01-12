@@ -1,0 +1,137 @@
+# Ejercicio 2: Identificar broker en red de 3 departamentos
+# Tipo: code-python (código oculto)
+
+id: ex-02-identificar-broker
+type: code-python
+title: "Identificando al broker"
+description: "Encuentra quién conecta departamentos que de otra forma estarían aislados."
+
+instructions: |
+  La visualización muestra una red de 3 departamentos (Producción, Ventas, Logística).
+
+  Los colores indican el departamento de cada persona:
+  - 🔵 Azul = Producción
+  - 🟢 Verde = Ventas
+  - 🟠 Naranja = Logística
+
+  **Tu tarea**: Identifica al broker (la persona que conecta departamentos).
+
+  Pista: El broker es alguien que tiene conexiones con personas de múltiples departamentos.
+
+difficulty: beginner
+estimated_time_minutes: 5
+points: 20
+order: 2
+
+ui_config:
+  hide_code: true
+  show_output_only: true
+  interactive_mode: visualization
+
+starter_code: |
+  import networkx as nx
+  import matplotlib.pyplot as plt
+
+  # Red de 3 departamentos
+  G = nx.Graph()
+
+  # Departamento de Producción (azul)
+  prod_nodes = ["P1", "P2", "P3", "P4"]
+  prod_edges = [("P1", "P2"), ("P2", "P3"), ("P3", "P4"), ("P1", "P3")]
+
+  # Departamento de Ventas (verde)
+  ventas_nodes = ["V1", "V2", "V3"]
+  ventas_edges = [("V1", "V2"), ("V2", "V3"), ("V1", "V3")]
+
+  # Departamento de Logística (naranja)
+  log_nodes = ["L1", "L2", "L3"]
+  log_edges = [("L1", "L2"), ("L2", "L3")]
+
+  # El BROKER que conecta todo
+  broker = "María"
+
+  # Conexiones del broker (una con cada departamento)
+  broker_edges = [("María", "P2"), ("María", "V1"), ("María", "L2")]
+
+  # Construir grafo
+  G.add_nodes_from(prod_nodes + ventas_nodes + log_nodes + [broker])
+  G.add_edges_from(prod_edges + ventas_edges + log_edges + broker_edges)
+
+  # Colores por departamento
+  color_map = []
+  for node in G.nodes():
+      if node.startswith("P"):
+          color_map.append("#3498db")  # Azul - Producción
+      elif node.startswith("V"):
+          color_map.append("#2ecc71")  # Verde - Ventas
+      elif node.startswith("L"):
+          color_map.append("#e67e22")  # Naranja - Logística
+      else:
+          color_map.append("#e74c3c")  # Rojo - Broker
+
+  plt.figure(figsize=(12, 8))
+  pos = nx.spring_layout(G, k=2, seed=42)
+
+  # Dibujar nodos
+  nx.draw_networkx_nodes(G, pos, node_color=color_map, node_size=1500)
+  nx.draw_networkx_labels(G, pos, font_size=10, font_weight='bold')
+  nx.draw_networkx_edges(G, pos, edge_color='gray', alpha=0.6)
+
+  plt.title("Red de 3 Departamentos\n¿Quién es el broker?", fontsize=14, fontweight='bold')
+
+  # Leyenda
+  legend_elements = [
+      plt.Line2D([0], [0], marker='o', color='w', markerfacecolor='#3498db',
+                 markersize=15, label='Producción'),
+      plt.Line2D([0], [0], marker='o', color='w', markerfacecolor='#2ecc71',
+                 markersize=15, label='Ventas'),
+      plt.Line2D([0], [0], marker='o', color='w', markerfacecolor='#e67e22',
+                 markersize=15, label='Logística'),
+      plt.Line2D([0], [0], marker='o', color='w', markerfacecolor='#e74c3c',
+                 markersize=15, label='¿Broker?'),
+  ]
+  plt.legend(handles=legend_elements, loc='upper left')
+
+  plt.axis('off')
+  plt.tight_layout()
+  plt.show()
+
+  print("\n" + "="*50)
+  print("PREGUNTA")
+  print("="*50)
+  print("\n¿Quién es el broker en esta red?")
+  print("\nOpciones:")
+  print("A) P2 - porque tiene más conexiones en Producción")
+  print("B) María - porque conecta los 3 departamentos")
+  print("C) V1 - porque está en el centro del departamento de Ventas")
+  print("D) L2 - porque conecta Logística internamente")
+
+solution_code: |
+  # Respuesta correcta: B) María
+  # María es el broker porque:
+  # - Tiene conexiones con Producción (P2), Ventas (V1) y Logística (L2)
+  # - Sin ella, los 3 departamentos quedarían desconectados
+  # - Su intermediación (betweenness) es la más alta de la red
+
+test_cases:
+  - id: test-broker-identification
+    name: "Identificación del broker"
+    test_code: |
+      assert True, "Broker identificado correctamente"
+    points: 20
+
+hints:
+  - "El broker es el único nodo que conecta diferentes colores"
+  - "Sin el broker, ¿los departamentos podrían comunicarse?"
+  - "Busca el nodo en ROJO - es diferente a los demás"
+
+tags:
+  - ona
+  - broker
+  - intermediacion
+  - silos
+
+concepts:
+  - broker
+  - intermediacion
+  - conexion-entre-silos

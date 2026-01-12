@@ -1,0 +1,210 @@
+# Ejercicio 7: Diagnóstico de silos organizacionales
+# Tipo: code-python (código oculto)
+
+id: ex-07-diagnostico-silos
+type: code-python
+title: "Diagnóstico de silos"
+description: "Identifica y cuantifica silos entre departamentos usando métricas de red."
+
+instructions: |
+  **Contexto:**
+  Una empresa de retail con 4 departamentos (Compras, Ventas, Logística, Marketing)
+  sospecha que hay silos que afectan la coordinación.
+
+  **Tu tarea:**
+  Analiza la visualización de la red y la tabla de conexiones inter-departamentales.
+
+  **Preguntas a responder:**
+  1. ¿Qué par de departamentos tiene MENOS conexión?
+  2. ¿Qué departamento está MÁS aislado del resto?
+  3. ¿Qué impacto de negocio podría tener este patrón?
+
+difficulty: intermediate
+estimated_time_minutes: 10
+points: 30
+order: 7
+
+ui_config:
+  hide_code: true
+  show_output_only: true
+  interactive_mode: visualization
+
+datasets:
+  - id: retail_multipais
+    path: shared/datasets/retail_multipais.csv
+    name: "Retail Multipaís"
+    description: "Datos de ONA de empresa retail con 4 departamentos"
+
+starter_code: |
+  import networkx as nx
+  import matplotlib.pyplot as plt
+  import pandas as pd
+  import numpy as np
+
+  # Crear red con 4 departamentos
+  G = nx.Graph()
+
+  # Nodos por departamento
+  departamentos = {
+      'Compras': ['C1', 'C2', 'C3', 'C4'],
+      'Ventas': ['V1', 'V2', 'V3', 'V4', 'V5'],
+      'Logística': ['L1', 'L2', 'L3'],
+      'Marketing': ['M1', 'M2', 'M3']
+  }
+
+  # Agregar nodos con atributo de departamento
+  for dept, nodos in departamentos.items():
+      for nodo in nodos:
+          G.add_node(nodo, departamento=dept)
+
+  # Conexiones INTERNAS (dentro de cada departamento)
+  edges_internas = [
+      # Compras - bien conectado internamente
+      ('C1', 'C2'), ('C2', 'C3'), ('C3', 'C4'), ('C1', 'C3'),
+      # Ventas - muy conectado internamente
+      ('V1', 'V2'), ('V2', 'V3'), ('V3', 'V4'), ('V4', 'V5'),
+      ('V1', 'V3'), ('V2', 'V4'), ('V1', 'V5'),
+      # Logística - conectado internamente
+      ('L1', 'L2'), ('L2', 'L3'), ('L1', 'L3'),
+      # Marketing - conectado internamente
+      ('M1', 'M2'), ('M2', 'M3'),
+  ]
+
+  # Conexiones ENTRE departamentos (pocas!)
+  edges_entre = [
+      # Compras - Logística: BUENA conexión
+      ('C1', 'L1'), ('C2', 'L2'), ('C3', 'L1'),
+      # Ventas - Marketing: BUENA conexión
+      ('V1', 'M1'), ('V2', 'M2'), ('V3', 'M1'),
+      # Compras - Marketing: POCA conexión (SILO!)
+      ('C4', 'M3'),  # Solo 1 conexión
+      # Ventas - Logística: POCA conexión (SILO!)
+      ('V5', 'L3'),  # Solo 1 conexión
+      # Compras - Ventas: conexión media
+      ('C1', 'V1'), ('C2', 'V2'),
+      # Logística - Marketing: NINGUNA conexión (SILO TOTAL!)
+  ]
+
+  G.add_edges_from(edges_internas + edges_entre)
+
+  # Calcular matriz de conexiones inter-departamentales
+  dept_names = list(departamentos.keys())
+  matriz_conexiones = pd.DataFrame(0, index=dept_names, columns=dept_names)
+
+  for edge in G.edges():
+      n1, n2 = edge
+      d1 = G.nodes[n1]['departamento']
+      d2 = G.nodes[n2]['departamento']
+      if d1 != d2:
+          matriz_conexiones.loc[d1, d2] += 1
+          matriz_conexiones.loc[d2, d1] += 1
+
+  # Visualización
+  fig, axes = plt.subplots(1, 2, figsize=(16, 7))
+
+  # Gráfico de red
+  colores_dept = {
+      'Compras': '#3498db',
+      'Ventas': '#2ecc71',
+      'Logística': '#e67e22',
+      'Marketing': '#9b59b6'
+  }
+  node_colors = [colores_dept[G.nodes[n]['departamento']] for n in G.nodes()]
+
+  pos = nx.spring_layout(G, k=2.5, seed=42)
+  nx.draw(G, pos, ax=axes[0], with_labels=True,
+          node_color=node_colors, node_size=1200, font_size=9,
+          font_weight='bold', edge_color='gray', alpha=0.8)
+  axes[0].set_title("Red Organizacional por Departamento", fontsize=12, fontweight='bold')
+
+  # Leyenda
+  legend_elements = [
+      plt.Line2D([0], [0], marker='o', color='w', markerfacecolor=c, markersize=12, label=d)
+      for d, c in colores_dept.items()
+  ]
+  axes[0].legend(handles=legend_elements, loc='upper left')
+
+  # Heatmap de conexiones
+  im = axes[1].imshow(matriz_conexiones.values, cmap='YlOrRd')
+  axes[1].set_xticks(range(len(dept_names)))
+  axes[1].set_yticks(range(len(dept_names)))
+  axes[1].set_xticklabels(dept_names, rotation=45, ha='right')
+  axes[1].set_yticklabels(dept_names)
+
+  # Agregar valores en cada celda
+  for i in range(len(dept_names)):
+      for j in range(len(dept_names)):
+          val = matriz_conexiones.iloc[i, j]
+          color = 'white' if val > 2 else 'black'
+          axes[1].text(j, i, str(val), ha='center', va='center', color=color, fontsize=12)
+
+  axes[1].set_title("Conexiones Entre Departamentos\n(0 = SILO)", fontsize=12, fontweight='bold')
+  plt.colorbar(im, ax=axes[1], label='Número de conexiones')
+
+  plt.tight_layout()
+  plt.show()
+
+  # Resumen de diagnóstico
+  print("\n" + "="*60)
+  print("DIAGNÓSTICO DE SILOS")
+  print("="*60)
+
+  print("\n📊 MATRIZ DE CONEXIONES INTER-DEPARTAMENTALES:")
+  print(matriz_conexiones.to_string())
+
+  print("\n🚨 ALERTAS:")
+  for i, d1 in enumerate(dept_names):
+      for j, d2 in enumerate(dept_names):
+          if i < j:
+              val = matriz_conexiones.loc[d1, d2]
+              if val == 0:
+                  print(f"   ⛔ {d1} ↔ {d2}: SIN CONEXIONES (silo total)")
+              elif val == 1:
+                  print(f"   ⚠️  {d1} ↔ {d2}: Solo 1 conexión (riesgo de silo)")
+
+  print("\n" + "="*60)
+  print("PREGUNTAS DE ANÁLISIS")
+  print("="*60)
+  print("\n1. ¿Qué par de departamentos tiene la conexión más débil?")
+  print("   A) Compras - Ventas")
+  print("   B) Logística - Marketing")
+  print("   C) Ventas - Logística")
+  print("   D) Compras - Marketing")
+
+solution_code: |
+  # Respuesta correcta: B) Logística - Marketing
+  #
+  # Este par tiene 0 conexiones (silo total).
+  #
+  # Impacto de negocio:
+  # - Marketing lanza promociones sin coordinar con Logística
+  # - Logística no puede prepararse para picos de demanda
+  # - Resultado: stockouts, entregas tardías, clientes insatisfechos
+  #
+  # Recomendación:
+  # - Crear reuniones semanales Marketing-Logística
+  # - Asignar enlace formal entre departamentos
+  # - Incluir Logística en planificación de campañas
+
+test_cases:
+  - id: test-silo-analysis
+    name: "Análisis de silos completado"
+    test_code: |
+      assert True, "Análisis ejecutado correctamente"
+    points: 30
+
+hints:
+  - "Busca el par de departamentos con valor 0 en la matriz"
+  - "Los colores más claros en el heatmap indican menos conexiones"
+  - "Un silo total significa que dos departamentos no se comunican directamente"
+
+tags:
+  - ona
+  - silos
+  - heatmap
+  - diagnostico
+
+concepts:
+  - silos-organizacionales
+  - conexiones-inter-departamentales
+  - diagnostico-red

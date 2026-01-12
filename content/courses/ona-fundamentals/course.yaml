@@ -1,0 +1,96 @@
+# Curso: Introducción al Análisis de Redes Organizacionales (ONA)
+# Audiencia: HR, Talento, Líderes de negocio (NO técnicos)
+# Principio clave: Python invisible - el código genera visualizaciones pero el usuario nunca lo ve
+
+id: ona-fundamentals
+title: "Introducción al Análisis de Redes Organizacionales (ONA)"
+description: |
+  Aprende a mapear e interpretar las redes informales de tu organización.
+
+  Este curso te enseñará a ver más allá del organigrama tradicional para descubrir
+  cómo fluye realmente la información, quiénes son los conectores clave y dónde
+  están los silos que frenan a tu organización.
+
+  Al finalizar podrás diseñar encuestas ONA, interpretar métricas de centralidad
+  y formular intervenciones basadas en evidencia.
+
+slug: ona-fundamentals
+thumbnail_url: "/images/courses/ona-fundamentals-thumbnail.png"
+is_published: false  # Cambiar a true cuando esté listo
+instructor_id: null  # Se asigna al migrar a Supabase
+
+# Configuración de ejercicios
+exercise_config:
+  default_runtime: pyodide
+  allow_solution_view: false  # No mostrar soluciones (código oculto)
+  max_attempts: null  # Sin límite
+  hide_code: true  # Principio: Python invisible
+
+# Módulos del curso (2 módulos, ~3.5 horas total)
+modules:
+  - id: module-01
+    title: "Entendiendo las Redes Ocultas"
+    description: "Del organigrama a la red real: métricas y diseño de encuestas"
+    order: 1
+    strategy: interactive  # Visualizaciones interactivas
+
+  - id: module-02
+    title: "De Datos a Decisiones"
+    description: "Patrones problemáticos, diagnóstico y caso integrador"
+    order: 2
+    strategy: interactive
+
+# Prerequisitos
+prerequisites:
+  - "Ninguno - curso diseñado para no técnicos"
+
+# Tags para búsqueda
+tags:
+  - ona
+  - redes-organizacionales
+  - network-analysis
+  - hr
+  - talento
+  - liderazgo
+  - organizaciones
+  - diagnostico
+
+# Duración estimada
+estimated_duration_hours: 3.5
+difficulty: beginner
+
+# Promesa de aprendizaje
+learning_outcomes:
+  - "Explicar qué revela ONA que el organigrama no muestra"
+  - "Interpretar las 3 métricas fundamentales (degree, betweenness, closeness)"
+  - "Diseñar una encuesta ONA válida para su contexto"
+  - "Diagnosticar patrones problemáticos en una red"
+  - "Formular recomendaciones de intervención basadas en evidencia"
+
+# Contexto LATAM
+context:
+  region: "LATAM"
+  language: "es"
+  cases:
+    - "Manufactura Regional"
+    - "Banco del Sur"
+    - "Aseguradora del Pacífico"
+    - "Retail Multipaís"
+  scale: "50-500 personas"
+
+# Métricas cubiertas (Mínimo Viable)
+metrics_covered:
+  - id: degree
+    name: "Grado (Degree)"
+    question: "¿Quién es más consultado?"
+  - id: betweenness
+    name: "Intermediación (Betweenness)"
+    question: "¿Quién conecta silos?"
+  - id: closeness
+    name: "Cercanía (Closeness)"
+    question: "¿Quién llega rápido a todos?"
+
+# Origen del contenido
+source:
+  author: "Rizoma"
+  creation_date: "2026-01-12"

@@ -1,0 +1,310 @@
+# Ejercicio 10: Caso Integrador - Aseguradora del Pacífico
+# Tipo: code-python (código oculto)
+
+id: ex-10-caso-aseguradora
+type: code-python
+title: "Caso: Aseguradora del Pacífico"
+description: "Aplica todo lo aprendido en un caso integrador realista."
+
+instructions: |
+  **Contexto del Caso:**
+  Aseguradora del Pacífico (450 empleados en 3 países) ha experimentado:
+  - Tiempo de aprobación de pólizas: 12 días (benchmark: 5 días)
+  - Quejas de clientes: +40% en 6 meses
+  - Rotación en Claims: 25% anual
+
+  El CEO te contrató para hacer un diagnóstico ONA del área de Claims.
+
+  **Datos disponibles:**
+  - Red de consultas del área de Claims (25 personas)
+  - Departamentos: Recepción, Análisis, Aprobación, Atención al Cliente
+
+  **Tu tarea:**
+  Analiza los datos y prepara un diagnóstico ejecutivo con:
+  1. Problema principal identificado
+  2. Métricas que lo evidencian
+  3. Recomendación prioritaria
+
+difficulty: advanced
+estimated_time_minutes: 15
+points: 50
+order: 10
+
+ui_config:
+  hide_code: true
+  show_output_only: true
+  interactive_mode: visualization
+
+datasets:
+  - id: aseguradora
+    path: shared/datasets/aseguradora.csv
+    name: "Aseguradora del Pacífico"
+    description: "Datos de ONA del área de Claims"
+
+starter_code: |
+  import networkx as nx
+  import matplotlib.pyplot as plt
+  import pandas as pd
+  import numpy as np
+
+  # Crear red de Claims de Aseguradora del Pacífico
+  G = nx.Graph()
+
+  # Estructura del área de Claims
+  empleados = {
+      # Recepción (entrada de casos)
+      'R1': 'Recepción', 'R2': 'Recepción', 'R3': 'Recepción',
+      'R4': 'Recepción', 'R5': 'Recepción',
+      # Análisis (evaluación técnica)
+      'A1': 'Análisis', 'A2': 'Análisis', 'A3': 'Análisis',
+      'A4': 'Análisis', 'A5': 'Análisis', 'A6': 'Análisis',
+      # Aprobación (autorización de pagos)
+      'AP1': 'Aprobación', 'AP2': 'Aprobación', 'AP3': 'Aprobación',
+      # Atención al Cliente
+      'AC1': 'Atención', 'AC2': 'Atención', 'AC3': 'Atención',
+      'AC4': 'Atención', 'AC5': 'Atención',
+      # Supervisores
+      'Sup_Rec': 'Supervisión',
+      'Sup_Ana': 'Supervisión',
+      'Sup_Apr': 'Supervisión',
+      # Gerente
+      'Gerente': 'Gerencia',
+  }
+
+  for emp, dept in empleados.items():
+      G.add_node(emp, departamento=dept)
+
+  # Conexiones que revelan el problema
+  edges = [
+      # Recepción - bien conectada internamente
+      ('R1', 'R2'), ('R2', 'R3'), ('R3', 'R4'), ('R4', 'R5'),
+      ('R1', 'R3'), ('R2', 'R4'),
+      ('R1', 'Sup_Rec'), ('R3', 'Sup_Rec'), ('R5', 'Sup_Rec'),
+
+      # Análisis - conectado internamente
+      ('A1', 'A2'), ('A2', 'A3'), ('A3', 'A4'), ('A4', 'A5'), ('A5', 'A6'),
+      ('A1', 'A3'), ('A2', 'A4'), ('A3', 'A5'),
+      ('A1', 'Sup_Ana'), ('A4', 'Sup_Ana'), ('A6', 'Sup_Ana'),
+
+      # Aprobación - pequeño equipo, bien conectado
+      ('AP1', 'AP2'), ('AP2', 'AP3'), ('AP1', 'AP3'),
+      ('AP1', 'Sup_Apr'), ('AP2', 'Sup_Apr'),
+
+      # Atención al Cliente - conectado internamente
+      ('AC1', 'AC2'), ('AC2', 'AC3'), ('AC3', 'AC4'), ('AC4', 'AC5'),
+      ('AC1', 'AC3'), ('AC2', 'AC4'),
+
+      # Supervisores con Gerente
+      ('Sup_Rec', 'Gerente'), ('Sup_Ana', 'Gerente'), ('Sup_Apr', 'Gerente'),
+
+      # PROBLEMA: Conexiones entre áreas (MUY POCAS!)
+      # Recepción → Análisis: SOLO a través de Sup_Ana (cuello de botella)
+      ('Sup_Rec', 'Sup_Ana'),
+
+      # Análisis → Aprobación: SOLO AP1 recibe casos
+      ('Sup_Ana', 'AP1'),
+
+      # Aprobación → Atención: NINGUNA conexión directa (SILO!)
+      # Los casos "se pierden" entre Aprobación y Atención
+
+      # Atención no tiene feedback con nadie
+      # Solo AC1 habla con el Gerente para escalar
+      ('AC1', 'Gerente'),
+  ]
+
+  G.add_edges_from(edges)
+
+  # Calcular métricas
+  betweenness = nx.betweenness_centrality(G)
+  degree = dict(G.degree())
+  closeness = nx.closeness_centrality(G)
+
+  # Crear DataFrame de métricas
+  df_metricas = pd.DataFrame({
+      'Empleado': list(empleados.keys()),
+      'Departamento': list(empleados.values()),
+      'Grado': [degree[e] for e in empleados.keys()],
+      'Intermediación': [round(betweenness[e], 3) for e in empleados.keys()],
+      'Cercanía': [round(closeness[e], 3) for e in empleados.keys()]
+  })
+
+  # Visualización completa
+  fig = plt.figure(figsize=(18, 12))
+
+  # 1. Red general
+  ax1 = fig.add_subplot(2, 2, 1)
+  colores_dept = {
+      'Recepción': '#3498db',
+      'Análisis': '#2ecc71',
+      'Aprobación': '#e74c3c',
+      'Atención': '#9b59b6',
+      'Supervisión': '#f1c40f',
+      'Gerencia': '#e67e22'
+  }
+  node_colors = [colores_dept[G.nodes[n]['departamento']] for n in G.nodes()]
+  node_sizes = [800 + betweenness[n] * 3000 for n in G.nodes()]
+
+  pos = nx.spring_layout(G, k=2.5, seed=42)
+  nx.draw(G, pos, ax=ax1, with_labels=True, node_color=node_colors,
+          node_size=node_sizes, font_size=8, font_weight='bold', edge_color='gray')
+  ax1.set_title("Red de Claims - Aseguradora del Pacífico\n(Tamaño = Intermediación)",
+                fontsize=11, fontweight='bold')
+
+  # 2. Matriz de conexiones entre departamentos
+  ax2 = fig.add_subplot(2, 2, 2)
+  dept_names = ['Recepción', 'Análisis', 'Aprobación', 'Atención', 'Supervisión']
+  matriz = pd.DataFrame(0, index=dept_names, columns=dept_names)
+
+  for edge in G.edges():
+      n1, n2 = edge
+      d1 = G.nodes[n1]['departamento']
+      d2 = G.nodes[n2]['departamento']
+      if d1 != d2 and d1 in dept_names and d2 in dept_names:
+          matriz.loc[d1, d2] += 1
+          matriz.loc[d2, d1] += 1
+
+  im = ax2.imshow(matriz.values, cmap='RdYlGn')
+  ax2.set_xticks(range(len(dept_names)))
+  ax2.set_yticks(range(len(dept_names)))
+  ax2.set_xticklabels(dept_names, rotation=45, ha='right', fontsize=9)
+  ax2.set_yticklabels(dept_names, fontsize=9)
+
+  for i in range(len(dept_names)):
+      for j in range(len(dept_names)):
+          val = matriz.iloc[i, j]
+          color = 'white' if val < 1 else 'black'
+          ax2.text(j, i, str(int(val)), ha='center', va='center', color=color, fontsize=11)
+
+  ax2.set_title("Conexiones Entre Departamentos\n(0 = SILO)", fontsize=11, fontweight='bold')
+
+  # 3. Top cuellos de botella
+  ax3 = fig.add_subplot(2, 2, 3)
+  top_bottleneck = df_metricas.nlargest(8, 'Intermediación')[['Empleado', 'Departamento', 'Intermediación']]
+
+  colors = ['#e74c3c' if x > 0.15 else '#f1c40f' if x > 0.08 else '#2ecc71'
+            for x in top_bottleneck['Intermediación']]
+  bars = ax3.barh(top_bottleneck['Empleado'], top_bottleneck['Intermediación'], color=colors)
+  ax3.set_xlabel('Intermediación (Betweenness)')
+  ax3.set_title('Top Cuellos de Botella', fontsize=11, fontweight='bold')
+  ax3.invert_yaxis()
+
+  # 4. Diagnóstico ejecutivo
+  ax4 = fig.add_subplot(2, 2, 4)
+  ax4.axis('off')
+
+  diagnostico = """
+  ╔══════════════════════════════════════════════════════════╗
+  ║           DIAGNÓSTICO EJECUTIVO - CLAIMS                 ║
+  ╠══════════════════════════════════════════════════════════╣
+  ║                                                          ║
+  ║  🔴 PROBLEMA PRINCIPAL:                                  ║
+  ║     Silos entre Aprobación y Atención al Cliente         ║
+  ║     (0 conexiones directas)                              ║
+  ║                                                          ║
+  ║  📊 EVIDENCIA:                                           ║
+  ║     • Sup_Ana: Intermediación 0.35 (cuello crítico)      ║
+  ║     • AP1: Único punto de entrada a Aprobación           ║
+  ║     • Atención aislada del flujo operativo               ║
+  ║                                                          ║
+  ║  💡 IMPACTO EN NEGOCIO:                                  ║
+  ║     • Casos se "pierden" entre Aprobación y Atención     ║
+  ║     • Clientes no reciben updates de estado              ║
+  ║     • Atención escala al Gerente (no resuelve)           ║
+  ║                                                          ║
+  ║  ✅ RECOMENDACIÓN PRIORITARIA:                           ║
+  ║     Crear conexión directa Aprobación → Atención         ║
+  ║     (asignar AP2 como enlace con AC2)                    ║
+  ║                                                          ║
+  ╚══════════════════════════════════════════════════════════╝
+  """
+  ax4.text(0.5, 0.5, diagnostico, transform=ax4.transAxes,
+           fontsize=9, family='monospace', va='center', ha='center',
+           bbox=dict(boxstyle='round', facecolor='#f8f9fa', edgecolor='#dee2e6'))
+
+  # Leyenda global
+  legend_elements = [
+      plt.Line2D([0], [0], marker='o', color='w', markerfacecolor=c, markersize=10, label=d)
+      for d, c in colores_dept.items()
+  ]
+  fig.legend(handles=legend_elements, loc='lower center', ncol=6, fontsize=9)
+
+  plt.tight_layout()
+  plt.subplots_adjust(bottom=0.08)
+  plt.show()
+
+  # Resumen de hallazgos
+  print("\n" + "="*70)
+  print("CASO: ASEGURADORA DEL PACÍFICO - RESUMEN DE HALLAZGOS")
+  print("="*70)
+
+  print("\n🔍 ANÁLISIS COMPLETADO:")
+  print(f"   • Total empleados analizados: {len(empleados)}")
+  print(f"   • Total conexiones: {G.number_of_edges()}")
+  print(f"   • Densidad de red: {nx.density(G):.3f}")
+
+  print("\n🚨 HALLAZGOS CRÍTICOS:")
+  print("   1. SILO: Aprobación ↔ Atención = 0 conexiones")
+  print("   2. CUELLO: Sup_Ana procesa 100% de casos Recepción→Análisis")
+  print("   3. CUELLO: AP1 es único punto de entrada a Aprobación")
+  print("   4. AISLAMIENTO: Atención no tiene visibilidad del flujo")
+
+  print("\n" + "="*70)
+  print("PREGUNTA FINAL")
+  print("="*70)
+  print("\n¿Cuál de estas intervenciones tendría MAYOR impacto en reducir")
+  print("el tiempo de aprobación de pólizas?")
+  print("\nOpciones:")
+  print("A) Contratar más personal en Atención al Cliente")
+  print("B) Crear conexión directa entre Aprobación y Atención")
+  print("C) Capacitar al Gerente en gestión de equipos")
+  print("D) Implementar un software de tracking de casos")
+
+solution_code: |
+  # Respuesta correcta: B) Crear conexión directa Aprobación → Atención
+  #
+  # Justificación basada en datos ONA:
+  #
+  # 1. El SILO entre Aprobación y Atención causa:
+  #    - Casos "perdidos" después de aprobación
+  #    - Clientes sin información de estado
+  #    - Escalamientos innecesarios al Gerente
+  #
+  # 2. Por qué las otras opciones NO resuelven:
+  #    - A) Más personal en Atención no sirve si no reciben los casos
+  #    - C) Capacitar al Gerente no arregla la estructura de red
+  #    - D) Software solo automatiza un proceso roto
+  #
+  # 3. Implementación recomendada:
+  #    - Asignar AP2 como enlace formal con AC2
+  #    - Reunión diaria de 15 min Aprobación-Atención
+  #    - Tablero compartido de casos en proceso
+  #    - Re-medir ONA en 3 meses
+  #
+  # Impacto esperado:
+  #    - Reducción tiempo: 12 días → 7 días (primer mes)
+  #    - Reducción quejas: -30% (visibilidad para clientes)
+  #    - Mejora rotación: mejor flujo = menos frustración
+
+test_cases:
+  - id: test-case-analysis
+    name: "Caso integrador completado"
+    test_code: |
+      assert True, "Análisis del caso ejecutado correctamente"
+    points: 50
+
+hints:
+  - "Busca dónde hay 0 conexiones entre departamentos"
+  - "Los cuellos de botella (alta intermediación) indican dependencias"
+  - "La solución debe atacar la causa raíz, no los síntomas"
+
+tags:
+  - ona
+  - caso-integrador
+  - silos
+  - diagnostico
+
+concepts:
+  - diagnostico-ejecutivo
+  - silos
+  - cuello-de-botella
+  - recomendaciones

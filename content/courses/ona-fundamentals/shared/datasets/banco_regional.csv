@@ -1,0 +1,21 @@
+# Dataset: Banco Regional del Sur
+# Descripción: Datos de ONA de dos sucursales con diferentes tiempos de aprobación
+# Uso: Ejercicio ex-04-caso-banco.yaml
+source,target,sucursal,frecuencia,tipo_consulta
+Gerente,Analista 1,A,diario,aprobacion
+Gerente,Analista 2,A,diario,aprobacion
+Gerente,Analista 3,A,semanal,aprobacion
+Analista 1,Ejecutivo 1,A,diario,consulta_cliente
+Analista 2,Ejecutivo 2,A,diario,consulta_cliente
+Ejecutivo 1,Gerente,A,semanal,escalamiento
+Ejecutivo 2,Gerente,A,semanal,escalamiento
+Analista 1,Analista 2,A,diario,colaboracion
+Gerente,Experto,B,diario,aprobacion
+Experto,Analista 1,B,diario,consulta_tecnica
+Experto,Analista 2,B,diario,consulta_tecnica
+Experto,Analista 3,B,semanal,consulta_tecnica
+Analista 1,Ejecutivo 1,B,semanal,consulta_cliente
+Analista 2,Ejecutivo 2,B,semanal,consulta_cliente
+Ejecutivo 1,Experto,B,diario,escalamiento
+Ejecutivo 2,Experto,B,diario,escalamiento
+Experto,Gerente,B,semanal,reporte

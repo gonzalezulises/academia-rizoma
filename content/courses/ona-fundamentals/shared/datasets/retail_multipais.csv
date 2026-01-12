@@ -1,0 +1,30 @@
+# Dataset: Retail Multipaís
+# Descripción: Datos de ONA de empresa retail con 4 departamentos
+# Uso: Ejercicio ex-07-diagnostico-silos.yaml
+source,target,departamento_source,departamento_target,frecuencia,tipo_interaccion
+C1,C2,Compras,Compras,diario,colaboracion
+C2,C3,Compras,Compras,diario,colaboracion
+C3,C4,Compras,Compras,semanal,colaboracion
+C1,C3,Compras,Compras,semanal,consulta
+V1,V2,Ventas,Ventas,diario,colaboracion
+V2,V3,Ventas,Ventas,diario,colaboracion
+V3,V4,Ventas,Ventas,diario,colaboracion
+V4,V5,Ventas,Ventas,semanal,colaboracion
+V1,V3,Ventas,Ventas,semanal,consulta
+V2,V4,Ventas,Ventas,semanal,consulta
+V1,V5,Ventas,Ventas,mensual,colaboracion
+L1,L2,Logistica,Logistica,diario,colaboracion
+L2,L3,Logistica,Logistica,diario,colaboracion
+L1,L3,Logistica,Logistica,semanal,consulta
+M1,M2,Marketing,Marketing,diario,colaboracion
+M2,M3,Marketing,Marketing,diario,colaboracion
+C1,L1,Compras,Logistica,diario,coordinacion
+C2,L2,Compras,Logistica,semanal,coordinacion
+C3,L1,Compras,Logistica,semanal,consulta
+V1,M1,Ventas,Marketing,diario,coordinacion
+V2,M2,Ventas,Marketing,semanal,coordinacion
+V3,M1,Ventas,Marketing,semanal,consulta
+C4,M3,Compras,Marketing,mensual,consulta
+V5,L3,Ventas,Logistica,mensual,coordinacion
+C1,V1,Compras,Ventas,semanal,coordinacion
+C2,V2,Compras,Ventas,mensual,consulta

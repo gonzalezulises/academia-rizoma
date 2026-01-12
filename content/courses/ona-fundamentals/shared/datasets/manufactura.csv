@@ -1,0 +1,19 @@
+# Dataset: Planta Manufacturera
+# Descripción: Datos de ONA de planta con estructura departamental
+# Uso: Ejercicio ex-09-simulador-impacto.yaml
+source,target,departamento_source,departamento_target,frecuencia,tipo_consulta
+Gerente Planta,Sup. Turno 1,Gerencia,Produccion,diario,coordinacion
+Gerente Planta,Sup. Turno 2,Gerencia,Produccion,diario,coordinacion
+Sup. Turno 1,Op. 1,Produccion,Produccion,diario,instruccion
+Sup. Turno 1,Op. 2,Produccion,Produccion,diario,instruccion
+Sup. Turno 2,Op. 3,Produccion,Produccion,diario,instruccion
+Sup. Turno 2,Op. 4,Produccion,Produccion,diario,instruccion
+Gerente Planta,Jefe Calidad,Gerencia,Calidad,diario,coordinacion
+Jefe Calidad,Inspector 1,Calidad,Calidad,diario,coordinacion
+Jefe Calidad,Inspector 2,Calidad,Calidad,diario,coordinacion
+Gerente Planta,Jefe Mantenimiento,Gerencia,Mantenimiento,semanal,coordinacion
+Jefe Mantenimiento,Tecnico 1,Mantenimiento,Mantenimiento,diario,instruccion
+Jefe Mantenimiento,Tecnico 2,Mantenimiento,Mantenimiento,diario,instruccion
+Sup. Turno 1,Jefe Calidad,Produccion,Calidad,diario,consulta_calidad
+Sup. Turno 1,Tecnico 1,Produccion,Mantenimiento,semanal,soporte_tecnico
+Op. 1,Op. 3,Produccion,Produccion,semanal,colaboracion_turnos

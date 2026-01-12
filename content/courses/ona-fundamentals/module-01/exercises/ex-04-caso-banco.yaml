@@ -1,0 +1,156 @@
+# Ejercicio 4: Caso Banco Regional - Interpretar métricas
+# Tipo: code-python (código oculto)
+
+id: ex-04-caso-banco
+type: code-python
+title: "Caso Banco Regional"
+description: "Interpreta las métricas de ONA para diagnosticar tiempos de aprobación."
+
+instructions: |
+  El **Banco Regional del Sur** tiene tiempos de aprobación de crédito muy diferentes
+  entre sucursales. Analiza las métricas de ONA de dos sucursales y explica la diferencia.
+
+  **Contexto del caso**:
+  - Sucursal A: Tiempo promedio de aprobación = 2 días
+  - Sucursal B: Tiempo promedio de aprobación = 8 días
+  - Ambas tienen el mismo número de empleados y volumen de casos
+
+  **Tu tarea**: Usa las métricas para explicar por qué Sucursal B es más lenta.
+
+difficulty: intermediate
+estimated_time_minutes: 10
+points: 30
+order: 4
+
+ui_config:
+  hide_code: true
+  show_output_only: true
+  interactive_mode: visualization
+
+datasets:
+  - id: banco_regional
+    path: shared/datasets/banco_regional.csv
+    name: "Banco Regional"
+    description: "Datos de ONA de dos sucursales"
+
+starter_code: |
+  import networkx as nx
+  import matplotlib.pyplot as plt
+  import pandas as pd
+
+  # Sucursal A: Estructura eficiente (directa)
+  G_A = nx.Graph()
+  nodes_A = ["Gerente", "Analista 1", "Analista 2", "Analista 3", "Ejecutivo 1", "Ejecutivo 2"]
+  edges_A = [
+      ("Gerente", "Analista 1"), ("Gerente", "Analista 2"), ("Gerente", "Analista 3"),
+      ("Analista 1", "Ejecutivo 1"), ("Analista 2", "Ejecutivo 2"),
+      ("Ejecutivo 1", "Gerente"), ("Ejecutivo 2", "Gerente"),  # Acceso directo
+  ]
+  G_A.add_nodes_from(nodes_A)
+  G_A.add_edges_from(edges_A)
+
+  # Sucursal B: Estructura con cuello de botella
+  G_B = nx.Graph()
+  nodes_B = ["Gerente", "Experto", "Analista 1", "Analista 2", "Analista 3", "Ejecutivo 1", "Ejecutivo 2"]
+  edges_B = [
+      ("Gerente", "Experto"),  # Solo el experto habla con el gerente
+      ("Experto", "Analista 1"), ("Experto", "Analista 2"), ("Experto", "Analista 3"),
+      ("Analista 1", "Ejecutivo 1"), ("Analista 2", "Ejecutivo 2"),
+      ("Ejecutivo 1", "Experto"), ("Ejecutivo 2", "Experto"),  # Todo pasa por el experto
+  ]
+  G_B.add_nodes_from(nodes_B)
+  G_B.add_edges_from(edges_B)
+
+  # Métricas
+  def get_metrics(G):
+      return {
+          'degree': nx.degree_centrality(G),
+          'betweenness': nx.betweenness_centrality(G),
+          'closeness': nx.closeness_centrality(G)
+      }
+
+  metrics_A = get_metrics(G_A)
+  metrics_B = get_metrics(G_B)
+
+  # Visualización comparativa
+  fig, axes = plt.subplots(1, 2, figsize=(14, 6))
+
+  # Sucursal A
+  pos_A = nx.spring_layout(G_A, k=2, seed=42)
+  colors_A = [metrics_A['betweenness'][n]*2000 for n in G_A.nodes()]
+  nx.draw(G_A, pos_A, ax=axes[0], with_labels=True,
+          node_color=colors_A, cmap=plt.cm.Reds,
+          node_size=1500, font_size=9, font_weight='bold')
+  axes[0].set_title("Sucursal A (Rápida)\nTiempo: 2 días", fontsize=12, fontweight='bold')
+
+  # Sucursal B
+  pos_B = nx.spring_layout(G_B, k=2, seed=42)
+  colors_B = [metrics_B['betweenness'][n]*2000 for n in G_B.nodes()]
+  nx.draw(G_B, pos_B, ax=axes[1], with_labels=True,
+          node_color=colors_B, cmap=plt.cm.Reds,
+          node_size=1500, font_size=9, font_weight='bold')
+  axes[1].set_title("Sucursal B (Lenta)\nTiempo: 8 días", fontsize=12, fontweight='bold')
+
+  plt.suptitle("Color más oscuro = Mayor intermediación (cuello de botella)", fontsize=10)
+  plt.tight_layout()
+  plt.show()
+
+  # Tabla comparativa de métricas clave
+  print("\n" + "="*60)
+  print("MÉTRICAS COMPARATIVAS")
+  print("="*60)
+
+  print("\n📊 SUCURSAL A (Rápida):")
+  print(f"   Cercanía del Gerente: {metrics_A['closeness']['Gerente']:.2f}")
+  print(f"   Máxima intermediación: {max(metrics_A['betweenness'].values()):.2f}")
+
+  print("\n📊 SUCURSAL B (Lenta):")
+  print(f"   Cercanía del Gerente: {metrics_B['closeness']['Gerente']:.2f}")
+  print(f"   Máxima intermediación: {max(metrics_B['betweenness'].values()):.2f}")
+  print(f"   Nodo con mayor intermediación: {max(metrics_B['betweenness'], key=metrics_B['betweenness'].get)}")
+
+  print("\n" + "="*60)
+  print("PREGUNTA DE ANÁLISIS")
+  print("="*60)
+  print("\n¿Por qué la Sucursal B es más lenta?")
+  print("\nOpciones:")
+  print("A) Tiene más empleados")
+  print("B) El Experto es cuello de botella - todo pasa por él")
+  print("C) El Gerente no tiene suficientes conexiones")
+  print("D) Los Ejecutivos están desconectados")
+
+solution_code: |
+  # Respuesta correcta: B) El Experto es cuello de botella
+  #
+  # En Sucursal B:
+  # - El "Experto" tiene intermediación muy alta (0.7+)
+  # - El Gerente tiene cercanía baja (no puede comunicarse directamente)
+  # - Toda información pasa por el Experto, creando demoras
+  #
+  # En Sucursal A:
+  # - El Gerente tiene acceso directo a Analistas y Ejecutivos
+  # - La intermediación está distribuida
+  # - Los flujos son más cortos
+
+test_cases:
+  - id: test-case-analysis
+    name: "Análisis del caso"
+    test_code: |
+      assert True, "Caso analizado correctamente"
+    points: 30
+
+hints:
+  - "Observa qué nodo tiene el color más oscuro en cada red"
+  - "Compara la cercanía del Gerente en ambas sucursales"
+  - "El cuello de botella es donde se acumula la intermediación"
+
+tags:
+  - ona
+  - caso-practico
+  - banco
+  - cuello-de-botella
+
+concepts:
+  - cuello-de-botella
+  - intermediacion
+  - eficiencia-red

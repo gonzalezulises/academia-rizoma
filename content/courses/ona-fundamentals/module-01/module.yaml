@@ -1,0 +1,56 @@
+# Módulo 1: Entendiendo las Redes Ocultas
+# Duración: ~2 horas
+# Bloom: remember → understand → apply
+
+id: module-01
+title: "Entendiendo las Redes Ocultas"
+description: |
+  Descubre cómo las organizaciones funcionan más allá del organigrama formal.
+  Aprende a identificar quién realmente conecta equipos, quién acumula información
+  crítica y cómo diseñar una encuesta para mapear estas redes invisibles.
+order: 1
+is_locked: false
+
+# Lecciones del módulo
+lessons:
+  - id: lesson-01-01
+    file: lessons/01-organigrama-vs-red.md
+    title: "El organigrama vs. la red real"
+    type: text
+    order: 1
+    duration_minutes: 40
+    bloom_level: remember
+    exercises:
+      - ex-01-detectar-red
+      - ex-02-identificar-broker
+
+  - id: lesson-01-02
+    file: lessons/02-metricas-centralidad.md
+    title: "Las 3 métricas que importan"
+    type: text
+    order: 2
+    duration_minutes: 45
+    bloom_level: understand
+    exercises:
+      - ex-03-calculadora-centralidad
+      - ex-04-caso-banco
+
+  - id: lesson-01-03
+    file: lessons/03-diseno-encuesta.md
+    title: "Diseñar una encuesta ONA efectiva"
+    type: text
+    order: 3
+    duration_minutes: 35
+    bloom_level: apply
+    exercises:
+      - ex-05-constructor-preguntas
+      - ex-06-auditor-encuestas
+
+# Objetivos del módulo
+objectives:
+  - "Distinguir entre estructura formal e informal"
+  - "Identificar brokers y conectores en una visualización de red"
+  - "Calcular e interpretar degree, betweenness y closeness"
+  - "Diseñar preguntas de encuesta ONA válidas"
+
+# Total ejercicios: 6

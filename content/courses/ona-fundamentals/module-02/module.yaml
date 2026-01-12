@@ -1,0 +1,46 @@
+# Módulo 2: De Datos a Decisiones
+# Duración: ~1.5 horas
+# Bloom: analyze → evaluate → create
+
+id: module-02
+title: "De Datos a Decisiones"
+description: |
+  Aplica lo aprendido para diagnosticar problemas reales en redes organizacionales.
+  Identifica silos, dependencias críticas y riesgos de persona clave.
+  Culmina con un caso integrador donde formularás recomendaciones de intervención.
+order: 2
+is_locked: false
+
+# Lecciones del módulo
+lessons:
+  - id: lesson-02-01
+    file: lessons/04-patrones-problematicos.md
+    title: "Patrones problemáticos"
+    type: text
+    order: 1
+    duration_minutes: 45
+    bloom_level: analyze
+    exercises:
+      - ex-07-diagnostico-silos
+      - ex-08-riesgo-dependencia
+      - ex-09-simulador-impacto
+
+  - id: lesson-02-02
+    file: lessons/05-caso-integrador.md
+    title: "Caso integrador: Aseguradora del Pacífico"
+    type: text
+    order: 2
+    duration_minutes: 50
+    bloom_level: evaluate
+    exercises:
+      - ex-10-caso-aseguradora
+      - quiz-final
+
+# Objetivos del módulo
+objectives:
+  - "Identificar patrones de silos entre departamentos o países"
+  - "Evaluar riesgo de dependencia en personas clave"
+  - "Simular impacto de cambios en la red"
+  - "Formular recomendaciones de intervención basadas en evidencia"
+
+# Total ejercicios: 4 + quiz final

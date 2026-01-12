@@ -1,0 +1,41 @@
+# Dataset: Aseguradora del Pacífico - Área de Claims
+# Descripción: Datos de ONA del área de Claims con problemas de silos
+# Uso: Ejercicio ex-10-caso-aseguradora.yaml
+source,target,departamento_source,departamento_target,frecuencia,tipo_interaccion
+R1,R2,Recepcion,Recepcion,diario,colaboracion
+R2,R3,Recepcion,Recepcion,diario,colaboracion
+R3,R4,Recepcion,Recepcion,diario,colaboracion
+R4,R5,Recepcion,Recepcion,diario,colaboracion
+R1,R3,Recepcion,Recepcion,semanal,consulta
+R2,R4,Recepcion,Recepcion,semanal,consulta
+R1,Sup_Rec,Recepcion,Supervision,diario,reporte
+R3,Sup_Rec,Recepcion,Supervision,diario,reporte
+R5,Sup_Rec,Recepcion,Supervision,semanal,reporte
+A1,A2,Analisis,Analisis,diario,colaboracion
+A2,A3,Analisis,Analisis,diario,colaboracion
+A3,A4,Analisis,Analisis,diario,colaboracion
+A4,A5,Analisis,Analisis,diario,colaboracion
+A5,A6,Analisis,Analisis,diario,colaboracion
+A1,A3,Analisis,Analisis,semanal,consulta_tecnica
+A2,A4,Analisis,Analisis,semanal,consulta_tecnica
+A3,A5,Analisis,Analisis,semanal,consulta_tecnica
+A1,Sup_Ana,Analisis,Supervision,diario,reporte
+A4,Sup_Ana,Analisis,Supervision,diario,reporte
+A6,Sup_Ana,Analisis,Supervision,semanal,reporte
+AP1,AP2,Aprobacion,Aprobacion,diario,coordinacion
+AP2,AP3,Aprobacion,Aprobacion,diario,coordinacion
+AP1,AP3,Aprobacion,Aprobacion,semanal,consulta
+AP1,Sup_Apr,Aprobacion,Supervision,diario,reporte
+AP2,Sup_Apr,Aprobacion,Supervision,semanal,reporte
+AC1,AC2,Atencion,Atencion,diario,colaboracion
+AC2,AC3,Atencion,Atencion,diario,colaboracion
+AC3,AC4,Atencion,Atencion,diario,colaboracion
+AC4,AC5,Atencion,Atencion,diario,colaboracion
+AC1,AC3,Atencion,Atencion,semanal,consulta
+AC2,AC4,Atencion,Atencion,semanal,consulta
+Sup_Rec,Gerente,Supervision,Gerencia,diario,reporte
+Sup_Ana,Gerente,Supervision,Gerencia,diario,reporte
+Sup_Apr,Gerente,Supervision,Gerencia,diario,reporte
+Sup_Rec,Sup_Ana,Supervision,Supervision,diario,transferencia_casos
+Sup_Ana,AP1,Supervision,Aprobacion,diario,transferencia_casos
+AC1,Gerente,Atencion,Gerencia,semanal,escalamiento
