@@ -28,6 +28,11 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  // Base path for serving from rizo.ma/academia
+  // Set NEXT_PUBLIC_BASE_PATH=/academia in production
+  basePath: process.env.NEXT_PUBLIC_BASE_PATH || '',
+  assetPrefix: process.env.NEXT_PUBLIC_BASE_PATH || '',
+
   async headers() {
     return [
       {
@@ -41,6 +46,10 @@ const nextConfig: NextConfig = {
       {
         protocol: 'https',
         hostname: '*.supabase.co',
+      },
+      {
+        protocol: 'https',
+        hostname: 'rizo.ma',
       },
     ],
   },

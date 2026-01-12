@@ -1,6 +1,7 @@
 {
-  "name": "edu-platform",
+  "name": "academia-rizoma",
   "version": "0.1.0",
+  "description": "Rizoma Academy - Educational platform with Rizoma branding. Fork of edu-platform.",
   "private": true,
   "scripts": {
     "dev": "next dev",
