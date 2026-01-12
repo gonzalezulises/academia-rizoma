@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import Image from 'next/image'
 
 export default function Home() {
   return (
@@ -8,21 +7,17 @@ export default function Home() {
       <header className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <nav className="flex justify-between items-center">
           <Link href="/" className="flex items-center">
-            <Image
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
               src="/images/brand/logo-plenos-color-optimized.png"
               alt="Rizoma Academia"
-              width={140}
-              height={46}
               className="h-10 w-auto dark:hidden"
-              priority
             />
-            <Image
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
               src="/images/brand/logo-plenos-blanco-optimized.png"
               alt="Rizoma Academia"
-              width={140}
-              height={46}
               className="h-10 w-auto hidden dark:block"
-              priority
             />
           </Link>
           <div className="flex gap-4">
@@ -141,18 +136,16 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="flex items-center">
-              <Image
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
                 src="/images/brand/logo-plenos-color-optimized.png"
                 alt="Rizoma"
-                width={100}
-                height={33}
                 className="h-7 w-auto dark:hidden"
               />
-              <Image
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
                 src="/images/brand/logo-plenos-blanco-optimized.png"
                 alt="Rizoma"
-                width={100}
-                height={33}
                 className="h-7 w-auto hidden dark:block"
               />
             </div>

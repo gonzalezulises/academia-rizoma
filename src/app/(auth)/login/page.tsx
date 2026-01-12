@@ -4,7 +4,6 @@ import { useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import Image from 'next/image'
 
 export default function LoginPage() {
   const [email, setEmail] = useState('')
@@ -39,21 +38,17 @@ export default function LoginPage() {
       <div className="max-w-md w-full space-y-8">
         <div className="text-center">
           <Link href="/" className="inline-block mb-6">
-            <Image
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
               src="/images/brand/logo-plenos-color-optimized.png"
               alt="Rizoma Academia"
-              width={160}
-              height={53}
               className="h-12 w-auto dark:hidden"
-              priority
             />
-            <Image
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
               src="/images/brand/logo-plenos-blanco-optimized.png"
               alt="Rizoma Academia"
-              width={160}
-              height={53}
               className="h-12 w-auto hidden dark:block"
-              priority
             />
           </Link>
           <h2 className="text-3xl font-bold text-gray-900 dark:text-white">
