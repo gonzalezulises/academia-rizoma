@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
@@ -52,13 +53,27 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16 items-center">
           <div className="flex items-center gap-8">
-            <Link href="/" className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-rizoma-green rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold">R</span>
-              </div>
-              <span className="text-lg font-semibold text-gray-900 dark:text-white">
-                Rizoma <span className="text-rizoma-green">Academia</span>
-              </span>
+            <Link href="/" className="flex items-center gap-3">
+              <picture>
+                <source srcSet="/images/brand/logo-plenos-blanco-optimized.webp" type="image/webp" media="(prefers-color-scheme: dark)" />
+                <source srcSet="/images/brand/logo-plenos-color-optimized.webp" type="image/webp" />
+                <Image
+                  src="/images/brand/logo-plenos-color-optimized.png"
+                  alt="Rizoma Academia"
+                  width={120}
+                  height={40}
+                  className="h-8 w-auto dark:hidden"
+                  priority
+                />
+              </picture>
+              <Image
+                src="/images/brand/logo-plenos-blanco-optimized.png"
+                alt="Rizoma Academia"
+                width={120}
+                height={40}
+                className="h-8 w-auto hidden dark:block"
+                priority
+              />
             </Link>
             <div className="hidden md:flex gap-6">
               <Link

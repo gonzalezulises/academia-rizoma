@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 
 export default function Home() {
   return (
@@ -6,13 +7,23 @@ export default function Home() {
       {/* Header */}
       <header className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <nav className="flex justify-between items-center">
-          <Link href="/" className="flex items-center gap-2">
-            <div className="w-10 h-10 bg-rizoma-green rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-xl">R</span>
-            </div>
-            <span className="text-xl font-semibold text-gray-900 dark:text-white">
-              Rizoma <span className="text-rizoma-green">Academia</span>
-            </span>
+          <Link href="/" className="flex items-center">
+            <Image
+              src="/images/brand/logo-plenos-color-optimized.png"
+              alt="Rizoma Academia"
+              width={140}
+              height={46}
+              className="h-10 w-auto dark:hidden"
+              priority
+            />
+            <Image
+              src="/images/brand/logo-plenos-blanco-optimized.png"
+              alt="Rizoma Academia"
+              width={140}
+              height={46}
+              className="h-10 w-auto hidden dark:block"
+              priority
+            />
           </Link>
           <div className="flex gap-4">
             <Link
@@ -129,13 +140,21 @@ export default function Home() {
       <footer className="border-t border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-rizoma-green rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold">R</span>
-              </div>
-              <span className="text-gray-600 dark:text-gray-400">
-                Rizoma Academia
-              </span>
+            <div className="flex items-center">
+              <Image
+                src="/images/brand/logo-plenos-color-optimized.png"
+                alt="Rizoma"
+                width={100}
+                height={33}
+                className="h-7 w-auto dark:hidden"
+              />
+              <Image
+                src="/images/brand/logo-plenos-blanco-optimized.png"
+                alt="Rizoma"
+                width={100}
+                height={33}
+                className="h-7 w-auto hidden dark:block"
+              />
             </div>
             <div className="flex gap-6 text-sm text-gray-500 dark:text-gray-400">
               <Link href="https://rizo.ma" className="hover:text-rizoma-green transition-colors">

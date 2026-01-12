@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import Image from 'next/image'
 
 export default function RegisterPage() {
   const [fullName, setFullName] = useState('')
@@ -43,13 +44,23 @@ export default function RegisterPage() {
     <div className="min-h-screen flex items-center justify-center bg-cloud-dancer dark:bg-gray-900 px-4">
       <div className="max-w-md w-full space-y-8">
         <div className="text-center">
-          <Link href="/" className="inline-flex items-center gap-2 mb-6">
-            <div className="w-10 h-10 bg-rizoma-green rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-xl">R</span>
-            </div>
-            <span className="text-xl font-semibold text-gray-900 dark:text-white">
-              Rizoma <span className="text-rizoma-green">Academia</span>
-            </span>
+          <Link href="/" className="inline-block mb-6">
+            <Image
+              src="/images/brand/logo-plenos-color-optimized.png"
+              alt="Rizoma Academia"
+              width={160}
+              height={53}
+              className="h-12 w-auto dark:hidden"
+              priority
+            />
+            <Image
+              src="/images/brand/logo-plenos-blanco-optimized.png"
+              alt="Rizoma Academia"
+              width={160}
+              height={53}
+              className="h-12 w-auto hidden dark:block"
+              priority
+            />
           </Link>
           <h2 className="text-3xl font-bold text-gray-900 dark:text-white">
             Crear cuenta
