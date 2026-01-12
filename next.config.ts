@@ -27,11 +27,14 @@ const securityHeaders = [
   }
 ];
 
+// Determina si estamos en producción (Vercel) o desarrollo local
+const isProduction = process.env.VERCEL_ENV === 'production' || process.env.NODE_ENV === 'production';
+const basePath = isProduction ? '/academia' : '';
+
 const nextConfig: NextConfig = {
-  // Base path for serving from rizo.ma/academia
-  // Set NEXT_PUBLIC_BASE_PATH=/academia in production
-  basePath: process.env.NEXT_PUBLIC_BASE_PATH || '',
-  assetPrefix: process.env.NEXT_PUBLIC_BASE_PATH || '',
+  // Base path para servir desde rizo.ma/academia
+  basePath,
+  assetPrefix: basePath,
 
   async headers() {
     return [
