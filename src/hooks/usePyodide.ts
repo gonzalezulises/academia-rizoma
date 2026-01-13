@@ -88,7 +88,7 @@ export function usePyodide(options: UsePyodideOptions = {}): UsePyodideReturn {
             clearTimeout(timeout)
             resolve()
           }
-          script.onerror = (e) => {
+          script.onerror = () => {
             clearTimeout(timeout)
             reject(new Error(`Failed to load Pyodide script from CDN (attempt ${attempt + 1})`))
           }
