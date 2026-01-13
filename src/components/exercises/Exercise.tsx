@@ -38,7 +38,7 @@ function ExerciseSkeleton() {
 }
 
 // Error display
-function ExerciseError({ error, exerciseId }: { error: string; exerciseId: string }) {
+function ExerciseError({ error, exerciseId, courseSlug, moduleId }: { error: string; exerciseId: string; courseSlug?: string; moduleId?: string }) {
   return (
     <div className="my-8 rounded-lg border border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-900/20 p-4">
       <div className="flex items-center gap-2 text-red-700 dark:text-red-300">
@@ -51,7 +51,7 @@ function ExerciseError({ error, exerciseId }: { error: string; exerciseId: strin
         {error}
       </p>
       <p className="mt-1 text-xs text-red-500 dark:text-red-500">
-        ID: {exerciseId}
+        ID: {exerciseId} | Course: {courseSlug || 'undefined'} | Module: {moduleId || 'undefined'}
       </p>
     </div>
   )
@@ -113,7 +113,7 @@ export function Exercise({
   }
 
   if (error || !exercise) {
-    return <ExerciseError error={error || 'Exercise not found'} exerciseId={exerciseId} />
+    return <ExerciseError error={error || 'Exercise not found'} exerciseId={exerciseId} courseSlug={courseSlug} moduleId={moduleId} />
   }
 
   // Render the appropriate playground based on exercise type
@@ -168,6 +168,8 @@ export function Exercise({
         <ExerciseError
           error={`Unknown exercise type: ${(exercise as { type: string }).type}`}
           exerciseId={exerciseId}
+          courseSlug={courseSlug}
+          moduleId={moduleId}
         />
       )
   }
