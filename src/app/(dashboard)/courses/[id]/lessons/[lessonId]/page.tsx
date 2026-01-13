@@ -43,25 +43,34 @@ export default async function LessonPage({ params }: LessonPageProps) {
   // Get current user
   const { data: { user } } = await supabase.auth.getUser()
 
-  // Get lesson with course and module
+  // Get course info (including slug for exercise loading)
+  const { data: course } = await supabase
+    .from('courses')
+    .select('*')
+    .eq('id', courseId)
+    .single()
+
+  // Get lesson with module
   const { data: lesson, error: lessonError } = await supabase
     .from('lessons')
     .select(`
       *,
-      course:courses(*),
       module:modules(*)
     `)
     .eq('id', lessonId)
     .eq('course_id', courseId)
     .single()
 
-  if (lessonError || !lesson) {
+  if (lessonError || !lesson || !course) {
     notFound()
   }
 
+  // Attach course to lesson for compatibility
+  const lessonWithCourse = { ...lesson, course }
+
   // Check access
-  const isInstructor = user?.id === lesson.course?.instructor_id
-  if (!lesson.course?.is_published && !isInstructor) {
+  const isInstructor = user?.id === course.instructor_id
+  if (!course.is_published && !isInstructor) {
     notFound()
   }
 
@@ -170,7 +179,7 @@ export default async function LessonPage({ params }: LessonPageProps) {
               href={`/courses/${courseId}`}
               className="text-sm text-rizoma-green dark:text-rizoma-green-light hover:underline flex items-center gap-1"
             >
-              <span>&larr;</span> {lesson.course?.title}
+              <span>&larr;</span> {course.title}
             </Link>
           </div>
 
@@ -319,7 +328,7 @@ export default async function LessonPage({ params }: LessonPageProps) {
               lesson={lessonWithType}
               userId={user?.id}
               courseId={courseId}
-              courseSlug={lesson.course?.slug}
+              courseSlug={course.slug}
               moduleId={lesson.module?.order_index !== undefined
                 ? `module-${String(lesson.module.order_index).padStart(2, '0')}`
                 : undefined}
