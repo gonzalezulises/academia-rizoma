@@ -23,6 +23,10 @@ estimated_time_minutes: 5
 points: 20
 order: 2
 
+required_packages:
+  - networkx
+  - matplotlib
+
 ui_config:
   hide_code: true
   show_output_only: true
