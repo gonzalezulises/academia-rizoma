@@ -36,6 +36,11 @@ const nextConfig: NextConfig = {
   basePath,
   assetPrefix: basePath,
 
+  // Exponer basePath a componentes cliente
+  env: {
+    NEXT_PUBLIC_BASE_PATH: basePath,
+  },
+
   // Incluir archivos de contenido en el bundle serverless
   outputFileTracingIncludes: {
     '/api/exercises/[exerciseId]': ['./content/**/*', './config/**/*'],

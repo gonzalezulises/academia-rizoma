@@ -85,8 +85,9 @@ export function Exercise({
       }
 
       try {
-        // In a real app, this would be an API call
-        const response = await fetch(`/api/exercises/${exerciseId}?course=${courseSlug}&module=${moduleId}`)
+        // Use basePath for API calls in production
+        const basePath = process.env.NEXT_PUBLIC_BASE_PATH || ''
+        const response = await fetch(`${basePath}/api/exercises/${exerciseId}?course=${courseSlug}&module=${moduleId}`)
 
         if (!response.ok) {
           throw new Error(`Failed to load exercise: ${response.statusText}`)
