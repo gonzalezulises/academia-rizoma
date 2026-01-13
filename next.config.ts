@@ -36,6 +36,11 @@ const nextConfig: NextConfig = {
   basePath,
   assetPrefix: basePath,
 
+  // Incluir archivos de contenido en el bundle serverless
+  outputFileTracingIncludes: {
+    '/api/exercises/[exerciseId]': ['./content/**/*', './config/**/*'],
+  },
+
   async headers() {
     return [
       {
