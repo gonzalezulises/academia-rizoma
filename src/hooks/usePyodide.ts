@@ -3,8 +3,9 @@
 import { useState, useCallback, useRef, useEffect } from 'react'
 import type { PythonExecutionResult, TestCase, TestResult } from '@/types/exercises'
 
-// Pyodide CDN URL
-const PYODIDE_CDN = 'https://cdn.jsdelivr.net/pyodide/v0.24.1/full/'
+// Pyodide CDN URL - updated to latest stable version
+// See: https://pyodide.org/en/stable/usage/downloading-and-deploying.html
+const PYODIDE_CDN = 'https://cdn.jsdelivr.net/pyodide/v0.26.2/full/'
 
 // Type definitions for Pyodide
 interface PyodideInterface {
@@ -55,21 +56,55 @@ export function usePyodide(options: UsePyodideOptions = {}): UsePyodideReturn {
   const stdoutRef = useRef<string>('')
   const stderrRef = useRef<string>('')
 
-  // Load Pyodide script
+  // Load Pyodide script with retry logic
   const loadPyodideScript = useCallback(async (): Promise<void> => {
     if (typeof window === 'undefined') return
 
     // Check if already loaded
     if (window.loadPyodide) return
 
-    return new Promise((resolve, reject) => {
-      const script = document.createElement('script')
-      script.src = `${PYODIDE_CDN}pyodide.js`
-      script.async = true
-      script.onload = () => resolve()
-      script.onerror = () => reject(new Error('Failed to load Pyodide script'))
-      document.head.appendChild(script)
-    })
+    const maxRetries = 2
+    let lastError: Error | null = null
+
+    for (let attempt = 0; attempt <= maxRetries; attempt++) {
+      try {
+        await new Promise<void>((resolve, reject) => {
+          // Remove any previous failed script
+          const existingScript = document.querySelector(`script[src*="pyodide.js"]`)
+          if (existingScript) {
+            existingScript.remove()
+          }
+
+          const script = document.createElement('script')
+          script.src = `${PYODIDE_CDN}pyodide.js`
+          script.async = true
+          script.crossOrigin = 'anonymous'
+
+          const timeout = setTimeout(() => {
+            reject(new Error('Pyodide script load timeout (30s)'))
+          }, 30000)
+
+          script.onload = () => {
+            clearTimeout(timeout)
+            resolve()
+          }
+          script.onerror = (e) => {
+            clearTimeout(timeout)
+            reject(new Error(`Failed to load Pyodide script from CDN (attempt ${attempt + 1})`))
+          }
+          document.head.appendChild(script)
+        })
+        return // Success, exit the retry loop
+      } catch (err) {
+        lastError = err instanceof Error ? err : new Error(String(err))
+        if (attempt < maxRetries) {
+          // Wait before retry
+          await new Promise(r => setTimeout(r, 1000 * (attempt + 1)))
+        }
+      }
+    }
+
+    throw lastError || new Error('Failed to load Pyodide after retries')
   }, [])
 
   // Initialize Pyodide
