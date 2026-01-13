@@ -14,6 +14,7 @@ interface LessonPlayerProps {
   courseSlug?: string
   moduleId?: string
   isCompleted?: boolean
+  isEnrolled?: boolean
   onComplete?: () => void
   quiz?: Quiz | null
 }
@@ -25,6 +26,7 @@ export default function LessonPlayer({
   courseSlug,
   moduleId,
   isCompleted = false,
+  isEnrolled = false,
   onComplete,
   quiz
 }: LessonPlayerProps) {
@@ -255,8 +257,8 @@ export default function LessonPlayer({
         </div>
       )}
 
-      {/* Complete button */}
-      {userId && (
+      {/* Complete button - only for enrolled users */}
+      {userId && isEnrolled && (
         <div className="flex items-center justify-between pt-6 border-t border-gray-200 dark:border-gray-700">
           {completed ? (
             <div className="flex items-center gap-2 text-green-600 dark:text-green-400">

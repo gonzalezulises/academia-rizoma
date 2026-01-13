@@ -1,5 +1,5 @@
 import { createClient } from '@/lib/supabase/server'
-import { notFound, redirect } from 'next/navigation'
+import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import Navbar from '@/components/Navbar'
 import LessonPlayer from '@/components/course/LessonPlayer'
@@ -65,7 +65,8 @@ export default async function LessonPage({ params }: LessonPageProps) {
     notFound()
   }
 
-  // Check enrollment (if not instructor)
+  // Check enrollment (for progress tracking, not access)
+  let isEnrolled = false
   if (user && !isInstructor) {
     const { data: enrollment } = await supabase
       .from('enrollments')
@@ -74,9 +75,9 @@ export default async function LessonPage({ params }: LessonPageProps) {
       .eq('course_id', courseId)
       .single()
 
-    if (!enrollment) {
-      redirect(`/courses/${courseId}`)
-    }
+    isEnrolled = !!enrollment
+  } else if (isInstructor) {
+    isEnrolled = true // Instructors always have access
   }
 
   // Get user progress for this lesson
@@ -260,6 +261,50 @@ export default async function LessonPage({ params }: LessonPageProps) {
               </Link>
             </div>
 
+            {/* Enrollment banner for non-enrolled users */}
+            {user && !isEnrolled && (
+              <div className="mb-6 p-4 bg-gradient-to-r from-rizoma-green/10 to-rizoma-cyan/10 border border-rizoma-green/20 rounded-lg">
+                <div className="flex items-center justify-between flex-wrap gap-4">
+                  <div>
+                    <p className="font-medium text-gray-900 dark:text-white">
+                      Estas en modo preview
+                    </p>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">
+                      Inscribete para guardar tu progreso y acceder a recursos adicionales.
+                    </p>
+                  </div>
+                  <Link
+                    href={`/courses/${courseId}`}
+                    className="px-4 py-2 bg-rizoma-green text-white rounded-lg text-sm font-medium hover:bg-rizoma-green-dark transition-colors"
+                  >
+                    Inscribirme
+                  </Link>
+                </div>
+              </div>
+            )}
+
+            {/* Login banner for anonymous users */}
+            {!user && (
+              <div className="mb-6 p-4 bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+                <div className="flex items-center justify-between flex-wrap gap-4">
+                  <div>
+                    <p className="font-medium text-gray-900 dark:text-white">
+                      Estas en modo preview
+                    </p>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">
+                      Inicia sesion para guardar tu progreso.
+                    </p>
+                  </div>
+                  <Link
+                    href="/login"
+                    className="px-4 py-2 bg-rizoma-green text-white rounded-lg text-sm font-medium hover:bg-rizoma-green-dark transition-colors"
+                  >
+                    Iniciar sesion
+                  </Link>
+                </div>
+              </div>
+            )}
+
             {/* Module breadcrumb */}
             {lesson.module && (
               <div className="mb-4">
@@ -279,11 +324,12 @@ export default async function LessonPage({ params }: LessonPageProps) {
                 ? `module-${String(lesson.module.order_index).padStart(2, '0')}`
                 : undefined}
               isCompleted={isCompleted}
+              isEnrolled={isEnrolled}
               quiz={quiz}
             />
 
-            {/* Resources */}
-            {user && (
+            {/* Resources - only for enrolled users */}
+            {user && isEnrolled && (
               <LessonResources
                 lessonId={lessonId}
                 userId={user.id}
