@@ -65,9 +65,6 @@ export default async function LessonPage({ params }: LessonPageProps) {
     notFound()
   }
 
-  // Attach course to lesson for compatibility
-  const lessonWithCourse = { ...lesson, course }
-
   // Check access
   const isInstructor = user?.id === course.instructor_id
   if (!course.is_published && !isInstructor) {
