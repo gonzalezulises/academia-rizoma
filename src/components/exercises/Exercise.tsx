@@ -90,7 +90,8 @@ export function Exercise({
         const response = await fetch(`${basePath}/api/exercises/${exerciseId}?course=${courseSlug}&module=${moduleId}`)
 
         if (!response.ok) {
-          throw new Error(`Failed to load exercise: ${response.statusText}`)
+          const errorData = await response.json().catch(() => ({}))
+          throw new Error(errorData.details || errorData.error || `Failed to load exercise: ${response.statusText}`)
         }
 
         const data = await response.json()
