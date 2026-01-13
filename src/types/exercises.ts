@@ -139,6 +139,7 @@ export interface PythonExecutionResult {
   error?: string
   execution_time_ms: number
   test_results?: TestResult[]
+  figures?: string[] // Base64-encoded matplotlib figures
 }
 
 // SQL execution result

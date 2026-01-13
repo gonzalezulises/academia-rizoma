@@ -3,9 +3,14 @@
 import { useState, useCallback, useRef, useEffect } from 'react'
 import type { PythonExecutionResult, TestCase, TestResult } from '@/types/exercises'
 
-// Pyodide CDN URL - updated to latest stable version
+// Pyodide CDN URLs - try multiple CDNs for reliability
 // See: https://pyodide.org/en/stable/usage/downloading-and-deploying.html
-const PYODIDE_CDN = 'https://cdn.jsdelivr.net/pyodide/v0.26.2/full/'
+const PYODIDE_CDNS = [
+  'https://cdn.jsdelivr.net/pyodide/v0.26.2/full/',
+  'https://pyodide-cdn2.iodide.io/v0.26.2/full/',
+]
+// Default to first CDN
+const PYODIDE_CDN = PYODIDE_CDNS[0]
 
 // Type definitions for Pyodide
 interface PyodideInterface {
@@ -187,8 +192,44 @@ export function usePyodide(options: UsePyodideOptions = {}): UsePyodideReturn {
       // Auto-load packages from imports
       await pyodideRef.current.loadPackagesFromImports(code)
 
+      // Set up matplotlib for non-interactive backend before running user code
+      await pyodideRef.current.runPythonAsync(`
+import sys
+if 'matplotlib' in sys.modules:
+    import matplotlib
+    matplotlib.use('agg')
+`)
+
       // Run the code
       await pyodideRef.current.runPythonAsync(code)
+
+      // Capture any matplotlib figures
+      const figuresResult = await pyodideRef.current.runPythonAsync(`
+import sys
+_figures_b64 = []
+if 'matplotlib.pyplot' in sys.modules:
+    import matplotlib.pyplot as plt
+    import io
+    import base64
+    for fig_num in plt.get_fignums():
+        fig = plt.figure(fig_num)
+        buf = io.BytesIO()
+        fig.savefig(buf, format='png', dpi=100, bbox_inches='tight', facecolor='white')
+        buf.seek(0)
+        _figures_b64.append(base64.b64encode(buf.read()).decode('utf-8'))
+        buf.close()
+    plt.close('all')
+_figures_b64
+`)
+
+      // Convert Pyodide result to JS array
+      const figures: string[] = []
+      if (figuresResult && typeof figuresResult.toJs === 'function') {
+        const jsArray = figuresResult.toJs()
+        if (Array.isArray(jsArray)) {
+          figures.push(...jsArray)
+        }
+      }
 
       const executionTime = performance.now() - startTime
 
@@ -196,6 +237,7 @@ export function usePyodide(options: UsePyodideOptions = {}): UsePyodideReturn {
         success: true,
         stdout: stdoutRef.current.trim(),
         stderr: stderrRef.current.trim(),
+        figures: figures.length > 0 ? figures : undefined,
         execution_time_ms: Math.round(executionTime)
       }
     } catch (err) {

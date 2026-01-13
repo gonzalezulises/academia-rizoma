@@ -35,6 +35,7 @@ export function CodePlayground({
 }: CodePlaygroundProps) {
   const [code, setCode] = useState(progress?.current_code || exercise.starter_code)
   const [output, setOutput] = useState('')
+  const [figures, setFigures] = useState<string[]>([])
   const [testResults, setTestResults] = useState<TestResult[]>([])
   const [isRunning, setIsRunning] = useState(false)
   const [activeTab, setActiveTab] = useState<'output' | 'tests'>('output')
@@ -60,13 +61,17 @@ export function CodePlayground({
   const handleRun = useCallback(async () => {
     setIsRunning(true)
     setOutput('')
+    setFigures([])
     setTestResults([])
     setActiveTab('output')
 
     const result = await runCode(code)
 
     if (result.success) {
-      setOutput(result.stdout || 'Ejecutado correctamente (sin output)')
+      setOutput(result.stdout || (result.figures?.length ? '' : 'Ejecutado correctamente (sin output)'))
+      if (result.figures) {
+        setFigures(result.figures)
+      }
     } else {
       setOutput(`Error: ${result.error}\n\n${result.stderr}`)
     }
@@ -78,6 +83,7 @@ export function CodePlayground({
   const handleSubmit = useCallback(async () => {
     setIsRunning(true)
     setOutput('')
+    setFigures([])
     setTestResults([])
     setActiveTab('tests')
 
@@ -115,6 +121,7 @@ export function CodePlayground({
   const handleReset = useCallback(() => {
     setCode(exercise.starter_code)
     setOutput('')
+    setFigures([])
     setTestResults([])
   }, [exercise.starter_code])
 
@@ -277,9 +284,28 @@ export function CodePlayground({
 
           <div className="p-4 bg-gray-50 dark:bg-gray-900 min-h-[120px]">
             {activeTab === 'output' ? (
-              <pre className="text-sm text-gray-700 dark:text-gray-300 whitespace-pre-wrap font-mono">
-                {output || 'Ejecuta el código para ver el output...'}
-              </pre>
+              <div className="space-y-4">
+                {/* Matplotlib figures */}
+                {figures.length > 0 && (
+                  <div className="space-y-4">
+                    {figures.map((fig, index) => (
+                      <div key={index} className="bg-white rounded-lg p-2 shadow-sm">
+                        <img
+                          src={`data:image/png;base64,${fig}`}
+                          alt={`Figura ${index + 1}`}
+                          className="max-w-full h-auto mx-auto"
+                        />
+                      </div>
+                    ))}
+                  </div>
+                )}
+                {/* Text output */}
+                {(output || figures.length === 0) && (
+                  <pre className="text-sm text-gray-700 dark:text-gray-300 whitespace-pre-wrap font-mono">
+                    {output || 'Ejecuta el código para ver el output...'}
+                  </pre>
+                )}
+              </div>
             ) : (
               <div className="space-y-2">
                 {testResults.length === 0 ? (
