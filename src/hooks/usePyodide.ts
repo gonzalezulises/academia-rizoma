@@ -224,10 +224,11 @@ _figures_b64
 
       // Convert Pyodide result to JS array
       const figures: string[] = []
-      if (figuresResult && typeof figuresResult.toJs === 'function') {
-        const jsArray = figuresResult.toJs()
+      const pyResult = figuresResult as { toJs?: () => unknown } | undefined
+      if (pyResult && typeof pyResult.toJs === 'function') {
+        const jsArray = pyResult.toJs()
         if (Array.isArray(jsArray)) {
-          figures.push(...jsArray)
+          figures.push(...(jsArray as string[]))
         }
       }
 
