@@ -26,6 +26,12 @@ estimated_time_minutes: 12
 points: 35
 order: 8
 
+required_packages:
+  - networkx
+  - matplotlib
+  - pandas
+  - numpy
+
 ui_config:
   hide_code: true
   show_output_only: true

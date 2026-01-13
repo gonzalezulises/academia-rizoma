@@ -30,6 +30,12 @@ estimated_time_minutes: 15
 points: 50
 order: 10
 
+required_packages:
+  - networkx
+  - matplotlib
+  - pandas
+  - numpy
+
 ui_config:
   hide_code: true
   show_output_only: true
