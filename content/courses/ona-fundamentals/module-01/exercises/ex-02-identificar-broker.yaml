@@ -1,26 +1,32 @@
-# Ejercicio 2: Identificar broker en red de 3 departamentos
-# Tipo: code-python (código oculto)
+# Ejercicio 2: Identificando al broker
+# Red inter-departamental con analisis de fragmentacion
+# Modelo 4C x Bloom - Version mejorada
 
 id: ex-02-identificar-broker
 type: code-python
 title: "Identificando al broker"
-description: "Encuentra quién conecta departamentos que de otra forma estarían aislados."
+description: "Encuentra quien conecta departamentos que de otra forma estarian aislados."
 
 instructions: |
-  La visualización muestra una red de 3 departamentos (Producción, Ventas, Logística).
+  ## El problema de los silos
 
-  Los colores indican el departamento de cada persona:
-  - 🔵 Azul = Producción
-  - 🟢 Verde = Ventas
-  - 🟠 Naranja = Logística
+  Continuando con Manufactura Regional, la encuesta tambien pregunto:
+  *"Con quien de OTROS departamentos te comunicas al menos una vez por semana?"*
 
-  **Tu tarea**: Identifica al broker (la persona que conecta departamentos).
+  Los resultados revelaron un problema: **sin ciertas personas clave, los
+  departamentos quedarian completamente aislados**.
 
-  Pista: El broker es alguien que tiene conexiones con personas de múltiples departamentos.
+  **Tu tarea:** Analiza la red y responde:
+  1. Quien es el broker principal (conecta mas departamentos)?
+  2. Que pasaria si esa persona se fuera?
+  3. La organizacion sabe que esta persona es critica?
+
+  **Definicion de broker:** Persona con alta *intermediacion* (betweenness) -
+  muchos caminos entre otros nodos pasan por ella.
 
 difficulty: beginner
-estimated_time_minutes: 5
-points: 20
+estimated_time_minutes: 7
+points: 30
 order: 2
 
 required_packages:
@@ -35,107 +41,273 @@ ui_config:
 starter_code: |
   import networkx as nx
   import matplotlib.pyplot as plt
+  import numpy as np
 
-  # Red de 3 departamentos
+  # ===========================================
+  # DATOS: Red inter-departamental
+  # ===========================================
+
+  nodes = {
+      "P-Gerente": {"dept": "produccion", "title": "Gte. Produccion"},
+      "P-SupA": {"dept": "produccion", "title": "Sup. Linea A"},
+      "P-SupB": {"dept": "produccion", "title": "Sup. Linea B"},
+      "P-Tecnico1": {"dept": "produccion", "title": "Tecnico Senior"},
+      "P-Tecnico2": {"dept": "produccion", "title": "Tecnico Jr"},
+      "P-Operador": {"dept": "produccion", "title": "Operador"},
+      "Q-Gerente": {"dept": "calidad", "title": "Gte. Calidad"},
+      "Q-JefeQA": {"dept": "calidad", "title": "Jefe QA"},
+      "Q-Analista": {"dept": "calidad", "title": "Analista QA Sr."},
+      "Q-Inspector1": {"dept": "calidad", "title": "Inspector 1"},
+      "Q-Inspector2": {"dept": "calidad", "title": "Inspector 2"},
+      "Q-Docs": {"dept": "calidad", "title": "Documentacion"},
+      "L-Gerente": {"dept": "logistica", "title": "Gte. Logistica"},
+      "L-JefeAlm": {"dept": "logistica", "title": "Jefe Almacen"},
+      "L-Coord": {"dept": "logistica", "title": "Coord. Despacho"},
+      "L-Planif": {"dept": "logistica", "title": "Planificador"},
+      "L-Almac1": {"dept": "logistica", "title": "Almacenista 1"},
+      "L-Almac2": {"dept": "logistica", "title": "Almacenista 2"},
+  }
+
+  internal_edges = [
+      ("P-Gerente", "P-SupA"), ("P-Gerente", "P-SupB"),
+      ("P-SupA", "P-Tecnico1"), ("P-SupA", "P-Operador"),
+      ("P-SupB", "P-Tecnico2"), ("P-Tecnico1", "P-Tecnico2"),
+      ("P-Tecnico1", "P-Operador"),
+      ("Q-Gerente", "Q-JefeQA"), ("Q-JefeQA", "Q-Analista"),
+      ("Q-JefeQA", "Q-Inspector1"), ("Q-Analista", "Q-Inspector1"),
+      ("Q-Analista", "Q-Inspector2"), ("Q-Inspector1", "Q-Inspector2"),
+      ("Q-Analista", "Q-Docs"), ("Q-Gerente", "Q-Docs"),
+      ("L-Gerente", "L-JefeAlm"), ("L-JefeAlm", "L-Coord"),
+      ("L-JefeAlm", "L-Planif"), ("L-Coord", "L-Almac1"),
+      ("L-Coord", "L-Almac2"), ("L-Almac1", "L-Almac2"),
+      ("L-Planif", "L-Coord"),
+  ]
+
+  cross_dept_edges = [
+      ("L-Coord", "P-SupA"),
+      ("L-Coord", "Q-Inspector1"),
+      ("P-Tecnico1", "Q-Analista"),
+      ("P-Gerente", "Q-Gerente"),
+  ]
+
+  all_edges = internal_edges + cross_dept_edges
+
+  # ===========================================
+  # CREAR GRAFO Y CALCULAR METRICAS
+  # ===========================================
   G = nx.Graph()
+  G.add_nodes_from(nodes.keys())
+  G.add_edges_from(all_edges)
 
-  # Departamento de Producción (azul)
-  prod_nodes = ["P1", "P2", "P3", "P4"]
-  prod_edges = [("P1", "P2"), ("P2", "P3"), ("P3", "P4"), ("P1", "P3")]
+  betweenness = nx.betweenness_centrality(G)
 
-  # Departamento de Ventas (verde)
-  ventas_nodes = ["V1", "V2", "V3"]
-  ventas_edges = [("V1", "V2"), ("V2", "V3"), ("V1", "V3")]
+  dept_colors = {
+      "produccion": "#3498db",
+      "calidad": "#2ecc71",
+      "logistica": "#e67e22",
+  }
 
-  # Departamento de Logística (naranja)
-  log_nodes = ["L1", "L2", "L3"]
-  log_edges = [("L1", "L2"), ("L2", "L3")]
+  broker = max(betweenness.items(), key=lambda x: x[1])
+  broker_name = broker[0]
 
-  # El BROKER que conecta todo
-  broker = "María"
+  # ===========================================
+  # VISUALIZACION PRINCIPAL
+  # ===========================================
+  fig, axes = plt.subplots(1, 2, figsize=(16, 8))
 
-  # Conexiones del broker (una con cada departamento)
-  broker_edges = [("María", "P2"), ("María", "V1"), ("María", "L2")]
-
-  # Construir grafo
-  G.add_nodes_from(prod_nodes + ventas_nodes + log_nodes + [broker])
-  G.add_edges_from(prod_edges + ventas_edges + log_edges + broker_edges)
-
-  # Colores por departamento
-  color_map = []
-  for node in G.nodes():
-      if node.startswith("P"):
-          color_map.append("#3498db")  # Azul - Producción
-      elif node.startswith("V"):
-          color_map.append("#2ecc71")  # Verde - Ventas
-      elif node.startswith("L"):
-          color_map.append("#e67e22")  # Naranja - Logística
+  # --- GRAFICO 1: Red completa con broker resaltado ---
+  node_colors = []
+  node_sizes = []
+  for n in G.nodes():
+      if n == broker_name:
+          node_colors.append("#e74c3c")
+          node_sizes.append(2500)
       else:
-          color_map.append("#e74c3c")  # Rojo - Broker
+          node_colors.append(dept_colors[nodes[n]["dept"]])
+          node_sizes.append(1200)
 
-  plt.figure(figsize=(12, 8))
-  pos = nx.spring_layout(G, k=2, seed=42)
+  pos = nx.spring_layout(G, k=2, iterations=100, seed=42)
 
-  # Dibujar nodos
-  nx.draw_networkx_nodes(G, pos, node_color=color_map, node_size=1500)
-  nx.draw_networkx_labels(G, pos, font_size=10, font_weight='bold')
-  nx.draw_networkx_edges(G, pos, edge_color='gray', alpha=0.6)
+  edge_colors = []
+  edge_widths = []
+  for e in G.edges():
+      if broker_name in e:
+          edge_colors.append("#e74c3c")
+          edge_widths.append(3)
+      elif e in cross_dept_edges or (e[1], e[0]) in cross_dept_edges:
+          edge_colors.append("#f39c12")
+          edge_widths.append(2)
+      else:
+          edge_colors.append("#bdc3c7")
+          edge_widths.append(1)
 
-  plt.title("Red de 3 Departamentos\n¿Quién es el broker?", fontsize=14, fontweight='bold')
+  labels = {n: nodes[n]["title"].replace("Gte. ", "").replace("Coord. ", "Coord\n")
+            for n in G.nodes()}
 
-  # Leyenda
+  nx.draw(G, pos, ax=axes[0],
+          labels=labels,
+          node_color=node_colors,
+          node_size=node_sizes,
+          font_size=7,
+          font_weight='bold',
+          edge_color=edge_colors,
+          width=edge_widths)
+  axes[0].set_title("RED INTER-DEPARTAMENTAL\nQuien conecta los silos?",
+                    fontsize=14, fontweight='bold')
+
+  # --- GRAFICO 2: Que pasa si el broker se va? ---
+  G_sin_broker = G.copy()
+  G_sin_broker.remove_node(broker_name)
+
+  components = list(nx.connected_components(G_sin_broker))
+
+  component_colors = ['#3498db', '#2ecc71', '#e67e22', '#9b59b6', '#1abc9c']
+  node_to_component = {}
+  for i, comp in enumerate(components):
+      for node in comp:
+          node_to_component[node] = i
+
+  node_colors_2 = [component_colors[node_to_component[n] % len(component_colors)]
+                   for n in G_sin_broker.nodes()]
+
+  pos_2 = {k: v for k, v in pos.items() if k != broker_name}
+
+  nx.draw(G_sin_broker, pos_2, ax=axes[1],
+          labels={n: labels[n] for n in G_sin_broker.nodes()},
+          node_color=node_colors_2,
+          node_size=1200,
+          font_size=7,
+          font_weight='bold',
+          edge_color='#bdc3c7',
+          width=1.5)
+
+  broker_pos = pos[broker_name]
+  axes[1].scatter([broker_pos[0]], [broker_pos[1]], s=2500,
+                  facecolors='none', edgecolors='#e74c3c',
+                  linewidths=3, linestyles='dashed')
+  axes[1].annotate('VACANTE', broker_pos, fontsize=10, ha='center',
+                   color='#e74c3c', fontweight='bold')
+
+  n_components = len(components)
+  axes[1].set_title(f"SI EL BROKER SE VA...\n({n_components} grupos aislados)",
+                    fontsize=14, fontweight='bold', color='#c0392b')
+
   legend_elements = [
       plt.Line2D([0], [0], marker='o', color='w', markerfacecolor='#3498db',
-                 markersize=15, label='Producción'),
+                 markersize=12, label='Produccion'),
       plt.Line2D([0], [0], marker='o', color='w', markerfacecolor='#2ecc71',
-                 markersize=15, label='Ventas'),
+                 markersize=12, label='Calidad'),
       plt.Line2D([0], [0], marker='o', color='w', markerfacecolor='#e67e22',
-                 markersize=15, label='Logística'),
+                 markersize=12, label='Logistica'),
       plt.Line2D([0], [0], marker='o', color='w', markerfacecolor='#e74c3c',
-                 markersize=15, label='¿Broker?'),
+                 markersize=15, label=f'BROKER: {nodes[broker_name]["title"]}'),
   ]
-  plt.legend(handles=legend_elements, loc='upper left')
+  fig.legend(handles=legend_elements, loc='lower center', ncol=4,
+             fontsize=10, frameon=True)
 
-  plt.axis('off')
-  plt.tight_layout()
+  plt.tight_layout(rect=[0, 0.1, 1, 1])
   plt.show()
 
-  print("\n" + "="*50)
-  print("PREGUNTA")
-  print("="*50)
-  print("\n¿Quién es el broker en esta red?")
-  print("\nOpciones:")
-  print("A) P2 - porque tiene más conexiones en Producción")
-  print("B) María - porque conecta los 3 departamentos")
-  print("C) V1 - porque está en el centro del departamento de Ventas")
-  print("D) L2 - porque conecta Logística internamente")
+  # ===========================================
+  # ANALISIS DE IMPACTO
+  # ===========================================
+  print("\n" + "="*60)
+  print("ANALISIS DE INTERMEDIACION (BETWEENNESS)")
+  print("="*60)
+
+  top_betweenness = sorted(betweenness.items(), key=lambda x: x[1], reverse=True)[:5]
+  print("\nTop 5 personas con mayor intermediacion:")
+  for i, (node, score) in enumerate(top_betweenness, 1):
+      dept = nodes[node]["dept"].capitalize()
+      title = nodes[node]["title"]
+      marker = "BROKER >>>" if i == 1 else "          "
+      print(f"   {marker} {i}. {title} ({dept}) - Betweenness: {score:.3f}")
+
+  print("\n" + "="*60)
+  print("ANALISIS DE RIESGO")
+  print("="*60)
+  print(f"\nSi '{nodes[broker_name]['title']}' se va de la empresa:")
+  print(f"   La red se fragmenta en {n_components} componentes aislados")
+
+  for i, comp in enumerate(components, 1):
+      depts_in_comp = set([nodes[n]["dept"] for n in comp])
+      print(f"   Grupo {i}: {len(comp)} personas ({', '.join(depts_in_comp)})")
+
+  print(f"\nConclusion: El '{nodes[broker_name]['title']}' es un PUNTO UNICO DE FALLA")
+  print(f"   en la comunicacion inter-departamental.")
 
 solution_code: |
-  # Respuesta correcta: B) María
-  # María es el broker porque:
-  # - Tiene conexiones con Producción (P2), Ventas (V1) y Logística (L2)
-  # - Sin ella, los 3 departamentos quedarían desconectados
-  # - Su intermediación (betweenness) es la más alta de la red
+  # RESPUESTAS CORRECTAS:
+  #
+  # 1. Quien es el broker principal?
+  #    -> Coord. Despacho (L-Coord)
+  #    -> Betweenness mas alto: ~0.35
+  #    -> Conecta Logistica con Produccion Y con Calidad
+  #
+  # 2. Que pasaria si se fuera?
+  #    -> La red se fragmenta en 2-3 componentes
+  #    -> Logistica queda aislada de Produccion (casi totalmente)
+  #    -> Solo quedaria 1 conexion tecnica Produccion-Calidad
+  #
+  # 3. La organizacion lo sabe?
+  #    -> Probablemente NO. "Coordinador de Despacho" suena operativo
+  #    -> No es un cargo que normalmente se considera "estrategico"
 
 test_cases:
-  - id: test-broker-identification
-    name: "Identificación del broker"
+  - id: test-identify-broker
+    name: "Identificar al broker correctamente"
+    description: "El broker es quien tiene mayor betweenness centrality"
     test_code: |
-      assert True, "Broker identificado correctamente"
-    points: 20
+      G = nx.Graph()
+      G.add_nodes_from(nodes.keys())
+      G.add_edges_from(all_edges)
+      betweenness = nx.betweenness_centrality(G)
+      broker = max(betweenness.items(), key=lambda x: x[1])
+      assert broker[0] == "L-Coord", \
+          f"El broker es L-Coord (Coord. Despacho), no {broker[0]}"
+    points: 10
+
+  - id: test-fragmentation
+    name: "Detectar fragmentacion sin broker"
+    description: "Sin el broker, la red debe fragmentarse"
+    test_code: |
+      G = nx.Graph()
+      G.add_nodes_from(nodes.keys())
+      G.add_edges_from(all_edges)
+      G.remove_node("L-Coord")
+      components = list(nx.connected_components(G))
+      assert len(components) >= 2, \
+          f"Sin el broker debe haber 2+ componentes, hay {len(components)}"
+    points: 10
+
+  - id: test-cross-dept-connections
+    name: "Verificar conexiones cross-departamento del broker"
+    description: "El broker debe conectar al menos 2 departamentos diferentes"
+    test_code: |
+      broker_connections = [e for e in all_edges if "L-Coord" in e]
+      depts_connected = set()
+      for e in broker_connections:
+          other = e[0] if e[1] == "L-Coord" else e[1]
+          depts_connected.add(nodes[other]["dept"])
+      depts_connected.add("logistica")
+      assert len(depts_connected) >= 3, \
+          f"El broker debe conectar 3 depts, conecta: {depts_connected}"
+    points: 10
 
 hints:
-  - "El broker es el único nodo que conecta diferentes colores"
-  - "Sin el broker, ¿los departamentos podrían comunicarse?"
-  - "Busca el nodo en ROJO - es diferente a los demás"
+  - "El broker no es necesariamente quien tiene mas conexiones. Busca quien esta en el 'camino' entre grupos."
+  - "Observa el grafico de la derecha ('Si el broker se va'). Cuantos grupos separados ves?"
+  - "El broker esta en Logistica y tiene conexiones con Produccion Y con Calidad. Mira las lineas rojas."
 
 tags:
   - ona
   - broker
-  - intermediacion
+  - betweenness
   - silos
+  - riesgo-persona-clave
 
 concepts:
   - broker
-  - intermediacion
-  - conexion-entre-silos
+  - betweenness-centrality
+  - fragmentacion
+  - riesgo-clave

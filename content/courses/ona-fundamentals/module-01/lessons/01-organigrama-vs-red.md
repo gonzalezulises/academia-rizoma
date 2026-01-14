@@ -1,67 +1,118 @@
 # El organigrama vs. la red real
 
-Toda organización tiene dos estructuras: la que aparece en el organigrama y la que realmente funciona. El organigrama te dice quién reporta a quién. La red informal te dice quién consulta a quién, quién confía en quién, quién tiene la información que otros necesitan.
+## Antes de comenzar: Prueba tu intuicion
 
-## Por qué el organigrama no es suficiente
+Antes de aprender sobre redes organizacionales, prueba que tan bien predice tu intuicion la realidad de las organizaciones.
 
-El organigrama es una ficción útil. Define responsabilidades, establece cadenas de mando, facilita la toma de decisiones formales. Pero no captura cómo fluye realmente el trabajo.
+Para cada afirmacion, decide si crees que es **Verdadera** o **Falsa**:
+
+| # | Afirmacion | Tu prediccion |
+|---|------------|---------------|
+| 1 | La persona mas consultada de una organizacion siempre tiene un cargo gerencial o directivo. | V / F |
+| 2 | Si dos departamentos comparten un director en el organigrama, en la practica colaboran frecuentemente. | V / F |
+| 3 | Cuando una persona clave renuncia, la organizacion generalmente sabe exactamente que conocimiento se pierde. | V / F |
+| 4 | Las redes informales pueden mapearse y medirse de forma sistematica. | V / F |
+
+<details>
+<summary><strong>Ver respuestas</strong></summary>
+
+1. **FALSO.** Las investigaciones en ONA muestran que los "expertos ocultos" a menudo estan en posiciones medias o tecnicas. La influencia informal rara vez coincide con la jerarquia formal.
+
+2. **FALSO.** El organigrama muestra relaciones de reporte, no de colaboracion. Dos departamentos bajo el mismo VP pueden operar como silos completos.
+
+3. **FALSO.** El conocimiento informal (a quien consultar, como navegar procesos, relaciones con clientes) es invisible hasta que se pierde. ONA puede mapear este riesgo antes de que ocurra.
+
+4. **VERDADERO.** ONA (Organizational Network Analysis) es una metodologia establecida con metricas cuantitativas. No es intuicion ni politica de oficina: es ciencia de redes aplicada a organizaciones.
+
+**Dato revelador:** En un estudio de McKinsey, solo el 35% de los ejecutivos podia identificar correctamente quienes eran los conectores clave de su organizacion. El otro 65% asumia que coincidian con la jerarquia formal.
+
+</details>
+
+---
+
+Toda organizacion tiene dos estructuras: la que aparece en el organigrama y la que realmente funciona. El organigrama te dice quien reporta a quien. La red informal te dice quien consulta a quien, quien confia en quien, quien tiene la informacion que otros necesitan.
+
+## Por que el organigrama no es suficiente
+
+El organigrama es una ficcion util. Define responsabilidades, establece cadenas de mando, facilita la toma de decisiones formales. Pero no captura como fluye realmente el trabajo.
 
 Considera estas preguntas que el organigrama no puede responder:
-- ¿A quién recurren los empleados cuando tienen un problema técnico difícil?
-- ¿Quién realmente toma las decisiones en este proyecto?
-- ¿Por qué dos departamentos que deberían colaborar nunca lo hacen?
-- ¿Quién se enteraría primero si hubiera un cambio importante en la estrategia?
+- A quien recurren los empleados cuando tienen un problema tecnico dificil?
+- Quien realmente toma las decisiones en este proyecto?
+- Por que dos departamentos que deberian colaborar nunca lo hacen?
+- Quien se enteraria primero si hubiera un cambio importante en la estrategia?
 
-Las respuestas a estas preguntas viven en la **red informal** de tu organización.
+Las respuestas a estas preguntas viven en la **red informal** de tu organizacion.
 
-## Qué revela el Análisis de Redes Organizacionales (ONA)
+## Que revela el Analisis de Redes Organizacionales (ONA)
 
-ONA es una metodología que mapea las relaciones reales entre personas en una organización. No reemplaza al organigrama—lo complementa con información que de otra forma sería invisible.
+ONA es una metodologia que mapea las relaciones reales entre personas en una organizacion. No reemplaza al organigrama—lo complementa con informacion que de otra forma seria invisible.
 
 Con ONA puedes identificar:
 
 | Lo que buscas | Lo que encuentras |
 |---------------|-------------------|
-| **Conectores** | Personas que unen grupos que de otra forma estarían aislados |
-| **Expertos ocultos** | Gente a quien todos consultan pero no tiene un título que lo refleje |
+| **Conectores** | Personas que unen grupos que de otra forma estarian aislados |
+| **Expertos ocultos** | Gente a quien todos consultan pero no tiene un titulo que lo refleje |
 | **Silos** | Departamentos o equipos que no se comunican con otros |
-| **Cuellos de botella** | Puntos donde se acumula información y se frena el flujo |
-| **Riesgo de persona clave** | Individuos cuya salida paralizaría procesos críticos |
+| **Cuellos de botella** | Puntos donde se acumula informacion y se frena el flujo |
+| **Riesgo de persona clave** | Individuos cuya salida paralizaria procesos criticos |
 
 ## Caso: Manufactura Regional
 
-En una empresa de manufactura con 120 empleados, el gerente de calidad no aparecía en ninguna reunión de dirección. Sin embargo, al mapear la red de "¿a quién consultas cuando tienes un problema de producción?", resultó ser la persona más consultada de toda la planta.
+En una empresa de manufactura con 120 empleados, el gerente de calidad no aparecia en ninguna reunion de direccion. Sin embargo, al mapear la red de "a quien consultas cuando tienes un problema de produccion?", resulto ser la persona mas consultada de toda la planta.
 
-El organigrama lo ubicaba tres niveles abajo del director de operaciones. La red real lo ubicaba en el centro de todas las decisiones técnicas.
+El organigrama lo ubicaba tres niveles abajo del director de operaciones. La red real lo ubicaba en el centro de todas las decisiones tecnicas.
 
 <!-- exercise:ex-01-detectar-red -->
 
 ## Visualizando la diferencia
 
-Cuando graficamos una red organizacional, cada persona es un **nodo** (un punto) y cada relación es un **enlace** (una línea que conecta dos puntos).
+Cuando graficamos una red organizacional, cada persona es un **nodo** (un punto) y cada relacion es un **enlace** (una linea que conecta dos puntos).
 
 ### Organigrama como red
 - Los enlaces van de arriba hacia abajo
-- La estructura es jerárquica (árbol)
+- La estructura es jerarquica (arbol)
 - Solo captura relaciones de reporte
 
 ### Red informal
-- Los enlaces van en múltiples direcciones
+- Los enlaces van en multiples direcciones
 - La estructura puede tener clusters, puentes, centros
-- Captura quién realmente interactúa con quién
+- Captura quien realmente interactua con quien
 
-La diferencia visual es dramática. Un organigrama luce ordenado, simétrico, predecible. Una red real luce orgánica, a veces caótica, siempre reveladora.
+La diferencia visual es dramatica. Un organigrama luce ordenado, simetrico, predecible. Una red real luce organica, a veces caotica, siempre reveladora.
 
 ## El rol del broker
 
-Un **broker** es alguien que conecta grupos que de otra forma no se comunicarían. En el organigrama, puede parecer una persona de nivel medio sin mayor relevancia. En la red real, es un puente crítico.
+Un **broker** es alguien que conecta grupos que de otra forma no se comunicarian. En el organigrama, puede parecer una persona de nivel medio sin mayor relevancia. En la red real, es un puente critico.
 
-Si el broker se va, los grupos que conectaba quedan aislados. Si el broker está sobrecargado, la información se frena. Si el broker tiene sesgo, la información se distorsiona.
+Si el broker se va, los grupos que conectaba quedan aislados. Si el broker esta sobrecargado, la informacion se frena. Si el broker tiene sesgo, la informacion se distorsiona.
 
-Identificar a los brokers de tu organización es una de las revelaciones más valiosas de ONA.
+Identificar a los brokers de tu organizacion es una de las revelaciones mas valiosas de ONA.
 
 <!-- exercise:ex-02-identificar-broker -->
 
+## Sintesis: Tu turno
+
+Ahora que entiendes la diferencia entre estructura formal e informal, reflexiona:
+
+> **Pregunta para tu organizacion:** Identifica UNA pregunta sobre tu empresa que el organigrama no puede responder.
+>
+> Ejemplos:
+> - "Por que el equipo de [X] siempre esta desalineado con [Y]?"
+> - "A quien realmente consultan cuando hay un problema de [Z]?"
+> - "Que pasaria si [persona clave] se fuera?"
+
+Esta pregunta sera tu caso de uso para el resto del curso.
+
 ## Siguiente paso
 
-Ahora que entiendes la diferencia entre estructura formal e informal, el siguiente paso es aprender a **medir** estas redes. Las métricas de centralidad te permitirán cuantificar quién es más consultado, quién conecta silos y quién tiene acceso más rápido a información.
+El proximo capitulo te ensenara a **medir** estas redes con tres metricas fundamentales:
+
+| Metrica | Pregunta que responde |
+|---------|----------------------|
+| **Grado (Degree)** | Quien es mas consultado? |
+| **Intermediacion (Betweenness)** | Quien conecta silos? |
+| **Cercania (Closeness)** | Quien tiene acceso mas rapido a informacion? |
+
+**Prediccion:** Cual de estas tres metricas crees que es mas util para identificar a un "experto oculto" como el Analista QA Sr. del caso Manufactura?

@@ -1,0 +1,186 @@
+# Quiz de Consolidacion - Capitulo 1: Organigrama vs Red
+# Modelo 4C x Bloom
+# 6 preguntas: 2 Remember, 2 Understand, 2 Apply
+
+id: quiz-01-consolidacion
+type: quiz
+title: "Verificacion de comprension: Organigrama vs Red"
+description: "Evalua tu comprension de los conceptos clave del capitulo"
+
+config:
+  passing_score: 70
+  show_feedback: true
+  randomize_questions: false
+  allow_retry: true
+  estimated_time_minutes: 6
+
+questions:
+  # --- NIVEL 1: REMEMBER (Definiciones basicas) ---
+  - id: Q1
+    question: "Que tipo de relacion captura el organigrama?"
+    type: multiple_choice
+    bloom_level: remember
+    points: 10
+    options:
+      - id: a
+        text: "Relaciones de reporte (quien es jefe de quien)"
+      - id: b
+        text: "Relaciones de consulta (a quien piden ayuda)"
+      - id: c
+        text: "Relaciones de confianza (en quien confian)"
+      - id: d
+        text: "Todas las relaciones de la organizacion"
+    correct: a
+    feedback_correct: |
+      Correcto. El organigrama solo captura la estructura formal de reporte.
+      Las relaciones de consulta, confianza e informacion fluyen por redes
+      informales que ONA puede mapear.
+    feedback_incorrect: |
+      El organigrama solo muestra relaciones de reporte formal.
+      Las otras relaciones (consulta, confianza, informacion) son
+      invisibles en el organigrama pero mapeables con ONA.
+
+  - id: Q2
+    question: "Un 'broker' en una red organizacional es alguien que:"
+    type: multiple_choice
+    bloom_level: remember
+    points: 10
+    options:
+      - id: a
+        text: "Tiene el cargo mas alto"
+      - id: b
+        text: "Conecta grupos que de otra forma estarian aislados"
+      - id: c
+        text: "Tiene mas subordinados directos"
+      - id: d
+        text: "Lleva mas tiempo en la empresa"
+    correct: b
+    feedback_correct: |
+      Exacto. Un broker es alguien que sirve de puente entre grupos.
+      Su valor esta en la conectividad, no en la jerarquia.
+    feedback_incorrect: |
+      Un broker es quien conecta grupos que de otra forma no se
+      comunicarian. No tiene que ver con cargo, antiguedad o subordinados.
+
+  # --- NIVEL 2: UNDERSTAND (Interpretacion) ---
+  - id: Q3
+    question: |
+      En el caso de Manufactura Regional, el Analista QA Sr. era la persona
+      mas consultada aunque estaba 3 niveles abajo del Director.
+      Que concepto de ONA ilustra esto?
+    type: multiple_choice
+    bloom_level: understand
+    points: 15
+    options:
+      - id: a
+        text: "Que los organigramas estan mal disenados"
+      - id: b
+        text: "Que la influencia informal no coincide con la jerarquia formal"
+      - id: c
+        text: "Que los analistas deberian ser gerentes"
+      - id: d
+        text: "Que el Director no hace bien su trabajo"
+    correct: b
+    feedback_correct: |
+      Perfecto. Este es un hallazgo tipico de ONA: la influencia real
+      (quien es consultado, quien tiene informacion valiosa) rara vez
+      coincide perfectamente con los niveles jerarquicos.
+    feedback_incorrect: |
+      Este caso ilustra que la influencia informal (basada en conocimiento
+      y relaciones) opera independientemente de la jerarquia formal.
+      No significa que el organigrama este "mal" - simplemente captura
+      algo diferente a la red informal.
+
+  - id: Q4
+    question: |
+      Si el Coord. de Despacho (broker) renunciara y nadie supiera que era
+      un conector critico, que pasaria probablemente?
+    type: multiple_choice
+    bloom_level: understand
+    points: 15
+    options:
+      - id: a
+        text: "Nada, su trabajo es operativo y facil de reemplazar"
+      - id: b
+        text: "Los tres departamentos empezarian a tener problemas de coordinacion sin entender por que"
+      - id: c
+        text: "Solo Logistica tendria problemas"
+      - id: d
+        text: "Se contrataria un reemplazo inmediatamente porque es un cargo critico"
+    correct: b
+    feedback_correct: |
+      Exacto. Este es el riesgo de no mapear redes: cuando un broker
+      invisible se va, los sintomas (silos, falta de coordinacion, retrasos)
+      aparecen pero nadie entiende la causa raiz.
+    feedback_incorrect: |
+      Cuando un broker invisible se va, los problemas de coordinacion
+      emergen gradualmente y sin explicacion obvia. La organizacion no
+      sabia que dependia de esa persona para conectar departamentos.
+
+  # --- NIVEL 3: APPLY (Aplicar a casos) ---
+  - id: Q5
+    question: |
+      Tu CEO te pide: "Quiero saber por que Marketing y Tecnologia nunca
+      logran alinearse en los proyectos digitales."
+
+      Que pregunta de encuesta ONA seria mas util?
+    type: multiple_choice
+    bloom_level: apply
+    points: 20
+    options:
+      - id: a
+        text: "Cuantas reuniones tienes al mes con otros departamentos?"
+      - id: b
+        text: "Con quien de FUERA de tu departamento te coordinas regularmente para proyectos digitales?"
+      - id: c
+        text: "Que tan satisfecho estas con la colaboracion interdepartamental?"
+      - id: d
+        text: "Quien es tu jefe directo?"
+    correct: b
+    feedback_correct: |
+      Excelente aplicacion. Esta pregunta mapearia especificamente los
+      vinculos (o la ausencia de ellos) entre Marketing y Tecnologia,
+      revelando si hay brokers, silos o dependencias ocultas.
+    feedback_incorrect: |
+      La pregunta mas util es la que mapea conexiones especificas entre
+      departamentos para proyectos digitales. Las otras preguntas dan
+      informacion general pero no revelan la estructura de la red.
+
+  - id: Q6
+    question: |
+      Analizas una red y encuentras que el 80% de las consultas tecnicas
+      llegan a una sola persona que no tiene backup ni documentacion.
+
+      Cual es la intervencion ONA mas apropiada?
+    type: multiple_choice
+    bloom_level: apply
+    points: 20
+    options:
+      - id: a
+        text: "Ascender a esa persona inmediatamente"
+      - id: b
+        text: "Documentar su conocimiento y crear conexiones secundarias (redundancia)"
+      - id: c
+        text: "Reducir sus responsabilidades para que tenga menos carga"
+      - id: d
+        text: "No hacer nada, claramente es muy competente"
+    correct: b
+    feedback_correct: |
+      Perfecta aplicacion del analisis ONA. Cuando identificas un
+      punto unico de falla, la intervencion es crear redundancia:
+      documentacion, entrenamiento cruzado y conexiones alternativas.
+    feedback_incorrect: |
+      Cuando ONA revela un "punto unico de falla" (una persona de quien
+      todos dependen), la intervencion correcta es crear redundancia:
+      documentar su conocimiento y conectar a otros con las mismas fuentes.
+
+# Metadata
+tags:
+  - ona
+  - organigrama
+  - red-informal
+  - broker
+  - quiz
+
+total_points: 90
+passing_points: 63
