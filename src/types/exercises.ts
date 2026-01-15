@@ -55,6 +55,16 @@ export interface BaseExercise {
   ui_config?: UIConfig
 }
 
+// Comprehension question for code exercises (shown after visualization)
+export interface ComprehensionQuestion {
+  id: string
+  question: string
+  options: { id: string; text: string }[]
+  correct: string
+  feedback_correct?: string
+  feedback_incorrect?: string
+}
+
 // Python code exercise
 export interface CodeExercise extends BaseExercise {
   type: 'code-python'
@@ -66,6 +76,7 @@ export interface CodeExercise extends BaseExercise {
   datasets?: DatasetReference[]
   forbidden_keywords?: string[]
   required_keywords?: string[]
+  comprehension_questions?: ComprehensionQuestion[] // Preguntas interactivas post-visualización
 }
 
 // SQL exercise

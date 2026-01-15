@@ -245,3 +245,50 @@ concepts:
   - riesgo-dependencia
   - plan-sucesion
   - transferencia-conocimiento
+
+# Preguntas interactivas mostradas después de la visualización
+comprehension_questions:
+  - id: cq-01-personas-criticas
+    question: "¿Quién tiene el nivel de riesgo más CRÍTICO según el análisis?"
+    options:
+      - id: a
+        text: "Ana (Tech Lead)"
+      - id: b
+        text: "Gloria (DevOps)"
+      - id: c
+        text: "María (Arquitecta)"
+      - id: d
+        text: "Nicolás (PM)"
+    correct: c
+    feedback_correct: "¡Correcto! María tiene la intermediación más alta porque TODOS consultan sus decisiones arquitectónicas. Su salida impactaría las decisiones técnicas de todo el equipo."
+    feedback_incorrect: "Observa la tabla de riesgo - busca quién tiene el Score más alto y el nivel '🔴 CRÍTICO'."
+
+  - id: cq-02-razon-critico
+    question: "¿Por qué María es crítica si no es la que tiene más conexiones?"
+    options:
+      - id: a
+        text: "Tiene el cargo más alto del equipo"
+      - id: b
+        text: "Muchos flujos de información pasan por ella (alta intermediación)"
+      - id: c
+        text: "Es la única mujer senior del equipo"
+      - id: d
+        text: "Trabaja más horas que los demás"
+    correct: b
+    feedback_correct: "¡Exacto! La intermediación alta significa que María está en el 'camino' de muchas decisiones. Aunque otros tengan más conexiones, ella es punto de paso obligatorio."
+    feedback_incorrect: "El riesgo de dependencia se mide principalmente por la intermediación (betweenness), no por el número de conexiones."
+
+  - id: cq-03-mitigacion
+    question: "¿Cuál es la estrategia más efectiva para mitigar el riesgo de María?"
+    options:
+      - id: a
+        text: "Aumentar su salario para retenerla"
+      - id: b
+        text: "Documentar decisiones y crear sesiones de transferencia de conocimiento"
+      - id: c
+        text: "Prohibir que otros la consulten directamente"
+      - id: d
+        text: "Contratar otra arquitecta como respaldo"
+    correct: b
+    feedback_correct: "¡Correcto! Documentar y transferir conocimiento distribuye la expertise. Las otras opciones no reducen la dependencia real - solo intentan evitar la salida o duplicar costos."
+    feedback_incorrect: "La mitigación debe REDUCIR la dependencia, no solo evitar que la persona se vaya."

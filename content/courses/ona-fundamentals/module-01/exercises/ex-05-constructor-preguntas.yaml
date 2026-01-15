@@ -23,74 +23,71 @@ questions:
   - id: q1
     question: |
       ¿Cuál de estas preguntas ONA está MEJOR diseñada?
-    type: mcq
+    type: multiple_choice
     options:
       - id: a
         text: "¿Con quién te comunicas?"
-        is_correct: false
       - id: b
         text: "En los últimos 3 meses, ¿a quién has consultado para resolver problemas técnicos en tu trabajo?"
-        is_correct: true
       - id: c
         text: "¿Quién es tu mejor amigo en el trabajo?"
-        is_correct: false
       - id: d
         text: "¿Hablas con mucha gente?"
-        is_correct: false
-    explanation: |
-      La opción B es correcta porque:
-      - Tiene marco temporal claro ("últimos 3 meses")
-      - Define la relación específica ("resolver problemas técnicos")
-      - Es profesional y relevante para el negocio
+    correct: b
+    feedback_correct: |
+      ¡Correcto! La opción B tiene:
+      - Marco temporal claro ("últimos 3 meses")
+      - Relación específica ("resolver problemas técnicos")
+      - Relevancia profesional para el negocio
+    feedback_incorrect: |
+      Busca la pregunta que tiene marco temporal específico Y define una relación de trabajo clara.
     points: 10
 
   - id: q2
     question: |
       Un cliente quiere mapear cómo fluye la información sobre nuevos productos en su empresa.
       ¿Qué pregunta le recomendarías?
-    type: mcq
+    type: multiple_choice
     options:
       - id: a
         text: "¿De quién recibes información útil para tu trabajo?"
-        is_correct: false
       - id: b
         text: "¿A quién le cuentas las novedades?"
-        is_correct: false
       - id: c
         text: "En los últimos 3 meses, ¿a quién has consultado para obtener información sobre nuevos productos o servicios de la empresa?"
-        is_correct: true
       - id: d
         text: "¿Quién sabe más sobre productos nuevos?"
-        is_correct: false
-    explanation: |
-      La opción C es correcta porque:
+    correct: c
+    feedback_correct: |
+      ¡Exacto! La opción C:
       - Especifica el tema (nuevos productos o servicios)
-      - Incluye marco temporal
+      - Incluye marco temporal (3 meses)
       - Captura la dirección de la consulta (quién busca información)
+    feedback_incorrect: |
+      La pregunta ideal debe especificar el tema (productos), tener marco temporal y capturar comportamiento real.
     points: 10
 
   - id: q3
     question: |
       ¿Qué escala de frecuencia es MÁS útil para una encuesta ONA?
-    type: mcq
+    type: multiple_choice
     options:
       - id: a
         text: "Sí / No"
-        is_correct: false
       - id: b
         text: "Diariamente / Semanalmente / Mensualmente / Rara vez"
-        is_correct: true
       - id: c
         text: "Mucho / Poco / Nada"
-        is_correct: false
       - id: d
         text: "1 a 10"
-        is_correct: false
-    explanation: |
-      La opción B es correcta porque:
+    correct: b
+    feedback_correct: |
+      ¡Correcto! Esta escala:
       - Es específica y fácil de interpretar
-      - Permite ponderar las relaciones por frecuencia
-      - Es común y comparable entre estudios
+      - Permite ponderar relaciones por frecuencia
+      - Es estándar y comparable entre estudios
+    feedback_incorrect: |
+      Las mejores escalas para ONA son específicas en tiempo y fáciles de interpretar.
     points: 10
 
 passing_score: 20

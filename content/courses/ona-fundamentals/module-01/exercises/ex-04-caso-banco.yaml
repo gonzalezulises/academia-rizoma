@@ -159,3 +159,50 @@ concepts:
   - cuello-de-botella
   - intermediacion
   - eficiencia-red
+
+# Preguntas interactivas mostradas después de la visualización
+comprehension_questions:
+  - id: cq-01-causa-lentitud
+    question: "¿Por qué la Sucursal B es más lenta?"
+    options:
+      - id: a
+        text: "Tiene más empleados"
+      - id: b
+        text: "El 'Experto' es cuello de botella - todo pasa por él"
+      - id: c
+        text: "El Gerente no tiene suficientes conexiones"
+      - id: d
+        text: "Los Ejecutivos están desconectados"
+    correct: b
+    feedback_correct: "¡Correcto! Observa que en la Sucursal B el 'Experto' tiene el color más oscuro (alta intermediación). Toda la información debe pasar por él, creando demoras."
+    feedback_incorrect: "Observa qué nodo tiene el color más oscuro en la Sucursal B. Ese nodo tiene la mayor intermediación (es cuello de botella)."
+
+  - id: cq-02-metrica-clave
+    question: "¿Qué métrica de ONA revela el cuello de botella?"
+    options:
+      - id: a
+        text: "Grado (degree) - número de conexiones"
+      - id: b
+        text: "Cercanía (closeness) - distancia promedio"
+      - id: c
+        text: "Intermediación (betweenness) - caminos que pasan por el nodo"
+      - id: d
+        text: "Densidad - número total de conexiones en la red"
+    correct: c
+    feedback_correct: "¡Exacto! La intermediación alta indica que muchos flujos de información deben pasar por esa persona. Si está sobrecargada, todo se frena."
+    feedback_incorrect: "La métrica que identifica 'cuellos de botella' mide cuántos caminos pasan por un nodo. ¿Cuál de las opciones describe eso?"
+
+  - id: cq-03-recomendacion
+    question: "¿Cuál sería la mejor recomendación para la Sucursal B?"
+    options:
+      - id: a
+        text: "Despedir al Experto por ineficiente"
+      - id: b
+        text: "Agregar más ejecutivos al equipo"
+      - id: c
+        text: "Crear acceso directo entre el Gerente y los Analistas/Ejecutivos"
+      - id: d
+        text: "Capacitar al Experto en gestión del tiempo"
+    correct: c
+    feedback_correct: "¡Correcto! La solución estructural es redistribuir las conexiones para que no toda la información pase por un solo punto. Esto es exactamente lo que hace la Sucursal A."
+    feedback_incorrect: "Compara la estructura de ambas sucursales. ¿Qué tiene la Sucursal A que la hace más eficiente?"

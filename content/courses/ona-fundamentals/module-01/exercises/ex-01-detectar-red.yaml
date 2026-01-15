@@ -288,3 +288,50 @@ concepts:
   - estructura-formal
   - experto-oculto
   - centralidad-grado
+
+# Preguntas interactivas mostradas después de la visualización
+comprehension_questions:
+  - id: cq-01-mas-consultado
+    question: "¿Quién es la persona más consultada en la red (nodo rojo)?"
+    options:
+      - id: a
+        text: "El Gerente de Producción"
+      - id: b
+        text: "El Analista QA Sr."
+      - id: c
+        text: "El Director de Planta"
+      - id: d
+        text: "El Técnico Senior"
+    correct: b
+    feedback_correct: "¡Correcto! El Analista QA Sr. recibe 10 consultas, siendo el nodo más central de la red."
+    feedback_incorrect: "Observa el nodo en ROJO en la red de consultas - es el que tiene más conexiones entrantes."
+
+  - id: cq-02-nivel-organigrama
+    question: "En el organigrama formal, ¿en qué nivel está esa persona?"
+    options:
+      - id: a
+        text: "Nivel 1 (Gerente)"
+      - id: b
+        text: "Nivel 2 (Jefe/Supervisor)"
+      - id: c
+        text: "Nivel 3 (Técnico/Analista) - el más bajo"
+      - id: d
+        text: "Nivel 0 (Director)"
+    correct: c
+    feedback_correct: "¡Exacto! Esta es la clave del concepto de 'experto oculto': alta influencia informal pero bajo nivel jerárquico."
+    feedback_incorrect: "Busca al 'Analista QA Sr.' en el organigrama de la izquierda y observa cuántos niveles hay sobre él."
+
+  - id: cq-03-riesgo
+    question: "¿Qué riesgo representa esta situación si esa persona renuncia?"
+    options:
+      - id: a
+        text: "Ninguno - se puede reemplazar fácilmente"
+      - id: b
+        text: "Bajo - solo afecta a Calidad"
+      - id: c
+        text: "Alto - todos los departamentos perderían su fuente de conocimiento técnico"
+      - id: d
+        text: "Medio - solo los supervisores se verían afectados"
+    correct: c
+    feedback_correct: "¡Correcto! Observa que personas de TODOS los colores (departamentos) consultan a este nodo. Su salida afectaría a toda la planta."
+    feedback_incorrect: "Observa las conexiones en la red: ¿de qué colores (departamentos) vienen las líneas que llegan al nodo rojo?"

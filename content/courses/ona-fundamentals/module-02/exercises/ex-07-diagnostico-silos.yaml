@@ -214,3 +214,50 @@ concepts:
   - silos-organizacionales
   - conexiones-inter-departamentales
   - diagnostico-red
+
+# Preguntas interactivas mostradas después de la visualización
+comprehension_questions:
+  - id: cq-01-silo-total
+    question: "¿Qué par de departamentos tiene la conexión más débil (silo total)?"
+    options:
+      - id: a
+        text: "Compras - Ventas"
+      - id: b
+        text: "Logística - Marketing"
+      - id: c
+        text: "Ventas - Logística"
+      - id: d
+        text: "Compras - Marketing"
+    correct: b
+    feedback_correct: "¡Correcto! Logística y Marketing tienen 0 conexiones entre sí. Esto es un 'silo total' - no hay comunicación directa."
+    feedback_incorrect: "Busca en el heatmap (mapa de calor) el par con valor 0. Ese indica un silo total."
+
+  - id: cq-02-impacto-negocio
+    question: "¿Qué impacto de negocio podría tener este silo entre Logística y Marketing?"
+    options:
+      - id: a
+        text: "Ninguno - son departamentos independientes"
+      - id: b
+        text: "Marketing lanza promociones sin que Logística pueda preparar el inventario"
+      - id: c
+        text: "Los empleados no se conocen personalmente"
+      - id: d
+        text: "El Gerente General no tiene visibilidad de ambas áreas"
+    correct: b
+    feedback_correct: "¡Exacto! Sin coordinación, Marketing puede lanzar campañas que generan demanda que Logística no puede cumplir. Resultado: stockouts, entregas tardías, clientes insatisfechos."
+    feedback_incorrect: "Piensa en el flujo de trabajo: Marketing genera demanda → Logística debe cumplirla. ¿Qué pasa si no se comunican?"
+
+  - id: cq-03-recomendacion
+    question: "¿Cuál sería la recomendación más efectiva para resolver este silo?"
+    options:
+      - id: a
+        text: "Fusionar ambos departamentos bajo un solo gerente"
+      - id: b
+        text: "Implementar reuniones obligatorias entre todos los empleados"
+      - id: c
+        text: "Crear un rol de enlace formal y reuniones de planificación conjunta"
+      - id: d
+        text: "Instalar un software de comunicación interna"
+    correct: c
+    feedback_correct: "¡Correcto! Un enlace formal + reuniones estructuradas crea conexiones sostenibles sin reorganización costosa. El software solo ayuda si hay voluntad de comunicarse."
+    feedback_incorrect: "La solución debe crear conexiones formales sostenibles entre los departamentos, sin cambios estructurales drásticos."

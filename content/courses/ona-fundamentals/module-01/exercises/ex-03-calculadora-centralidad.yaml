@@ -156,3 +156,50 @@ concepts:
   - degree-centrality
   - betweenness-centrality
   - closeness-centrality
+
+# Preguntas interactivas mostradas después de la visualización
+comprehension_questions:
+  - id: cq-01-mayor-grado
+    question: "¿Quién tiene el MAYOR grado (degree) en la red?"
+    options:
+      - id: a
+        text: "Gloria"
+      - id: b
+        text: "Ana"
+      - id: c
+        text: "Carlos"
+      - id: d
+        text: "Felipe"
+    correct: b
+    feedback_correct: "¡Correcto! Ana tiene 5 conexiones directas, el número más alto de la red. Esto la hace la persona más 'popular' o consultada."
+    feedback_incorrect: "El grado es simplemente el número de conexiones. Mira la columna 'Grado' en la tabla de métricas."
+
+  - id: cq-02-mayor-intermediacion
+    question: "¿Quién tiene la MAYOR intermediación (betweenness)?"
+    options:
+      - id: a
+        text: "Ana"
+      - id: b
+        text: "Gloria"
+      - id: c
+        text: "Bruno"
+      - id: d
+        text: "Diana"
+    correct: b
+    feedback_correct: "¡Exacto! Gloria es el 'puente' obligatorio entre ciertos nodos. Aunque tiene menos conexiones que Ana, muchos caminos pasan por ella."
+    feedback_incorrect: "La intermediación mide cuántos caminos 'pasan' por una persona. Mira la columna 'Intermediación' en la tabla."
+
+  - id: cq-03-diferencia
+    question: "¿Por qué Ana tiene el grado más alto pero Gloria tiene la intermediación más alta?"
+    options:
+      - id: a
+        text: "Ana está desconectada de algunos nodos"
+      - id: b
+        text: "Gloria tiene más conexiones directas"
+      - id: c
+        text: "Gloria está en la única ruta entre ciertos nodos (es puente obligatorio)"
+      - id: d
+        text: "Ana rechaza consultas de algunos colegas"
+    correct: c
+    feedback_correct: "¡Perfecto! Esta distinción es clave: tener muchas conexiones (grado) no es lo mismo que estar en el 'camino' entre otros (intermediación). Un broker puede tener pocas conexiones pero ser crítico."
+    feedback_incorrect: "Piensa en la diferencia entre 'cuántos te conocen' vs 'cuántos dependen de ti para llegar a otros'."

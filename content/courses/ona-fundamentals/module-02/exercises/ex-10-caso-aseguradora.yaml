@@ -314,3 +314,50 @@ concepts:
   - silos
   - cuello-de-botella
   - recomendaciones
+
+# Preguntas interactivas mostradas después de la visualización
+comprehension_questions:
+  - id: cq-01-problema-principal
+    question: "¿Cuál es el problema PRINCIPAL identificado en el área de Claims?"
+    options:
+      - id: a
+        text: "Falta de personal en Recepción"
+      - id: b
+        text: "Silo total entre Aprobación y Atención al Cliente"
+      - id: c
+        text: "El Gerente no supervisa correctamente"
+      - id: d
+        text: "Los Inspectores trabajan de forma independiente"
+    correct: b
+    feedback_correct: "¡Correcto! Aprobación y Atención tienen 0 conexiones. Esto causa que los casos se 'pierdan' después de aprobarse y los clientes no reciban actualizaciones."
+    feedback_incorrect: "Mira la matriz de conexiones entre departamentos. ¿Dónde hay un valor de 0?"
+
+  - id: cq-02-cuello-botella
+    question: "¿Quién es el principal cuello de botella en el flujo de trabajo?"
+    options:
+      - id: a
+        text: "El Gerente"
+      - id: b
+        text: "Sup_Ana (Supervisor de Análisis)"
+      - id: c
+        text: "AC1 (Atención al Cliente)"
+      - id: d
+        text: "R1 (Recepción)"
+    correct: b
+    feedback_correct: "¡Exacto! Sup_Ana tiene intermediación de 0.35 - el 100% de los casos pasan de Recepción a Análisis a través de él. Si está ocupado, todo se frena."
+    feedback_incorrect: "Observa el gráfico de barras de 'Top Cuellos de Botella'. ¿Quién tiene la mayor intermediación?"
+
+  - id: cq-03-intervencion-efectiva
+    question: "¿Cuál intervención tendría MAYOR impacto en reducir el tiempo de aprobación?"
+    options:
+      - id: a
+        text: "Contratar más personal en Atención al Cliente"
+      - id: b
+        text: "Crear conexión directa entre Aprobación y Atención"
+      - id: c
+        text: "Capacitar al Gerente en gestión de equipos"
+      - id: d
+        text: "Implementar un software de tracking de casos"
+    correct: b
+    feedback_correct: "¡Perfecto! Crear la conexión Aprobación→Atención ataca la causa raíz (el silo). Las otras opciones no resuelven que los casos se 'pierdan' entre departamentos."
+    feedback_incorrect: "La solución debe atacar el SILO identificado. ¿Cuál opción crea conexiones donde actualmente hay 0?"

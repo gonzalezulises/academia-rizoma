@@ -311,3 +311,50 @@ concepts:
   - betweenness-centrality
   - fragmentacion
   - riesgo-clave
+
+# Preguntas interactivas mostradas después de la visualización
+comprehension_questions:
+  - id: cq-01-broker
+    question: "¿Quién es el broker principal de esta red?"
+    options:
+      - id: a
+        text: "El Gerente de Producción"
+      - id: b
+        text: "El Analista QA Sr."
+      - id: c
+        text: "El Coordinador de Despacho"
+      - id: d
+        text: "El Jefe de Almacén"
+    correct: c
+    feedback_correct: "¡Correcto! El Coord. Despacho tiene la mayor intermediación (betweenness) porque conecta Logística con Producción Y con Calidad."
+    feedback_incorrect: "Observa el nodo ROJO grande en la red. ¿A qué departamento pertenece y qué posición tiene?"
+
+  - id: cq-02-fragmentacion
+    question: "Si el broker se va, ¿cuántos grupos aislados quedan?"
+    options:
+      - id: a
+        text: "1 grupo (la red se mantiene conectada)"
+      - id: b
+        text: "2 grupos aislados"
+      - id: c
+        text: "3 grupos aislados"
+      - id: d
+        text: "4 grupos aislados"
+    correct: c
+    feedback_correct: "¡Exacto! Observa el gráfico de la derecha: sin el broker, la red se fragmenta en 3 componentes separados."
+    feedback_incorrect: "Mira el gráfico de la derecha ('SI EL BROKER SE VA'). Cuenta los grupos de nodos que ya no están conectados entre sí."
+
+  - id: cq-03-organizacion-sabe
+    question: "¿Es probable que la organización sepa que esta persona es crítica?"
+    options:
+      - id: a
+        text: "Sí, su cargo lo indica claramente"
+      - id: b
+        text: "Probablemente no - 'Coordinador de Despacho' suena operativo, no estratégico"
+      - id: c
+        text: "Sí, seguro está en las reuniones de dirección"
+      - id: d
+        text: "No aplica - todos los cargos son igual de importantes"
+    correct: b
+    feedback_correct: "¡Correcto! Esta es una revelación clave de ONA: personas con roles aparentemente 'operativos' pueden ser críticos para la comunicación. Sin un análisis de red, esto sería invisible."
+    feedback_incorrect: "Piensa en cómo suena el cargo 'Coordinador de Despacho' para alguien que solo ve el organigrama. ¿Parecería un cargo estratégico?"

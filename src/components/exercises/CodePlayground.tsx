@@ -4,7 +4,7 @@ import { useState, useCallback, useEffect } from 'react'
 import dynamic from 'next/dynamic'
 import { usePyodide } from '@/hooks/usePyodide'
 import { ExerciseShell } from './ExerciseShell'
-import type { CodeExercise, TestResult, ExerciseProgress } from '@/types/exercises'
+import type { CodeExercise, TestResult, ExerciseProgress, ComprehensionQuestion } from '@/types/exercises'
 
 // Dynamically import Monaco Editor (client-side only)
 const Editor = dynamic(
@@ -16,6 +16,134 @@ function EditorSkeleton() {
   return (
     <div className="h-64 bg-gray-100 dark:bg-gray-800 animate-pulse flex items-center justify-center">
       <span className="text-gray-500">Cargando editor...</span>
+    </div>
+  )
+}
+
+// Componente para preguntas de comprensión (mostradas después de la visualización)
+interface ComprehensionState {
+  selectedOption: string | null
+  isSubmitted: boolean
+  isCorrect: boolean | null
+}
+
+function ComprehensionSection({
+  questions,
+  states,
+  onSelect,
+  onSubmit,
+  hasVisualization
+}: {
+  questions: ComprehensionQuestion[]
+  states: Record<string, ComprehensionState>
+  onSelect: (questionId: string, optionId: string) => void
+  onSubmit: (questionId: string) => void
+  hasVisualization: boolean
+}) {
+  if (!hasVisualization) return null
+
+  return (
+    <div className="mt-6 border-t border-gray-200 dark:border-gray-700 pt-6">
+      <h4 className="text-sm font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
+        <svg className="w-5 h-5 text-rizoma-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        Preguntas de comprensión
+      </h4>
+
+      <div className="space-y-4">
+        {questions.map((question, qIndex) => {
+          const state = states[question.id] || { selectedOption: null, isSubmitted: false, isCorrect: null }
+
+          return (
+            <div key={question.id} className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-4">
+              <p className="text-sm font-medium text-gray-900 dark:text-white mb-3">
+                {qIndex + 1}. {question.question}
+              </p>
+
+              <div className="space-y-2">
+                {question.options.map((option) => {
+                  const isSelected = state.selectedOption === option.id
+                  const isCorrectOption = option.id === question.correct
+                  const showResult = state.isSubmitted
+
+                  let optionClasses = 'w-full text-left p-2.5 rounded-md border text-sm transition-all '
+
+                  if (showResult) {
+                    if (isCorrectOption) {
+                      optionClasses += 'border-green-500 bg-green-50 dark:bg-green-900/30 text-green-800 dark:text-green-200'
+                    } else if (isSelected && !isCorrectOption) {
+                      optionClasses += 'border-red-500 bg-red-50 dark:bg-red-900/30 text-red-800 dark:text-red-200'
+                    } else {
+                      optionClasses += 'border-gray-200 dark:border-gray-700 text-gray-500 dark:text-gray-500'
+                    }
+                  } else if (isSelected) {
+                    optionClasses += 'border-rizoma-green bg-rizoma-green/10 text-rizoma-green-dark dark:text-rizoma-green-light'
+                  } else {
+                    optionClasses += 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600 text-gray-700 dark:text-gray-300'
+                  }
+
+                  return (
+                    <button
+                      key={option.id}
+                      onClick={() => !state.isSubmitted && onSelect(question.id, option.id)}
+                      disabled={state.isSubmitted}
+                      className={optionClasses}
+                    >
+                      <div className="flex items-center gap-2">
+                        <span className={`flex-shrink-0 w-5 h-5 rounded-full border flex items-center justify-center text-xs ${
+                          isSelected ? 'border-current bg-current' : 'border-gray-400'
+                        }`}>
+                          {showResult && isCorrectOption ? (
+                            <svg className="w-3 h-3 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                            </svg>
+                          ) : showResult && isSelected && !isCorrectOption ? (
+                            <svg className="w-3 h-3 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                          ) : (
+                            <span className={isSelected ? 'text-white text-xs' : 'text-gray-500 text-xs'}>
+                              {option.id.toUpperCase()}
+                            </span>
+                          )}
+                        </span>
+                        <span>{option.text}</span>
+                      </div>
+                    </button>
+                  )
+                })}
+              </div>
+
+              {!state.isSubmitted && (
+                <button
+                  onClick={() => onSubmit(question.id)}
+                  disabled={!state.selectedOption}
+                  className={`mt-3 px-4 py-1.5 text-sm rounded-md font-medium transition-colors ${
+                    state.selectedOption
+                      ? 'bg-rizoma-green hover:bg-rizoma-green-dark text-white'
+                      : 'bg-gray-200 dark:bg-gray-700 text-gray-400 cursor-not-allowed'
+                  }`}
+                >
+                  Verificar
+                </button>
+              )}
+
+              {state.isSubmitted && (
+                <div className={`mt-3 p-2.5 rounded-md text-sm ${
+                  state.isCorrect
+                    ? 'bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-300'
+                    : 'bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-300'
+                }`}>
+                  {state.isCorrect
+                    ? (question.feedback_correct || '¡Correcto!')
+                    : (question.feedback_incorrect || 'Incorrecto. Revisa la visualización.')}
+                </div>
+              )}
+            </div>
+          )
+        })}
+      </div>
     </div>
   )
 }
@@ -48,6 +176,31 @@ export function CodePlayground({
   const [hasAutoRun, setHasAutoRun] = useState(false)
   const [activeTab, setActiveTab] = useState<'output' | 'tests'>('output')
   const [showSolutionCode, setShowSolutionCode] = useState(false)
+
+  // State para preguntas de comprensión
+  const [comprehensionStates, setComprehensionStates] = useState<Record<string, ComprehensionState>>({})
+
+  // Handlers para preguntas de comprensión
+  const handleComprehensionSelect = useCallback((questionId: string, optionId: string) => {
+    setComprehensionStates(prev => ({
+      ...prev,
+      [questionId]: { selectedOption: optionId, isSubmitted: false, isCorrect: null }
+    }))
+  }, [])
+
+  const handleComprehensionSubmit = useCallback((questionId: string) => {
+    const question = exercise.comprehension_questions?.find(q => q.id === questionId)
+    if (!question) return
+
+    const state = comprehensionStates[questionId]
+    if (!state?.selectedOption) return
+
+    const isCorrect = state.selectedOption === question.correct
+    setComprehensionStates(prev => ({
+      ...prev,
+      [questionId]: { ...prev[questionId], isSubmitted: true, isCorrect }
+    }))
+  }, [exercise.comprehension_questions, comprehensionStates])
 
   const {
     isLoading: pyodideLoading,
@@ -417,6 +570,17 @@ export function CodePlayground({
             )}
           </div>
         </div>
+
+        {/* Comprehension questions - shown after visualization */}
+        {exercise.comprehension_questions && exercise.comprehension_questions.length > 0 && (
+          <ComprehensionSection
+            questions={exercise.comprehension_questions}
+            states={comprehensionStates}
+            onSelect={handleComprehensionSelect}
+            onSubmit={handleComprehensionSubmit}
+            hasVisualization={figures.length > 0}
+          />
+        )}
 
         {/* Success message */}
         {allTestsPassed && (

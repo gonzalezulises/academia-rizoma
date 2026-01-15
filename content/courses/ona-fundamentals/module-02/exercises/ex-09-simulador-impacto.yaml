@@ -256,3 +256,50 @@ concepts:
   - simulacion-impacto
   - what-if-analysis
   - reorganizacion
+
+# Preguntas interactivas mostradas después de la visualización
+comprehension_questions:
+  - id: cq-01-escenario-peor
+    question: "¿Cuál escenario tiene peor impacto en la red?"
+    options:
+      - id: a
+        text: "Escenario A - porque tiene menos conexiones"
+      - id: b
+        text: "Escenario B - porque agrega complejidad"
+      - id: c
+        text: "Ambos tienen el mismo impacto"
+      - id: d
+        text: "Ninguno impacta la red significativamente"
+    correct: a
+    feedback_correct: "¡Correcto! El Escenario A (Sup. Turno 1 se va) pierde 5 conexiones y rompe el único puente entre Producción y Calidad. Esto es devastador para la coordinación."
+    feedback_incorrect: "Compara las métricas en la tabla: ¿cuál escenario pierde más conexiones y aumenta la intermediación promedio?"
+
+  - id: cq-02-conexion-critica
+    question: "¿Qué conexión crítica se pierde en el Escenario A?"
+    options:
+      - id: a
+        text: "Gerente Planta - Jefe Calidad"
+      - id: b
+        text: "Sup. Turno 1 - Jefe Calidad (única conexión Producción-Calidad)"
+      - id: c
+        text: "Op. 1 - Op. 3"
+      - id: d
+        text: "Técnico 1 - Técnico 2"
+    correct: b
+    feedback_correct: "¡Exacto! El Sup. Turno 1 era el ÚNICO puente entre Producción y Calidad. Sin él, estos departamentos quedan desconectados operativamente."
+    feedback_incorrect: "Piensa en qué conexiones tenía el Sup. Turno 1 que cruzaban departamentos. Esas son las críticas."
+
+  - id: cq-03-recomendacion
+    question: "¿Qué recomendarías a la empresa basándote en este análisis?"
+    options:
+      - id: a
+        text: "Implementar Escenario A - reducir personal"
+      - id: b
+        text: "Implementar Escenario B ANTES de cualquier salida"
+      - id: c
+        text: "No hacer cambios - la red actual es óptima"
+      - id: d
+        text: "Despedir al Gerente de Planta"
+    correct: b
+    feedback_correct: "¡Correcto! El Escenario B es preventivo - crea redundancia en conexiones críticas ANTES de que ocurra una salida. Esto hace la red más resiliente."
+    feedback_incorrect: "La prevención es más efectiva que la reacción. ¿Qué escenario fortalece la red antes de problemas?"
