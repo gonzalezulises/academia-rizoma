@@ -1,32 +1,10 @@
 # El organigrama vs. la red real
 
-## Antes de comenzar: Prueba tu intuicion
+## Antes de comenzar: Prueba tu intuición
 
-Antes de aprender sobre redes organizacionales, prueba que tan bien predice tu intuicion la realidad de las organizaciones.
+Antes de aprender sobre redes organizacionales, prueba qué tan bien predice tu intuición la realidad de las organizaciones.
 
-Para cada afirmacion, decide si crees que es **Verdadera** o **Falsa**:
-
-| # | Afirmacion | Tu prediccion |
-|---|------------|---------------|
-| 1 | La persona mas consultada de una organizacion siempre tiene un cargo gerencial o directivo. | V / F |
-| 2 | Si dos departamentos comparten un director en el organigrama, en la practica colaboran frecuentemente. | V / F |
-| 3 | Cuando una persona clave renuncia, la organizacion generalmente sabe exactamente que conocimiento se pierde. | V / F |
-| 4 | Las redes informales pueden mapearse y medirse de forma sistematica. | V / F |
-
-<details>
-<summary><strong>Ver respuestas</strong></summary>
-
-1. **FALSO.** Las investigaciones en ONA muestran que los "expertos ocultos" a menudo estan en posiciones medias o tecnicas. La influencia informal rara vez coincide con la jerarquia formal.
-
-2. **FALSO.** El organigrama muestra relaciones de reporte, no de colaboracion. Dos departamentos bajo el mismo VP pueden operar como silos completos.
-
-3. **FALSO.** El conocimiento informal (a quien consultar, como navegar procesos, relaciones con clientes) es invisible hasta que se pierde. ONA puede mapear este riesgo antes de que ocurra.
-
-4. **VERDADERO.** ONA (Organizational Network Analysis) es una metodologia establecida con metricas cuantitativas. No es intuicion ni politica de oficina: es ciencia de redes aplicada a organizaciones.
-
-**Dato revelador:** En un estudio de McKinsey, solo el 35% de los ejecutivos podia identificar correctamente quienes eran los conectores clave de su organizacion. El otro 65% asumia que coincidian con la jerarquia formal.
-
-</details>
+<!-- exercise:quiz-00-intuicion -->
 
 ---
 

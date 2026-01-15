@@ -1,0 +1,119 @@
+# Quiz de Intuición - Verdadero o Falso
+# CONNECTION Block - Antes de comenzar
+# Activa conocimiento previo y revela misconceptions
+
+id: quiz-00-intuicion
+type: quiz
+title: "Prueba tu intuición"
+description: "Antes de aprender sobre redes organizacionales, prueba qué tan bien predice tu intuición."
+instructions: |
+  Para cada afirmación, decide si crees que es **Verdadera** o **Falsa**.
+
+  No te preocupes si no sabes las respuestas - el objetivo es activar tu pensamiento
+  antes de aprender los conceptos.
+
+difficulty: beginner
+estimated_time_minutes: 3
+points: 40
+
+config:
+  passing_score: 0  # No hay "aprobar" - es diagnóstico
+  show_feedback: true
+  randomize_questions: false
+  allow_retry: false
+
+questions:
+  - id: intuicion-1
+    question: "La persona más consultada de una organización siempre tiene un cargo gerencial o directivo."
+    type: true_false
+    bloom_level: remember
+    points: 10
+    options:
+      - id: v
+        text: "Verdadero"
+      - id: f
+        text: "Falso"
+    correct: f
+    feedback_correct: |
+      ¡Correcto! Las investigaciones en ONA muestran que los "expertos ocultos"
+      a menudo están en posiciones medias o técnicas. La influencia informal
+      rara vez coincide con la jerarquía formal.
+    feedback_incorrect: |
+      En realidad es FALSO. Las investigaciones en ONA muestran que los
+      "expertos ocultos" a menudo están en posiciones medias o técnicas.
+      La influencia informal rara vez coincide con la jerarquía formal.
+
+  - id: intuicion-2
+    question: "Si dos departamentos comparten un director en el organigrama, en la práctica colaboran frecuentemente."
+    type: true_false
+    bloom_level: remember
+    points: 10
+    options:
+      - id: v
+        text: "Verdadero"
+      - id: f
+        text: "Falso"
+    correct: f
+    feedback_correct: |
+      ¡Exacto! El organigrama muestra relaciones de reporte, no de colaboración.
+      Dos departamentos bajo el mismo VP pueden operar como silos completos.
+    feedback_incorrect: |
+      En realidad es FALSO. El organigrama muestra relaciones de reporte,
+      no de colaboración. Dos departamentos bajo el mismo VP pueden operar
+      como silos completos.
+
+  - id: intuicion-3
+    question: "Cuando una persona clave renuncia, la organización generalmente sabe exactamente qué conocimiento se pierde."
+    type: true_false
+    bloom_level: understand
+    points: 10
+    options:
+      - id: v
+        text: "Verdadero"
+      - id: f
+        text: "Falso"
+    correct: f
+    feedback_correct: |
+      ¡Correcto! El conocimiento informal (a quién consultar, cómo navegar
+      procesos, relaciones con clientes) es invisible hasta que se pierde.
+      ONA puede mapear este riesgo antes de que ocurra.
+    feedback_incorrect: |
+      En realidad es FALSO. El conocimiento informal (a quién consultar,
+      cómo navegar procesos, relaciones con clientes) es invisible hasta
+      que se pierde. ONA puede mapear este riesgo antes de que ocurra.
+
+  - id: intuicion-4
+    question: "Las redes informales pueden mapearse y medirse de forma sistemática."
+    type: true_false
+    bloom_level: remember
+    points: 10
+    options:
+      - id: v
+        text: "Verdadero"
+      - id: f
+        text: "Falso"
+    correct: v
+    feedback_correct: |
+      ¡Exacto! ONA (Organizational Network Analysis) es una metodología
+      establecida con métricas cuantitativas. No es intuición ni política
+      de oficina: es ciencia de redes aplicada a organizaciones.
+    feedback_incorrect: |
+      En realidad es VERDADERO. ONA (Organizational Network Analysis) es
+      una metodología establecida con métricas cuantitativas. No es intuición
+      ni política de oficina: es ciencia de redes aplicada a organizaciones.
+
+# Metadata
+tags:
+  - ona
+  - intuicion
+  - verdadero-falso
+  - connection
+  - misconceptions
+
+total_points: 40
+
+# Dato revelador mostrado al final
+conclusion: |
+  **Dato revelador:** En un estudio de McKinsey, solo el 35% de los ejecutivos
+  podía identificar correctamente quiénes eran los conectores clave de su
+  organización. El otro 65% asumía que coincidían con la jerarquía formal.

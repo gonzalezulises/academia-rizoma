@@ -83,24 +83,39 @@ export interface SQLExercise extends BaseExercise {
 export interface QuizExerciseOption {
   id: string
   text: string
-  is_correct: boolean
+  is_correct?: boolean // Computed from 'correct' field
 }
 
 export interface QuizExerciseQuestion {
   id: string
   question: string
-  type: 'mcq' | 'true_false' | 'multiple_select'
+  type: 'mcq' | 'true_false' | 'multiple_select' | 'multiple_choice'
   options: QuizExerciseOption[]
-  explanation?: string
+  correct: string | string[] // ID(s) de la opción correcta
   points: number
+  bloom_level?: 'remember' | 'understand' | 'apply' | 'analyze' | 'evaluate' | 'create'
+  feedback_correct?: string
+  feedback_incorrect?: string
+  explanation?: string // Alias for feedback_incorrect
+}
+
+export interface QuizConfig {
+  passing_score: number
+  show_feedback?: boolean
+  randomize_questions?: boolean
+  allow_retry?: boolean
+  estimated_time_minutes?: number
 }
 
 export interface QuizExercise extends BaseExercise {
   type: 'quiz'
   questions: QuizExerciseQuestion[]
-  passing_score: number
+  config?: QuizConfig
+  passing_score?: number // Fallback si no hay config
   shuffle_questions?: boolean
   show_explanation_on_wrong?: boolean
+  total_points?: number
+  passing_points?: number
 }
 
 // Google Colab exercise

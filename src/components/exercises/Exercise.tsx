@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { CodePlayground } from './CodePlayground'
 import { SQLPlayground } from './SQLPlayground'
 import { ColabLauncher } from './ColabLauncher'
+import { QuizPlayground } from './QuizPlayground'
 import type {
   Exercise as ExerciseType,
   ExerciseProgress,
@@ -150,17 +151,12 @@ export function Exercise({
       )
 
     case 'quiz':
-      // Quiz exercises would be handled by a QuizPlayground component
-      // For now, show a placeholder
       return (
-        <div className="my-8 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-4">
-          <p className="text-gray-600 dark:text-gray-400">
-            Quiz exercise: {exercise.title}
-          </p>
-          <p className="text-sm text-gray-500 mt-1">
-            (Quiz component coming soon)
-          </p>
-        </div>
+        <QuizPlayground
+          exercise={exercise}
+          progress={progress}
+          onProgressUpdate={onProgressUpdate}
+        />
       )
 
     default:
