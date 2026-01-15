@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import type { BaseExercise, DifficultyLevel } from '@/types/exercises'
+import { SimpleMarkdownRenderer } from '@/components/course/MarkdownRenderer'
 
 interface ExerciseShellProps {
   exercise: BaseExercise
@@ -101,8 +102,10 @@ export function ExerciseShell({
 
       {/* Instructions */}
       <div className="px-4 py-3 bg-rizoma-green/5 dark:bg-rizoma-green-dark/20 border-b border-gray-200 dark:border-gray-700">
-        <h4 className="text-sm font-medium text-rizoma-green-dark dark:text-rizoma-green-light mb-1">Instrucciones</h4>
-        <p className="text-sm text-rizoma-green-dark dark:text-rizoma-green-light">{exercise.instructions}</p>
+        <h4 className="text-sm font-medium text-rizoma-green-dark dark:text-rizoma-green-light mb-2">Instrucciones</h4>
+        <div className="text-sm text-gray-700 dark:text-gray-300 [&_h2]:text-base [&_h2]:font-semibold [&_h2]:mt-3 [&_h2]:mb-2 [&_h3]:text-sm [&_h3]:font-semibold [&_h3]:mt-2 [&_h3]:mb-1 [&_ul]:my-2 [&_ol]:my-2 [&_li]:my-0.5 [&_p]:my-1.5 [&_strong]:text-rizoma-green-dark [&_strong]:dark:text-rizoma-green-light">
+          <SimpleMarkdownRenderer content={exercise.instructions} />
+        </div>
       </div>
 
       {/* Main content (playground) */}

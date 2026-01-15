@@ -1,0 +1,1052 @@
+# =============================================================================
+# CAPÍTULO 1: ORGANIGRAMA VS RED INFORMAL
+# Aplicación del Modelo 4C × Bloom
+# Duración target: 25 minutos
+# Audiencia: Gerentes y profesionales de RRHH en LATAM
+# =============================================================================
+
+id: lesson-01-organigrama-vs-red
+title: "El organigrama vs. la red real"
+slug: organigrama-vs-red-informal
+
+# Metadatos pedagógicos
+pedagogyMeta:
+  model: "4C-Bloom"
+  totalDuration: 25
+  structure:
+    connection:
+      percent: 10
+      minutes: 2.5
+      description: "Activación de conocimiento previo"
+    construction:
+      percent: 55
+      minutes: 14
+      description: "Contenido expositivo + ejercicios interactivos"
+    consolidation:
+      percent: 25
+      minutes: 6
+      description: "Quiz de verificación"
+    conclusions:
+      percent: 10
+      minutes: 2.5
+      description: "Síntesis y transferencia"
+  bloomLevels:
+    - remember: 20%
+    - understand: 40%
+    - apply: 40%
+
+# Objetivos de aprendizaje explícitos (Bloom taxonomy)
+learningObjectives:
+  - id: LO1
+    verb: "Distinguir"
+    level: understand
+    description: "Distinguir entre la estructura formal (organigrama) y la estructura informal (red de relaciones)"
+  - id: LO2
+    verb: "Identificar"
+    level: apply
+    description: "Identificar qué preguntas organizacionales puede responder ONA que el organigrama no puede"
+  - id: LO3
+    verb: "Reconocer"
+    level: understand
+    description: "Reconocer el rol y la importancia de un broker en una red organizacional"
+
+# =============================================================================
+# BLOQUE 1: CONNECTION (10% ~ 2.5 min)
+# Tipo: Misconception Check - Predicción antes de aprender
+# =============================================================================
+connection:
+  type: misconception_check
+  title: "¿Qué tanto conoces sobre cómo funcionan realmente las organizaciones?"
+
+  introduction: |
+    Antes de comenzar, prueba tu intuición sobre redes organizacionales.
+
+    Para cada afirmación, indica si crees que es **Verdadera** o **Falsa**.
+    No te preocupes si no estás seguro: esto es precisamente para descubrir
+    qué tan bien predice nuestro sentido común la realidad de las organizaciones.
+
+  statements:
+    - id: MC1
+      text: "La persona más consultada de una organización siempre tiene un cargo gerencial o directivo."
+      studentPredict: null  # V o F - el estudiante predice
+      correct: false
+      explanation: |
+        ❌ **Falso.** Las investigaciones en ONA muestran consistentemente que los
+        "expertos ocultos" a menudo están en posiciones medias o técnicas.
+        La influencia informal rara vez coincide con la jerarquía formal.
+
+    - id: MC2
+      text: "Si dos departamentos aparecen conectados en el organigrama (por ejemplo, comparten un director), en la práctica colaboran frecuentemente."
+      studentPredict: null
+      correct: false
+      explanation: |
+        ❌ **Falso.** El organigrama muestra relaciones de reporte, no de colaboración.
+        Dos departamentos bajo el mismo VP pueden operar como silos completos.
+        ONA revela estas desconexiones ocultas.
+
+    - id: MC3
+      text: "Cuando una persona clave renuncia, la organización generalmente sabe exactamente qué conocimiento se pierde."
+      studentPredict: null
+      correct: false
+      explanation: |
+        ❌ **Falso.** El conocimiento informal (a quién consultar, cómo navegar
+        procesos, relaciones con clientes) es invisible hasta que se pierde.
+        ONA puede mapear este riesgo antes de que ocurra.
+
+    - id: MC4
+      text: "Las redes informales pueden mapearse y medirse de forma sistemática."
+      studentPredict: null
+      correct: true
+      explanation: |
+        ✅ **Verdadero.** ONA (Organizational Network Analysis) es una metodología
+        establecida con métricas cuantitativas. No es intuición ni política de oficina:
+        es ciencia de redes aplicada a organizaciones.
+
+  debrief: |
+    Si acertaste 3 o más, tu intuición sobre organizaciones es sólida.
+    Si acertaste menos, no te preocupes: este capítulo te dará herramientas
+    para ver lo que antes era invisible.
+
+    **Dato revelador:** En un estudio de McKinsey, solo el 35% de los ejecutivos
+    podía identificar correctamente quiénes eran los conectores clave de su organización.
+    El otro 65% asumía que coincidían con la jerarquía formal.
+
+# =============================================================================
+# BLOQUE 2: CONSTRUCTION - CONTENIDO EXPOSITIVO
+# (El contenido actual del MD se mantiene aquí)
+# =============================================================================
+construction:
+  content_file: "01-organigrama-vs-red.md"  # El contenido expositivo actual se mantiene
+
+  # Los ejercicios se embeben en posiciones específicas del contenido
+  exercises:
+    - embed_after: "caso-manufactura"
+      exercise_id: "ex-01-detectar-red"
+    - embed_after: "rol-broker"
+      exercise_id: "ex-02-identificar-broker"
+
+# =============================================================================
+# EJERCICIO 1 MEJORADO: DETECTAR LA RED OCULTA
+# Datos: Manufactura Regional - 120 empleados, 3 departamentos
+# =============================================================================
+exercises:
+  - id: ex-01-detectar-red-v2
+    type: code-python
+    title: "Detectando la red oculta"
+    description: "Compara el organigrama formal con la red informal de consultas en Manufactura Regional."
+
+    instructions: |
+      ## Caso: Manufactura Regional
+
+      Estás analizando una planta de manufactura con **120 empleados** en **3 departamentos**:
+      - **Producción** (60 personas): Línea de ensamble, supervisores, técnicos
+      - **Calidad** (35 personas): Inspección, análisis, documentación
+      - **Logística** (25 personas): Almacén, despacho, planeación
+
+      Se realizó una encuesta preguntando: *"¿A quién consultas cuando tienes un problema técnico difícil?"*
+
+      **Observa las dos visualizaciones:**
+      - **Izquierda**: Fragmento del organigrama formal (jerarquía de reporte)
+      - **Derecha**: Red de consultas técnicas (quién consulta a quién)
+
+      Los colores indican departamento:
+      - 🔵 Azul = Producción
+      - 🟢 Verde = Calidad
+      - 🟠 Naranja = Logística
+
+      El **tamaño del nodo** indica cuántas personas consultan a esa persona.
+
+    difficulty: beginner
+    estimated_time_minutes: 7
+    points: 30
+    order: 1
+
+    required_packages:
+      - networkx
+      - matplotlib
+      - numpy
+
+    ui_config:
+      hide_code: true
+      show_output_only: true
+      interactive_mode: visualization
+
+    # Código completo y funcional
+    starter_code: |
+      import networkx as nx
+      import matplotlib.pyplot as plt
+      import numpy as np
+
+      # ===========================================
+      # DATOS: Manufactura Regional (120 empleados)
+      # ===========================================
+
+      # --- ORGANIGRAMA (estructura jerárquica simplificada) ---
+      # Solo mostramos 15 nodos representativos para claridad visual
+      org_nodes = {
+          # Dirección
+          "Dir. Planta": {"dept": "direccion", "level": 0},
+          # Gerentes
+          "Gte. Producción": {"dept": "produccion", "level": 1},
+          "Gte. Calidad": {"dept": "calidad", "level": 1},
+          "Gte. Logística": {"dept": "logistica", "level": 1},
+          # Supervisores/Jefes
+          "Sup. Línea A": {"dept": "produccion", "level": 2},
+          "Sup. Línea B": {"dept": "produccion", "level": 2},
+          "Jefe QA": {"dept": "calidad", "level": 2},
+          "Jefe Documentación": {"dept": "calidad", "level": 2},
+          "Jefe Almacén": {"dept": "logistica", "level": 2},
+          # Técnicos/Analistas clave
+          "Técnico Senior": {"dept": "produccion", "level": 3},
+          "Operador A1": {"dept": "produccion", "level": 3},
+          "Analista QA Sr.": {"dept": "calidad", "level": 3},
+          "Inspector 1": {"dept": "calidad", "level": 3},
+          "Coord. Despacho": {"dept": "logistica", "level": 3},
+          "Almacenista Sr.": {"dept": "logistica", "level": 3},
+      }
+
+      org_edges = [
+          ("Dir. Planta", "Gte. Producción"),
+          ("Dir. Planta", "Gte. Calidad"),
+          ("Dir. Planta", "Gte. Logística"),
+          ("Gte. Producción", "Sup. Línea A"),
+          ("Gte. Producción", "Sup. Línea B"),
+          ("Gte. Calidad", "Jefe QA"),
+          ("Gte. Calidad", "Jefe Documentación"),
+          ("Gte. Logística", "Jefe Almacén"),
+          ("Sup. Línea A", "Técnico Senior"),
+          ("Sup. Línea A", "Operador A1"),
+          ("Jefe QA", "Analista QA Sr."),
+          ("Jefe QA", "Inspector 1"),
+          ("Jefe Almacén", "Coord. Despacho"),
+          ("Jefe Almacén", "Almacenista Sr."),
+      ]
+
+      # --- RED DE CONSULTAS (quién consulta a quién) ---
+      # El "Analista QA Sr." resulta ser el más consultado
+      network_edges = [
+          # Consultas HACIA el Analista QA Sr. (el "experto oculto")
+          ("Sup. Línea A", "Analista QA Sr."),
+          ("Sup. Línea B", "Analista QA Sr."),
+          ("Técnico Senior", "Analista QA Sr."),
+          ("Operador A1", "Analista QA Sr."),
+          ("Jefe Almacén", "Analista QA Sr."),
+          ("Coord. Despacho", "Analista QA Sr."),
+          ("Inspector 1", "Analista QA Sr."),
+          ("Gte. Producción", "Analista QA Sr."),
+          ("Jefe Documentación", "Analista QA Sr."),
+          # Consultas internas Producción
+          ("Operador A1", "Técnico Senior"),
+          ("Sup. Línea B", "Sup. Línea A"),
+          # Consultas internas Logística
+          ("Almacenista Sr.", "Coord. Despacho"),
+          # Cross-departamento vía Técnico Senior
+          ("Coord. Despacho", "Técnico Senior"),
+          # Jefe QA consulta a su propio subordinado (el experto real)
+          ("Jefe QA", "Analista QA Sr."),
+      ]
+
+      # Colores por departamento
+      dept_colors = {
+          "direccion": "#95a5a6",  # Gris
+          "produccion": "#3498db",  # Azul
+          "calidad": "#2ecc71",     # Verde
+          "logistica": "#e67e22",   # Naranja
+      }
+
+      # ===========================================
+      # VISUALIZACIÓN COMPARATIVA
+      # ===========================================
+      fig, axes = plt.subplots(1, 2, figsize=(16, 8))
+
+      # --- GRÁFICO 1: ORGANIGRAMA ---
+      G_org = nx.DiGraph()
+      G_org.add_edges_from(org_edges)
+
+      # Posiciones jerárquicas
+      pos_org = {}
+      level_count = {0: 0, 1: 0, 2: 0, 3: 0}
+      level_max = {0: 1, 1: 3, 2: 5, 3: 6}
+
+      for node, attrs in org_nodes.items():
+          level = attrs["level"]
+          y = 3 - level  # Invertir para que Director esté arriba
+          x = level_count[level] - (level_max[level] - 1) / 2
+          pos_org[node] = (x * 1.5, y * 1.2)
+          level_count[level] += 1
+
+      node_colors_org = [dept_colors[org_nodes[n]["dept"]] for n in G_org.nodes()]
+
+      nx.draw(G_org, pos_org, ax=axes[0],
+              with_labels=True,
+              node_color=node_colors_org,
+              node_size=1800,
+              font_size=7,
+              font_weight='bold',
+              arrows=True,
+              arrowsize=15,
+              edge_color='#bdc3c7',
+              width=1.5)
+      axes[0].set_title("ORGANIGRAMA FORMAL\n(Quién reporta a quién)",
+                        fontsize=14, fontweight='bold', pad=20)
+
+      # --- GRÁFICO 2: RED DE CONSULTAS ---
+      G_net = nx.Graph()
+      G_net.add_nodes_from(org_nodes.keys())
+      G_net.add_edges_from(network_edges)
+
+      # Calcular grados para tamaño de nodos
+      degrees = dict(G_net.degree())
+      max_degree = max(degrees.values())
+      node_sizes = [800 + (degrees[n] / max_degree) * 2500 for n in G_net.nodes()]
+
+      # Colores - resaltar al más consultado
+      node_colors_net = []
+      for n in G_net.nodes():
+          if degrees[n] == max_degree:
+              node_colors_net.append("#e74c3c")  # Rojo para el más consultado
+          else:
+              node_colors_net.append(dept_colors[org_nodes[n]["dept"]])
+
+      # Layout basado en grado (los más consultados al centro)
+      pos_net = nx.spring_layout(G_net, k=2.5, iterations=50, seed=42)
+
+      nx.draw(G_net, pos_net, ax=axes[1],
+              with_labels=True,
+              node_color=node_colors_net,
+              node_size=node_sizes,
+              font_size=7,
+              font_weight='bold',
+              edge_color='#bdc3c7',
+              width=1.5,
+              alpha=0.9)
+      axes[1].set_title("RED DE CONSULTAS TÉCNICAS\n(Quién consulta a quién)",
+                        fontsize=14, fontweight='bold', pad=20)
+
+      # Leyenda
+      legend_elements = [
+          plt.Line2D([0], [0], marker='o', color='w', markerfacecolor='#3498db',
+                     markersize=12, label='Producción'),
+          plt.Line2D([0], [0], marker='o', color='w', markerfacecolor='#2ecc71',
+                     markersize=12, label='Calidad'),
+          plt.Line2D([0], [0], marker='o', color='w', markerfacecolor='#e67e22',
+                     markersize=12, label='Logística'),
+          plt.Line2D([0], [0], marker='o', color='w', markerfacecolor='#e74c3c',
+                     markersize=15, label='Más consultado'),
+      ]
+      fig.legend(handles=legend_elements, loc='lower center', ncol=4,
+                 fontsize=10, frameon=True, fancybox=True)
+
+      plt.tight_layout(rect=[0, 0.08, 1, 1])
+      plt.show()
+
+      # ===========================================
+      # MÉTRICAS CLAVE (para verificación)
+      # ===========================================
+      print("\n" + "="*60)
+      print("📊 MÉTRICAS DE LA RED DE CONSULTAS")
+      print("="*60)
+
+      # Top 5 más consultados
+      top_consultados = sorted(degrees.items(), key=lambda x: x[1], reverse=True)[:5]
+      print("\n🔝 Top 5 personas más consultadas:")
+      for i, (nombre, grado) in enumerate(top_consultados, 1):
+          dept = org_nodes[nombre]["dept"].capitalize()
+          level = org_nodes[nombre]["level"]
+          nivel_org = ["Director", "Gerente", "Jefe/Supervisor", "Técnico/Analista"][level]
+          marker = "🔴" if i == 1 else "  "
+          print(f"   {marker} {i}. {nombre} ({dept}) - {grado} consultas - Nivel: {nivel_org}")
+
+      # Calcular betweenness para el broker
+      betweenness = nx.betweenness_centrality(G_net)
+      top_broker = max(betweenness.items(), key=lambda x: x[1])
+
+      print(f"\n🔗 Mayor intermediación (broker potencial):")
+      print(f"   → {top_broker[0]} (betweenness: {top_broker[1]:.3f})")
+
+    solution_code: |
+      # RESPUESTAS CORRECTAS:
+      #
+      # 1. Persona más consultada: "Analista QA Sr." (9 conexiones)
+      #    - En el organigrama está en nivel 3 (el más bajo mostrado)
+      #    - Reporta al Jefe QA, que reporta al Gte. Calidad
+      #    - Sin embargo, es consultado por TODOS los departamentos
+      #
+      # 2. Diferencia jerárquica vs red:
+      #    - Organigrama: Analista QA Sr. está 3 niveles abajo del Director
+      #    - Red real: Es el nodo más central y conectado
+      #
+      # 3. Riesgo si se va:
+      #    - Producción perdería su fuente de conocimiento técnico de calidad
+      #    - Logística perdería consultas sobre especificaciones
+      #    - El Jefe QA perdería a quien realmente resuelve los problemas
+      #    - NADIE en el organigrama lo identificaría como crítico
+
+    # Tests con assertions que validan comprensión
+    test_cases:
+      - id: test-identify-most-consulted
+        name: "Identificar persona más consultada"
+        description: "El estudiante debe identificar al Analista QA Sr. como el más consultado"
+        test_code: |
+          # Verificar que el estudiante identifica correctamente al más consultado
+          G = nx.Graph()
+          G.add_edges_from(network_edges)
+          degrees = dict(G.degree())
+          most_consulted = max(degrees.items(), key=lambda x: x[1])
+          assert most_consulted[0] == "Analista QA Sr.", \
+              f"El más consultado es 'Analista QA Sr.', no '{most_consulted[0]}'"
+          assert most_consulted[1] >= 9, \
+              f"Debe tener al menos 9 conexiones, tiene {most_consulted[1]}"
+        points: 10
+
+      - id: test-hierarchy-gap
+        name: "Detectar brecha jerarquía vs influencia"
+        description: "El estudiante debe reconocer que el más consultado NO es un gerente"
+        test_code: |
+          # Verificar que el más consultado está en nivel bajo del organigrama
+          most_consulted = "Analista QA Sr."
+          org_level = org_nodes[most_consulted]["level"]
+          assert org_level == 3, \
+              f"El Analista QA Sr. está en nivel {org_level}, el más bajo (3)"
+          # Verificar que su jefe lo consulta (inversión de jerarquía)
+          assert ("Jefe QA", "Analista QA Sr.") in network_edges, \
+              "El Jefe QA consulta a su subordinado - inversión jerárquica"
+        points: 10
+
+      - id: test-cross-department
+        name: "Identificar consultas cross-departamento"
+        description: "El estudiante debe notar que Producción y Logística consultan a Calidad"
+        test_code: |
+          # Contar cuántos departamentos consultan al Analista QA Sr.
+          consultantes = [e[0] for e in network_edges if e[1] == "Analista QA Sr."]
+          depts_consultantes = set([org_nodes[c]["dept"] for c in consultantes])
+          assert "produccion" in depts_consultantes, \
+              "Producción debe consultar al Analista QA Sr."
+          assert "logistica" in depts_consultantes, \
+              "Logística debe consultar al Analista QA Sr."
+          assert len(depts_consultantes) >= 3, \
+              f"Al menos 3 departamentos consultan al experto, encontrados: {depts_consultantes}"
+        points: 10
+
+    # Hints progresivos
+    hints:
+      - level: 1
+        text: "Observa el nodo marcado en ROJO en la red de consultas. ¿Cuántas líneas llegan a él?"
+      - level: 2
+        text: "Ahora busca ese mismo nombre en el organigrama de la izquierda. ¿En qué nivel está? ¿Arriba con los gerentes o abajo con los técnicos?"
+      - level: 3
+        text: "Fíjate que personas de TODOS los colores (departamentos) consultan al nodo rojo. Incluso su propio jefe. ¿Qué te dice esto sobre el poder real vs el poder formal?"
+
+    tags:
+      - ona
+      - visualizacion
+      - organigrama
+      - red-informal
+      - experto-oculto
+
+    concepts:
+      - red-informal
+      - estructura-formal
+      - experto-oculto
+      - centralidad-grado
+
+  # ==========================================================================
+  # EJERCICIO 2 MEJORADO: IDENTIFICAR AL BROKER
+  # ==========================================================================
+  - id: ex-02-identificar-broker-v2
+    type: code-python
+    title: "Identificando al broker"
+    description: "Encuentra quién conecta departamentos que de otra forma estarían aislados."
+
+    instructions: |
+      ## El problema de los silos
+
+      Continuando con Manufactura Regional, la encuesta también preguntó:
+      *"¿Con quién de OTROS departamentos te comunicas al menos una vez por semana?"*
+
+      Los resultados revelaron un problema: **sin ciertas personas clave, los
+      departamentos quedarían completamente aislados**.
+
+      **Tu tarea:** Analiza la red y responde:
+      1. ¿Quién es el broker principal (conecta más departamentos)?
+      2. ¿Qué pasaría si esa persona se fuera?
+      3. ¿La organización sabe que esta persona es crítica?
+
+      📌 **Definición de broker:** Persona con alta *intermediación* (betweenness) -
+      muchos caminos entre otros nodos pasan por ella.
+
+    difficulty: beginner
+    estimated_time_minutes: 7
+    points: 30
+    order: 2
+
+    required_packages:
+      - networkx
+      - matplotlib
+
+    ui_config:
+      hide_code: true
+      show_output_only: true
+      interactive_mode: visualization
+
+    starter_code: |
+      import networkx as nx
+      import matplotlib.pyplot as plt
+      import numpy as np
+
+      # ===========================================
+      # DATOS: Red inter-departamental
+      # ===========================================
+
+      # Nodos por departamento (simplificado a 18 personas clave)
+      nodes = {
+          # Producción (P)
+          "P-Gerente": {"dept": "produccion", "title": "Gte. Producción"},
+          "P-SupA": {"dept": "produccion", "title": "Sup. Línea A"},
+          "P-SupB": {"dept": "produccion", "title": "Sup. Línea B"},
+          "P-Técnico1": {"dept": "produccion", "title": "Técnico Senior"},
+          "P-Técnico2": {"dept": "produccion", "title": "Técnico Jr"},
+          "P-Operador": {"dept": "produccion", "title": "Operador"},
+          # Calidad (Q)
+          "Q-Gerente": {"dept": "calidad", "title": "Gte. Calidad"},
+          "Q-JefeQA": {"dept": "calidad", "title": "Jefe QA"},
+          "Q-Analista": {"dept": "calidad", "title": "Analista QA Sr."},
+          "Q-Inspector1": {"dept": "calidad", "title": "Inspector 1"},
+          "Q-Inspector2": {"dept": "calidad", "title": "Inspector 2"},
+          "Q-Docs": {"dept": "calidad", "title": "Documentación"},
+          # Logística (L)
+          "L-Gerente": {"dept": "logistica", "title": "Gte. Logística"},
+          "L-JefeAlm": {"dept": "logistica", "title": "Jefe Almacén"},
+          "L-Coord": {"dept": "logistica", "title": "Coord. Despacho"},
+          "L-Planif": {"dept": "logistica", "title": "Planificador"},
+          "L-Almac1": {"dept": "logistica", "title": "Almacenista 1"},
+          "L-Almac2": {"dept": "logistica", "title": "Almacenista 2"},
+      }
+
+      # Conexiones INTERNAS de cada departamento (comunidades densas)
+      internal_edges = [
+          # Producción - equipo cohesionado
+          ("P-Gerente", "P-SupA"), ("P-Gerente", "P-SupB"),
+          ("P-SupA", "P-Técnico1"), ("P-SupA", "P-Operador"),
+          ("P-SupB", "P-Técnico2"), ("P-Técnico1", "P-Técnico2"),
+          ("P-Técnico1", "P-Operador"),
+          # Calidad - equipo cohesionado
+          ("Q-Gerente", "Q-JefeQA"), ("Q-JefeQA", "Q-Analista"),
+          ("Q-JefeQA", "Q-Inspector1"), ("Q-Analista", "Q-Inspector1"),
+          ("Q-Analista", "Q-Inspector2"), ("Q-Inspector1", "Q-Inspector2"),
+          ("Q-Analista", "Q-Docs"), ("Q-Gerente", "Q-Docs"),
+          # Logística - equipo cohesionado
+          ("L-Gerente", "L-JefeAlm"), ("L-JefeAlm", "L-Coord"),
+          ("L-JefeAlm", "L-Planif"), ("L-Coord", "L-Almac1"),
+          ("L-Coord", "L-Almac2"), ("L-Almac1", "L-Almac2"),
+          ("L-Planif", "L-Coord"),
+      ]
+
+      # Conexiones ENTRE departamentos (pocas - silos)
+      cross_dept_edges = [
+          # El BROKER: Coord. Despacho conecta los 3 departamentos
+          ("L-Coord", "P-SupA"),      # Logística <-> Producción
+          ("L-Coord", "Q-Inspector1"), # Logística <-> Calidad
+          # Conexión secundaria (no broker)
+          ("P-Técnico1", "Q-Analista"), # Producción <-> Calidad (técnico)
+          # Conexión gerencial (formal, poco usada)
+          ("P-Gerente", "Q-Gerente"),
+      ]
+
+      all_edges = internal_edges + cross_dept_edges
+
+      # ===========================================
+      # CREAR GRAFO Y CALCULAR MÉTRICAS
+      # ===========================================
+      G = nx.Graph()
+      G.add_nodes_from(nodes.keys())
+      G.add_edges_from(all_edges)
+
+      # Calcular betweenness centrality (métrica de broker)
+      betweenness = nx.betweenness_centrality(G)
+
+      # Colores por departamento
+      dept_colors = {
+          "produccion": "#3498db",  # Azul
+          "calidad": "#2ecc71",     # Verde
+          "logistica": "#e67e22",   # Naranja
+      }
+
+      # Identificar al broker (mayor betweenness)
+      broker = max(betweenness.items(), key=lambda x: x[1])
+      broker_name = broker[0]
+
+      # ===========================================
+      # VISUALIZACIÓN PRINCIPAL
+      # ===========================================
+      fig, axes = plt.subplots(1, 2, figsize=(16, 8))
+
+      # --- GRÁFICO 1: Red completa con broker resaltado ---
+      node_colors = []
+      node_sizes = []
+      for n in G.nodes():
+          if n == broker_name:
+              node_colors.append("#e74c3c")  # Rojo para broker
+              node_sizes.append(2500)
+          else:
+              node_colors.append(dept_colors[nodes[n]["dept"]])
+              node_sizes.append(1200)
+
+      # Layout que agrupa por departamento
+      pos = nx.spring_layout(G, k=2, iterations=100, seed=42)
+
+      # Resaltar conexiones del broker
+      edge_colors = []
+      edge_widths = []
+      for e in G.edges():
+          if broker_name in e:
+              edge_colors.append("#e74c3c")
+              edge_widths.append(3)
+          elif e in cross_dept_edges or (e[1], e[0]) in cross_dept_edges:
+              edge_colors.append("#f39c12")
+              edge_widths.append(2)
+          else:
+              edge_colors.append("#bdc3c7")
+              edge_widths.append(1)
+
+      # Etiquetas simplificadas
+      labels = {n: nodes[n]["title"].replace("Gte. ", "").replace("Coord. ", "Coord\n")
+                for n in G.nodes()}
+
+      nx.draw(G, pos, ax=axes[0],
+              labels=labels,
+              node_color=node_colors,
+              node_size=node_sizes,
+              font_size=7,
+              font_weight='bold',
+              edge_color=edge_colors,
+              width=edge_widths)
+      axes[0].set_title("RED INTER-DEPARTAMENTAL\n¿Quién conecta los silos?",
+                        fontsize=14, fontweight='bold')
+
+      # --- GRÁFICO 2: ¿Qué pasa si el broker se va? ---
+      G_sin_broker = G.copy()
+      G_sin_broker.remove_node(broker_name)
+
+      # Detectar componentes conectados (grupos aislados)
+      components = list(nx.connected_components(G_sin_broker))
+
+      # Colores por componente
+      component_colors = ['#3498db', '#2ecc71', '#e67e22', '#9b59b6', '#1abc9c']
+      node_to_component = {}
+      for i, comp in enumerate(components):
+          for node in comp:
+              node_to_component[node] = i
+
+      node_colors_2 = [component_colors[node_to_component[n] % len(component_colors)]
+                       for n in G_sin_broker.nodes()]
+
+      pos_2 = {k: v for k, v in pos.items() if k != broker_name}
+
+      nx.draw(G_sin_broker, pos_2, ax=axes[1],
+              labels={n: labels[n] for n in G_sin_broker.nodes()},
+              node_color=node_colors_2,
+              node_size=1200,
+              font_size=7,
+              font_weight='bold',
+              edge_color='#bdc3c7',
+              width=1.5)
+
+      # Marcar dónde estaba el broker
+      broker_pos = pos[broker_name]
+      axes[1].scatter([broker_pos[0]], [broker_pos[1]], s=2500,
+                      facecolors='none', edgecolors='#e74c3c',
+                      linewidths=3, linestyles='dashed')
+      axes[1].annotate('VACANTE', broker_pos, fontsize=10, ha='center',
+                       color='#e74c3c', fontweight='bold')
+
+      n_components = len(components)
+      axes[1].set_title(f"SI EL BROKER SE VA...\n({n_components} grupos aislados)",
+                        fontsize=14, fontweight='bold', color='#c0392b')
+
+      # Leyenda
+      legend_elements = [
+          plt.Line2D([0], [0], marker='o', color='w', markerfacecolor='#3498db',
+                     markersize=12, label='Producción'),
+          plt.Line2D([0], [0], marker='o', color='w', markerfacecolor='#2ecc71',
+                     markersize=12, label='Calidad'),
+          plt.Line2D([0], [0], marker='o', color='w', markerfacecolor='#e67e22',
+                     markersize=12, label='Logística'),
+          plt.Line2D([0], [0], marker='o', color='w', markerfacecolor='#e74c3c',
+                     markersize=15, label=f'BROKER: {nodes[broker_name]["title"]}'),
+      ]
+      fig.legend(handles=legend_elements, loc='lower center', ncol=4,
+                 fontsize=10, frameon=True)
+
+      plt.tight_layout(rect=[0, 0.1, 1, 1])
+      plt.show()
+
+      # ===========================================
+      # ANÁLISIS DE IMPACTO
+      # ===========================================
+      print("\n" + "="*60)
+      print("📊 ANÁLISIS DE INTERMEDIACIÓN (BETWEENNESS)")
+      print("="*60)
+
+      # Top 5 por betweenness
+      top_betweenness = sorted(betweenness.items(), key=lambda x: x[1], reverse=True)[:5]
+      print("\n🔗 Top 5 personas con mayor intermediación:")
+      for i, (node, score) in enumerate(top_betweenness, 1):
+          dept = nodes[node]["dept"].capitalize()
+          title = nodes[node]["title"]
+          marker = "🔴 BROKER →" if i == 1 else "          "
+          print(f"   {marker} {i}. {title} ({dept}) - Betweenness: {score:.3f}")
+
+      print("\n" + "="*60)
+      print("⚠️  ANÁLISIS DE RIESGO")
+      print("="*60)
+      print(f"\nSi '{nodes[broker_name]['title']}' se va de la empresa:")
+      print(f"   • La red se fragmenta en {n_components} componentes aislados")
+
+      for i, comp in enumerate(components, 1):
+          depts_in_comp = set([nodes[n]["dept"] for n in comp])
+          print(f"   • Grupo {i}: {len(comp)} personas ({', '.join(depts_in_comp)})")
+
+      print(f"\n💡 Conclusión: El '{nodes[broker_name]['title']}' es un PUNTO ÚNICO DE FALLA")
+      print(f"   en la comunicación inter-departamental.")
+
+    solution_code: |
+      # RESPUESTAS CORRECTAS:
+      #
+      # 1. ¿Quién es el broker principal?
+      #    → Coord. Despacho (L-Coord)
+      #    → Betweenness más alto: ~0.35
+      #    → Conecta Logística con Producción Y con Calidad
+      #
+      # 2. ¿Qué pasaría si se fuera?
+      #    → La red se fragmenta en 3 componentes
+      #    → Logística queda aislada de Producción (casi totalmente)
+      #    → Solo quedaría 1 conexión técnica Producción-Calidad
+      #
+      # 3. ¿La organización lo sabe?
+      #    → Probablemente NO. "Coordinador de Despacho" suena operativo
+      #    → No es un cargo que normalmente se considera "estratégico"
+      #    → En la mayoría de empresas, esta persona no estaría en el
+      #      plan de sucesión ni tendría un backup entrenado
+
+    test_cases:
+      - id: test-identify-broker
+        name: "Identificar al broker correctamente"
+        description: "El broker es quien tiene mayor betweenness centrality"
+        test_code: |
+          G = nx.Graph()
+          G.add_edges_from(all_edges)
+          betweenness = nx.betweenness_centrality(G)
+          broker = max(betweenness.items(), key=lambda x: x[1])
+          assert broker[0] == "L-Coord", \
+              f"El broker es L-Coord (Coord. Despacho), no {broker[0]}"
+          assert broker[1] > 0.3, \
+              f"El betweenness del broker debe ser >0.3, es {broker[1]:.3f}"
+        points: 10
+
+      - id: test-fragmentation
+        name: "Detectar fragmentación sin broker"
+        description: "Sin el broker, la red debe fragmentarse"
+        test_code: |
+          G = nx.Graph()
+          G.add_edges_from(all_edges)
+          G.remove_node("L-Coord")
+          components = list(nx.connected_components(G))
+          assert len(components) >= 2, \
+              f"Sin el broker debe haber 2+ componentes, hay {len(components)}"
+        points: 10
+
+      - id: test-cross-dept-connections
+        name: "Verificar conexiones cross-departamento del broker"
+        description: "El broker debe conectar al menos 2 departamentos diferentes"
+        test_code: |
+          broker_connections = [e for e in all_edges if "L-Coord" in e]
+          depts_connected = set()
+          for e in broker_connections:
+              other = e[0] if e[1] == "L-Coord" else e[1]
+              depts_connected.add(nodes[other]["dept"])
+          depts_connected.add("logistica")  # Propio departamento
+          assert len(depts_connected) >= 3, \
+              f"El broker debe conectar 3 depts, conecta: {depts_connected}"
+        points: 10
+
+    hints:
+      - level: 1
+        text: "El broker no es necesariamente quien tiene más conexiones (degree), sino quien está en el 'camino' entre grupos. Busca el nodo que, si lo quitas, desconecta partes de la red."
+      - level: 2
+        text: "Observa el gráfico de la derecha ('Si el broker se va'). ¿Cuántos grupos separados ves? Eso te dice qué tan crítico es el broker."
+      - level: 3
+        text: "El broker está en Logística y tiene conexiones con Producción Y con Calidad. Mira las líneas rojas/naranjas que salen del nodo rojo grande."
+
+    tags:
+      - ona
+      - broker
+      - betweenness
+      - silos
+      - riesgo-persona-clave
+
+    concepts:
+      - broker
+      - betweenness-centrality
+      - fragmentacion
+      - riesgo-clave
+
+# =============================================================================
+# BLOQUE 3: CONSOLIDATION - QUIZ (25% ~ 6 min)
+# 6 preguntas cubriendo Remember, Understand, Apply
+# =============================================================================
+quiz:
+  id: quiz-01-organigrama-vs-red
+  title: "Verificación de comprensión: Organigrama vs Red"
+  description: "Evalúa tu comprensión de los conceptos clave del capítulo"
+
+  config:
+    passing_score: 70
+    show_feedback: true
+    randomize_questions: false
+    allow_retry: true
+
+  questions:
+    # --- NIVEL 1: REMEMBER (Definiciones básicas) ---
+    - id: Q1
+      question: "¿Qué tipo de relación captura el organigrama?"
+      type: multiple_choice
+      bloom_level: remember
+      points: 10
+      options:
+        - id: a
+          text: "Relaciones de reporte (quién es jefe de quién)"
+        - id: b
+          text: "Relaciones de consulta (a quién piden ayuda)"
+        - id: c
+          text: "Relaciones de confianza (en quién confían)"
+        - id: d
+          text: "Todas las relaciones de la organización"
+      correct: a
+      feedback_correct: |
+        ✅ Correcto. El organigrama solo captura la estructura formal de reporte.
+        Las relaciones de consulta, confianza e información fluyen por redes
+        informales que ONA puede mapear.
+      feedback_incorrect: |
+        ❌ El organigrama solo muestra relaciones de reporte formal.
+        Las otras relaciones (consulta, confianza, información) son
+        invisibles en el organigrama pero mapeables con ONA.
+
+    - id: Q2
+      question: "Un 'broker' en una red organizacional es alguien que:"
+      type: multiple_choice
+      bloom_level: remember
+      points: 10
+      options:
+        - id: a
+          text: "Tiene el cargo más alto"
+        - id: b
+          text: "Conecta grupos que de otra forma estarían aislados"
+        - id: c
+          text: "Tiene más subordinados directos"
+        - id: d
+          text: "Lleva más tiempo en la empresa"
+      correct: b
+      feedback_correct: |
+        ✅ Exacto. Un broker es alguien que sirve de puente entre grupos.
+        Su valor está en la conectividad, no en la jerarquía.
+      feedback_incorrect: |
+        ❌ Un broker es quien conecta grupos que de otra forma no se
+        comunicarían. No tiene que ver con cargo, antigüedad o subordinados.
+
+    # --- NIVEL 2: UNDERSTAND (Interpretación) ---
+    - id: Q3
+      question: |
+        En el caso de Manufactura Regional, el Analista QA Sr. era la persona
+        más consultada aunque estaba 3 niveles abajo del Director.
+        ¿Qué concepto de ONA ilustra esto?
+      type: multiple_choice
+      bloom_level: understand
+      points: 15
+      options:
+        - id: a
+          text: "Que los organigramas están mal diseñados"
+        - id: b
+          text: "Que la influencia informal no coincide con la jerarquía formal"
+        - id: c
+          text: "Que los analistas deberían ser gerentes"
+        - id: d
+          text: "Que el Director no hace bien su trabajo"
+      correct: b
+      feedback_correct: |
+        ✅ Perfecto. Este es un hallazgo típico de ONA: la influencia real
+        (quién es consultado, quién tiene información valiosa) rara vez
+        coincide perfectamente con los niveles jerárquicos.
+      feedback_incorrect: |
+        ❌ Este caso ilustra que la influencia informal (basada en conocimiento
+        y relaciones) opera independientemente de la jerarquía formal.
+        No significa que el organigrama esté "mal" - simplemente captura
+        algo diferente a la red informal.
+
+    - id: Q4
+      question: |
+        Si el Coord. de Despacho (broker) renunciara y nadie supiera que era
+        un conector crítico, ¿qué pasaría probablemente?
+      type: multiple_choice
+      bloom_level: understand
+      points: 15
+      options:
+        - id: a
+          text: "Nada, su trabajo es operativo y fácil de reemplazar"
+        - id: b
+          text: "Los tres departamentos empezarían a tener problemas de coordinación sin entender por qué"
+        - id: c
+          text: "Solo Logística tendría problemas"
+        - id: d
+          text: "Se contrataría un reemplazo inmediatamente porque es un cargo crítico"
+      correct: b
+      feedback_correct: |
+        ✅ Exacto. Este es el riesgo de no mapear redes: cuando un broker
+        invisible se va, los síntomas (silos, falta de coordinación, retrasos)
+        aparecen pero nadie entiende la causa raíz.
+      feedback_incorrect: |
+        ❌ Cuando un broker invisible se va, los problemas de coordinación
+        emergen gradualmente y sin explicación obvia. La organización no
+        sabía que dependía de esa persona para conectar departamentos.
+
+    # --- NIVEL 3: APPLY (Aplicar a casos) ---
+    - id: Q5
+      question: |
+        Tu CEO te pide: "Quiero saber por qué Marketing y Tecnología nunca
+        logran alinearse en los proyectos digitales."
+
+        ¿Qué pregunta de encuesta ONA sería más útil?
+      type: multiple_choice
+      bloom_level: apply
+      points: 20
+      options:
+        - id: a
+          text: "¿Cuántas reuniones tienes al mes con otros departamentos?"
+        - id: b
+          text: "¿Con quién de FUERA de tu departamento te coordinas regularmente para proyectos digitales?"
+        - id: c
+          text: "¿Qué tan satisfecho estás con la colaboración interdepartamental?"
+        - id: d
+          text: "¿Quién es tu jefe directo?"
+      correct: b
+      feedback_correct: |
+        ✅ Excelente aplicación. Esta pregunta mapearía específicamente los
+        vínculos (o la ausencia de ellos) entre Marketing y Tecnología,
+        revelando si hay brokers, silos o dependencias ocultas.
+      feedback_incorrect: |
+        ❌ La pregunta más útil es la que mapea conexiones específicas entre
+        departamentos para proyectos digitales. Las otras preguntas dan
+        información general pero no revelan la estructura de la red.
+
+    - id: Q6
+      question: |
+        Analizas una red y encuentras que el 80% de las consultas técnicas
+        llegan a una sola persona que no tiene backup ni documentación.
+
+        ¿Cuál es la intervención ONA más apropiada?
+      type: multiple_choice
+      bloom_level: apply
+      points: 20
+      options:
+        - id: a
+          text: "Ascender a esa persona inmediatamente"
+        - id: b
+          text: "Documentar su conocimiento y crear conexiones secundarias (redundancia)"
+        - id: c
+          text: "Reducir sus responsabilidades para que tenga menos carga"
+        - id: d
+          text: "No hacer nada, claramente es muy competente"
+      correct: b
+      feedback_correct: |
+        ✅ Perfecta aplicación del análisis ONA. Cuando identificas un
+        punto único de falla, la intervención es crear redundancia:
+        documentación, entrenamiento cruzado y conexiones alternativas.
+      feedback_incorrect: |
+        ❌ Cuando ONA revela un "punto único de falla" (una persona de quien
+        todos dependen), la intervención correcta es crear redundancia:
+        documentar su conocimiento y conectar a otros con las mismas fuentes.
+
+# =============================================================================
+# BLOQUE 4: CONCLUSIONS (10% ~ 2.5 min)
+# Síntesis activa + transferencia
+# =============================================================================
+conclusions:
+  type: active_synthesis
+  title: "Síntesis y próximo paso"
+
+  # Actividad de síntesis (Teach-back)
+  synthesis:
+    type: teach_back
+    prompt: |
+      ## Tu turno: Explícalo en una oración
+
+      Imagina que un colega te pregunta:
+
+      > "¿Para qué sirve el análisis de redes si ya tenemos el organigrama?"
+
+      **Escribe tu respuesta en una oración** (máximo 2 líneas).
+      Una buena respuesta incluye: qué revela ONA que el organigrama no puede.
+
+    example_responses:
+      - "ONA revela quién realmente tiene influencia y conecta equipos, no solo quién tiene el cargo."
+      - "El organigrama muestra jefes; ONA muestra a quién realmente consultan y quién conecta silos."
+      - "ONA mapea las relaciones informales que hacen que el trabajo fluya (o se frene)."
+
+  # Action plan personal
+  action_plan:
+    prompt: |
+      ## Pregunta para tu organización
+
+      Piensa en tu empresa actual (o una que conozcas bien).
+
+      **Identifica UNA pregunta que el organigrama no puede responder:**
+
+      Ejemplos:
+      - "¿Por qué el equipo de [X] siempre está desalineado con [Y]?"
+      - "¿A quién realmente consultan cuando hay un problema de [Z]?"
+      - "¿Qué pasaría si [persona clave] se fuera?"
+
+      Esta pregunta será tu caso de uso para el resto del curso.
+
+  # Conexión hacia adelante (Chapter 2 preview)
+  forward_connection:
+    prompt: |
+      ## Vista previa: Capítulo 2
+
+      Ahora que puedes **ver** la red, el siguiente paso es **medirla**.
+
+      En el próximo capítulo aprenderás 3 métricas fundamentales:
+
+      | Métrica | Pregunta que responde |
+      |---------|----------------------|
+      | **Grado (Degree)** | ¿Quién es más consultado? |
+      | **Intermediación (Betweenness)** | ¿Quién conecta silos? |
+      | **Cercanía (Closeness)** | ¿Quién tiene acceso más rápido a información? |
+
+      **Predicción:** ¿Cuál de estas tres métricas crees que es más útil
+      para identificar a un "experto oculto" como el Analista QA Sr.?
+
+    prediction_options:
+      - id: degree
+        text: "Grado - porque es quien más consultan"
+      - id: betweenness
+        text: "Intermediación - porque conecta grupos"
+      - id: closeness
+        text: "Cercanía - porque tiene acceso rápido"
+
+    reveal_in_chapter: 2
+
+# =============================================================================
+# METADATA DE VERSIÓN
+# =============================================================================
+version: "2.0"
+last_updated: "2026-01-14"
+model_applied: "4C-Bloom"
+improvements:
+  - "Agregado bloque CONNECTION con Misconception Check (4 afirmaciones)"
+  - "Ejercicio 1 expandido: datos realistas 120 empleados, 3 departamentos"
+  - "Ejercicio 2 expandido: visualización de fragmentación si broker se va"
+  - "Tests con assertions que validan comprensión, no solo ejecución"
+  - "Quiz de 6 preguntas cubriendo 3 niveles Bloom"
+  - "Bloque CONCLUSIONS con síntesis activa y conexión forward"
+  - "Hints progresivos en 3 niveles"

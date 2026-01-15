@@ -105,6 +105,12 @@ Ahora que entiendes la diferencia entre estructura formal e informal, reflexiona
 
 Esta pregunta sera tu caso de uso para el resto del curso.
 
+## Quiz de consolidacion
+
+Antes de continuar, verifica tu comprension de los conceptos clave de este capitulo.
+
+<!-- exercise:quiz-01-consolidacion -->
+
 ## Siguiente paso
 
 El proximo capitulo te ensenara a **medir** estas redes con tres metricas fundamentales:

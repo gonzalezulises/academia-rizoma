@@ -33,6 +33,14 @@ export interface SQLSchemaReference {
   tables: string[]
 }
 
+// UI configuration for exercise display
+export interface UIConfig {
+  hide_code?: boolean
+  show_output_only?: boolean
+  interactive_mode?: 'edit' | 'visualization' | 'readonly'
+  auto_run?: boolean
+}
+
 // Base exercise interface
 export interface BaseExercise {
   id: string
@@ -44,6 +52,7 @@ export interface BaseExercise {
   points: number
   hints?: string[]
   tags?: string[]
+  ui_config?: UIConfig
 }
 
 // Python code exercise

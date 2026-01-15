@@ -33,11 +33,19 @@ export function CodePlayground({
   onProgressUpdate,
   showSolution = false
 }: CodePlaygroundProps) {
+  // UI configuration from exercise YAML
+  const hideCode = exercise.ui_config?.hide_code ?? false
+  // showOutputOnly reserved for future use (hide tests tab, etc.)
+  const _showOutputOnly = exercise.ui_config?.show_output_only ?? false
+  void _showOutputOnly // Evita warning de unused
+  const autoRun = exercise.ui_config?.auto_run ?? hideCode // Auto-run if code is hidden
+
   const [code, setCode] = useState(progress?.current_code || exercise.starter_code)
   const [output, setOutput] = useState('')
   const [figures, setFigures] = useState<string[]>([])
   const [testResults, setTestResults] = useState<TestResult[]>([])
   const [isRunning, setIsRunning] = useState(false)
+  const [hasAutoRun, setHasAutoRun] = useState(false)
   const [activeTab, setActiveTab] = useState<'output' | 'tests'>('output')
   const [showSolutionCode, setShowSolutionCode] = useState(false)
 
@@ -142,6 +150,18 @@ export function CodePlayground({
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [handleRun, handleSubmit])
 
+  // Auto-run code when hide_code is true and Pyodide is ready
+  // Usamos setTimeout para evitar setState síncrono en el effect
+  useEffect(() => {
+    if (autoRun && pyodideReady && !hasAutoRun && !isRunning) {
+      const timeoutId = setTimeout(() => {
+        setHasAutoRun(true)
+        handleRun()
+      }, 0)
+      return () => clearTimeout(timeoutId)
+    }
+  }, [autoRun, pyodideReady, hasAutoRun, isRunning, handleRun])
+
   return (
     <ExerciseShell
       exercise={exercise}
@@ -180,73 +200,105 @@ export function CodePlayground({
           </div>
         )}
 
-        {/* Code Editor */}
-        <div className="border border-gray-200 dark:border-gray-700 rounded-md overflow-hidden">
-          <div className="bg-gray-100 dark:bg-gray-800 px-3 py-2 flex items-center justify-between border-b border-gray-200 dark:border-gray-700">
-            <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
-              Python
-            </span>
-            <div className="flex items-center gap-2">
-              <button
-                onClick={handleReset}
-                className="text-xs text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
-              >
-                Reiniciar
-              </button>
-              {showSolution && (
+        {/* Code Editor - hidden when hide_code is true */}
+        {!hideCode && (
+          <div className="border border-gray-200 dark:border-gray-700 rounded-md overflow-hidden">
+            <div className="bg-gray-100 dark:bg-gray-800 px-3 py-2 flex items-center justify-between border-b border-gray-200 dark:border-gray-700">
+              <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                Python
+              </span>
+              <div className="flex items-center gap-2">
                 <button
-                  onClick={() => setShowSolutionCode(!showSolutionCode)}
-                  className="text-xs text-rizoma-green hover:text-rizoma-green-dark dark:text-rizoma-green-light dark:hover:text-rizoma-green-light"
+                  onClick={handleReset}
+                  className="text-xs text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
                 >
-                  {showSolutionCode ? 'Ocultar solución' : 'Ver solución'}
+                  Reiniciar
                 </button>
-              )}
+                {showSolution && (
+                  <button
+                    onClick={() => setShowSolutionCode(!showSolutionCode)}
+                    className="text-xs text-rizoma-green hover:text-rizoma-green-dark dark:text-rizoma-green-light dark:hover:text-rizoma-green-light"
+                  >
+                    {showSolutionCode ? 'Ocultar solución' : 'Ver solución'}
+                  </button>
+                )}
+              </div>
             </div>
+            <Editor
+              height="256px"
+              language="python"
+              theme="vs-dark"
+              value={showSolutionCode ? exercise.solution_code : code}
+              onChange={(value) => !showSolutionCode && setCode(value || '')}
+              options={{
+                minimap: { enabled: false },
+                fontSize: 14,
+                lineNumbers: 'on',
+                scrollBeyondLastLine: false,
+                automaticLayout: true,
+                tabSize: 4,
+                readOnly: showSolutionCode
+              }}
+            />
           </div>
-          <Editor
-            height="256px"
-            language="python"
-            theme="vs-dark"
-            value={showSolutionCode ? exercise.solution_code : code}
-            onChange={(value) => !showSolutionCode && setCode(value || '')}
-            options={{
-              minimap: { enabled: false },
-              fontSize: 14,
-              lineNumbers: 'on',
-              scrollBeyondLastLine: false,
-              automaticLayout: true,
-              tabSize: 4,
-              readOnly: showSolutionCode
-            }}
-          />
-        </div>
+        )}
 
-        {/* Action buttons */}
-        <div className="flex items-center gap-3">
-          <button
-            onClick={handleRun}
-            disabled={!pyodideReady || isRunning}
-            className="flex items-center gap-2 px-4 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-          >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            Ejecutar
-            <kbd className="hidden sm:inline text-xs bg-gray-700 px-1.5 py-0.5 rounded">⌘↵</kbd>
-          </button>
-          <button
-            onClick={handleSubmit}
-            disabled={!pyodideReady || isRunning}
-            className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-          >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            Enviar
-            <kbd className="hidden sm:inline text-xs bg-green-700 px-1.5 py-0.5 rounded">⇧⌘↵</kbd>
-          </button>
-        </div>
+        {/* Action buttons - show simplified version when hide_code is true */}
+        {hideCode ? (
+          <div className="flex items-center gap-3">
+            {!hasAutoRun && (
+              <button
+                onClick={handleRun}
+                disabled={!pyodideReady || isRunning}
+                className="flex items-center gap-2 px-4 py-2 bg-rizoma-green text-white rounded-md hover:bg-rizoma-green-dark disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                Generar visualizacion
+              </button>
+            )}
+            {hasAutoRun && figures.length > 0 && (
+              <button
+                onClick={handleRun}
+                disabled={!pyodideReady || isRunning}
+                className="flex items-center gap-2 px-3 py-1.5 text-sm text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 transition-colors"
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                </svg>
+                Regenerar
+              </button>
+            )}
+          </div>
+        ) : (
+          <div className="flex items-center gap-3">
+            <button
+              onClick={handleRun}
+              disabled={!pyodideReady || isRunning}
+              className="flex items-center gap-2 px-4 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              Ejecutar
+              <kbd className="hidden sm:inline text-xs bg-gray-700 px-1.5 py-0.5 rounded">⌘↵</kbd>
+            </button>
+            <button
+              onClick={handleSubmit}
+              disabled={!pyodideReady || isRunning}
+              className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              Enviar
+              <kbd className="hidden sm:inline text-xs bg-green-700 px-1.5 py-0.5 rounded">⇧⌘↵</kbd>
+            </button>
+          </div>
+        )}
 
         {/* Output / Tests tabs */}
         <div className="border border-gray-200 dark:border-gray-700 rounded-md overflow-hidden">

@@ -4,6 +4,7 @@ import { useMemo } from 'react'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import rehypeHighlight from 'rehype-highlight'
+import rehypeRaw from 'rehype-raw'
 import { parseEmbeds, hasEmbeds } from '@/lib/content/embed-parser'
 import { Exercise } from '@/components/exercises'
 import type { Exercise as ExerciseType, ExerciseProgress } from '@/types/exercises'
@@ -26,7 +27,7 @@ function MarkdownSegment({ content, className }: { content: string; className: s
     <div className={className}>
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
-        rehypePlugins={[rehypeHighlight]}
+        rehypePlugins={[rehypeHighlight, rehypeRaw]}
         components={{
           // Custom styling for code blocks - let hljs handle styling
           pre: ({ children, ...props }) => (
@@ -211,7 +212,7 @@ export function SimpleMarkdownRenderer({ content, className = '' }: { content: s
     <div className={`prose prose-slate dark:prose-invert max-w-none ${className}`}>
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
-        rehypePlugins={[rehypeHighlight]}
+        rehypePlugins={[rehypeHighlight, rehypeRaw]}
         components={{
           // Custom styling for code blocks - let hljs handle styling
           pre: ({ children, ...props }) => (
