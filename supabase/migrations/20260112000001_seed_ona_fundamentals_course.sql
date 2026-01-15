@@ -30,20 +30,26 @@ ON CONFLICT (id) DO UPDATE SET
   description = EXCLUDED.description;
 
 -- 3. Insertar las lecciones
+-- IMPORTANTE: order_index debe ser GLOBAL (único) para toda la navegación del curso
 INSERT INTO lessons (id, course_id, module_id, title, content, lesson_type, order_index, duration_minutes, is_required, video_url)
 VALUES
-  -- Modulo 1: Entendiendo las Redes Ocultas
+  -- Modulo 1: Entendiendo las Redes Ocultas (order_index 1-3)
   ('f0a10100-0000-0000-0000-000000000001', 'f0a00000-0000-0000-0000-000000000001', 'f0a10000-0000-0000-0000-000000000001', 'Organigrama vs Red Informal', 'Ver archivo: content/courses/ona-fundamentals/module-01/lessons/01-organigrama-vs-red.md', 'text', 1, 20, true, null),
   ('f0a10200-0000-0000-0000-000000000001', 'f0a00000-0000-0000-0000-000000000001', 'f0a10000-0000-0000-0000-000000000001', 'Metricas de Centralidad', 'Ver archivo: content/courses/ona-fundamentals/module-01/lessons/02-metricas-centralidad.md', 'text', 2, 30, true, null),
   ('f0a10300-0000-0000-0000-000000000001', 'f0a00000-0000-0000-0000-000000000001', 'f0a10000-0000-0000-0000-000000000001', 'Disenando Encuestas ONA', 'Ver archivo: content/courses/ona-fundamentals/module-01/lessons/03-diseno-encuesta.md', 'text', 3, 25, true, null),
 
-  -- Modulo 2: De Datos a Decisiones
-  ('f0a20100-0000-0000-0000-000000000001', 'f0a00000-0000-0000-0000-000000000001', 'f0a20000-0000-0000-0000-000000000001', 'Patrones Problematicos', 'Ver archivo: content/courses/ona-fundamentals/module-02/lessons/04-patrones-problematicos.md', 'text', 1, 35, true, null),
-  ('f0a20200-0000-0000-0000-000000000001', 'f0a00000-0000-0000-0000-000000000001', 'f0a20000-0000-0000-0000-000000000001', 'Caso Integrador: Aseguradora del Pacifico', 'Ver archivo: content/courses/ona-fundamentals/module-02/lessons/05-caso-integrador.md', 'text', 2, 30, true, null)
+  -- Modulo 2: De Datos a Decisiones (order_index 4-5, continuando la secuencia)
+  ('f0a20100-0000-0000-0000-000000000001', 'f0a00000-0000-0000-0000-000000000001', 'f0a20000-0000-0000-0000-000000000001', 'Patrones Problematicos', 'Ver archivo: content/courses/ona-fundamentals/module-02/lessons/04-patrones-problematicos.md', 'text', 4, 35, true, null),
+  ('f0a20200-0000-0000-0000-000000000001', 'f0a00000-0000-0000-0000-000000000001', 'f0a20000-0000-0000-0000-000000000001', 'Caso Integrador: Aseguradora del Pacifico', 'Ver archivo: content/courses/ona-fundamentals/module-02/lessons/05-caso-integrador.md', 'text', 5, 30, true, null)
 
 ON CONFLICT (id) DO UPDATE SET
   title = EXCLUDED.title,
-  content = EXCLUDED.content;
+  content = EXCLUDED.content,
+  order_index = EXCLUDED.order_index;
+
+-- Fix para datos existentes (por si la migración ya corrió con valores incorrectos)
+UPDATE lessons SET order_index = 4 WHERE id = 'f0a20100-0000-0000-0000-000000000001';
+UPDATE lessons SET order_index = 5 WHERE id = 'f0a20200-0000-0000-0000-000000000001';
 
 -- Verificacion
 SELECT

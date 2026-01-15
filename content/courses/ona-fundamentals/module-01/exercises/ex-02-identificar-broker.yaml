@@ -1,27 +1,27 @@
 # Ejercicio 2: Identificando al broker
-# Red inter-departamental con analisis de fragmentacion
-# Modelo 4C x Bloom - Version mejorada
+# Red inter-departamental con análisis de fragmentación
+# Modelo 4C x Bloom - Versión mejorada
 
 id: ex-02-identificar-broker
 type: code-python
 title: "Identificando al broker"
-description: "Encuentra quien conecta departamentos que de otra forma estarian aislados."
+description: "Encuentra quién conecta departamentos que de otra forma estarían aislados."
 
 instructions: |
   ## El problema de los silos
 
-  Continuando con Manufactura Regional, la encuesta tambien pregunto:
-  *"Con quien de OTROS departamentos te comunicas al menos una vez por semana?"*
+  Continuando con Manufactura Regional, la encuesta también preguntó:
+  *"¿Con quién de OTROS departamentos te comunicas al menos una vez por semana?"*
 
   Los resultados revelaron un problema: **sin ciertas personas clave, los
-  departamentos quedarian completamente aislados**.
+  departamentos quedarían completamente aislados**.
 
   **Tu tarea:** Analiza la red y responde:
-  1. Quien es el broker principal (conecta mas departamentos)?
-  2. Que pasaria si esa persona se fuera?
-  3. La organizacion sabe que esta persona es critica?
+  1. ¿Quién es el broker principal (conecta más departamentos)?
+  2. ¿Qué pasaría si esa persona se fuera?
+  3. ¿La organización sabe que esta persona es crítica?
 
-  **Definicion de broker:** Persona con alta *intermediacion* (betweenness) -
+  **Definición de broker:** Persona con alta *intermediación* (betweenness) -
   muchos caminos entre otros nodos pasan por ella.
 
 difficulty: beginner
