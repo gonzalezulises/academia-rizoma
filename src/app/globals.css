@@ -214,3 +214,37 @@ body {
   color: var(--foreground);
   font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
+
+/* High contrast mode */
+.high-contrast {
+  --color-rizoma-green: #00FF00;
+  --color-rizoma-green-light: #00FF00;
+  --color-rizoma-green-dark: #00AA00;
+  --color-rizoma-cyan: #00FFFF;
+  --color-rizoma-red: #FF0000;
+}
+
+.high-contrast.dark {
+  --background: #000000;
+  --foreground: #FFFFFF;
+}
+
+.high-contrast *:focus-visible {
+  outline-width: 4px;
+  outline-style: dashed;
+}
+
+.high-contrast a {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+}
+
+/* Reduce motion mode */
+.reduce-motion *,
+.reduce-motion *::before,
+.reduce-motion *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}

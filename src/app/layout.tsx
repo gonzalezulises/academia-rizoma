@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Source_Serif_4 } from "next/font/google";
 import "./globals.css";
+import AccessibilityPanel from "@/components/AccessibilityPanel";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -46,11 +47,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es">
+    <html lang="es" suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var s=JSON.parse(localStorage.getItem('rizo_a11y_settings')||'{}');if(s.darkMode)document.documentElement.classList.add('dark');if(s.highContrast)document.documentElement.classList.add('high-contrast');if(s.reducedMotion)document.documentElement.classList.add('reduce-motion');if(s.textSize){var m={small:'14px',normal:'16px',large:'18px',xlarge:'20px'};document.documentElement.style.fontSize=m[s.textSize]||'16px'}}catch(e){}})()`,
+          }}
+        />
+      </head>
       <body
         className={`${inter.variable} ${sourceSerif.variable} font-sans antialiased`}
       >
         {children}
+        <AccessibilityPanel />
       </body>
     </html>
   );
