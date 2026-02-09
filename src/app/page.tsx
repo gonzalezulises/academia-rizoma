@@ -6,7 +6,7 @@ export default function Home() {
       {/* Header */}
       <header className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <nav className="flex justify-between items-center">
-          <Link href="/" className="flex items-center">
+          <a href="https://www.rizo.ma/academia" className="flex items-center">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/images/brand/logo-plenos-color-optimized.png"
@@ -19,7 +19,7 @@ export default function Home() {
               alt="Rizoma Academia"
               className="h-10 w-auto hidden dark:block"
             />
-          </Link>
+          </a>
           <div className="flex gap-4">
             <Link
               href="/login"
