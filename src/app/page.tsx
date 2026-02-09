@@ -130,42 +130,6 @@ export default function Home() {
           </div>
         </div>
       </main>
-
-      {/* Footer */}
-      <footer className="border-t border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <a href="https://www.rizo.ma/" className="flex items-center">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/images/brand/logo-plenos-color-optimized.png"
-                alt="Rizoma"
-                className="h-7 w-auto dark:hidden"
-              />
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/images/brand/logo-plenos-blanco-optimized.png"
-                alt="Rizoma"
-                className="h-7 w-auto hidden dark:block"
-              />
-            </a>
-            <div className="flex gap-6 text-sm text-gray-500 dark:text-gray-400">
-              <Link href="https://rizo.ma" className="hover:text-rizoma-green transition-colors">
-                rizo.ma
-              </Link>
-              <Link href="https://rizo.ma/contacto" className="hover:text-rizoma-green transition-colors">
-                Contacto
-              </Link>
-              <Link href="https://rizo.ma/politicas" className="hover:text-rizoma-green transition-colors">
-                Políticas
-              </Link>
-            </div>
-            <p className="text-sm text-gray-500 dark:text-gray-400">
-              © {new Date().getFullYear()} Rizoma. Todos los derechos reservados.
-            </p>
-          </div>
-        </div>
-      </footer>
     </div>
   )
 }

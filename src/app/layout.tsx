@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Source_Serif_4 } from "next/font/google";
 import "./globals.css";
 import AccessibilityPanel from "@/components/AccessibilityPanel";
+import Footer from "@/components/Footer";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -59,6 +60,7 @@ export default function RootLayout({
         className={`${inter.variable} ${sourceSerif.variable} font-sans antialiased`}
       >
         {children}
+        <Footer />
         <AccessibilityPanel />
       </body>
     </html>
