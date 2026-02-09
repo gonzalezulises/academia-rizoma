@@ -10,35 +10,40 @@ const upcomingCourses = [
     title: 'Introduccion a Python',
     description: 'Aprende Python desde cero con ejercicios practicos interactivos. Ideal para principiantes que quieren dar sus primeros pasos en programacion.',
     initial: 'P',
-    gradient: 'from-blue-500 to-indigo-600',
+    gradientFrom: '#3b82f6',
+    gradientTo: '#4f46e5',
   },
   {
     id: 'upcoming-human-analytics',
     title: 'Human Analytics',
     description: 'Aprende a tomar decisiones de talento basadas en datos. Metricas de engagement, rotacion, clima y desempeno con herramientas accesibles.',
     initial: 'H',
-    gradient: 'from-amber-500 to-orange-600',
+    gradientFrom: '#f59e0b',
+    gradientTo: '#ea580c',
   },
   {
     id: 'upcoming-ona',
     title: 'Desarrollo de ONAs',
     description: 'Aprende a disenar y ejecutar un Analisis de Redes Organizacionales. Diagnostica silos, cuellos de botella y dependencias con casos reales de LATAM.',
     initial: 'O',
-    gradient: 'from-purple-500 to-violet-600',
+    gradientFrom: '#a855f7',
+    gradientTo: '#7c3aed',
   },
   {
     id: 'upcoming-ia-proyectos',
     title: 'Practicas de Proyecto con IA',
     description: 'Integra herramientas de inteligencia artificial en la gestion de proyectos. Automatiza reportes, prioriza portafolios y acelera la toma de decisiones.',
     initial: 'I',
-    gradient: 'from-teal-500 to-emerald-600',
+    gradientFrom: '#14b8a6',
+    gradientTo: '#059669',
   },
   {
     id: 'upcoming-data-analytics',
     title: 'Data Analytics con Python',
     description: 'Curso completo de Data Analytics que cubre Analisis Descriptivo, Predictivo y Prescriptivo usando Python, Pandas y Scikit-Learn.',
     initial: 'D',
-    gradient: 'from-rose-500 to-pink-600',
+    gradientFrom: '#f43f5e',
+    gradientTo: '#ec4899',
   },
 ]
 
@@ -121,7 +126,7 @@ export default async function CoursesPage() {
               key={course.id}
               className="bg-white dark:bg-gray-800 rounded-xl shadow-sm overflow-hidden opacity-75 relative"
             >
-              <div className={`w-full h-48 bg-gradient-to-br ${course.gradient} flex items-center justify-center`}>
+              <div className="w-full h-48 flex items-center justify-center" style={{ background: `linear-gradient(to bottom right, ${course.gradientFrom}, ${course.gradientTo})` }}>
                 <span className="text-white text-4xl font-bold">
                   {course.initial}
                 </span>
