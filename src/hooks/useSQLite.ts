@@ -3,9 +3,12 @@
 import { useState, useCallback, useRef, useEffect } from 'react'
 import type { SQLExecutionResult } from '@/types/exercises'
 
+// Safe SQL identifier pattern
+const SAFE_SQL_IDENTIFIER = /^[a-zA-Z_][a-zA-Z0-9_ ]*$/
+
 // sql.js types
 interface SqlJsDatabase {
-  run: (sql: string) => void
+  run: (sql: string, params?: unknown[]) => void
   exec: (sql: string) => QueryResult[]
   getRowsModified: () => number
   close: () => void
@@ -47,6 +50,9 @@ interface UseSQLiteReturn {
 // SQL.js CDN
 const SQL_JS_CDN = 'https://sql.js.org/dist/'
 
+// Module-level deduplication: prevent concurrent script loads
+let sqlJsScriptPromise: Promise<void> | null = null
+
 export function useSQLite(options: UseSQLiteOptions = {}): UseSQLiteReturn {
   const { schema, csvData, onLoad, onError } = options
 
@@ -57,19 +63,26 @@ export function useSQLite(options: UseSQLiteOptions = {}): UseSQLiteReturn {
   const sqlRef = useRef<SqlJsStatic | null>(null)
   const dbRef = useRef<SqlJsDatabase | null>(null)
 
-  // Load sql.js script
+  // Load sql.js script with deduplication
   const loadSqlJsScript = useCallback(async (): Promise<void> => {
     if (typeof window === 'undefined') return
     if (window.initSqlJs) return
 
-    return new Promise((resolve, reject) => {
+    if (sqlJsScriptPromise) return sqlJsScriptPromise
+
+    sqlJsScriptPromise = new Promise<void>((resolve, reject) => {
       const script = document.createElement('script')
       script.src = `${SQL_JS_CDN}sql-wasm.js`
       script.async = true
       script.onload = () => resolve()
-      script.onerror = () => reject(new Error('Failed to load sql.js'))
+      script.onerror = () => {
+        sqlJsScriptPromise = null
+        reject(new Error('Failed to load sql.js'))
+      }
       document.head.appendChild(script)
     })
+
+    return sqlJsScriptPromise
   }, [])
 
   // Initialize sql.js
@@ -150,22 +163,30 @@ export function useSQLite(options: UseSQLiteOptions = {}): UseSQLiteReturn {
   ): Promise<void> => {
     if (!dbRef.current) return
 
+    // Validate identifiers to prevent SQL injection
+    if (!SAFE_SQL_IDENTIFIER.test(tableName)) {
+      throw new Error(`Invalid table name: ${tableName}`)
+    }
+
     const { headers, rows } = parseCSV(csvContent)
+
+    for (const header of headers) {
+      if (!SAFE_SQL_IDENTIFIER.test(header)) {
+        throw new Error(`Invalid column name: ${header}`)
+      }
+    }
 
     // Create table
     const columns = headers.map(h => `"${h}" TEXT`).join(', ')
     dbRef.current.run(`CREATE TABLE IF NOT EXISTS "${tableName}" (${columns})`)
 
-    // Insert rows
+    // Insert rows with parameterized queries
     const placeholders = headers.map(() => '?').join(', ')
-    const insertSql = `INSERT INTO "${tableName}" VALUES (${placeholders})`
+    const insertSql = `INSERT INTO "${tableName}" (${headers.map(h => `"${h}"`).join(', ')}) VALUES (${placeholders})`
 
     for (const row of rows) {
-      // Use parameterized query for safety
       const values = row.map(v => v === '' ? null : v)
-      dbRef.current.run(
-        `INSERT INTO "${tableName}" (${headers.map(h => `"${h}"`).join(', ')}) VALUES (${values.map(v => v === null ? 'NULL' : `'${v.replace(/'/g, "''")}'`).join(', ')})`
-      )
+      dbRef.current.run(insertSql, values)
     }
   }, [parseCSV])
 
@@ -260,8 +281,15 @@ export function useSQLite(options: UseSQLiteOptions = {}): UseSQLiteReturn {
   // Reset database
   const reset = useCallback(async (): Promise<void> => {
     if (dbRef.current) {
-      dbRef.current.close()
+      try {
+        dbRef.current.close()
+      } catch {
+        // Ignore close errors on stale handle
+      }
+      dbRef.current = null
     }
+
+    setIsReady(false)
 
     if (sqlRef.current) {
       dbRef.current = new sqlRef.current.Database()
@@ -277,6 +305,8 @@ export function useSQLite(options: UseSQLiteOptions = {}): UseSQLiteReturn {
           await loadCSVInternal(tableName, content)
         }
       }
+
+      setIsReady(true)
     }
   }, [schema, csvData, loadCSVInternal])
 
@@ -303,6 +333,18 @@ export function useSQLite(options: UseSQLiteOptions = {}): UseSQLiteReturn {
       initSqlJs()
     }
   }, [schema, csvData, isReady, isLoading, initSqlJs])
+
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => {
+      try {
+        dbRef.current?.close()
+      } catch {
+        // Ignore close errors
+      }
+      dbRef.current = null
+    }
+  }, [])
 
   return {
     isLoading,

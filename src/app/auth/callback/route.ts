@@ -8,7 +8,9 @@ export async function GET(request: NextRequest) {
   const code = searchParams.get('code')
   const token_hash = searchParams.get('token_hash')
   const type = searchParams.get('type')
-  const next = searchParams.get('next') ?? '/courses'
+  const nextParam = searchParams.get('next') ?? '/courses'
+  // Only allow relative paths (prevent open redirect)
+  const next = (nextParam.startsWith('/') && !nextParam.startsWith('//')) ? nextParam : '/courses'
 
   // Behind a Vercel rewrite (www.rizo.ma/academia/* → academia-rizoma.vercel.app/*),
   // request.url.origin is the internal deployment URL. We must redirect back to the
