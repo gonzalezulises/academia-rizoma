@@ -1,8 +1,6 @@
 import { createServerClient } from '@supabase/ssr'
 import { type NextRequest, NextResponse } from 'next/server'
 
-const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? ''
-
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url)
   const code = searchParams.get('code')
@@ -11,16 +9,6 @@ export async function GET(request: NextRequest) {
   const nextParam = searchParams.get('next') ?? '/courses'
   // Only allow relative paths (prevent open redirect)
   const next = (nextParam.startsWith('/') && !nextParam.startsWith('//')) ? nextParam : '/courses'
-
-  // Behind a Vercel rewrite (www.rizo.ma/academia/* → academia-rizoma.vercel.app/*),
-  // request.url.origin is the internal deployment URL. We must redirect back to the
-  // user-facing domain so cookies land on the correct origin.
-  const forwardedHost = request.headers.get('x-forwarded-host')
-  const forwardedProto = request.headers.get('x-forwarded-proto') ?? 'https'
-  const origin = forwardedHost
-    ? `${forwardedProto}://${forwardedHost}`
-    : new URL(request.url).origin
-  const baseRedirect = `${origin}${basePath}`
 
   const cookiesToForward: { name: string; value: string; options: Record<string, unknown> }[] = []
 
@@ -53,9 +41,17 @@ export async function GET(request: NextRequest) {
     success = !error
   }
 
-  const redirectUrl = success
-    ? `${baseRedirect}${next}`
-    : `${baseRedirect}/login?error=auth_failed`
+  // Use nextUrl which handles basePath automatically — avoids double /academia
+  // Also override host for Vercel rewrites so cookies land on the user-facing domain
+  const redirectUrl = request.nextUrl.clone()
+  redirectUrl.pathname = success ? next : '/login'
+  redirectUrl.search = success ? '' : '?error=auth_failed'
+
+  const forwardedHost = request.headers.get('x-forwarded-host')
+  if (forwardedHost) {
+    redirectUrl.host = forwardedHost
+    redirectUrl.protocol = request.headers.get('x-forwarded-proto') ?? 'https'
+  }
 
   const response = NextResponse.redirect(redirectUrl)
 
