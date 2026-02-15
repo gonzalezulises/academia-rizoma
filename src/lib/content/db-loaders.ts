@@ -16,5 +16,11 @@ export async function loadExerciseFromDB(exerciseId: string): Promise<LoadedExer
   if (!data) return null
 
   const exercise = data.exercise_data as Exercise
+
+  // Validate required fields before returning
+  if (!exercise || !exercise.id || !exercise.type || !exercise.title) {
+    return null
+  }
+
   return { exercise, datasets: new Map(), schema: undefined }
 }

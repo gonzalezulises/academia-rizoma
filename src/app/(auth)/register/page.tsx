@@ -17,13 +17,11 @@ export default function RegisterPage() {
     setLoading(true)
     setError(null)
 
-    // Store name for post-callback profile update
-    localStorage.setItem('pending_full_name', fullName)
-
     const { error } = await supabase.auth.signInWithOtp({
       email,
       options: {
         emailRedirectTo: `${window.location.origin}${process.env.NEXT_PUBLIC_BASE_PATH ?? ''}/auth/callback`,
+        data: { full_name: fullName },
       },
     })
 

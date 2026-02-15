@@ -5,6 +5,7 @@ import { CodePlayground } from './CodePlayground'
 import { SQLPlayground } from './SQLPlayground'
 import { ColabLauncher } from './ColabLauncher'
 import { QuizPlayground } from './QuizPlayground'
+import { ExerciseErrorBoundary } from './ExerciseErrorBoundary'
 import type {
   Exercise as ExerciseType,
   ExerciseProgress,
@@ -118,55 +119,59 @@ export function Exercise({
   }
 
   // Render the appropriate playground based on exercise type
-  switch (exercise.type) {
-    case 'code-python':
-      return (
-        <CodePlayground
-          exercise={exercise}
-          progress={progress}
-          onProgressUpdate={onProgressUpdate}
-          showSolution={showSolution}
-        />
-      )
+  const playground = (() => {
+    switch (exercise.type) {
+      case 'code-python':
+        return (
+          <CodePlayground
+            exercise={exercise}
+            progress={progress}
+            onProgressUpdate={onProgressUpdate}
+            showSolution={showSolution}
+          />
+        )
 
-    case 'sql':
-      return (
-        <SQLPlayground
-          exercise={exercise}
-          schema={schema}
-          datasets={datasets}
-          progress={progress}
-          onProgressUpdate={onProgressUpdate}
-          showSolution={showSolution}
-        />
-      )
+      case 'sql':
+        return (
+          <SQLPlayground
+            exercise={exercise}
+            schema={schema}
+            datasets={datasets}
+            progress={progress}
+            onProgressUpdate={onProgressUpdate}
+            showSolution={showSolution}
+          />
+        )
 
-    case 'colab':
-      return (
-        <ColabLauncher
-          exercise={exercise}
-          progress={progress}
-          onProgressUpdate={onProgressUpdate}
-        />
-      )
+      case 'colab':
+        return (
+          <ColabLauncher
+            exercise={exercise}
+            progress={progress}
+            onProgressUpdate={onProgressUpdate}
+          />
+        )
 
-    case 'quiz':
-      return (
-        <QuizPlayground
-          exercise={exercise}
-          progress={progress}
-          onProgressUpdate={onProgressUpdate}
-        />
-      )
+      case 'quiz':
+        return (
+          <QuizPlayground
+            exercise={exercise}
+            progress={progress}
+            onProgressUpdate={onProgressUpdate}
+          />
+        )
 
-    default:
-      return (
-        <ExerciseError
-          error={`Unknown exercise type: ${(exercise as { type: string }).type}`}
-          exerciseId={exerciseId}
-          courseSlug={courseSlug}
-          moduleId={moduleId}
-        />
-      )
-  }
+      default:
+        return (
+          <ExerciseError
+            error={`Unknown exercise type: ${(exercise as { type: string }).type}`}
+            exerciseId={exerciseId}
+            courseSlug={courseSlug}
+            moduleId={moduleId}
+          />
+        )
+    }
+  })()
+
+  return <ExerciseErrorBoundary>{playground}</ExerciseErrorBoundary>
 }

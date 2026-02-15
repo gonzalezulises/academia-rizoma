@@ -156,6 +156,7 @@ export function SQLPlayground({
             <div className="flex items-center gap-2">
               <button
                 onClick={handleReset}
+                aria-label="Reiniciar query"
                 className="text-xs text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
               >
                 Reiniciar
@@ -193,6 +194,7 @@ export function SQLPlayground({
           <button
             onClick={handleRun}
             disabled={!isReady || isRunning}
+            aria-label="Ejecutar query SQL"
             className="flex items-center gap-2 px-4 py-2 bg-rizoma-green text-white rounded-md hover:bg-rizoma-green-dark disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

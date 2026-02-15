@@ -315,6 +315,7 @@ export function QuizPlayground({
           <div className="mt-6 text-center">
             <button
               onClick={handleShowResults}
+              aria-label="Ver resultados finales del quiz"
               className="px-6 py-3 bg-rizoma-green hover:bg-rizoma-green-dark text-white font-medium rounded-lg transition-colors"
             >
               Ver resultados finales
@@ -356,6 +357,7 @@ export function QuizPlayground({
               {config.allow_retry && !passed && (
                 <button
                   onClick={handleRetry}
+                  aria-label="Reintentar quiz"
                   className="mt-4 px-6 py-2 bg-yellow-500 hover:bg-yellow-600 text-white font-medium rounded-lg transition-colors"
                 >
                   Intentar de nuevo

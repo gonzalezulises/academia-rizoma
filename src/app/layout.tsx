@@ -38,8 +38,8 @@ export const metadata: Metadata = {
     description: "Plataforma de aprendizaje de Rizoma",
   },
   icons: {
-    icon: "/academia/favicon.png",
-    apple: "/academia/apple-touch-icon.png",
+    icon: "/favicon.png",
+    apple: "/apple-touch-icon.png",
   },
 };
 

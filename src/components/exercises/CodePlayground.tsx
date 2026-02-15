@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useCallback, useEffect } from 'react'
+import { useState, useCallback, useEffect, useRef } from 'react'
 import dynamic from 'next/dynamic'
 import { usePyodide } from '@/hooks/usePyodide'
 import { ExerciseShell } from './ExerciseShell'
@@ -179,6 +179,10 @@ export function CodePlayground({
 
   // State para preguntas de comprensión
   const [comprehensionStates, setComprehensionStates] = useState<Record<string, ComprehensionState>>({})
+  const comprehensionStatesRef = useRef(comprehensionStates)
+  useEffect(() => {
+    comprehensionStatesRef.current = comprehensionStates
+  }, [comprehensionStates])
 
   // Handlers para preguntas de comprensión
   const handleComprehensionSelect = useCallback((questionId: string, optionId: string) => {
@@ -192,7 +196,7 @@ export function CodePlayground({
     const question = exercise.comprehension_questions?.find(q => q.id === questionId)
     if (!question) return
 
-    const state = comprehensionStates[questionId]
+    const state = comprehensionStatesRef.current[questionId]
     if (!state?.selectedOption) return
 
     const isCorrect = state.selectedOption === question.correct
@@ -200,7 +204,7 @@ export function CodePlayground({
       ...prev,
       [questionId]: { ...prev[questionId], isSubmitted: true, isCorrect }
     }))
-  }, [exercise.comprehension_questions, comprehensionStates])
+  }, [exercise.comprehension_questions])
 
   const {
     isLoading: pyodideLoading,
@@ -363,6 +367,7 @@ export function CodePlayground({
               <div className="flex items-center gap-2">
                 <button
                   onClick={handleReset}
+                  aria-label="Reiniciar codigo"
                   className="text-xs text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
                 >
                   Reiniciar
@@ -430,6 +435,7 @@ export function CodePlayground({
             <button
               onClick={handleRun}
               disabled={!pyodideReady || isRunning}
+              aria-label="Ejecutar codigo"
               className="flex items-center gap-2 px-4 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -442,6 +448,7 @@ export function CodePlayground({
             <button
               onClick={handleSubmit}
               disabled={!pyodideReady || isRunning}
+              aria-label="Enviar codigo para evaluacion"
               className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -458,6 +465,7 @@ export function CodePlayground({
           <div className="flex border-b border-gray-200 dark:border-gray-700">
             <button
               onClick={() => setActiveTab('output')}
+              aria-label="Ver output"
               className={`px-4 py-2 text-sm font-medium ${
                 activeTab === 'output'
                   ? 'bg-white dark:bg-gray-800 text-gray-900 dark:text-white border-b-2 border-rizoma-green'
@@ -468,6 +476,7 @@ export function CodePlayground({
             </button>
             <button
               onClick={() => setActiveTab('tests')}
+              aria-label="Ver resultados de tests"
               className={`px-4 py-2 text-sm font-medium flex items-center gap-2 ${
                 activeTab === 'tests'
                   ? 'bg-white dark:bg-gray-800 text-gray-900 dark:text-white border-b-2 border-rizoma-green'
