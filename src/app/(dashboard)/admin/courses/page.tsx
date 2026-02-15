@@ -1,8 +1,7 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { createClient } from '@/lib/supabase/client'
-import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import type { Course, Profile } from '@/types'
 import Navbar from '@/components/Navbar'
@@ -15,17 +14,12 @@ export default function AdminCoursesPage() {
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const [saving, setSaving] = useState(false)
-  const supabase = createClient()
-  const router = useRouter()
+  const supabase = useMemo(() => createClient(), [])
 
   useEffect(() => {
     const init = async () => {
       const { data: { user: authUser } } = await supabase.auth.getUser()
-
-      if (!authUser) {
-        router.push('/login')
-        return
-      }
+      if (!authUser) return
 
       const { data: profile } = await supabase
         .from('profiles')
@@ -33,12 +27,7 @@ export default function AdminCoursesPage() {
         .eq('id', authUser.id)
         .single()
 
-      if (!profile || (profile.role !== 'admin' && profile.role !== 'instructor')) {
-        router.push('/courses')
-        return
-      }
-
-      setUser(profile)
+      if (profile) setUser(profile)
 
       const { data: coursesData } = await supabase
         .from('courses')
@@ -51,7 +40,7 @@ export default function AdminCoursesPage() {
     }
 
     init()
-  }, [supabase, router])
+  }, [supabase])
 
   const handleCreateCourse = async (e: React.FormEvent) => {
     e.preventDefault()

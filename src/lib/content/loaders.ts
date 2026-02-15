@@ -19,7 +19,7 @@ const SHARED_PATH = path.join(CONTENT_PATH, 'shared')
 export async function loadEnvironmentConfig(): Promise<RuntimeConfig> {
   const configPath = path.join(CONFIG_PATH, 'environments.yaml')
   const content = await fs.readFile(configPath, 'utf-8')
-  return yaml.load(content) as RuntimeConfig
+  return yaml.load(content, { schema: yaml.JSON_SCHEMA }) as RuntimeConfig
 }
 
 // Course configuration
@@ -46,7 +46,7 @@ export interface ModuleReference {
 export async function loadCourseConfig(courseSlug: string): Promise<CourseConfig> {
   const configPath = path.join(COURSES_PATH, courseSlug, 'course.yaml')
   const content = await fs.readFile(configPath, 'utf-8')
-  return yaml.load(content) as CourseConfig
+  return yaml.load(content, { schema: yaml.JSON_SCHEMA }) as CourseConfig
 }
 
 // Module configuration
@@ -79,7 +79,7 @@ export async function loadModuleConfig(
 ): Promise<ModuleConfig> {
   const configPath = path.join(COURSES_PATH, courseSlug, moduleId, 'module.yaml')
   const content = await fs.readFile(configPath, 'utf-8')
-  return yaml.load(content) as ModuleConfig
+  return yaml.load(content, { schema: yaml.JSON_SCHEMA }) as ModuleConfig
 }
 
 // Exercise loader
@@ -96,14 +96,14 @@ export async function loadExercise(
     `${exerciseId}.yaml`
   )
   const content = await fs.readFile(exercisePath, 'utf-8')
-  return yaml.load(content) as Exercise
+  return yaml.load(content, { schema: yaml.JSON_SCHEMA }) as Exercise
 }
 
 // Exercise with file path
 export async function loadExerciseByPath(filePath: string): Promise<Exercise> {
   const fullPath = path.join(COURSES_PATH, filePath)
   const content = await fs.readFile(fullPath, 'utf-8')
-  return yaml.load(content) as Exercise
+  return yaml.load(content, { schema: yaml.JSON_SCHEMA }) as Exercise
 }
 
 // Dataset loader

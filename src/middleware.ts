@@ -1,6 +1,13 @@
 import { createServerClient } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
 
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? ''
+
+// Routes that require authentication
+const PROTECTED_PREFIXES = ['/dashboard', '/admin', '/courses/']
+// Routes only for unauthenticated users
+const AUTH_ROUTES = ['/login', '/register']
+
 export async function middleware(request: NextRequest) {
   let supabaseResponse = NextResponse.next({ request })
 
@@ -24,7 +31,25 @@ export async function middleware(request: NextRequest) {
   )
 
   // Refresh the session — required for Server Components to read updated cookies
-  await supabase.auth.getUser()
+  const { data: { user } } = await supabase.auth.getUser()
+
+  const pathname = request.nextUrl.pathname
+
+  // Redirect unauthenticated users away from protected routes
+  const isProtected = PROTECTED_PREFIXES.some(prefix => pathname.startsWith(prefix))
+  if (isProtected && !user) {
+    const loginUrl = request.nextUrl.clone()
+    loginUrl.pathname = `${basePath}/login`
+    return NextResponse.redirect(loginUrl)
+  }
+
+  // Redirect authenticated users away from auth routes
+  const isAuthRoute = AUTH_ROUTES.some(route => pathname === route)
+  if (isAuthRoute && user) {
+    const coursesUrl = request.nextUrl.clone()
+    coursesUrl.pathname = `${basePath}/courses`
+    return NextResponse.redirect(coursesUrl)
+  }
 
   return supabaseResponse
 }
