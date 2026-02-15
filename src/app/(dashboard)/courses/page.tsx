@@ -2,8 +2,6 @@ import { createClient } from '@/lib/supabase/server'
 import Link from 'next/link'
 import Navbar from '@/components/Navbar'
 
-const SQL_COURSE_ID = 'c1d2e3f4-a5b6-4c7d-8e9f-0a1b2c3d4e5f'
-
 const upcomingCourses = [
   {
     id: 'upcoming-python',
@@ -50,14 +48,15 @@ const upcomingCourses = [
 export default async function CoursesPage() {
   const supabase = await createClient()
 
-  const { data: sqlCourse } = await supabase
+  // All published courses (file-based + AI-generated)
+  const { data: courses } = await supabase
     .from('courses')
     .select(`
       *,
-      instructor:profiles(full_name, avatar_url)
+      instructor:profiles!courses_instructor_id_fkey(full_name, avatar_url)
     `)
-    .eq('id', SQL_COURSE_ID)
-    .single()
+    .eq('is_published', true)
+    .order('created_at', { ascending: false })
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
@@ -70,55 +69,56 @@ export default async function CoursesPage() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {/* SQL Course - Active */}
-          {sqlCourse && (
+          {/* Published courses from DB */}
+          {courses?.map((course) => (
             <Link
-              href={`/courses/${sqlCourse.id}`}
+              key={course.id}
+              href={`/courses/${course.id}`}
               className="bg-white dark:bg-gray-800 rounded-xl shadow-sm hover:shadow-md transition-shadow overflow-hidden"
             >
-              {sqlCourse.thumbnail_url ? (
+              {course.thumbnail_url ? (
                 <img
-                  src={sqlCourse.thumbnail_url}
-                  alt={sqlCourse.title}
+                  src={course.thumbnail_url}
+                  alt={course.title}
                   className="w-full h-48 object-cover"
                 />
               ) : (
                 <div className="w-full h-48 bg-gradient-to-br from-rizoma-green to-rizoma-cyan flex items-center justify-center">
                   <span className="text-white text-4xl font-bold">
-                    {sqlCourse.title.charAt(0)}
+                    {course.title.charAt(0)}
                   </span>
                 </div>
               )}
               <div className="p-6">
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                  {sqlCourse.title}
+                  {course.title}
                 </h3>
                 <p className="text-gray-600 dark:text-gray-400 text-sm line-clamp-2 mb-4">
-                  {sqlCourse.description}
+                  {course.description}
                 </p>
-                {sqlCourse.instructor && (
+                {course.instructor && (
                   <div className="flex items-center">
                     <div className="w-8 h-8 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
-                      {sqlCourse.instructor.avatar_url ? (
+                      {course.instructor.avatar_url ? (
                         <img
-                          src={sqlCourse.instructor.avatar_url}
-                          alt={sqlCourse.instructor.full_name}
+                          src={course.instructor.avatar_url}
+                          alt={course.instructor.full_name}
                           className="w-8 h-8 rounded-full"
                         />
                       ) : (
                         <span className="text-sm font-medium text-gray-600 dark:text-gray-400">
-                          {sqlCourse.instructor.full_name?.charAt(0) || 'I'}
+                          {course.instructor.full_name?.charAt(0) || 'I'}
                         </span>
                       )}
                     </div>
                     <span className="ml-2 text-sm text-gray-600 dark:text-gray-400">
-                      {sqlCourse.instructor.full_name || 'Instructor'}
+                      {course.instructor.full_name || 'Instructor'}
                     </span>
                   </div>
                 )}
               </div>
             </Link>
-          )}
+          ))}
 
           {/* Upcoming Courses - Not clickable */}
           {upcomingCourses.map((course) => (

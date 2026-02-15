@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { resolveExercise, loadExercise } from '@/lib/content/loaders'
+import { loadExerciseFromDB } from '@/lib/content/db-loaders'
 import { promises as fs } from 'fs'
 import path from 'path'
 import yaml from 'js-yaml'
@@ -45,6 +46,21 @@ export async function GET(
   const moduleId = searchParams.get('module')
 
   try {
+    // Try DB first (AI-generated courses store exercises as JSONB)
+    try {
+      const dbResult = await loadExerciseFromDB(exerciseId)
+      if (dbResult) {
+        const { exercise } = dbResult
+        return NextResponse.json({
+          exercise: { ...exercise, solution_code: undefined },
+          datasets: {},
+          schema: undefined,
+        })
+      }
+    } catch {
+      // DB lookup failed, continue to file-based loading
+    }
+
     let exercise: Exercise | null = null
     let datasets = new Map<string, string>()
     let schema: string | undefined
