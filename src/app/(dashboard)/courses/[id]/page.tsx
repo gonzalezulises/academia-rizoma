@@ -1,5 +1,6 @@
 import { createClient } from '@/lib/supabase/server'
-import { notFound } from 'next/navigation'
+import { notFound, redirect } from 'next/navigation'
+import { revalidatePath } from 'next/cache'
 import Link from 'next/link'
 import Navbar from '@/components/Navbar'
 import CourseMap from '@/components/course/CourseMap'
@@ -82,18 +83,22 @@ export default async function CoursePage({ params }: CoursePageProps) {
     }
   }
 
-  // Enroll handler - done via API
+  // Enroll handler - done via server action
   const handleEnroll = async () => {
     'use server'
     const supabase = await createClient()
     const { data: { user } } = await supabase.auth.getUser()
 
-    if (!user) return
+    if (!user) {
+      redirect('/login')
+    }
 
     await supabase.from('enrollments').insert({
       user_id: user.id,
       course_id: id
     })
+
+    revalidatePath(`/courses/${id}`)
   }
 
   // Format modules with lessons for the CourseMap
