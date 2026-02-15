@@ -9,8 +9,10 @@ const PYODIDE_CDNS = [
   'https://cdn.jsdelivr.net/pyodide/v0.26.2/full/',
   'https://pyodide-cdn2.iodide.io/v0.26.2/full/',
 ]
-// Default to first CDN
-const PYODIDE_CDN = PYODIDE_CDNS[0]
+
+// Module-level deduplication: prevent concurrent script loads
+let pyodideScriptPromise: Promise<string> | null = null
+let resolvedCDN: string | null = null
 
 // Type definitions for Pyodide
 interface PyodideInterface {
@@ -51,6 +53,7 @@ interface UsePyodideReturn {
 
 export function usePyodide(options: UsePyodideOptions = {}): UsePyodideReturn {
   const { packages = [], onLoad, onError } = options
+  const packagesKey = JSON.stringify(packages)
 
   const [isLoading, setIsLoading] = useState(false)
   const [isReady, setIsReady] = useState(false)
@@ -61,55 +64,53 @@ export function usePyodide(options: UsePyodideOptions = {}): UsePyodideReturn {
   const stdoutRef = useRef<string>('')
   const stderrRef = useRef<string>('')
 
-  // Load Pyodide script with retry logic
-  const loadPyodideScript = useCallback(async (): Promise<void> => {
-    if (typeof window === 'undefined') return
+  // Load Pyodide script with CDN fallback and deduplication
+  const loadPyodideScript = useCallback(async (): Promise<string> => {
+    if (typeof window === 'undefined') return PYODIDE_CDNS[0]
 
-    // Check if already loaded
-    if (window.loadPyodide) return
+    // Already loaded
+    if (window.loadPyodide && resolvedCDN) return resolvedCDN
 
-    const maxRetries = 2
-    let lastError: Error | null = null
+    // Deduplicate concurrent calls
+    if (pyodideScriptPromise) return pyodideScriptPromise
 
-    for (let attempt = 0; attempt <= maxRetries; attempt++) {
-      try {
-        await new Promise<void>((resolve, reject) => {
-          // Remove any previous failed script
-          const existingScript = document.querySelector(`script[src*="pyodide.js"]`)
-          if (existingScript) {
-            existingScript.remove()
-          }
+    pyodideScriptPromise = (async () => {
+      for (const cdn of PYODIDE_CDNS) {
+        try {
+          await new Promise<void>((resolve, reject) => {
+            const existingScript = document.querySelector(`script[src*="pyodide.js"]`)
+            if (existingScript) existingScript.remove()
 
-          const script = document.createElement('script')
-          script.src = `${PYODIDE_CDN}pyodide.js`
-          script.async = true
-          script.crossOrigin = 'anonymous'
+            const script = document.createElement('script')
+            script.src = `${cdn}pyodide.js`
+            script.async = true
+            script.crossOrigin = 'anonymous'
 
-          const timeout = setTimeout(() => {
-            reject(new Error('Pyodide script load timeout (30s)'))
-          }, 30000)
+            const timeout = setTimeout(() => {
+              reject(new Error('Pyodide script load timeout (30s)'))
+            }, 30000)
 
-          script.onload = () => {
-            clearTimeout(timeout)
-            resolve()
-          }
-          script.onerror = () => {
-            clearTimeout(timeout)
-            reject(new Error(`Failed to load Pyodide script from CDN (attempt ${attempt + 1})`))
-          }
-          document.head.appendChild(script)
-        })
-        return // Success, exit the retry loop
-      } catch (err) {
-        lastError = err instanceof Error ? err : new Error(String(err))
-        if (attempt < maxRetries) {
-          // Wait before retry
-          await new Promise(r => setTimeout(r, 1000 * (attempt + 1)))
+            script.onload = () => {
+              clearTimeout(timeout)
+              resolve()
+            }
+            script.onerror = () => {
+              clearTimeout(timeout)
+              reject(new Error(`Failed to load Pyodide from ${cdn}`))
+            }
+            document.head.appendChild(script)
+          })
+          resolvedCDN = cdn
+          return cdn
+        } catch {
+          // Try next CDN
         }
       }
-    }
+      pyodideScriptPromise = null
+      throw new Error('Failed to load Pyodide from all CDNs')
+    })()
 
-    throw lastError || new Error('Failed to load Pyodide after retries')
+    return pyodideScriptPromise
   }, [])
 
   // Initialize Pyodide
@@ -120,8 +121,8 @@ export function usePyodide(options: UsePyodideOptions = {}): UsePyodideReturn {
     setLoadProgress(10)
 
     try {
-      // Load the script first
-      await loadPyodideScript()
+      // Load the script first, get the working CDN URL
+      const cdnUrl = await loadPyodideScript()
       setLoadProgress(30)
 
       // Initialize Pyodide
@@ -130,7 +131,7 @@ export function usePyodide(options: UsePyodideOptions = {}): UsePyodideReturn {
       }
 
       const pyodide = await window.loadPyodide({
-        indexURL: PYODIDE_CDN
+        indexURL: cdnUrl
       })
       setLoadProgress(60)
 
@@ -164,7 +165,8 @@ export function usePyodide(options: UsePyodideOptions = {}): UsePyodideReturn {
     } finally {
       setIsLoading(false)
     }
-  }, [loadPyodideScript, packages, onLoad, onError])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loadPyodideScript, packagesKey, onLoad, onError])
 
   // Run Python code
   const runCode = useCallback(async (code: string): Promise<PythonExecutionResult> => {
@@ -350,7 +352,8 @@ for var in user_vars:
     if (packages.length > 0 && !isReady && !isLoading) {
       initPyodide()
     }
-  }, [packages.length, isReady, isLoading, initPyodide])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [packagesKey, isReady, isLoading, initPyodide])
 
   return {
     isLoading,

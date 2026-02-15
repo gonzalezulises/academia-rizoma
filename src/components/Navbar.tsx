@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useMemo } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
 import type { Profile } from '@/types'
@@ -10,7 +10,7 @@ import { NotificationBell } from '@/components/notifications'
 export default function Navbar() {
   const [user, setUser] = useState<Profile | null>(null)
   const [loading, setLoading] = useState(true)
-  const supabase = createClient()
+  const supabase = useMemo(() => createClient(), [])
   const router = useRouter()
 
   useEffect(() => {
@@ -24,13 +24,12 @@ export default function Navbar() {
           .eq('id', authUser.id)
           .single()
 
-        // Sync pending full_name from registration (stored in localStorage before magic link)
+        // Sync full_name from user_metadata (set during registration)
         if (profile && !profile.full_name) {
-          const pendingName = localStorage.getItem('pending_full_name')
-          if (pendingName) {
-            await supabase.from('profiles').update({ full_name: pendingName }).eq('id', authUser.id)
-            localStorage.removeItem('pending_full_name')
-            profile.full_name = pendingName
+          const metaName = authUser.user_metadata?.full_name
+          if (metaName) {
+            await supabase.from('profiles').update({ full_name: metaName }).eq('id', authUser.id)
+            profile.full_name = metaName
           }
         }
 
@@ -52,7 +51,6 @@ export default function Navbar() {
     await supabase.auth.signOut()
     setUser(null)
     router.push('/')
-    router.refresh()
   }
 
   const isAdmin = user?.role === 'admin' || user?.role === 'instructor'

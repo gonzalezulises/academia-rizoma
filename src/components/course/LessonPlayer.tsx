@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useMemo } from 'react'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
 import { MarkdownRenderer } from '@/components/course/MarkdownRenderer'
@@ -34,7 +34,7 @@ export default function LessonPlayer({
   const [loading, setLoading] = useState(false)
   const [timeSpent, setTimeSpent] = useState(0)
   const startTimeRef = useRef<number>(0)
-  const supabase = createClient()
+  const supabase = useMemo(() => createClient(), [])
 
   // Track time spent on lesson
   useEffect(() => {
@@ -103,7 +103,7 @@ export default function LessonPlayer({
     setLoading(false)
   }
 
-  const renderContent = () => {
+  const renderedContent = useMemo(() => {
     switch (lesson.lesson_type) {
       case 'video':
         return (
@@ -184,7 +184,7 @@ export default function LessonPlayer({
       default:
         return null
     }
-  }
+  }, [lesson.lesson_type, lesson.video_url, lesson.parsedContent, lesson.content, courseSlug, moduleId, quiz, courseId])
 
   const formatTime = (seconds: number) => {
     if (seconds < 60) return `${seconds}s`
@@ -218,7 +218,7 @@ export default function LessonPlayer({
       </div>
 
       {/* Main content */}
-      {renderContent()}
+      {renderedContent}
 
       {/* Text content below video if exists */}
       {lesson.lesson_type === 'video' && (lesson.parsedContent || lesson.content) && (
