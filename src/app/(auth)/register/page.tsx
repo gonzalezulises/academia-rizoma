@@ -2,16 +2,14 @@
 
 import { useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
-import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 
 export default function RegisterPage() {
   const [fullName, setFullName] = useState('')
   const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
-  const router = useRouter()
+  const [success, setSuccess] = useState(false)
   const supabase = createClient()
 
   const handleRegister = async (e: React.FormEvent) => {
@@ -19,13 +17,13 @@ export default function RegisterPage() {
     setLoading(true)
     setError(null)
 
-    const { error } = await supabase.auth.signUp({
+    // Store name for post-callback profile update
+    localStorage.setItem('pending_full_name', fullName)
+
+    const { error } = await supabase.auth.signInWithOtp({
       email,
-      password,
       options: {
-        data: {
-          full_name: fullName,
-        },
+        emailRedirectTo: `${window.location.origin}/auth/callback`,
       },
     })
 
@@ -35,8 +33,8 @@ export default function RegisterPage() {
       return
     }
 
-    router.push('/courses')
-    router.refresh()
+    setSuccess(true)
+    setLoading(false)
   }
 
   return (
@@ -64,79 +62,84 @@ export default function RegisterPage() {
             Únete a la plataforma de aprendizaje de Rizoma
           </p>
         </div>
-        <form className="mt-8 space-y-6" onSubmit={handleRegister}>
-          {error && (
-            <div className="bg-rizoma-red/10 border border-rizoma-red/20 text-rizoma-red px-4 py-3 rounded-lg">
-              {error}
+
+        {success ? (
+          <div className="mt-8 text-center space-y-4">
+            <div className="bg-rizoma-green/10 border border-rizoma-green/20 text-rizoma-green px-4 py-4 rounded-lg">
+              <p className="font-medium">Revisa tu email</p>
+              <p className="text-sm mt-1">
+                Te enviamos un enlace de acceso a <strong>{email}</strong>.
+                Haz clic en el enlace para completar tu registro.
+              </p>
             </div>
-          )}
-          <div className="space-y-4">
-            <div>
-              <label htmlFor="fullName" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                Nombre completo
-              </label>
-              <input
-                id="fullName"
-                name="fullName"
-                type="text"
-                required
-                value={fullName}
-                onChange={(e) => setFullName(e.target.value)}
-                className="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-rizoma-green focus:border-rizoma-green dark:bg-gray-800 dark:text-white"
-                placeholder="Juan Pérez"
-              />
-            </div>
-            <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                Email
-              </label>
-              <input
-                id="email"
-                name="email"
-                type="email"
-                autoComplete="email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-rizoma-green focus:border-rizoma-green dark:bg-gray-800 dark:text-white"
-                placeholder="tu@email.com"
-              />
-            </div>
-            <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                Contraseña
-              </label>
-              <input
-                id="password"
-                name="password"
-                type="password"
-                autoComplete="new-password"
-                required
-                minLength={6}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-rizoma-green focus:border-rizoma-green dark:bg-gray-800 dark:text-white"
-                placeholder="••••••••"
-              />
-              <p className="mt-1 text-xs text-gray-500">Mínimo 6 caracteres</p>
-            </div>
+            <button
+              onClick={() => {
+                setSuccess(false)
+                setEmail('')
+                setFullName('')
+              }}
+              className="text-sm text-gray-600 dark:text-gray-400 hover:text-rizoma-green transition-colors"
+            >
+              Usar otro email
+            </button>
           </div>
+        ) : (
+          <form className="mt-8 space-y-6" onSubmit={handleRegister}>
+            {error && (
+              <div className="bg-rizoma-red/10 border border-rizoma-red/20 text-rizoma-red px-4 py-3 rounded-lg">
+                {error}
+              </div>
+            )}
+            <div className="space-y-4">
+              <div>
+                <label htmlFor="fullName" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                  Nombre completo
+                </label>
+                <input
+                  id="fullName"
+                  name="fullName"
+                  type="text"
+                  required
+                  value={fullName}
+                  onChange={(e) => setFullName(e.target.value)}
+                  className="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-rizoma-green focus:border-rizoma-green dark:bg-gray-800 dark:text-white"
+                  placeholder="Juan Pérez"
+                />
+              </div>
+              <div>
+                <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                  Email
+                </label>
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  autoComplete="email"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-rizoma-green focus:border-rizoma-green dark:bg-gray-800 dark:text-white"
+                  placeholder="tu@email.com"
+                />
+              </div>
+            </div>
 
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full flex justify-center py-2 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-rizoma-green hover:bg-rizoma-green-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rizoma-green disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-          >
-            {loading ? 'Creando cuenta...' : 'Crear cuenta'}
-          </button>
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full flex justify-center py-2 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-rizoma-green hover:bg-rizoma-green-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rizoma-green disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            >
+              {loading ? 'Enviando enlace...' : 'Crear cuenta'}
+            </button>
 
-          <p className="text-center text-sm text-gray-600 dark:text-gray-400">
-            ¿Ya tienes cuenta?{' '}
-            <Link href="/login" className="text-rizoma-green hover:text-rizoma-green-dark font-medium">
-              Inicia sesión
-            </Link>
-          </p>
-        </form>
+            <p className="text-center text-sm text-gray-600 dark:text-gray-400">
+              ¿Ya tienes cuenta?{' '}
+              <Link href="/login" className="text-rizoma-green hover:text-rizoma-green-dark font-medium">
+                Inicia sesión
+              </Link>
+            </p>
+          </form>
+        )}
       </div>
     </div>
   )

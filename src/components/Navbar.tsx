@@ -24,6 +24,16 @@ export default function Navbar() {
           .eq('id', authUser.id)
           .single()
 
+        // Sync pending full_name from registration (stored in localStorage before magic link)
+        if (profile && !profile.full_name) {
+          const pendingName = localStorage.getItem('pending_full_name')
+          if (pendingName) {
+            await supabase.from('profiles').update({ full_name: pendingName }).eq('id', authUser.id)
+            localStorage.removeItem('pending_full_name')
+            profile.full_name = pendingName
+          }
+        }
+
         setUser(profile)
       }
       setLoading(false)
