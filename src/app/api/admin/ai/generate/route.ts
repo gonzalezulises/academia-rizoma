@@ -3,6 +3,9 @@ import { createClient } from '@/lib/supabase/server'
 import { createAIService } from '@/lib/ai/service'
 import { AI_PROMPTS } from '@/lib/ai/prompts'
 
+// Allow up to 120s for large model inference (DGX 72B cold start)
+export const maxDuration = 120
+
 export async function POST(request: Request) {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()

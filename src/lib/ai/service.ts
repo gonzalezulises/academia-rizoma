@@ -18,7 +18,7 @@ async function callLocal(system: string, user: string): Promise<string> {
   const apiKey = process.env.AI_LOCAL_API_KEY || ''
 
   const controller = new AbortController()
-  const timeout = setTimeout(() => controller.abort(), 30000)
+  const timeout = setTimeout(() => controller.abort(), 120000) // 2min for large models (72B cold start)
 
   try {
     const res = await fetch(`${endpoint}/chat/completions`, {
