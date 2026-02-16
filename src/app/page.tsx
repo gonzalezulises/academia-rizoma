@@ -1,5 +1,7 @@
 import Link from 'next/link'
 
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
+
 export default function Home() {
   return (
     <div className="min-h-screen bg-cloud-dancer dark:bg-gray-900">
@@ -9,13 +11,13 @@ export default function Home() {
           <a href="https://www.rizo.ma/" className="flex items-center">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/images/brand/logo-plenos-color-optimized.png"
+              src={`${basePath}/images/brand/logo-plenos-color-optimized.png`}
               alt="Rizoma Academia"
               className="h-10 w-auto dark:hidden"
             />
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/images/brand/logo-plenos-blanco-optimized.png"
+              src={`${basePath}/images/brand/logo-plenos-blanco-optimized.png`}
               alt="Rizoma Academia"
               className="h-10 w-auto hidden dark:block"
             />

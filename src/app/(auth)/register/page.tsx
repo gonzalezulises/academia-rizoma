@@ -42,13 +42,13 @@ export default function RegisterPage() {
           <Link href="/" className="inline-block mb-6">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/images/brand/logo-plenos-color-optimized.png"
+              src={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ''}/images/brand/logo-plenos-color-optimized.png`}
               alt="Rizoma Academia"
               className="h-12 w-auto dark:hidden"
             />
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/images/brand/logo-plenos-blanco-optimized.png"
+              src={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ''}/images/brand/logo-plenos-blanco-optimized.png`}
               alt="Rizoma Academia"
               className="h-12 w-auto hidden dark:block"
             />

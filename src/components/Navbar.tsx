@@ -63,13 +63,13 @@ export default function Navbar() {
             <a href="https://www.rizo.ma/" className="flex items-center">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/images/brand/logo-plenos-color-optimized.png"
+                src={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ''}/images/brand/logo-plenos-color-optimized.png`}
                 alt="Rizoma Academia"
                 className="h-8 w-auto dark:hidden"
               />
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/images/brand/logo-plenos-blanco-optimized.png"
+                src={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ''}/images/brand/logo-plenos-blanco-optimized.png`}
                 alt="Rizoma Academia"
                 className="h-8 w-auto hidden dark:block"
               />

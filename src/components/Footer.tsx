@@ -95,10 +95,10 @@ export default function Footer() {
           <div className="col-span-2 md:col-span-1">
             <a href={BASE} className="inline-block">
               <picture>
-                <source srcSet="/images/brand/logo-plenos-blanco-optimized.webp" type="image/webp" />
+                <source srcSet={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ''}/images/brand/logo-plenos-blanco-optimized.webp`} type="image/webp" />
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src="/images/brand/logo-plenos-blanco-optimized.png"
+                  src={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ''}/images/brand/logo-plenos-blanco-optimized.png`}
                   alt="Rizoma"
                   width={83}
                   height={40}
@@ -138,7 +138,7 @@ export default function Footer() {
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
-                    src="/images/partners/bni-logo.svg"
+                    src={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ''}/images/partners/bni-logo.svg`}
                     alt="BNI"
                     width={70}
                     height={28}
