@@ -248,6 +248,22 @@ export default function AdminCourseDetailPage({ params }: PageProps) {
     }
   }
 
+  const handleMoveLesson = async (lessons: Lesson[], index: number, direction: 'up' | 'down') => {
+    const targetIndex = direction === 'up' ? index - 1 : index + 1
+    if (targetIndex < 0 || targetIndex >= lessons.length) return
+
+    const current = lessons[index]
+    const target = lessons[targetIndex]
+
+    // Swap order_index values in DB
+    await Promise.all([
+      supabase.from('lessons').update({ order_index: target.order_index }).eq('id', current.id),
+      supabase.from('lessons').update({ order_index: current.order_index }).eq('id', target.id),
+    ])
+
+    await loadModulesAndLessons()
+  }
+
   const editLesson = (lesson: Lesson) => {
     setEditingLesson(lesson)
     setLessonModuleId(lesson.module_id)
@@ -553,6 +569,25 @@ export default function AdminCourseDetailPage({ params }: PageProps) {
                   {module.lessons.map((lesson, lessonIndex) => (
                     <li key={lesson.id} className="p-4 flex justify-between items-center">
                       <div className="flex items-center gap-3">
+                        {/* Reorder arrows */}
+                        <div className="flex flex-col gap-0.5">
+                          <button
+                            onClick={() => handleMoveLesson(module.lessons, lessonIndex, 'up')}
+                            disabled={lessonIndex === 0}
+                            className="p-0.5 text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 disabled:opacity-25 disabled:cursor-not-allowed"
+                            title="Mover arriba"
+                          >
+                            <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" /></svg>
+                          </button>
+                          <button
+                            onClick={() => handleMoveLesson(module.lessons, lessonIndex, 'down')}
+                            disabled={lessonIndex === module.lessons.length - 1}
+                            className="p-0.5 text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 disabled:opacity-25 disabled:cursor-not-allowed"
+                            title="Mover abajo"
+                          >
+                            <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
+                          </button>
+                        </div>
                         <span className="text-lg">
                           {lesson.lesson_type === 'video' && '🎬'}
                           {lesson.lesson_type === 'text' && '📄'}
