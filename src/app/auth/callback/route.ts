@@ -41,17 +41,18 @@ export async function GET(request: NextRequest) {
     success = !error
   }
 
-  // Build redirect WITHOUT basePath — Next.js automatically prepends basePath
-  // to redirect Location headers in route handlers. Including it manually
-  // causes /academia/academia/... duplication.
+  // Use x-forwarded-host to redirect back to the user-facing domain (www.rizo.ma)
+  // instead of the internal deployment (academia-rizoma.vercel.app) behind Vercel rewrites.
+  // basePath must be included manually — Next.js does NOT auto-add it in route handlers.
   const forwardedHost = request.headers.get('x-forwarded-host')
   const forwardedProto = (request.headers.get('x-forwarded-proto') ?? 'https').split(',')[0].trim()
   const origin = forwardedHost
     ? `${forwardedProto}://${forwardedHost.split(',')[0].trim()}`
     : new URL(request.url).origin
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? ''
 
   const redirectPath = success ? next : '/login?error=auth_failed'
-  const response = NextResponse.redirect(`${origin}${redirectPath}`)
+  const response = NextResponse.redirect(`${origin}${basePath}${redirectPath}`)
 
   for (const { name, value, options } of cookiesToForward) {
     response.cookies.set(name, value, options as Parameters<typeof response.cookies.set>[2])
