@@ -29,11 +29,17 @@ export default function AdminCoursesPage() {
 
       if (profile) setUser(profile)
 
-      const { data: coursesData } = await supabase
+      let query = supabase
         .from('courses')
         .select('*')
-        .eq('instructor_id', authUser.id)
         .order('created_at', { ascending: false })
+
+      // Admins see all courses, instructors see only their own
+      if (profile?.role !== 'admin') {
+        query = query.eq('instructor_id', authUser.id)
+      }
+
+      const { data: coursesData } = await query
 
       setCourses(coursesData || [])
       setLoading(false)
