@@ -252,13 +252,16 @@ export default function AdminCourseDetailPage({ params }: PageProps) {
     const targetIndex = direction === 'up' ? index - 1 : index + 1
     if (targetIndex < 0 || targetIndex >= modules.length) return
 
-    const current = modules[index]
-    const target = modules[targetIndex]
+    // Reorder array, then assign sequential order_index values
+    const reordered = [...modules]
+    const [moved] = reordered.splice(index, 1)
+    reordered.splice(targetIndex, 0, moved)
 
-    await Promise.all([
-      supabase.from('modules').update({ order_index: target.order_index }).eq('id', current.id),
-      supabase.from('modules').update({ order_index: current.order_index }).eq('id', target.id),
-    ])
+    await Promise.all(
+      reordered.map((m, i) =>
+        supabase.from('modules').update({ order_index: i }).eq('id', m.id)
+      )
+    )
 
     await loadModulesAndLessons()
   }
@@ -267,14 +270,16 @@ export default function AdminCourseDetailPage({ params }: PageProps) {
     const targetIndex = direction === 'up' ? index - 1 : index + 1
     if (targetIndex < 0 || targetIndex >= lessons.length) return
 
-    const current = lessons[index]
-    const target = lessons[targetIndex]
+    // Reorder array, then assign sequential order_index values
+    const reordered = [...lessons]
+    const [moved] = reordered.splice(index, 1)
+    reordered.splice(targetIndex, 0, moved)
 
-    // Swap order_index values in DB
-    await Promise.all([
-      supabase.from('lessons').update({ order_index: target.order_index }).eq('id', current.id),
-      supabase.from('lessons').update({ order_index: current.order_index }).eq('id', target.id),
-    ])
+    await Promise.all(
+      reordered.map((lesson, i) =>
+        supabase.from('lessons').update({ order_index: i }).eq('id', lesson.id)
+      )
+    )
 
     await loadModulesAndLessons()
   }
