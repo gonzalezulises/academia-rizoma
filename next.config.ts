@@ -24,6 +24,20 @@ const securityHeaders = [
   {
     key: 'Permissions-Policy',
     value: 'camera=(), microphone=(), geolocation=()'
+  },
+  {
+    key: 'Content-Security-Policy',
+    value: [
+      "default-src 'self'",
+      "script-src 'self' 'unsafe-eval' 'unsafe-inline' https://vercel.live https://*.vercelinsights.com",
+      "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+      "font-src 'self' https://fonts.gstatic.com",
+      "img-src 'self' data: blob: https: http:",
+      "media-src 'self' https:",
+      "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://ollama.rizo.ma https://api.anthropic.com https://www.googleapis.com https://vercel.live https://*.vercelinsights.com",
+      "frame-src https://www.youtube.com https://www.youtube-nocookie.com https://player.vimeo.com https://colab.research.google.com",
+      "worker-src 'self' blob:",
+    ].join('; ')
   }
 ];
 
