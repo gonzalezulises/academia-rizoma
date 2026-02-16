@@ -248,6 +248,21 @@ export default function AdminCourseDetailPage({ params }: PageProps) {
     }
   }
 
+  const handleMoveModule = async (index: number, direction: 'up' | 'down') => {
+    const targetIndex = direction === 'up' ? index - 1 : index + 1
+    if (targetIndex < 0 || targetIndex >= modules.length) return
+
+    const current = modules[index]
+    const target = modules[targetIndex]
+
+    await Promise.all([
+      supabase.from('modules').update({ order_index: target.order_index }).eq('id', current.id),
+      supabase.from('modules').update({ order_index: current.order_index }).eq('id', target.id),
+    ])
+
+    await loadModulesAndLessons()
+  }
+
   const handleMoveLesson = async (lessons: Lesson[], index: number, direction: 'up' | 'down') => {
     const targetIndex = direction === 'up' ? index - 1 : index + 1
     if (targetIndex < 0 || targetIndex >= lessons.length) return
@@ -535,13 +550,33 @@ export default function AdminCourseDetailPage({ params }: PageProps) {
           {modules.map((module, moduleIndex) => (
             <div key={module.id} className="bg-white dark:bg-gray-800 rounded-xl shadow-sm overflow-hidden">
               <div className="p-4 bg-gray-50 dark:bg-gray-700/50 flex justify-between items-center">
-                <div>
-                  <span className="text-sm text-gray-500 dark:text-gray-400 mr-2">
-                    Modulo {moduleIndex + 1}
-                  </span>
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white inline">
-                    {module.title}
-                  </h3>
+                <div className="flex items-center gap-3">
+                  <div className="flex flex-col gap-0.5">
+                    <button
+                      onClick={() => handleMoveModule(moduleIndex, 'up')}
+                      disabled={moduleIndex === 0}
+                      className="p-0.5 text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 disabled:opacity-25 disabled:cursor-not-allowed"
+                      title="Mover modulo arriba"
+                    >
+                      <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" /></svg>
+                    </button>
+                    <button
+                      onClick={() => handleMoveModule(moduleIndex, 'down')}
+                      disabled={moduleIndex === modules.length - 1}
+                      className="p-0.5 text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 disabled:opacity-25 disabled:cursor-not-allowed"
+                      title="Mover modulo abajo"
+                    >
+                      <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
+                    </button>
+                  </div>
+                  <div>
+                    <span className="text-sm text-gray-500 dark:text-gray-400 mr-2">
+                      Modulo {moduleIndex + 1}
+                    </span>
+                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white inline">
+                      {module.title}
+                    </h3>
+                  </div>
                 </div>
                 <div className="flex gap-2">
                   <button
