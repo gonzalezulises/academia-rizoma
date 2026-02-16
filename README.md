@@ -30,17 +30,21 @@
 <p align="center">
   <a href="https://vercel.com/"><img src="https://img.shields.io/badge/Vercel-Deploy-000000?logo=vercel&logoColor=white" alt="Vercel"/></a>
   <a href="https://colab.research.google.com/"><img src="https://img.shields.io/badge/Google_Colab-Integration-F9AB00?logo=googlecolab&logoColor=white" alt="Google Colab"/></a>
+  <a href="https://www.nvidia.com/"><img src="https://img.shields.io/badge/NVIDIA_DGX-AI%20Inference-76B900?logo=nvidia&logoColor=white" alt="NVIDIA DGX"/></a>
+  <a href="https://www.cloudflare.com/"><img src="https://img.shields.io/badge/Cloudflare-Tunnel-F38020?logo=cloudflare&logoColor=white" alt="Cloudflare Tunnel"/></a>
 </p>
 
 ---
 
-Plataforma educativa completa con cursos, evaluaciones, **ejercicios interactivos de codigo**, foros y tracking de progreso. Desarrollada con Next.js 14, Supabase y Tailwind CSS.
+Plataforma educativa completa con cursos, evaluaciones, **ejercicios interactivos de codigo**, foros, tracking de progreso y **generacion de contenido asistida por IA**. Desarrollada con Next.js 14, Supabase y Tailwind CSS.
 
 ## Tabla de Contenidos
 
 - [Descripcion General](#descripcion-general)
 - [Stack Tecnologico](#stack-tecnologico)
 - [Caracteristicas](#caracteristicas)
+- [Wizard de Creacion de Lecciones (4C)](#wizard-de-creacion-de-lecciones-4c)
+- [Infraestructura de IA](#infraestructura-de-ia)
 - [Sistema de Ejercicios Interactivos](#sistema-de-ejercicios-interactivos)
 - [Estructura del Proyecto](#estructura-del-proyecto)
 - [Base de Datos](#base-de-datos)
@@ -55,13 +59,15 @@ Plataforma educativa completa con cursos, evaluaciones, **ejercicios interactivo
 
 EduPlatform es una plataforma de aprendizaje en linea que permite a instructores crear cursos estructurados con modulos, lecciones, quizzes, **ejercicios de codigo interactivos** y recursos descargables. Los estudiantes pueden inscribirse, seguir su progreso, ejecutar codigo Python/SQL en el navegador y participar en foros.
 
+Incluye un **wizard de creacion de lecciones con IA** basado en el modelo pedagogico 4C (Connection, Concepts, Concrete Practice, Conclusions), con generacion de contenido respaldada por un servidor NVIDIA DGX Spark ejecutando Qwen2.5:72B.
+
 ### Roles de Usuario
 
 | Rol | Permisos |
 |-----|----------|
 | **Student** | Inscribirse a cursos, ver lecciones, ejecutar ejercicios, tomar quizzes, participar en foros |
-| **Instructor** | Todo lo anterior + crear/editar cursos, subir recursos, publicar anuncios |
-| **Admin** | Todo lo anterior + gestionar usuarios y configuracion global |
+| **Instructor** | Todo lo anterior + crear/editar cursos, usar wizard 4C, generar contenido con IA |
+| **Admin** | Todo lo anterior + gestionar usuarios, reordenar modulos/lecciones, configuracion global |
 
 ---
 
@@ -76,6 +82,9 @@ EduPlatform es una plataforma de aprendizaje en linea que permite a instructores
 | **Pyodide** | Python en el navegador (WebAssembly) |
 | **sql.js** | SQLite en el navegador (WebAssembly) |
 | **Monaco Editor** | Editor de codigo (el mismo de VS Code) |
+| **@dnd-kit** | Drag-and-drop para reordenar bloques de contenido |
+| **Qwen2.5:72B** | Modelo de IA para generacion de contenido (NVIDIA DGX) |
+| **Cloudflare Tunnel** | Exposicion segura del servidor DGX a produccion |
 | **Vercel** | Deploy con CI/CD automatico |
 
 ---
@@ -85,8 +94,18 @@ EduPlatform es una plataforma de aprendizaje en linea que permite a instructores
 ### Gestion de Cursos
 - Crear y editar cursos con thumbnail
 - Organizar contenido en modulos y lecciones
+- **Reordenar modulos y lecciones** con controles up/down
 - Soporte para video (YouTube embebido), texto y recursos
 - Publicar/despublicar cursos
+
+### Wizard de Creacion de Lecciones (4C)
+- **Wizard de 6 pasos** basado en el modelo pedagogico 4C
+- Generacion de contenido asistida por IA en cada paso
+- Validacion en tiempo real con checklist de calidad
+- Busqueda de videos de YouTube integrada
+- Drag-and-drop para reordenar bloques conceptuales
+- Editor Monaco para markdown y codigo
+- Guardado de borradores con auto-recuperacion
 
 ### Sistema de Ejercicios Interactivos
 - **Python Playground**: Ejecutar Python en el navegador con Pyodide
@@ -118,6 +137,82 @@ EduPlatform es una plataforma de aprendizaje en linea que permite a instructores
 - Subida de archivos por leccion (PDF, Word, Excel, PowerPoint, imagenes)
 - Drag & drop para upload
 - Contador de descargas
+
+---
+
+## Wizard de Creacion de Lecciones (4C)
+
+El wizard guia a instructores a traves de 6 pasos para crear lecciones pedagogicamente estructuradas:
+
+| Paso | Nombre | Descripcion |
+|------|--------|-------------|
+| 1 | **Metadata** | Titulo, modulo, duracion, objetivos de aprendizaje, nivel Bloom |
+| 2 | **Connection** | Hook inicial (pregunta, historia, analogia, demo) con editor markdown |
+| 3 | **Concepts** | Bloques conceptuales con drag-drop, busqueda de video, editor markdown |
+| 4 | **Practice** | Ejercicios interactivos con editor de codigo, tests y hints |
+| 5 | **Conclusions** | Preguntas de quiz, resumen y conexion con temas futuros |
+| 6 | **Review** | Checklist de validacion, preview markdown, guardar/publicar |
+
+Cada paso (2-5) incluye un boton de **generacion con IA** que produce contenido estructurado basado en el titulo, objetivos y contexto de la leccion.
+
+### Validacion en Tiempo Real
+
+El wizard valida 6 reglas de calidad:
+- Las 4 fases del modelo 4C presentes
+- Ratio de practica entre 40-50% del tiempo total
+- Minimo 2 ejercicios interactivos
+- Minimo 5 preguntas de quiz
+- Objetivos cubiertos por ejercicios/quiz
+- Duracion coherente con contenido
+
+### Acceso
+
+- **Admin** → Cursos → Seleccionar curso → "Wizard 4C" (boton verde)
+- Ruta: `/admin/lessons/new?courseId=X`
+- Edicion: `/admin/lessons/[id]/edit`
+
+---
+
+## Infraestructura de IA
+
+### Arquitectura Dual-Provider
+
+La plataforma usa un sistema de IA con fallback automatico:
+
+```
+Request → DGX Spark (Qwen2.5:72B) → Si falla → Claude API (Sonnet) → Si falla → Error graceful
+```
+
+| Provider | Modelo | Endpoint | Timeout |
+|----------|--------|----------|---------|
+| **Local (DGX)** | Qwen2.5:72B via Ollama | `ollama.rizo.ma/v1` | 120s |
+| **Cloud (fallback)** | Claude Sonnet | `api.anthropic.com/v1` | 60s |
+
+### NVIDIA DGX Spark
+
+- **Hardware**: NVIDIA GB10 Grace Blackwell, 128GB memoria unificada
+- **Software**: Ollama ejecutando Qwen2.5:72B
+- **Red privada**: Tailscale (100.116.242.33:11434) para desarrollo local
+- **Red publica**: Cloudflare Tunnel (`ollama.rizo.ma`) para produccion en Vercel
+
+### Cloudflare Tunnel
+
+El servidor DGX se expone de forma segura a traves de un tunel Cloudflare:
+
+```
+Vercel (produccion) → ollama.rizo.ma → Cloudflare Tunnel → DGX localhost:11434
+```
+
+- Tunnel ID: `dgx-ollama`
+- DNS: `ollama.rizo.ma` → DGX
+- Protocolo: HTTPS terminado en Cloudflare, HTTP al DGX local
+
+### API Routes
+
+| Ruta | Metodo | Descripcion |
+|------|--------|-------------|
+| `/api/admin/ai/generate` | POST | Generacion de contenido IA (connection, concepts, practice, quiz) |
+| `/api/admin/search-videos` | POST | Busqueda de videos en YouTube Data API v3 |
 
 ---
 
@@ -226,22 +321,55 @@ Response:
 ## Estructura del Proyecto
 
 ```
-edu-platform/
+academia-rizoma/
 ├── src/
 │   ├── app/
 │   │   ├── (auth)/login, register
 │   │   ├── (dashboard)/
+│   │   │   ├── admin/
+│   │   │   │   ├── courses/[id]/       # Admin curso (reordenar modulos/lecciones)
+│   │   │   │   └── lessons/
+│   │   │   │       ├── new/            # Wizard nueva leccion
+│   │   │   │       └── [id]/edit/      # Wizard editar leccion
 │   │   │   ├── courses/[id]/lessons/[lessonId]/
 │   │   │   └── dashboard/
-│   │   └── api/exercises/[exerciseId]/
+│   │   └── api/
+│   │       ├── admin/
+│   │       │   ├── ai/generate/        # Generacion IA
+│   │       │   └── search-videos/      # Busqueda YouTube
+│   │       └── exercises/[exerciseId]/
 │   ├── components/
+│   │   ├── admin/
+│   │   │   └── lesson-wizard/          # Wizard 4C completo
+│   │   │       ├── LessonWizard.tsx    # Orquestador principal
+│   │   │       ├── types.ts           # Tipos y constantes
+│   │   │       ├── hooks/
+│   │   │       │   ├── useLessonWizard.ts   # Estado (useReducer)
+│   │   │       │   └── useAIGeneration.ts   # Hook de IA
+│   │   │       ├── steps/             # 6 pasos del wizard
+│   │   │       │   ├── MetadataStep.tsx
+│   │   │       │   ├── ConnectionStep.tsx
+│   │   │       │   ├── ConceptsStep.tsx
+│   │   │       │   ├── PracticeStep.tsx
+│   │   │       │   ├── ConclusionsStep.tsx
+│   │   │       │   └── ReviewStep.tsx
+│   │   │       └── shared/            # Componentes compartidos
+│   │   │           ├── AIGenerateButton.tsx
+│   │   │           ├── BlockList.tsx
+│   │   │           ├── ExerciseEditor.tsx
+│   │   │           ├── MarkdownEditor.tsx
+│   │   │           ├── QuizEditor.tsx
+│   │   │           ├── ValidationChecklist.tsx
+│   │   │           └── VideoSearch.tsx
 │   │   ├── exercises/          # Playgrounds interactivos
-│   │   ├── course/             # MarkdownRenderer, LessonPlayer
-│   │   └── ...
+│   │   └── course/             # MarkdownRenderer, LessonPlayer
 │   ├── hooks/
 │   │   ├── usePyodide.ts       # Python runtime
 │   │   └── useSQLite.ts        # SQL runtime
 │   ├── lib/
+│   │   ├── ai/                 # Servicio de IA
+│   │   │   ├── service.ts      # Dual provider (DGX/Claude)
+│   │   │   └── prompts.ts      # Templates 4C
 │   │   ├── content/            # Loaders y parsers
 │   │   └── supabase/
 │   └── types/
@@ -250,8 +378,6 @@ edu-platform/
 ├── content/                    # Contenido declarativo
 │   ├── courses/
 │   └── shared/
-├── config/
-│   └── environments.yaml       # Config de runtimes
 ├── supabase/
 │   └── migrations/
 ├── CLAUDE.md                   # Contexto para Claude Code
@@ -271,9 +397,33 @@ edu-platform/
 | `courses` | Cursos con instructor |
 | `modules` | Modulos dentro de cursos |
 | `lessons` | Lecciones con contenido markdown |
+| `lesson_metadata` | Metadata pedagogica, wizard state, objetivos, nivel Bloom |
+| `course_exercises` | Ejercicios asociados a cursos/modulos/lecciones |
 | `enrollments` | Inscripciones |
 | `progress` | Progreso por leccion |
 | `exercise_progress` | Progreso por ejercicio interactivo |
+| `quizzes` | Evaluaciones por leccion |
+| `quiz_questions` | Preguntas individuales de quiz |
+
+### Tabla lesson_metadata
+
+```sql
+CREATE TABLE lesson_metadata (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  lesson_id UUID NOT NULL REFERENCES lessons(id) ON DELETE CASCADE,
+  learning_objectives JSONB DEFAULT '[]',
+  bloom_level TEXT,
+  connection_type TEXT,
+  practice_ratio DECIMAL(3,2),
+  estimated_duration_minutes INTEGER,
+  validation_result JSONB DEFAULT '{}',
+  ai_provider TEXT,
+  wizard_state JSONB,     -- Estado completo para edicion y recuperacion
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  updated_at TIMESTAMPTZ DEFAULT NOW(),
+  UNIQUE(lesson_id)
+);
+```
 
 ### Tabla exercise_progress
 
@@ -294,9 +444,40 @@ CREATE TABLE exercise_progress (
 );
 ```
 
+### Migraciones
+
+| Archivo | Descripcion |
+|---------|-------------|
+| `20251201000001_initial_schema.sql` | Schema inicial |
+| `20251201000002_modules_hierarchy.sql` | Modulos |
+| `20251201000003_progress_tracking.sql` | Tracking |
+| `20251201000004_quizzes.sql` | Evaluaciones |
+| `20251201000005_forums.sql` | Foros |
+| `20251201000006_content_management.sql` | Recursos |
+| `20251225000001_interactive_exercises.sql` | Tabla exercise_progress |
+| `20251225000002_seed_python_course.sql` | Curso Python |
+| `20251225000003_update_python_course_content.sql` | Contenido markdown |
+| `20260216000001_course_generation.sql` | Generacion de cursos |
+| `20260216000004_lesson_metadata.sql` | Metadata de lecciones (wizard 4C) |
+| `20260216000005_lessons_admin_policy.sql` | RLS: admins gestionan lecciones |
+
 ---
 
 ## Creacion de Cursos
+
+### Metodo 1: Wizard 4C (Recomendado)
+
+1. Ir a **Admin** → **Cursos** → Seleccionar curso
+2. Click en **"Wizard 4C"**
+3. Seguir los 6 pasos del wizard
+4. Usar IA para generar contenido en cada paso
+5. Revisar validacion y publicar
+
+### Metodo 2: Creacion Rapida
+
+Formulario basico disponible en la misma pagina de administracion del curso (titulo, tipo, contenido, video URL, duracion).
+
+### Metodo 3: Contenido Declarativo
 
 Ver **[CLAUDE_COURSE_GUIDE.md](CLAUDE_COURSE_GUIDE.md)** para instrucciones detalladas sobre:
 
@@ -311,8 +492,8 @@ Ver **[CLAUDE_COURSE_GUIDE.md](CLAUDE_COURSE_GUIDE.md)** para instrucciones deta
 
 ```bash
 # Clonar repositorio
-git clone https://github.com/gonzalezulises/edu-platform.git
-cd edu-platform
+git clone https://github.com/gonzalezulises/academia-rizoma.git
+cd academia-rizoma
 
 # Instalar dependencias
 npm install
@@ -329,10 +510,20 @@ npm run dev
 ## Variables de Entorno
 
 ```env
+# Supabase (requerido)
 NEXT_PUBLIC_SUPABASE_URL=https://tu-proyecto.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=tu-anon-key
-SUPABASE_SERVICE_ROLE_KEY=tu-service-role-key
 SUPABASE_ACCESS_TOKEN=tu-access-token  # Para CLI
+
+# IA - DGX Spark (opcional, habilita generacion local)
+AI_LOCAL_ENDPOINT=https://ollama.rizo.ma/v1   # o http://100.116.242.33:11434/v1 para dev local
+AI_LOCAL_MODEL=qwen2.5:72b
+
+# IA - Claude API (opcional, fallback si DGX no responde)
+ANTHROPIC_API_KEY=tu-api-key
+
+# YouTube Data API (opcional, habilita busqueda de videos en wizard)
+YOUTUBE_API_KEY=tu-youtube-api-key
 ```
 
 ---
@@ -363,6 +554,16 @@ source .env.local && supabase migration list
 El proyecto se despliega automaticamente en **Vercel** con cada push a `main`.
 
 **Importante:** Los archivos en `content/` se incluyen en el build y estan disponibles para la API.
+
+### Variables de Entorno en Vercel
+
+Configurar en Vercel Dashboard → Settings → Environment Variables:
+- `NEXT_PUBLIC_SUPABASE_URL`
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+- `AI_LOCAL_ENDPOINT` → `https://ollama.rizo.ma/v1`
+- `AI_LOCAL_MODEL` → `qwen2.5:72b`
+- `ANTHROPIC_API_KEY` (opcional, fallback)
+- `YOUTUBE_API_KEY` (opcional)
 
 ---
 
