@@ -1,4 +1,4 @@
-# EduPlatform
+# Academia Rizoma
 
 <p align="center">
   <a href="https://github.com/gonzalezulises/edu-platform/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-MIT-green.svg" alt="MIT License"/></a>
