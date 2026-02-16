@@ -41,19 +41,17 @@ export async function GET(request: NextRequest) {
     success = !error
   }
 
-  // Use nextUrl which handles basePath automatically — avoids double /academia
-  // Also override host for Vercel rewrites so cookies land on the user-facing domain
-  const redirectUrl = request.nextUrl.clone()
-  redirectUrl.pathname = success ? next : '/login'
-  redirectUrl.search = success ? '' : '?error=auth_failed'
-
+  // Build redirect WITHOUT basePath — Next.js automatically prepends basePath
+  // to redirect Location headers in route handlers. Including it manually
+  // causes /academia/academia/... duplication.
   const forwardedHost = request.headers.get('x-forwarded-host')
-  if (forwardedHost) {
-    redirectUrl.host = forwardedHost
-    redirectUrl.protocol = request.headers.get('x-forwarded-proto') ?? 'https'
-  }
+  const forwardedProto = (request.headers.get('x-forwarded-proto') ?? 'https').split(',')[0].trim()
+  const origin = forwardedHost
+    ? `${forwardedProto}://${forwardedHost.split(',')[0].trim()}`
+    : new URL(request.url).origin
 
-  const response = NextResponse.redirect(redirectUrl)
+  const redirectPath = success ? next : '/login?error=auth_failed'
+  const response = NextResponse.redirect(`${origin}${redirectPath}`)
 
   for (const { name, value, options } of cookiesToForward) {
     response.cookies.set(name, value, options as Parameters<typeof response.cookies.set>[2])
