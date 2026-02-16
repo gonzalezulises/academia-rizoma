@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useCallback } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 
 interface AIGenerationResult<T = unknown> {
   isGenerating: boolean
@@ -13,6 +13,20 @@ export function useAIGeneration<T = unknown>(): AIGenerationResult<T> {
   const [isGenerating, setIsGenerating] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [provider, setProvider] = useState<'local' | 'cloud' | 'none' | null>(null)
+
+  // Check availability on mount
+  useEffect(() => {
+    const basePath = process.env.NEXT_PUBLIC_BASE_PATH || ''
+    fetch(`${basePath}/api/admin/ai/generate`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: '_ping', context: {} }),
+    }).then(res => {
+      if (res.status === 503) setProvider('none')
+    }).catch(() => {
+      // Ignore — will detect on first real call
+    })
+  }, [])
 
   const generate = useCallback(async (action: string, context: Record<string, unknown>): Promise<T | null> => {
     setIsGenerating(true)
@@ -27,7 +41,6 @@ export function useAIGeneration<T = unknown>(): AIGenerationResult<T> {
       })
 
       if (res.status === 503) {
-        setError('IA no configurada')
         setProvider('none')
         return null
       }
