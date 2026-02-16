@@ -8,7 +8,7 @@ interface VideoPlayerProps {
 // Extract YouTube video ID from various URL formats
 function getYouTubeVideoId(url: string): string | null {
   const patterns = [
-    /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&?\s]+)/,
+    /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/|youtube-nocookie\.com\/embed\/)([^&?\s]+)/,
     /youtube\.com\/v\/([^&?\s]+)/,
   ]
 
@@ -26,12 +26,13 @@ function getVimeoVideoId(url: string): string | null {
 }
 
 // Determine video type and get embed URL
-function getEmbedUrl(url: string): { type: 'youtube' | 'vimeo' | 'direct'; embedUrl: string } | null {
+function getEmbedUrl(url: string): { type: 'youtube' | 'vimeo' | 'direct'; embedUrl: string; watchUrl?: string } | null {
   const youtubeId = getYouTubeVideoId(url)
   if (youtubeId) {
     return {
       type: 'youtube',
-      embedUrl: `https://www.youtube.com/embed/${youtubeId}?rel=0&modestbranding=1`
+      embedUrl: `https://www.youtube-nocookie.com/embed/${youtubeId}?rel=0&modestbranding=1`,
+      watchUrl: `https://www.youtube.com/watch?v=${youtubeId}`,
     }
   }
 
@@ -39,7 +40,8 @@ function getEmbedUrl(url: string): { type: 'youtube' | 'vimeo' | 'direct'; embed
   if (vimeoId) {
     return {
       type: 'vimeo',
-      embedUrl: `https://player.vimeo.com/video/${vimeoId}`
+      embedUrl: `https://player.vimeo.com/video/${vimeoId}`,
+      watchUrl: `https://vimeo.com/${vimeoId}`,
     }
   }
 
@@ -60,7 +62,9 @@ export function VideoPlayer({ url }: VideoPlayerProps) {
         <div className="text-center">
           <span className="text-6xl block mb-4">🎬</span>
           <p>Formato de video no soportado</p>
-          <p className="text-sm mt-2 text-gray-500">{url}</p>
+          <a href={url} target="_blank" rel="noopener noreferrer" className="text-sm mt-2 text-blue-400 hover:underline">
+            Abrir enlace original
+          </a>
         </div>
       </div>
     )
@@ -82,14 +86,30 @@ export function VideoPlayer({ url }: VideoPlayerProps) {
   }
 
   return (
-    <div className="relative w-full aspect-video bg-black rounded-xl overflow-hidden">
-      <iframe
-        src={embedInfo.embedUrl}
-        className="w-full h-full"
-        allowFullScreen
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        title="Video player"
-      />
+    <div>
+      <div className="relative w-full aspect-video bg-black rounded-xl overflow-hidden">
+        <iframe
+          src={embedInfo.embedUrl}
+          className="absolute inset-0 w-full h-full border-0"
+          allowFullScreen
+          loading="lazy"
+          referrerPolicy="strict-origin-when-cross-origin"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          title="Video player"
+        />
+      </div>
+      {embedInfo.watchUrl && (
+        <div className="mt-2 text-right">
+          <a
+            href={embedInfo.watchUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-sm text-gray-500 dark:text-gray-400 hover:text-rizoma-green dark:hover:text-rizoma-green-light"
+          >
+            Ver en {embedInfo.type === 'youtube' ? 'YouTube' : 'Vimeo'} &rarr;
+          </a>
+        </div>
+      )}
     </div>
   )
 }
