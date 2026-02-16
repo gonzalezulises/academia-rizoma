@@ -35,6 +35,7 @@ export default function AdminCourseDetailPage({ params }: PageProps) {
   const [editingLesson, setEditingLesson] = useState<Lesson | null>(null)
 
   const [saving, setSaving] = useState(false)
+  const [saveError, setSaveError] = useState<string | null>(null)
 
   const supabase = createClient()
   const router = useRouter()
@@ -188,6 +189,7 @@ export default function AdminCourseDetailPage({ params }: PageProps) {
   const handleSaveLesson = async (e: React.FormEvent) => {
     e.preventDefault()
     setSaving(true)
+    setSaveError(null)
 
     const lessonData = {
       course_id: courseId,
@@ -206,7 +208,9 @@ export default function AdminCourseDetailPage({ params }: PageProps) {
         .update(lessonData)
         .eq('id', editingLesson.id)
 
-      if (!error) {
+      if (error) {
+        setSaveError(error.message)
+      } else {
         await loadModulesAndLessons()
         resetLessonForm()
       }
@@ -220,7 +224,9 @@ export default function AdminCourseDetailPage({ params }: PageProps) {
             : orphanLessons.length
         })
 
-      if (!error) {
+      if (error) {
+        setSaveError(error.message)
+      } else {
         await loadModulesAndLessons()
         resetLessonForm()
       }
@@ -460,6 +466,11 @@ export default function AdminCourseDetailPage({ params }: PageProps) {
                 />
               </div>
             </div>
+            {saveError && (
+              <div className="mt-4 p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg text-red-700 dark:text-red-400 text-sm">
+                Error: {saveError}
+              </div>
+            )}
             <div className="flex gap-2 mt-4">
               <button
                 type="submit"
