@@ -120,20 +120,12 @@ export default function Navbar() {
                 </button>
               </div>
             ) : (
-              <div className="flex gap-4">
-                <Link
-                  href="/login"
-                  className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
-                >
-                  Iniciar sesión
-                </Link>
-                <Link
-                  href="/register"
-                  className="px-4 py-2 bg-rizoma-green text-white rounded-lg hover:bg-rizoma-green-dark transition-colors"
-                >
-                  Registrarse
-                </Link>
-              </div>
+              <Link
+                href="/auth"
+                className="px-4 py-2 bg-rizoma-green text-white rounded-lg hover:bg-rizoma-green-dark transition-colors"
+              >
+                Acceder
+              </Link>
             )}
           </div>
         </div>

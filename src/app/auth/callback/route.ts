@@ -51,7 +51,7 @@ export async function GET(request: NextRequest) {
     : new URL(request.url).origin
   const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? ''
 
-  const redirectPath = success ? next : '/login?error=auth_failed'
+  const redirectPath = success ? next : '/auth?error=auth_failed'
   const response = NextResponse.redirect(`${origin}${basePath}${redirectPath}`)
 
   for (const { name, value, options } of cookiesToForward) {

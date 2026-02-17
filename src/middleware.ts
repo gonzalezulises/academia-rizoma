@@ -5,8 +5,10 @@ const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? ''
 
 // Routes that require authentication
 const PROTECTED_PREFIXES = ['/dashboard', '/admin', '/courses/']
-// Routes only for unauthenticated users
-const AUTH_ROUTES = ['/login', '/register']
+// Legacy auth routes → redirect to /auth
+const LEGACY_AUTH_ROUTES = ['/login', '/register']
+// All auth routes (for redirecting authenticated users away)
+const AUTH_ROUTES = ['/login', '/register', '/auth']
 
 export async function middleware(request: NextRequest) {
   let supabaseResponse = NextResponse.next({ request })
@@ -35,12 +37,23 @@ export async function middleware(request: NextRequest) {
 
   const pathname = request.nextUrl.pathname
 
+  // Redirect legacy /login and /register to /auth
+  if (LEGACY_AUTH_ROUTES.some(route => pathname === route)) {
+    const authUrl = request.nextUrl.clone()
+    authUrl.pathname = `${basePath}/auth`
+    // Preserve any existing ?next= param
+    const existingNext = request.nextUrl.searchParams.get('next')
+    if (existingNext) authUrl.searchParams.set('next', existingNext)
+    return NextResponse.redirect(authUrl)
+  }
+
   // Redirect unauthenticated users away from protected routes
   const isProtected = PROTECTED_PREFIXES.some(prefix => pathname.startsWith(prefix))
   if (isProtected && !user) {
-    const loginUrl = request.nextUrl.clone()
-    loginUrl.pathname = `${basePath}/login`
-    return NextResponse.redirect(loginUrl)
+    const authUrl = request.nextUrl.clone()
+    authUrl.pathname = `${basePath}/auth`
+    authUrl.searchParams.set('next', pathname)
+    return NextResponse.redirect(authUrl)
   }
 
   // Redirect authenticated users away from auth routes
