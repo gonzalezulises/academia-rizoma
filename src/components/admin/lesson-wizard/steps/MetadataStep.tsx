@@ -3,15 +3,19 @@
 import type { Dispatch } from 'react'
 import type { LessonWizardState, WizardAction } from '../types'
 import { BLOOM_LEVELS } from '../types'
+import { useAIGeneration } from '../hooks/useAIGeneration'
+import AIGenerateButton from '../shared/AIGenerateButton'
 
 interface MetadataStepProps {
   state: LessonWizardState
   dispatch: Dispatch<WizardAction>
   modules: { id: string; title: string }[]
+  courseName?: string
 }
 
-export default function MetadataStep({ state, dispatch, modules }: MetadataStepProps) {
+export default function MetadataStep({ state, dispatch, modules, courseName }: MetadataStepProps) {
   const { metadata } = state
+  const ai = useAIGeneration<{ objectives: string[] }>()
 
   const updateObjective = (index: number, value: string) => {
     const newObjectives = [...metadata.objectives]
@@ -28,6 +32,21 @@ export default function MetadataStep({ state, dispatch, modules }: MetadataStepP
   const removeObjective = (index: number) => {
     if (metadata.objectives.length > 1) {
       dispatch({ type: 'SET_OBJECTIVES', objectives: metadata.objectives.filter((_, i) => i !== index) })
+    }
+  }
+
+  const handleGenerateObjectives = async () => {
+    const selectedModule = modules.find(m => m.id === metadata.moduleId)
+    const result = await ai.generate('objectives', {
+      title: metadata.title,
+      objectives: [],
+      bloomLevel: metadata.bloomLevel,
+      courseName: courseName || '',
+      moduleName: selectedModule?.title || '',
+    })
+
+    if (result?.objectives) {
+      dispatch({ type: 'SET_OBJECTIVES', objectives: result.objectives.slice(0, 4) })
     }
   }
 
@@ -106,9 +125,19 @@ export default function MetadataStep({ state, dispatch, modules }: MetadataStepP
 
       {/* Learning Objectives */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-          Objetivos de aprendizaje (2-4)
-        </label>
+        <div className="flex items-center justify-between mb-2">
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+            Objetivos de aprendizaje (2-4)
+          </label>
+          <AIGenerateButton
+            onClick={handleGenerateObjectives}
+            isGenerating={ai.isGenerating}
+            error={ai.error}
+            provider={ai.provider}
+            label="Sugerir objetivos"
+            disabled={!metadata.title.trim()}
+          />
+        </div>
         <div className="space-y-2">
           {metadata.objectives.map((obj, index) => (
             <div key={index} className="flex gap-2">

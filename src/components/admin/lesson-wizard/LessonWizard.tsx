@@ -338,7 +338,7 @@ export default function LessonWizard({ courseId, lessonId }: LessonWizardProps) 
   const renderStep = () => {
     switch (state.currentStep) {
       case 1:
-        return <MetadataStep state={state} dispatch={dispatch} modules={modules} />
+        return <MetadataStep state={state} dispatch={dispatch} modules={modules} courseName={courseName} />
       case 2:
         return <ConnectionStep state={state} dispatch={dispatch} courseName={courseName} moduleName={selectedModuleName} />
       case 3:

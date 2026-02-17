@@ -25,6 +25,24 @@ Reglas:
 - El contenido debe ser conciso, directo y sin relleno.`
 
 export const AI_PROMPTS = {
+  objectives(ctx: PromptContext): PromptPair {
+    return {
+      system: `${BASE_SYSTEM}
+Genera objetivos de aprendizaje para una leccion. Cada objetivo debe empezar con un verbo de accion segun la taxonomia de Bloom.
+Formato JSON requerido:
+{
+  "objectives": ["string", "string", "string"]
+}
+Genera entre 2 y 4 objetivos. Cada objetivo debe ser una oracion concisa que empiece con "El estudiante sera capaz de..." seguido de un verbo de accion (identificar, explicar, aplicar, analizar, evaluar, crear).`,
+      user: `Leccion: "${ctx.title}"
+Nivel Bloom: ${ctx.bloomLevel}
+${ctx.courseName ? `Curso: ${ctx.courseName}` : ''}
+${ctx.moduleName ? `Modulo: ${ctx.moduleName}` : ''}
+
+Genera 2-4 objetivos de aprendizaje alineados al titulo y nivel de Bloom.`,
+    }
+  },
+
   connection(ctx: PromptContext): PromptPair {
     return {
       system: `${BASE_SYSTEM}
