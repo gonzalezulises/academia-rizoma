@@ -1,7 +1,7 @@
 // Interactive Exercise Types for Python, SQL, and Colab
 // Compatible with markdown embeds: <!-- exercise:id -->
 
-export type ExerciseType = 'code-python' | 'sql' | 'quiz' | 'colab'
+export type ExerciseType = 'code-python' | 'sql' | 'quiz' | 'colab' | 'reflection' | 'case-study'
 export type RuntimeTier = 'pyodide' | 'jupyterlite' | 'colab'
 export type DifficultyLevel = 'beginner' | 'intermediate' | 'advanced'
 export type ExerciseStatus = 'not_started' | 'in_progress' | 'completed' | 'failed'
@@ -139,8 +139,21 @@ export interface ColabExercise extends BaseExercise {
   manual_completion?: boolean
 }
 
+// Reflection exercise (open-ended reflection question)
+export interface ReflectionExercise extends BaseExercise {
+  type: 'reflection'
+  reflection_prompt: string
+}
+
+// Case study exercise (scenario with analysis questions)
+export interface CaseStudyExercise extends BaseExercise {
+  type: 'case-study'
+  scenario_text: string
+  analysis_questions: string[]
+}
+
 // Union type for all exercises
-export type Exercise = CodeExercise | SQLExercise | QuizExercise | ColabExercise
+export type Exercise = CodeExercise | SQLExercise | QuizExercise | ColabExercise | ReflectionExercise | CaseStudyExercise
 
 // Exercise progress tracking
 export interface ExerciseProgress {

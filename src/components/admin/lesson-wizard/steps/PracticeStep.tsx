@@ -1,7 +1,7 @@
 'use client'
 
 import type { Dispatch } from 'react'
-import type { LessonWizardState, WizardAction, ExerciseDefinition } from '../types'
+import type { LessonWizardState, WizardAction, ExerciseDefinition, WizardExerciseType } from '../types'
 import ExerciseEditor from '../shared/ExerciseEditor'
 import AIGenerateButton from '../shared/AIGenerateButton'
 import { useAIGeneration } from '../hooks/useAIGeneration'
@@ -12,14 +12,55 @@ interface PracticeStepProps {
   courseName?: string
 }
 
+const ADD_BUTTONS: { type: WizardExerciseType; label: string; icon: string }[] = [
+  { type: 'code-python', label: 'Python', icon: '\uD83D\uDC0D' },
+  { type: 'sql', label: 'SQL', icon: '\uD83D\uDDD7' },
+  { type: 'colab', label: 'Colab', icon: '\uD83D\uDCD3' },
+  { type: 'reflection', label: 'Reflexion', icon: '\uD83D\uDCAD' },
+  { type: 'case-study', label: 'Caso de estudio', icon: '\uD83D\uDCC8' },
+]
+
+function createExercise(type: WizardExerciseType): ExerciseDefinition {
+  const base: ExerciseDefinition = {
+    id: `ex-${Date.now()}`,
+    title: '',
+    type,
+    difficulty: 'beginner',
+    description: '',
+    instructions: '',
+    starterCode: '',
+    solutionCode: '',
+    testCode: '',
+    hints: [],
+    estimatedMinutes: 5,
+  }
+
+  switch (type) {
+    case 'code-python':
+      return { ...base, starterCode: '# Tu codigo aqui\n', hints: ['', '', ''] }
+    case 'sql':
+      return { ...base, starterCode: '-- Tu consulta aqui\n', hints: ['', '', ''] }
+    case 'colab':
+      return { ...base, colabUrl: '', notebookName: '', completionCriteria: '', manualCompletion: true, estimatedMinutes: 15 }
+    case 'reflection':
+      return { ...base, reflectionPrompt: '', estimatedMinutes: 5 }
+    case 'case-study':
+      return { ...base, scenarioText: '', analysisQuestions: ['', ''], estimatedMinutes: 10 }
+  }
+}
+
 export default function PracticeStep({ state, dispatch, courseName }: PracticeStepProps) {
   const { practice, metadata } = state
   const ai = useAIGeneration<{
     exercises: {
       id: string; title: string; type: string; difficulty: string
       description: string; instructions: string
-      starterCode: string; solutionCode: string; testCode: string
-      hints: string[]; estimatedMinutes: number
+      starterCode?: string; solutionCode?: string; testCode?: string
+      hints?: string[]; estimatedMinutes: number
+      colabUrl?: string; githubUrl?: string; notebookName?: string
+      completionCriteria?: string; manualCompletion?: boolean
+      reflectionPrompt?: string
+      scenarioText?: string; analysisQuestions?: string[]
     }[]
     estimatedMinutes: number
   }>()
@@ -42,28 +83,23 @@ export default function PracticeStep({ state, dispatch, courseName }: PracticeSt
         starterCode: ex.starterCode || '',
         solutionCode: ex.solutionCode || '',
         testCode: ex.testCode || '',
-        hints: ex.hints || ['', '', ''],
+        hints: ex.hints || [],
         estimatedMinutes: ex.estimatedMinutes || 5,
+        colabUrl: ex.colabUrl,
+        githubUrl: ex.githubUrl,
+        notebookName: ex.notebookName,
+        completionCriteria: ex.completionCriteria,
+        manualCompletion: ex.manualCompletion,
+        reflectionPrompt: ex.reflectionPrompt,
+        scenarioText: ex.scenarioText,
+        analysisQuestions: ex.analysisQuestions,
       }))
       dispatch({ type: 'SET_EXERCISES', exercises: newExercises })
     }
   }
 
-  const addExercise = () => {
-    const newExercise: ExerciseDefinition = {
-      id: `ex-${Date.now()}`,
-      title: '',
-      type: 'code-python',
-      difficulty: 'beginner',
-      description: '',
-      instructions: '',
-      starterCode: '# Tu codigo aqui\n',
-      solutionCode: '',
-      testCode: '',
-      hints: ['', '', ''],
-      estimatedMinutes: 5,
-    }
-    dispatch({ type: 'ADD_EXERCISE', exercise: newExercise })
+  const addExercise = (type: WizardExerciseType) => {
+    dispatch({ type: 'ADD_EXERCISE', exercise: createExercise(type) })
   }
 
   const totalMinutes = practice.exercises.reduce((sum, ex) => sum + ex.estimatedMinutes, 0)
@@ -141,13 +177,19 @@ export default function PracticeStep({ state, dispatch, courseName }: PracticeSt
         </div>
       )}
 
-      <button
-        type="button"
-        onClick={addExercise}
-        className="w-full py-2 border-2 border-dashed border-gray-300 dark:border-gray-700 rounded-lg text-gray-500 dark:text-gray-400 hover:border-rizoma-green hover:text-rizoma-green transition-colors text-sm"
-      >
-        + Agregar ejercicio
-      </button>
+      {/* Per-type add buttons */}
+      <div className="flex flex-wrap gap-2">
+        {ADD_BUTTONS.map(btn => (
+          <button
+            key={btn.type}
+            type="button"
+            onClick={() => addExercise(btn.type)}
+            className="px-3 py-2 border-2 border-dashed border-gray-300 dark:border-gray-700 rounded-lg text-gray-500 dark:text-gray-400 hover:border-rizoma-green hover:text-rizoma-green transition-colors text-sm"
+          >
+            {btn.icon} + {btn.label}
+          </button>
+        ))}
+      </div>
     </div>
   )
 }

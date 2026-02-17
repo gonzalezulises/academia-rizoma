@@ -3,7 +3,7 @@
 export type BloomLevel = 'remember' | 'understand' | 'apply' | 'analyze' | 'evaluate' | 'create'
 export type HookType = 'analogy' | 'question' | 'real_world' | 'challenge'
 export type ConceptBlockType = 'explanation' | 'example' | 'diagram' | 'video'
-export type WizardExerciseType = 'code-python' | 'sql' | 'quiz'
+export type WizardExerciseType = 'code-python' | 'sql' | 'colab' | 'reflection' | 'case-study'
 
 export interface ConceptBlock {
   id: string
@@ -26,6 +26,17 @@ export interface ExerciseDefinition {
   testCode: string
   hints: string[]
   estimatedMinutes: number
+  // Colab-specific
+  colabUrl?: string
+  githubUrl?: string
+  notebookName?: string
+  completionCriteria?: string
+  manualCompletion?: boolean
+  // Reflection-specific
+  reflectionPrompt?: string
+  // Case-study-specific
+  scenarioText?: string
+  analysisQuestions?: string[]
 }
 
 export interface WizardQuizQuestion {

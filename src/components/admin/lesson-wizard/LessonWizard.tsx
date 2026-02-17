@@ -77,62 +77,66 @@ export default function LessonWizard({ courseId, lessonId }: LessonWizardProps) 
 
   // Convert wizard exercises to DB format
   const buildExerciseData = (exercise: ExerciseDefinition) => {
-    if (exercise.type === 'code-python') {
-      return {
-        id: exercise.id,
-        title: exercise.title,
-        type: 'code-python' as const,
-        description: exercise.description,
-        instructions: exercise.instructions,
-        difficulty: exercise.difficulty,
-        estimated_time_minutes: exercise.estimatedMinutes,
-        points: 10,
-        runtime_tier: 'pyodide' as const,
-        starter_code: exercise.starterCode,
-        solution_code: exercise.solutionCode,
-        test_cases: [{
-          id: 'test-1',
-          name: 'Validacion',
-          test_code: exercise.testCode,
-          points: 10,
-        }],
-        hints: exercise.hints.filter(h => h.trim()),
-      }
-    }
-    if (exercise.type === 'sql') {
-      return {
-        id: exercise.id,
-        title: exercise.title,
-        type: 'sql' as const,
-        description: exercise.description,
-        instructions: exercise.instructions,
-        difficulty: exercise.difficulty,
-        estimated_time_minutes: exercise.estimatedMinutes,
-        points: 10,
-        schema_id: 'default',
-        starter_code: exercise.starterCode,
-        solution_query: exercise.solutionCode,
-        test_cases: [{
-          id: 'test-1',
-          name: 'Validacion',
-          test_code: exercise.testCode,
-          points: 10,
-        }],
-        hints: exercise.hints.filter(h => h.trim()),
-      }
-    }
-    // quiz type
-    return {
+    const base = {
       id: exercise.id,
       title: exercise.title,
-      type: 'quiz' as const,
+      type: exercise.type,
       description: exercise.description,
       instructions: exercise.instructions,
       difficulty: exercise.difficulty,
       estimated_time_minutes: exercise.estimatedMinutes,
       points: 10,
-      questions: [],
-      hints: exercise.hints.filter(h => h.trim()),
+    }
+
+    switch (exercise.type) {
+      case 'code-python':
+        return {
+          ...base,
+          runtime_tier: 'pyodide' as const,
+          starter_code: exercise.starterCode,
+          solution_code: exercise.solutionCode,
+          test_cases: [{
+            id: 'test-1',
+            name: 'Validacion',
+            test_code: exercise.testCode,
+            points: 10,
+          }],
+          hints: exercise.hints.filter(h => h.trim()),
+        }
+      case 'sql':
+        return {
+          ...base,
+          schema_id: 'default',
+          starter_code: exercise.starterCode,
+          solution_query: exercise.solutionCode,
+          test_cases: [{
+            id: 'test-1',
+            name: 'Validacion',
+            test_code: exercise.testCode,
+            points: 10,
+          }],
+          hints: exercise.hints.filter(h => h.trim()),
+        }
+      case 'colab':
+        return {
+          ...base,
+          colab_url: exercise.colabUrl || '',
+          github_url: exercise.githubUrl || '',
+          notebook_name: exercise.notebookName || '',
+          completion_criteria: exercise.completionCriteria || '',
+          manual_completion: exercise.manualCompletion ?? true,
+        }
+      case 'reflection':
+        return {
+          ...base,
+          reflection_prompt: exercise.reflectionPrompt || '',
+        }
+      case 'case-study':
+        return {
+          ...base,
+          scenario_text: exercise.scenarioText || '',
+          analysis_questions: (exercise.analysisQuestions || []).filter(q => q.trim()),
+        }
     }
   }
 
