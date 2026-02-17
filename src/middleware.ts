@@ -1,8 +1,6 @@
 import { createServerClient } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
 
-const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? ''
-
 // Routes that require authentication
 const PROTECTED_PREFIXES = ['/dashboard', '/admin', '/courses/']
 // Legacy auth routes → redirect to /auth
@@ -40,7 +38,7 @@ export async function middleware(request: NextRequest) {
   // Redirect legacy /login and /register to /auth
   if (LEGACY_AUTH_ROUTES.some(route => pathname === route)) {
     const authUrl = request.nextUrl.clone()
-    authUrl.pathname = `${basePath}/auth`
+    authUrl.pathname = '/auth'
     // Preserve any existing ?next= param
     const existingNext = request.nextUrl.searchParams.get('next')
     if (existingNext) authUrl.searchParams.set('next', existingNext)
@@ -51,7 +49,7 @@ export async function middleware(request: NextRequest) {
   const isProtected = PROTECTED_PREFIXES.some(prefix => pathname.startsWith(prefix))
   if (isProtected && !user) {
     const authUrl = request.nextUrl.clone()
-    authUrl.pathname = `${basePath}/auth`
+    authUrl.pathname = '/auth'
     authUrl.searchParams.set('next', pathname)
     return NextResponse.redirect(authUrl)
   }
@@ -60,7 +58,7 @@ export async function middleware(request: NextRequest) {
   const isAuthRoute = AUTH_ROUTES.some(route => pathname === route)
   if (isAuthRoute && user) {
     const coursesUrl = request.nextUrl.clone()
-    coursesUrl.pathname = `${basePath}/courses`
+    coursesUrl.pathname = '/courses'
     return NextResponse.redirect(coursesUrl)
   }
 
