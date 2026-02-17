@@ -82,8 +82,9 @@ async function callCloud(system: string, user: string): Promise<string> {
 }
 
 function parseJSONResponse<T = unknown>(raw: string): T {
+  // Strip Qwen3 thinking tags
+  let cleaned = raw.replace(/<think>[\s\S]*?<\/think>/g, '').trim()
   // Strip markdown code fences if present
-  let cleaned = raw.trim()
   if (cleaned.startsWith('```json')) {
     cleaned = cleaned.slice(7)
   } else if (cleaned.startsWith('```')) {
