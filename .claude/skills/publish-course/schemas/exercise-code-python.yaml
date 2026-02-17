@@ -1,0 +1,54 @@
+# Reference schema for code-python exercise YAML
+# See: src/types/exercises.ts → CodeExercise interface
+
+# --- REQUIRED ---
+id: string                     # Unique across course, e.g., "ex-01-01-hello-world"
+type: code-python
+title: string
+description: string
+instructions: string           # Multiline (|) supported
+
+difficulty: beginner | intermediate | advanced
+estimated_time_minutes: integer
+points: integer
+
+starter_code: string           # What the student sees initially (multiline |)
+solution_code: string          # Complete correct solution (multiline |)
+
+test_cases:                    # At least 1 test case
+  - id: string                 # e.g., "test-output"
+    name: string               # Human-readable test name
+    test_code: string          # Python code — MUST contain at least one `assert`
+    points: integer
+    # Optional:
+    hidden: boolean            # Default: false — hidden tests not shown to student
+    error_message: string
+
+# --- OPTIONAL ---
+runtime_tier: pyodide | jupyterlite | colab  # Default: pyodide
+hints: string[]                # Progressive hints (concept → syntax → near-solution)
+tags: string[]
+required_packages: string[]    # Pyodide packages to install (e.g., ["pandas", "numpy"])
+forbidden_keywords: string[]   # Keywords student cannot use
+required_keywords: string[]    # Keywords student must use
+ui_config:
+  hide_code: boolean
+  show_output_only: boolean
+  interactive_mode: edit | visualization | readonly
+  auto_run: boolean
+
+datasets:                      # CSV data dependencies
+  - id: string
+    path: string               # Relative to content/shared/datasets/
+    name: string
+    description: string
+
+comprehension_questions:       # Post-visualization interactive questions
+  - id: string
+    question: string
+    options:
+      - id: string
+        text: string
+    correct: string            # Option ID
+    feedback_correct: string
+    feedback_incorrect: string

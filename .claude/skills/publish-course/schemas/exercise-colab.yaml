@@ -1,0 +1,23 @@
+# Reference schema for colab exercise YAML
+# See: src/types/exercises.ts → ColabExercise interface
+
+# --- REQUIRED ---
+id: string
+type: colab
+title: string
+description: string
+instructions: string
+
+difficulty: beginner | intermediate | advanced
+estimated_time_minutes: integer
+points: integer
+
+colab_url: string              # Must start with https://colab.research.google.com/ or https://github.com/
+notebook_name: string          # Display name for the notebook
+completion_criteria: string    # What constitutes "done" (e.g., "Train model and achieve >80% accuracy")
+
+# --- OPTIONAL ---
+github_url: string             # Alternative GitHub link to the notebook
+manual_completion: boolean     # Default: false — if true, student self-reports completion
+hints: string[]
+tags: string[]

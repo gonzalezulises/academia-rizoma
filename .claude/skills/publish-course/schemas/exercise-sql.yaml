@@ -1,0 +1,36 @@
+# Reference schema for sql exercise YAML
+# See: src/types/exercises.ts → SQLExercise interface
+
+# --- REQUIRED ---
+id: string
+type: sql
+title: string
+description: string
+instructions: string
+
+difficulty: beginner | intermediate | advanced
+estimated_time_minutes: integer
+points: integer
+
+schema_id: string              # References content/shared/schemas/{schema_id}.sql
+starter_code: string           # Initial SQL in editor (multiline |)
+solution_query: string         # NOTE: field is "solution_query", NOT "solution_code"
+
+# --- OPTIONAL ---
+expected_output:               # Array of row objects for verification
+  - column_name: value         # e.g., [{id: 1, name: "Ana"}, {id: 2, name: "Carlos"}]
+
+test_cases:                    # Optional programmatic tests
+  - id: string
+    name: string
+    test_code: string
+    points: integer
+
+hints: string[]
+tags: string[]
+runtime_tier: pyodide          # sql.js uses this value for compatibility
+
+datasets:
+  - id: string
+    path: string
+    name: string

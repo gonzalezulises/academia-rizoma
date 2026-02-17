@@ -1,0 +1,25 @@
+# Reference schema for module.yaml
+# One per module directory (e.g., module-01/module.yaml)
+
+# --- REQUIRED ---
+id: string                     # Must match directory name, e.g., "module-01"
+title: string
+order: integer                 # Must match order in course.yaml
+
+lessons:                       # At least 1 entry
+  - id: string                 # e.g., "lesson-01-01"
+    file: string               # Relative path: "lessons/01-primeros-pasos.md"
+    title: string
+    # Optional per lesson:
+    type: string               # Default: "text"
+    order: integer             # Sequential within module
+    duration_minutes: integer  # Estimated reading + exercises time
+    exercises: string[]        # Exercise IDs embedded in this lesson
+
+# --- OPTIONAL ---
+description: string
+
+exercises:                     # Exercise registry for the module
+  - id: string                 # e.g., "ex-01-01-hello-world"
+    file: string               # Relative path: "exercises/ex-01-01-hello-world.yaml"
+    lesson_id: string          # Which lesson this exercise belongs to

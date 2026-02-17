@@ -1,0 +1,99 @@
+# Reference schema for COURSE_STATE.yaml
+# Pedagogical contract for multi-session course creation consistency
+# See: content/courses/data-analytics/COURSE_STATE.yaml for a complete example
+
+# --- META ---
+meta:
+  course_id: string            # Must match course.yaml id/slug
+  last_updated: string         # YYYY-MM-DD
+  last_module_completed: string # e.g., "module-01"
+  total_exercises_created: integer
+  migration_status: string     # "pending" | "in_progress" | "completed"
+
+# --- LEARNING PROGRESSION ---
+learning_progression:
+  concepts_introduced:         # Concepts taught per module
+    module-01:                 # List of concept identifiers (snake_case)
+      - concept_name
+
+  skills_assumed:              # Prerequisites from previous modules
+    module-01: []              # Module 1 has no prerequisites
+    module-02:                 # Lists concepts from earlier modules
+      - concept_from_module_01
+
+  complexity_trajectory:       # Expected complexity growth
+    module-01:
+      lines_of_code: string   # Range, e.g., "3-15"
+      datasets: integer       # Number of datasets used
+      new_libraries: string[] # New imports introduced
+      exercise_count_target: integer
+      colab_notebooks: integer # Optional — for hybrid strategy modules
+
+# --- CODE CONVENTIONS ---
+code_conventions:
+  variable_names:              # Standard variable names across the course
+    dataframe: df
+    features: X
+    target: y
+    train_features: X_train
+    test_features: X_test
+    model: model
+    predictions: y_pred
+    figure: fig
+    axis: ax
+
+  import_style: string         # Multiline template of standard imports per module
+
+  test_pattern: string         # Standard assertion pattern for exercise tests
+
+  error_messages:              # Standard messages for test feedback
+    missing_variable: string
+    wrong_type: string
+    wrong_value: string
+    success: string
+
+# --- DATASETS ---
+datasets:                      # Datasets used per module
+  module-NN:
+    - name: string             # Filename (e.g., "drinks.csv")
+      source: string           # Origin (e.g., "kaggle", "synthetic")
+      description: string
+      rows: integer
+      columns: string[]
+      target: string           # Optional — for supervised learning datasets
+
+# --- EXERCISES REGISTRY ---
+exercises_registry:            # All exercises created, filled incrementally
+  exercise-id:
+    module: string             # Which module it belongs to
+    concepts: string[]         # Concepts it teaches/tests
+    difficulty: string
+    status: string             # "completed" | "planned" | "in_progress"
+
+# --- NEXT MODULE SPEC ---
+next_module_spec:              # Explicit spec for the next module to create
+  id: string
+  title: string
+  prerequisites_from_previous: string[]
+  new_concepts_to_introduce: string[]
+  exercises_planned:
+    - id: string
+      title: string
+      concepts: string[]
+      difficulty: string
+  estimated_exercises: integer
+  estimated_lessons: integer
+  datasets_required: string[]
+
+# --- PEDAGOGICAL STYLE ---
+pedagogical_style:
+  lesson_structure: string[]   # Ordered steps for each lesson
+  exercise_difficulty_curve:
+    beginner: string
+    intermediate: string
+    advanced: string
+  hints_policy:
+    count: integer             # Number of hints per exercise (typically 3)
+    progression: string[]      # From conceptual to near-solution
+  feedback_tone: string
+  language: string             # e.g., "Español neutro (tú, no vos)"

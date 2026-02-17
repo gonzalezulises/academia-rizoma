@@ -1,0 +1,35 @@
+# Reference schema for course.yaml
+# All fields with validation rules and defaults
+
+# --- REQUIRED ---
+id: string                    # Must match slug
+title: string                 # Course title
+description: string           # Can be multiline YAML (|)
+slug: string                  # kebab-case: /^[a-z0-9]+(-[a-z0-9]+)*$/
+
+modules:                      # At least 1 entry
+  - id: string                # e.g., "module-01" — must match directory name
+    title: string
+    description: string
+    order: integer             # Sequential from 1
+    strategy: string           # "granular" (10-15 exercises) | "hybrid" (exercises + colab)
+
+# --- REQUIRED WITH DEFAULTS ---
+is_published: boolean          # Default: false
+exercise_config:
+  default_runtime: string      # "pyodide" | "jupyterlite" | "colab" — Default: "pyodide"
+  allow_solution_view: boolean # Default: true
+  max_attempts: integer | null # Default: null (unlimited)
+
+# --- OPTIONAL ---
+thumbnail_url: string         # Path like "/images/courses/slug-thumbnail.webp"
+instructor_id: string | null
+prerequisites: string[]       # Human-readable prerequisite descriptions
+tags: string[]                 # For search/filtering
+estimated_duration_hours: integer
+difficulty: string             # "beginner" | "intermediate" | "advanced" | "beginner-to-intermediate"
+
+source:                        # Origin tracking
+  repository: string           # GitHub URL
+  original_format: string      # "jupyter-notebooks" | "markdown" | "ai-generated"
+  migration_date: string       # YYYY-MM-DD

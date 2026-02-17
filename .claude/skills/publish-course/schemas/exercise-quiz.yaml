@@ -1,0 +1,46 @@
+# Reference schema for quiz exercise YAML
+# See: src/types/exercises.ts → QuizExercise interface
+
+# --- REQUIRED ---
+id: string
+type: quiz
+title: string
+description: string
+instructions: string
+
+difficulty: beginner | intermediate | advanced
+estimated_time_minutes: integer
+points: integer                # Total points (sum of question points)
+
+questions:                     # At least 1 question
+  - id: string                 # e.g., "q1"
+    question: string           # The question text
+    type: mcq | true_false | multiple_select | multiple_choice
+    options:                   # At least 2 options (3+ recommended)
+      - id: string             # e.g., "a", "b", "c", "d"
+        text: string           # Option display text
+    correct: string | string[] # Option ID(s) — NOT array index!
+                               # For mcq/multiple_choice: single string (e.g., "b")
+                               # For multiple_select: array of strings (e.g., ["a", "c"])
+                               # For true_false: "a" or "b"
+    points: integer
+    # Optional per question:
+    bloom_level: remember | understand | apply | analyze | evaluate | create
+    feedback_correct: string
+    feedback_incorrect: string
+    explanation: string        # Alias for feedback_incorrect
+
+# --- OPTIONAL ---
+config:
+  passing_score: integer       # Minimum points to pass
+  show_feedback: boolean       # Show per-question feedback
+  randomize_questions: boolean
+  allow_retry: boolean
+  estimated_time_minutes: integer
+
+# Legacy optional fields (use config instead):
+passing_score: integer
+shuffle_questions: boolean
+show_explanation_on_wrong: boolean
+total_points: integer
+passing_points: integer
