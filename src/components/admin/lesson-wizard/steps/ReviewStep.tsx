@@ -10,6 +10,7 @@ interface ReviewStepProps {
   onSave: () => void
   onSaveDraft: () => void
   saving: boolean
+  onGoToStep?: (step: number) => void
 }
 
 export default function ReviewStep({
@@ -19,6 +20,7 @@ export default function ReviewStep({
   onSave,
   onSaveDraft,
   saving,
+  onGoToStep,
 }: ReviewStepProps) {
   return (
     <div className="space-y-6">
@@ -40,7 +42,7 @@ export default function ReviewStep({
       </div>
 
       {/* Validation */}
-      <ValidationChecklist validation={validation} />
+      <ValidationChecklist validation={validation} onGoToStep={onGoToStep} />
 
       {/* Markdown preview */}
       <div>

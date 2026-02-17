@@ -360,6 +360,7 @@ export default function LessonWizard({ courseId, lessonId }: LessonWizardProps) 
             onSave={handleSave}
             onSaveDraft={handleSaveDraft}
             saving={saving}
+            onGoToStep={goToStep}
           />
         )
       default:
@@ -441,7 +442,7 @@ export default function LessonWizard({ courseId, lessonId }: LessonWizardProps) 
         {/* Sidebar: validation checklist (visible on lg+) */}
         <div className="hidden lg:block w-72 flex-shrink-0">
           <div className="sticky top-4">
-            <ValidationChecklist validation={validation} />
+            <ValidationChecklist validation={validation} onGoToStep={goToStep} />
           </div>
         </div>
       </div>

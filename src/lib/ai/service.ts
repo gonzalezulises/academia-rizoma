@@ -81,6 +81,51 @@ async function callCloud(system: string, user: string): Promise<string> {
   }
 }
 
+function sanitizeJSONString(raw: string): string {
+  // Fix unescaped control characters inside JSON string values.
+  // LLMs often emit literal newlines/tabs in code fields instead of \n \t.
+  // Strategy: walk the string tracking whether we're inside a JSON string value,
+  // and escape any raw control chars (U+0000–U+001F) found there.
+  const result: string[] = []
+  let inString = false
+  let i = 0
+  while (i < raw.length) {
+    const ch = raw[i]
+    if (inString) {
+      if (ch === '\\') {
+        // Escaped char — pass through both chars
+        result.push(ch, raw[i + 1] || '')
+        i += 2
+        continue
+      }
+      if (ch === '"') {
+        inString = false
+        result.push(ch)
+        i++
+        continue
+      }
+      const code = ch.charCodeAt(0)
+      if (code <= 0x1f) {
+        // Raw control character inside string — escape it
+        if (code === 0x0a) result.push('\\n')
+        else if (code === 0x0d) result.push('\\r')
+        else if (code === 0x09) result.push('\\t')
+        else result.push(`\\u${code.toString(16).padStart(4, '0')}`)
+        i++
+        continue
+      }
+      result.push(ch)
+    } else {
+      if (ch === '"') {
+        inString = true
+      }
+      result.push(ch)
+    }
+    i++
+  }
+  return result.join('')
+}
+
 function parseJSONResponse<T = unknown>(raw: string): T {
   // Strip Qwen3 thinking tags
   let cleaned = raw.replace(/<think>[\s\S]*?<\/think>/g, '').trim()
@@ -93,7 +138,14 @@ function parseJSONResponse<T = unknown>(raw: string): T {
   if (cleaned.endsWith('```')) {
     cleaned = cleaned.slice(0, -3)
   }
-  return JSON.parse(cleaned.trim())
+  cleaned = cleaned.trim()
+
+  try {
+    return JSON.parse(cleaned)
+  } catch {
+    // Retry with control character sanitization
+    return JSON.parse(sanitizeJSONString(cleaned))
+  }
 }
 
 export function createAIService(): AIService {
