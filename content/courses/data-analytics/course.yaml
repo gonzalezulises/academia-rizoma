@@ -72,7 +72,7 @@ modules:
     order: 8
     strategy: granular  # Reemplaza Tableau
 
-# Prerequisitos
+# Prerrequisitos
 prerequisites:
   - "Conocimientos básicos de matemáticas (álgebra)"
   - "Familiaridad con hojas de cálculo (Excel/Sheets)"

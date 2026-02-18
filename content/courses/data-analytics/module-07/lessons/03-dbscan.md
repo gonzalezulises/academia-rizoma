@@ -24,7 +24,7 @@ clusters = dbscan.fit_predict(X_scaled)
 
 ## ¿Cuándo usar qué?
 
-| Algoritmo | Cuando usar |
+| Algoritmo | Cuándo usar |
 |-----------|-------------|
 | K-Means | Clusters esféricos, k conocido |
 | DBSCAN | Formas arbitrarias, outliers |
