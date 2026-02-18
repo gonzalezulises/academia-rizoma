@@ -214,7 +214,7 @@ export default function LessonWizard({ courseId, lessonId }: LessonWizardProps) 
       for (const exercise of state.practice.exercises) {
         const exerciseData = buildExerciseData(exercise)
 
-        await supabase
+        const { error: exError } = await supabase
           .from('course_exercises')
           .upsert({
             course_id: courseId,
@@ -224,6 +224,8 @@ export default function LessonWizard({ courseId, lessonId }: LessonWizardProps) 
             exercise_type: exercise.type,
             exercise_data: exerciseData,
           }, { onConflict: 'course_id,exercise_id' })
+
+        if (exError) throw new Error(`Ejercicio "${exercise.title}": ${exError.message}`)
       }
 
       // 3. Insert quiz
@@ -279,9 +281,11 @@ export default function LessonWizard({ courseId, lessonId }: LessonWizardProps) 
         wizard_state: state,
       }
 
-      await supabase
+      const { error: metaError } = await supabase
         .from('lesson_metadata')
         .upsert(metadataPayload, { onConflict: 'lesson_id' })
+
+      if (metaError) throw new Error(`Metadata: ${metaError.message}`)
 
       clearDraft()
       router.push(`/admin/courses/${courseId}`)
