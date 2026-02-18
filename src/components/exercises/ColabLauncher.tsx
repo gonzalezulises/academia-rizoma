@@ -51,7 +51,7 @@ export function ColabLauncher({
     onProgressUpdate?.({
       status: 'in_progress',
       score: 0,
-      completed_at: undefined
+      completed_at: null
     })
   }, [onProgressUpdate])
 

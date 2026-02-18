@@ -44,7 +44,7 @@ export default function QuizPlayer({
     quiz.time_limit ? quiz.time_limit * 60 : null
   )
   const startTimeRef = useRef<number>(0)
-  const supabase = createClient()
+  const supabase = useMemo(() => createClient(), [])
 
   // Memoize questions to avoid re-shuffling on every render
   const questions = useMemo(() => {

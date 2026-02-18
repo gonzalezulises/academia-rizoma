@@ -5,7 +5,6 @@ export type UserRole = 'student' | 'instructor' | 'admin'
 
 export type LessonType = 'video' | 'text' | 'quiz' | 'assignment'
 
-export type ActivityType = 'watch' | 'read' | 'quiz' | 'submit'
 
 export interface Profile {
   id: string
@@ -18,6 +17,7 @@ export interface Profile {
 export interface Course {
   id: string
   title: string
+  slug: string | null
   description: string | null
   thumbnail_url: string | null
   instructor_id: string
@@ -51,16 +51,6 @@ export interface Lesson {
   created_at: string
 }
 
-export interface Activity {
-  id: string
-  lesson_id: string
-  activity_type: ActivityType
-  title: string
-  content: Record<string, unknown>
-  order_index: number
-  points: number
-  created_at: string
-}
 
 export interface Progress {
   id: string
@@ -85,42 +75,15 @@ export interface CourseProgress {
   completed_at: string | null
 }
 
-export interface ActivityProgress {
-  id: string
-  user_id: string
-  activity_id: string
-  completed: boolean
-  score: number | null
-  attempts: number
-  data: Record<string, unknown>
-  completed_at: string | null
-}
 
 export interface CourseProgressWithDetails extends CourseProgress {
   course: Course
   current_lesson?: Lesson
 }
 
-export interface Enrollment {
-  id: string
-  user_id: string
-  course_id: string
-  enrolled_at: string
-}
-
 // Extended types with relations
-export interface CourseWithInstructor extends Course {
-  instructor: Profile
-}
 
-export interface CourseWithLessons extends Course {
-  lessons: Lesson[]
-}
 
-export interface CourseWithModules extends Course {
-  modules: ModuleWithLessons[]
-  instructor?: Profile
-}
 
 export interface ModuleWithLessons extends Module {
   lessons: LessonWithProgress[]
@@ -130,13 +93,8 @@ export interface LessonWithProgress extends Lesson {
   progress: Progress | null
 }
 
-export interface LessonWithActivities extends Lesson {
-  activities: Activity[]
-  progress?: Progress | null
-}
 
 export interface LessonFull extends Lesson {
-  activities: Activity[]
   progress?: Progress | null
   module?: Module | null
   course?: Course
@@ -187,64 +145,13 @@ export interface QuizAnswer {
   points_earned?: number
 }
 
-export interface QuizAttempt {
-  id: string
-  user_id: string
-  quiz_id: string
-  score: number | null
-  max_score: number | null
-  passed: boolean | null
-  answers: QuizAnswer[]
-  started_at: string
-  completed_at: string | null
-  time_taken: number | null
-}
 
 export interface QuizWithQuestions extends Quiz {
   questions: QuizQuestion[]
 }
 
-export interface QuizAttemptWithDetails extends QuizAttempt {
-  quiz: QuizWithQuestions
-}
 
-// Assignment types
-export interface Assignment {
-  id: string
-  lesson_id: string
-  title: string
-  instructions: string | null
-  due_date: string | null
-  max_score: number
-  allowed_file_types: string[]
-  max_file_size: number
-  is_published: boolean
-  created_at: string
-  updated_at: string
-}
 
-export type SubmissionStatus = 'pending' | 'reviewed' | 'approved' | 'rejected' | 'late'
-
-export interface Submission {
-  id: string
-  assignment_id: string
-  user_id: string
-  file_url: string | null
-  file_name: string | null
-  file_size: number | null
-  comments: string | null
-  score: number | null
-  feedback: string | null
-  status: SubmissionStatus
-  submitted_at: string
-  reviewed_at: string | null
-  reviewed_by: string | null
-}
-
-export interface SubmissionWithDetails extends Submission {
-  user?: Profile
-  assignment?: Assignment
-}
 
 // Forum types
 export interface Forum {
@@ -338,22 +245,6 @@ export interface AnnouncementWithAuthor extends Announcement {
   author: Profile
 }
 
-// Content Version types
-export interface ContentVersion {
-  id: string
-  lesson_id: string
-  version_number: number
-  content: string | null
-  video_url: string | null
-  change_notes: string | null
-  created_by: string | null
-  created_at: string
-  is_active: boolean
-}
-
-export interface ContentVersionWithCreator extends ContentVersion {
-  creator?: Profile | null
-}
 
 // Resource types
 export interface Resource {
@@ -370,6 +261,3 @@ export interface Resource {
   updated_at: string
 }
 
-export interface ResourceWithCreator extends Resource {
-  creator?: Profile | null
-}

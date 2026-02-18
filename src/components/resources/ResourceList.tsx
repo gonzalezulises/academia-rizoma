@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import type { Resource } from '@/types'
 
@@ -36,7 +36,7 @@ function formatFileSize(bytes: number | null): string {
 
 export default function ResourceList({ resources, isInstructor, onDelete }: ResourceListProps) {
   const [downloading, setDownloading] = useState<string | null>(null)
-  const supabase = createClient()
+  const supabase = useMemo(() => createClient(), [])
 
   const handleDownload = async (resource: Resource) => {
     setDownloading(resource.id)

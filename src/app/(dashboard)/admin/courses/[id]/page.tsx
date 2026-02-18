@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useCallback, use, useRef } from 'react'
+import { useState, useEffect, useCallback, use, useRef, useMemo } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
@@ -41,9 +41,9 @@ export default function AdminCourseDetailPage({ params }: PageProps) {
   const [saving, setSaving] = useState(false)
   const [saveError, setSaveError] = useState<string | null>(null)
 
-  const supabase = createClient()
+  const supabase = useMemo(() => createClient(), [])
   const router = useRouter()
-  const formRef = useRef<HTMLDivElement>(null)
+  const formRef = useRef<HTMLFormElement>(null)
 
   const loadModulesAndLessons = useCallback(async () => {
     // Get modules with lessons
@@ -79,7 +79,7 @@ export default function AdminCourseDetailPage({ params }: PageProps) {
       const { data: { user: authUser } } = await supabase.auth.getUser()
 
       if (!authUser) {
-        router.push('/login')
+        router.push('/auth')
         return
       }
 
@@ -462,7 +462,7 @@ export default function AdminCourseDetailPage({ params }: PageProps) {
 
         {/* Module Form */}
         {showModuleForm && (
-          <form ref={formRef as React.Ref<HTMLFormElement>} onSubmit={handleSaveModule} className="bg-white dark:bg-gray-800 rounded-xl p-6 mb-8 shadow-sm">
+          <form ref={formRef} onSubmit={handleSaveModule} className="bg-white dark:bg-gray-800 rounded-xl p-6 mb-8 shadow-sm">
             <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
               {editingModule ? 'Editar modulo' : 'Nuevo modulo'}
             </h2>
@@ -514,7 +514,7 @@ export default function AdminCourseDetailPage({ params }: PageProps) {
 
         {/* Lesson Form */}
         {showLessonForm && (
-          <form ref={formRef as React.Ref<HTMLFormElement>} onSubmit={handleSaveLesson} className="bg-white dark:bg-gray-800 rounded-xl p-6 mb-8 shadow-sm">
+          <form ref={formRef} onSubmit={handleSaveLesson} className="bg-white dark:bg-gray-800 rounded-xl p-6 mb-8 shadow-sm">
             <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
               {editingLesson ? 'Editar leccion' : 'Nueva leccion'}
             </h2>

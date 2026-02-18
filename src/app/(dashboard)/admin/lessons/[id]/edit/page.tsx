@@ -1,6 +1,6 @@
 'use client'
 
-import { use, useEffect, useState } from 'react'
+import { use, useEffect, useState, useMemo } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import Navbar from '@/components/Navbar'
 import LessonWizard from '@/components/admin/lesson-wizard/LessonWizard'
@@ -14,7 +14,7 @@ export default function EditLessonWizardPage({ params }: PageProps) {
   const { id: lessonId } = use(params)
   const [courseId, setCourseId] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
-  const supabase = createClient()
+  const supabase = useMemo(() => createClient(), [])
 
   useEffect(() => {
     const loadLesson = async () => {

@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
 import { ReplyThread, ReplyForm } from '@/components/forum'
@@ -23,7 +23,7 @@ export default function ForumThreadClient({
 }: ForumThreadClientProps) {
   const [post, setPost] = useState(initialPost)
   const [replies, setReplies] = useState(initialPost.replies)
-  const supabase = createClient()
+  const supabase = useMemo(() => createClient(), [])
 
   const formatDate = (date: string) => {
     return new Date(date).toLocaleDateString('es-ES', {

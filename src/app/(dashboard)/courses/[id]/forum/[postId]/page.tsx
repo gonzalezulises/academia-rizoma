@@ -1,6 +1,7 @@
 import { Metadata } from 'next'
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
+import Navbar from '@/components/Navbar'
 import ForumThreadClient from './ForumThreadClient'
 import type { ForumPostFull, ForumReplyWithAuthor, Profile } from '@/types'
 
@@ -48,11 +49,8 @@ export default async function ForumThreadPage({ params }: ForumThreadPageProps) 
 
   if (!post) redirect(`/courses/${courseId}/forum`)
 
-  // Update view count
-  await supabase
-    .from('forum_posts')
-    .update({ views: (post.views || 0) + 1 })
-    .eq('id', postId)
+  // Atomic view count increment
+  await supabase.rpc('increment_post_views', { p_post_id: postId })
 
   // Get replies with authors (nested structure)
   const { data: replies } = await supabase
@@ -104,6 +102,8 @@ export default async function ForumThreadPage({ params }: ForumThreadPageProps) 
   const isAuthor = post.user_id === user.id
 
   return (
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+      <Navbar />
     <ForumThreadClient
       post={fullPost}
       courseId={courseId}
@@ -111,5 +111,6 @@ export default async function ForumThreadPage({ params }: ForumThreadPageProps) 
       isInstructor={isInstructor}
       isAuthor={isAuthor}
     />
+    </div>
   )
 }

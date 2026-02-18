@@ -34,11 +34,15 @@ export async function GET(request: NextRequest) {
   }
   // Token hash flow: Supabase redirects with ?token_hash=&type=
   else if (token_hash && type) {
-    const { error } = await supabase.auth.verifyOtp({
-      token_hash,
-      type: type as 'magiclink' | 'email',
-    })
-    success = !error
+    const validTypes = ['magiclink', 'email', 'signup', 'recovery'] as const
+    type ValidType = (typeof validTypes)[number]
+    if (validTypes.includes(type as ValidType)) {
+      const { error } = await supabase.auth.verifyOtp({
+        token_hash,
+        type: type as ValidType,
+      })
+      success = !error
+    }
   }
 
   // Use x-forwarded-host to redirect back to the user-facing domain (www.rizo.ma)

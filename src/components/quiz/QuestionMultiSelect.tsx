@@ -17,7 +17,7 @@ export default function QuestionMultiSelect({
   showResult = false,
   disabled = false
 }: QuestionMultiSelectProps) {
-  const options = question.options as QuizOption[]
+  const options = (question.options ?? []) as QuizOption[]
 
   const getOptionStyle = (option: QuizOption) => {
     const isSelected = selectedAnswers.includes(option.id)

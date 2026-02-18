@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
 import type { Notification } from '@/types'
@@ -13,7 +13,7 @@ interface NotificationListProps {
 export default function NotificationList({ initialNotifications, userId }: NotificationListProps) {
   const [notifications, setNotifications] = useState(initialNotifications)
   const [filter, setFilter] = useState<'all' | 'unread'>('all')
-  const supabase = createClient()
+  const supabase = useMemo(() => createClient(), [])
 
   const filteredNotifications = filter === 'unread'
     ? notifications.filter((n) => !n.is_read)

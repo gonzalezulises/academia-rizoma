@@ -1,10 +1,5 @@
 // AI Service — dual provider: local DGX (OpenAI-compatible) → Claude API fallback
 
-interface AIResponse {
-  content: string
-  provider: 'local' | 'cloud' | 'none'
-}
-
 interface AIService {
   generate(system: string, user: string): Promise<string>
   parseJSONResponse<T = unknown>(raw: string): T
@@ -218,4 +213,4 @@ export function createAIService(): AIService {
   }
 }
 
-export type { AIService, AIResponse }
+export type { AIService }

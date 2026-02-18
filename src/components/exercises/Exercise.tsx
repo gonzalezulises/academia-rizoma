@@ -8,8 +8,7 @@ import { QuizPlayground } from './QuizPlayground'
 import { ExerciseErrorBoundary } from './ExerciseErrorBoundary'
 import type {
   Exercise as ExerciseType,
-  ExerciseProgress,
-  LoadedExercise
+  ExerciseProgress
 } from '@/types/exercises'
 
 interface ExerciseProps {
@@ -17,7 +16,6 @@ interface ExerciseProps {
   courseSlug?: string
   moduleId?: string
   exercise?: ExerciseType
-  loadedExercise?: LoadedExercise
   progress?: ExerciseProgress
   onProgressUpdate?: (progress: Partial<ExerciseProgress>) => void
   showSolution?: boolean
@@ -64,14 +62,13 @@ export function Exercise({
   courseSlug,
   moduleId,
   exercise: providedExercise,
-  loadedExercise,
   progress,
   onProgressUpdate,
   showSolution = false
 }: ExerciseProps) {
-  const [exercise, setExercise] = useState<ExerciseType | null>(providedExercise || loadedExercise?.exercise || null)
-  const [datasets, setDatasets] = useState<Map<string, string>>(loadedExercise?.datasets || new Map())
-  const [schema, setSchema] = useState<string | undefined>(loadedExercise?.schema)
+  const [exercise, setExercise] = useState<ExerciseType | null>(providedExercise || null)
+  const [datasets, setDatasets] = useState<Map<string, string>>(new Map())
+  const [schema, setSchema] = useState<string | undefined>(undefined)
   const [isLoading, setIsLoading] = useState(!exercise)
   const [error, setError] = useState<string | null>(null)
 

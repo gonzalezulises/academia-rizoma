@@ -62,19 +62,15 @@ export default function LessonPlayer({
       setTimeSpent(elapsed)
     }, 30000)
 
-    // Save time on unmount
+    // Save time on unmount (atomic increment via RPC)
     return () => {
       clearInterval(interval)
       const totalTime = Math.floor((Date.now() - startTimeRef.current) / 1000)
       if (totalTime > 10) {
-        // Only save if more than 10 seconds
-        supabase.from('course_progress').upsert({
-          user_id: userId,
-          course_id: courseId,
-          total_time_spent: totalTime,
-          last_accessed_at: new Date().toISOString()
-        }, {
-          onConflict: 'user_id,course_id'
+        supabase.rpc('increment_time_spent', {
+          p_user_id: userId,
+          p_course_id: courseId,
+          p_delta: totalTime
         })
       }
     }

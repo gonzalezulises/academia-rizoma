@@ -163,9 +163,6 @@ export function CodePlayground({
 }: CodePlaygroundProps) {
   // UI configuration from exercise YAML
   const hideCode = exercise.ui_config?.hide_code ?? false
-  // showOutputOnly reserved for future use (hide tests tab, etc.)
-  const _showOutputOnly = exercise.ui_config?.show_output_only ?? false
-  void _showOutputOnly // Evita warning de unused
   const autoRun = exercise.ui_config?.auto_run ?? hideCode // Auto-run if code is hidden
 
   const [code, setCode] = useState(progress?.current_code || exercise.starter_code)
@@ -274,7 +271,7 @@ export function CodePlayground({
         max_score: maxScore,
         test_results: result.test_results,
         status: result.success ? 'completed' : 'in_progress',
-        completed_at: result.success ? new Date().toISOString() : undefined,
+        completed_at: result.success ? new Date().toISOString() : null,
         last_attempt_at: new Date().toISOString()
       })
     }

@@ -18,9 +18,16 @@ async function getMarkdownContent(content: string | null): Promise<string | null
   if (filePathMatch) {
     const relativePath = filePathMatch[1].trim()
     const absolutePath = path.join(process.cwd(), relativePath)
+    const resolvedPath = path.resolve(absolutePath)
+    const contentDir = path.resolve(process.cwd(), 'content')
+
+    // Prevent path traversal
+    if (!resolvedPath.startsWith(contentDir)) {
+      return 'Error: ruta no permitida'
+    }
 
     try {
-      const markdownContent = await fs.readFile(absolutePath, 'utf-8')
+      const markdownContent = await fs.readFile(resolvedPath, 'utf-8')
       return markdownContent
     } catch (error) {
       console.error(`Error reading markdown file: ${absolutePath}`, error)

@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { AnnouncementCard, CreateAnnouncement } from '@/components/announcements'
 import type { AnnouncementWithAuthor, Announcement, Profile } from '@/types'
@@ -22,7 +22,7 @@ export default function AnnouncementsClient({
 }: AnnouncementsClientProps) {
   const [announcements, setAnnouncements] = useState(initialAnnouncements)
   const [showForm, setShowForm] = useState(false)
-  const supabase = createClient()
+  const supabase = useMemo(() => createClient(), [])
 
   const handleCreated = (newAnnouncement: Announcement) => {
     if (!profile) return

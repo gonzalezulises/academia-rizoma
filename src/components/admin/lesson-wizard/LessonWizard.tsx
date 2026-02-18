@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useMemo } from 'react'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import { useLessonWizard, assembleMarkdown } from './hooks/useLessonWizard'
@@ -22,7 +22,7 @@ interface LessonWizardProps {
 
 export default function LessonWizard({ courseId, lessonId }: LessonWizardProps) {
   const router = useRouter()
-  const supabase = createClient()
+  const supabase = useMemo(() => createClient(), [])
   const [modules, setModules] = useState<Module[]>([])
   const [courseName, setCourseName] = useState('')
   const [saving, setSaving] = useState(false)

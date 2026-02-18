@@ -87,7 +87,7 @@ export function SQLPlayground({
           score: correct ? exercise.points : 0,
           max_score: exercise.points,
           status: correct ? 'completed' : 'in_progress',
-          completed_at: correct ? new Date().toISOString() : undefined,
+          completed_at: correct ? new Date().toISOString() : null,
           last_attempt_at: new Date().toISOString()
         })
       }

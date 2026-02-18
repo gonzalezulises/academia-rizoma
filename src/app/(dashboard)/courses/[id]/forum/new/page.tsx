@@ -2,6 +2,7 @@ import { Metadata } from 'next'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
+import Navbar from '@/components/Navbar'
 import { CreatePost } from '@/components/forum'
 import type { Profile, Forum } from '@/types'
 
@@ -50,6 +51,8 @@ export default async function NewPostPage({ params }: NewPostPageProps) {
   }
 
   return (
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+      <Navbar />
     <div className="max-w-2xl mx-auto px-4 py-8">
       {/* Back link */}
       <Link
@@ -64,6 +67,7 @@ export default async function NewPostPage({ params }: NewPostPageProps) {
         courseId={courseId}
         currentUser={profile}
       />
+    </div>
     </div>
   )
 }

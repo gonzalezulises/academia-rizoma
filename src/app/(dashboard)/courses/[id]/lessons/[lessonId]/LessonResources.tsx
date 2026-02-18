@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { ResourceList, ResourceUpload } from '@/components/resources'
 import type { Resource } from '@/types'
@@ -20,7 +20,7 @@ export default function LessonResources({
 }: LessonResourcesProps) {
   const [resources, setResources] = useState(initialResources)
   const [showUpload, setShowUpload] = useState(false)
-  const supabase = createClient()
+  const supabase = useMemo(() => createClient(), [])
 
   const handleUploaded = (newResource: Resource) => {
     setResources((prev) => [...prev, newResource])

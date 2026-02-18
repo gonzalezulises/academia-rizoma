@@ -17,7 +17,7 @@ export default function QuestionMCQ({
   showResult = false,
   disabled = false
 }: QuestionMCQProps) {
-  const options = question.options as QuizOption[]
+  const options = (question.options ?? []) as QuizOption[]
 
   const getOptionStyle = (option: QuizOption) => {
     const isSelected = selectedAnswer === option.id

@@ -25,14 +25,6 @@ export interface DatasetReference {
   schema?: Record<string, string>
 }
 
-// SQL Schema reference
-export interface SQLSchemaReference {
-  id: string
-  path: string
-  name: string
-  tables: string[]
-}
-
 // UI configuration for exercise display
 export interface UIConfig {
   hide_code?: boolean
