@@ -48,7 +48,7 @@ modules:
     order: 3
     strategy: interactive
 
-# Prerequisitos
+# Prerrequisitos
 prerequisites:
   - "Ninguno — curso diseñado para profesionales de HR, talento y líderes de negocio"
 
