@@ -69,7 +69,7 @@ async function callCloud(system: string, user: string): Promise<string> {
       },
       body: JSON.stringify({
         model: 'claude-sonnet-4-5-20250929',
-        max_tokens: 4096,
+        max_tokens: 8192,
         system,
         messages: [{ role: 'user', content: user }],
       }),
@@ -130,6 +130,35 @@ function sanitizeJSONString(raw: string): string {
   return result.join('')
 }
 
+function repairTruncatedJSON(raw: string): string {
+  // Attempt to repair JSON truncated by token limits.
+  // Strategy: close any open strings, arrays, and objects.
+  let sanitized = sanitizeJSONString(raw)
+  let inString = false
+  const stack: string[] = []
+
+  for (let i = 0; i < sanitized.length; i++) {
+    const ch = sanitized[i]
+    if (inString) {
+      if (ch === '\\') { i++; continue }
+      if (ch === '"') inString = false
+    } else {
+      if (ch === '"') inString = true
+      else if (ch === '{' || ch === '[') stack.push(ch)
+      else if (ch === '}' || ch === ']') stack.pop()
+    }
+  }
+
+  // Close open string
+  if (inString) sanitized += '"'
+  // Close open structures in reverse
+  while (stack.length > 0) {
+    const open = stack.pop()
+    sanitized += open === '{' ? '}' : ']'
+  }
+  return sanitized
+}
+
 function parseJSONResponse<T = unknown>(raw: string): T {
   // Strip Qwen3 thinking tags
   let cleaned = raw.replace(/<think>[\s\S]*?<\/think>/g, '').trim()
@@ -144,11 +173,15 @@ function parseJSONResponse<T = unknown>(raw: string): T {
   }
   cleaned = cleaned.trim()
 
+  // Try parsing in order: raw → sanitized → repaired (truncated)
   try {
     return JSON.parse(cleaned)
   } catch {
-    // Retry with control character sanitization
-    return JSON.parse(sanitizeJSONString(cleaned))
+    try {
+      return JSON.parse(sanitizeJSONString(cleaned))
+    } catch {
+      return JSON.parse(repairTruncatedJSON(cleaned))
+    }
   }
 }
 
