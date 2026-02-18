@@ -19,7 +19,7 @@ export default async function AnnouncementsPage({ params }: AnnouncementsPagePro
   const supabase = await createClient()
 
   const { data: { user } } = await supabase.auth.getUser()
-  if (!user) redirect('/login')
+  if (!user) redirect('/auth')
 
   // Get user profile
   const { data: profile } = await supabase

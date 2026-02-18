@@ -17,7 +17,7 @@ export default async function QuizPage({ params }: QuizPageProps) {
   const { data: { user } } = await supabase.auth.getUser()
 
   if (!user) {
-    redirect('/login')
+    redirect('/auth')
   }
 
   // Get quiz with questions

@@ -13,7 +13,7 @@ export default async function NotificationsPage() {
   const supabase = await createClient()
 
   const { data: { user } } = await supabase.auth.getUser()
-  if (!user) redirect('/login')
+  if (!user) redirect('/auth')
 
   // Get all notifications
   const { data: notifications } = await supabase

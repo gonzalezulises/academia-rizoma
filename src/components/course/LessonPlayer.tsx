@@ -165,22 +165,6 @@ export default function LessonPlayer({
           </div>
         )
 
-      case 'assignment':
-        return (
-          <div className="bg-purple-50 dark:bg-purple-900/20 border border-purple-200 dark:border-purple-800 rounded-xl p-8 text-center mb-6">
-            <span className="text-5xl block mb-4">📝</span>
-            <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-              Tarea por entregar
-            </h3>
-            <p className="text-gray-600 dark:text-gray-400 mb-4">
-              {lesson.content || 'Completa la tarea asignada para esta leccion.'}
-            </p>
-            <button className="px-6 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700">
-              Subir Entrega
-            </button>
-          </div>
-        )
-
       default:
         return null
     }
@@ -201,7 +185,6 @@ export default function LessonPlayer({
             {lesson.lesson_type === 'video' && '🎬'}
             {lesson.lesson_type === 'text' && '📄'}
             {lesson.lesson_type === 'quiz' && '❓'}
-            {lesson.lesson_type === 'assignment' && '📝'}
           </span>
           <h1 className="text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white">
             {lesson.title}

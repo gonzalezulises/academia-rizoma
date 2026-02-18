@@ -20,7 +20,7 @@ export default async function ForumPage({ params, searchParams }: ForumPageProps
   const supabase = await createClient()
 
   const { data: { user } } = await supabase.auth.getUser()
-  if (!user) redirect('/login')
+  if (!user) redirect('/auth')
 
   // Get course info
   const { data: course } = await supabase

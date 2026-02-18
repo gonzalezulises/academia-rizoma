@@ -2,7 +2,6 @@
 
 interface VideoPlayerProps {
   url: string
-  onEnded?: () => void
 }
 
 // Extract YouTube video ID from various URL formats

@@ -18,7 +18,7 @@ export default async function NewPostPage({ params }: NewPostPageProps) {
   const supabase = await createClient()
 
   const { data: { user } } = await supabase.auth.getUser()
-  if (!user) redirect('/login')
+  if (!user) redirect('/auth')
 
   // Get current user profile
   const { data: profile } = await supabase
@@ -27,7 +27,7 @@ export default async function NewPostPage({ params }: NewPostPageProps) {
     .eq('id', user.id)
     .single() as { data: Profile | null }
 
-  if (!profile) redirect('/login')
+  if (!profile) redirect('/auth')
 
   // Get course info
   const { data: course } = await supabase

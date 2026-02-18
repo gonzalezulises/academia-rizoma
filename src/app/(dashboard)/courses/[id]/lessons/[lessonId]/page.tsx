@@ -302,7 +302,7 @@ export default async function LessonPage({ params }: LessonPageProps) {
                     </p>
                   </div>
                   <Link
-                    href="/login"
+                    href="/auth"
                     className="px-4 py-2 bg-rizoma-green text-white rounded-lg text-sm font-medium hover:bg-rizoma-green-dark transition-colors"
                   >
                     Iniciar sesion

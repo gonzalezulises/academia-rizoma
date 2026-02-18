@@ -90,7 +90,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
     const { data: { user } } = await supabase.auth.getUser()
 
     if (!user) {
-      redirect('/login')
+      redirect('/auth')
     }
 
     await supabase.from('enrollments').insert({
@@ -287,7 +287,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
                     )
                   ) : (
                     <Link
-                      href="/login"
+                      href="/auth"
                       className="block w-full py-3 bg-rizoma-green text-white text-center rounded-lg font-medium hover:bg-rizoma-green-dark transition-colors"
                     >
                       Inicia sesion para inscribirte

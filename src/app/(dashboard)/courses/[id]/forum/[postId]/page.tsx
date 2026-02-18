@@ -17,7 +17,7 @@ export default async function ForumThreadPage({ params }: ForumThreadPageProps) 
   const supabase = await createClient()
 
   const { data: { user } } = await supabase.auth.getUser()
-  if (!user) redirect('/login')
+  if (!user) redirect('/auth')
 
   // Get current user profile
   const { data: profile } = await supabase
