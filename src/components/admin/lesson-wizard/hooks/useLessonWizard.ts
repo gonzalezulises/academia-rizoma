@@ -150,6 +150,16 @@ function wizardReducer(state: LessonWizardState, action: WizardAction): LessonWi
   }
 }
 
+function sanitizeUrl(url: string): string {
+  try {
+    const parsed = new URL(url)
+    if (parsed.protocol === 'https:' || parsed.protocol === 'http:') {
+      return parsed.href
+    }
+  } catch { /* invalid URL */ }
+  return ''
+}
+
 export function assembleMarkdown(state: LessonWizardState): string {
   const sections: string[] = []
 
@@ -161,7 +171,12 @@ export function assembleMarkdown(state: LessonWizardState): string {
   // Concepts section
   for (const block of state.concepts.blocks) {
     if (block.type === 'video' && block.videoUrl) {
-      sections.push(`### ${block.title}\n\n${block.content}\n\n[Video](${block.videoUrl})`)
+      const safeUrl = sanitizeUrl(block.videoUrl)
+      if (safeUrl) {
+        sections.push(`### ${block.title}\n\n${block.content}\n\n[Video](${safeUrl})`)
+      } else {
+        sections.push(`### ${block.title}\n\n${block.content}`)
+      }
     } else {
       sections.push(`### ${block.title}\n\n${block.content}`)
     }
@@ -268,12 +283,31 @@ export function useLessonWizard(initialState?: LessonWizardState, storageKey?: s
     try {
       const saved = localStorage.getItem(AUTOSAVE_PREFIX + storageKey)
       if (saved) {
-        const parsed = JSON.parse(saved) as LessonWizardState
-        if (parsed.metadata?.title) {
-          dispatch({ type: 'HYDRATE', state: parsed })
+        const parsed = JSON.parse(saved)
+        // Validate essential shape before hydrating
+        if (
+          parsed &&
+          typeof parsed === 'object' &&
+          typeof parsed.metadata?.title === 'string' &&
+          typeof parsed.currentStep === 'number' &&
+          parsed.currentStep >= 1 &&
+          parsed.currentStep <= 6 &&
+          Array.isArray(parsed.metadata?.objectives) &&
+          typeof parsed.connection === 'object' &&
+          typeof parsed.concepts === 'object' &&
+          typeof parsed.practice === 'object' &&
+          typeof parsed.conclusions === 'object'
+        ) {
+          dispatch({ type: 'HYDRATE', state: parsed as LessonWizardState })
+        } else {
+          // Corrupt/invalid shape — clear it
+          localStorage.removeItem(AUTOSAVE_PREFIX + storageKey)
         }
       }
-    } catch { /* ignore corrupt data */ }
+    } catch {
+      // Corrupt JSON — clear it
+      if (storageKey) localStorage.removeItem(AUTOSAVE_PREFIX + storageKey)
+    }
   }, [storageKey, initialState])
 
   // Auto-save to localStorage on every dirty change (debounced)

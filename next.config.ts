@@ -35,7 +35,7 @@ const securityHeaders = [
       "img-src 'self' data: blob: https: http:",
       "media-src 'self' https:",
       "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://ollama.rizo.ma https://api.anthropic.com https://www.googleapis.com https://vercel.live https://*.vercelinsights.com",
-      "frame-src 'self' https://www.youtube.com https://www.youtube-nocookie.com https://player.vimeo.com https://colab.research.google.com https://vercel.live",
+      "frame-src 'self' https://www.youtube.com https://www.youtube-nocookie.com https://player.vimeo.com https://colab.research.google.com https://vercel.live https://tally.so",
       "worker-src 'self' blob:",
     ].join('; ')
   }

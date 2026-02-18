@@ -89,7 +89,7 @@ export async function GET(
       if (dbResult) {
         const { exercise } = dbResult
         return NextResponse.json({
-          exercise: { ...exercise, solution_code: undefined },
+          exercise: { ...exercise, solution_code: undefined, solution_query: undefined },
           datasets: {},
           schema: undefined,
         })
@@ -132,7 +132,8 @@ export async function GET(
     // Remove solution code from response (don't expose to client)
     const exerciseForClient = {
       ...exercise,
-      solution_code: undefined // Remove solution
+      solution_code: undefined,
+      solution_query: undefined,
     }
 
     return NextResponse.json({

@@ -140,6 +140,8 @@ export default function LessonWizard({ courseId, lessonId }: LessonWizardProps) 
           scenario_text: exercise.scenarioText || '',
           analysis_questions: (exercise.analysisQuestions || []).filter(q => q.trim()),
         }
+      default:
+        return base
     }
   }
 
@@ -230,17 +232,17 @@ export default function LessonWizard({ courseId, lessonId }: LessonWizardProps) 
 
       // 3. Insert quiz
       if (state.conclusions.quizQuestions.length > 0 && finalLessonId) {
-        // Delete existing quiz if editing
+        // Delete existing quizzes if editing
         if (lessonId) {
-          const { data: existingQuiz } = await supabase
+          const { data: existingQuizzes } = await supabase
             .from('quizzes')
             .select('id')
             .eq('lesson_id', lessonId)
-            .single()
 
-          if (existingQuiz) {
-            await supabase.from('quiz_questions').delete().eq('quiz_id', existingQuiz.id)
-            await supabase.from('quizzes').delete().eq('id', existingQuiz.id)
+          if (existingQuizzes && existingQuizzes.length > 0) {
+            const quizIds = existingQuizzes.map(q => q.id)
+            await supabase.from('quiz_questions').delete().in('quiz_id', quizIds)
+            await supabase.from('quizzes').delete().in('id', quizIds)
           }
         }
 
@@ -268,8 +270,12 @@ export default function LessonWizard({ courseId, lessonId }: LessonWizardProps) 
       }
 
       // 4. Save lesson metadata
+      if (!finalLessonId) {
+        throw new Error('No se pudo obtener el ID de la leccion')
+      }
+
       const metadataPayload = {
-        lesson_id: finalLessonId!,
+        lesson_id: finalLessonId,
         learning_objectives: state.metadata.objectives.filter(o => o.trim()),
         bloom_level: state.metadata.bloomLevel,
         connection_type: state.connection.hookType,
@@ -329,15 +335,22 @@ export default function LessonWizard({ courseId, lessonId }: LessonWizardProps) 
         if (error) throw error
         finalLessonId = data.id
       } else {
-        await supabase.from('lessons').update(lessonPayload).eq('id', lessonId)
+        const { error: updateError } = await supabase.from('lessons').update(lessonPayload).eq('id', lessonId)
+        if (updateError) throw updateError
       }
 
-      await supabase
+      if (!finalLessonId) {
+        throw new Error('No se pudo obtener el ID de la leccion')
+      }
+
+      const { error: metaError } = await supabase
         .from('lesson_metadata')
         .upsert({
-          lesson_id: finalLessonId!,
+          lesson_id: finalLessonId,
           wizard_state: state,
         }, { onConflict: 'lesson_id' })
+
+      if (metaError) throw metaError
 
       clearDraft()
       router.push(`/admin/courses/${courseId}`)
