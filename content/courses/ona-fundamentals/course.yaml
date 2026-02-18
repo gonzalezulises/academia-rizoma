@@ -15,7 +15,7 @@ description: |
   y formular intervenciones basadas en evidencia.
 
 slug: ona-fundamentals
-thumbnail_url: "/images/courses/ona-fundamentals-thumbnail.png"
+thumbnail_url: "/images/courses/ona-fundamentals-thumbnail.svg"
 is_published: false  # Cambiar a true cuando esté listo
 instructor_id: null  # Se asigna al migrar a Supabase
 

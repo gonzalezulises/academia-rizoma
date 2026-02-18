@@ -79,28 +79,34 @@ export default function AdminCoursesPage() {
   }
 
   const handlePublish = async (courseId: string, publish: boolean) => {
-    const { error } = await supabase
-      .from('courses')
-      .update({ is_published: publish })
-      .eq('id', courseId)
+    try {
+      const { error } = await supabase
+        .from('courses')
+        .update({ is_published: publish })
+        .eq('id', courseId)
 
-    if (!error) {
+      if (error) throw error
       setCourses(courses.map(c =>
         c.id === courseId ? { ...c, is_published: publish } : c
       ))
+    } catch (err) {
+      alert(`Error al ${publish ? 'publicar' : 'despublicar'}: ${err instanceof Error ? err.message : 'Error desconocido'}`)
     }
   }
 
   const handleDelete = async (courseId: string) => {
     if (!confirm('¿Eliminar este curso?')) return
 
-    const { error } = await supabase
-      .from('courses')
-      .delete()
-      .eq('id', courseId)
+    try {
+      const { error } = await supabase
+        .from('courses')
+        .delete()
+        .eq('id', courseId)
 
-    if (!error) {
+      if (error) throw error
       setCourses(courses.filter(c => c.id !== courseId))
+    } catch (err) {
+      alert(`Error al eliminar: ${err instanceof Error ? err.message : 'Error desconocido'}`)
     }
   }
 

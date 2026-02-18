@@ -3,7 +3,7 @@
  * Follows the same regex-based approach as embed-parser.ts.
  */
 
-export type SlideType = 'title' | 'lesson-separator' | 'content' | 'code' | 'quote' | 'table' | 'quiz' | 'closing'
+type SlideType = 'title' | 'lesson-separator' | 'content' | 'code' | 'quote' | 'table' | 'quiz' | 'closing'
 
 export interface SlideContent {
   type: SlideType
@@ -323,7 +323,7 @@ function parseTableRow(row: string): string[] {
  * Strip common markdown formatting for plain text in slides.
  * Preserves semantic meaning while removing syntax.
  */
-export function stripMarkdownFormatting(text: string): string {
+function stripMarkdownFormatting(text: string): string {
   return text
     .replace(/\*\*(.+?)\*\*/g, '$1')     // bold
     .replace(/\*(.+?)\*/g, '$1')          // italic

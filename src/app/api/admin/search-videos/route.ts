@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { createClient } from '@/lib/supabase/server'
+import { requireAdmin, isAuthError } from '@/lib/auth/helpers'
 
 interface VideoResult {
   id: string
@@ -22,21 +22,8 @@ function formatDuration(iso8601: string): string {
 }
 
 export async function POST(request: Request) {
-  const supabase = await createClient()
-  const { data: { user } } = await supabase.auth.getUser()
-  if (!user) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-  }
-
-  const { data: profile } = await supabase
-    .from('profiles')
-    .select('role')
-    .eq('id', user.id)
-    .single()
-
-  if (!profile || (profile.role !== 'admin' && profile.role !== 'instructor')) {
-    return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
-  }
+  const auth = await requireAdmin()
+  if (isAuthError(auth)) return auth
 
   const apiKey = process.env.YOUTUBE_API_KEY
   if (!apiKey) {
@@ -106,7 +93,7 @@ export async function POST(request: Request) {
   } catch (error) {
     console.error('Video search error:', error)
     return NextResponse.json(
-      { error: error instanceof Error ? error.message : 'Video search failed', configured: true },
+      { error: error instanceof Error ? error.message : 'Video search failed' },
       { status: 500 }
     )
   }

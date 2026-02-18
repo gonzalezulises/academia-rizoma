@@ -4,6 +4,7 @@ id: python-data-science
 title: "Introduccion a Python"
 description: "Aprende Python desde cero con ejercicios practicos interactivos. Ideal para principiantes que quieren dar sus primeros pasos en programacion."
 slug: python-data-science
+thumbnail_url: null  # TODO: generar hero image WebP
 
 instructor_id: null
 is_published: true

@@ -1,0 +1,268 @@
+# COURSE_STATE.yaml
+# Contrato de progresion pedagogica para Introduccion a Python
+# CRITICO: Claude Code DEBE leer este archivo antes de crear contenido
+
+meta:
+  course_id: python-data-science
+  last_updated: "2026-02-18"
+  last_module_completed: module-01
+  total_exercises_created: 13
+
+# ============================================================================
+# PROGRESION PEDAGOGICA EXPLICITA
+# ============================================================================
+
+learning_progression:
+  concepts_introduced:
+    module-01:  # Fundamentos de Python
+      - print_basico
+      - variables_y_asignacion
+      - tipos_de_datos_str_int_float_bool
+      - funcion_type
+      - operadores_aritmeticos
+      - operadores_comparacion
+      - operadores_logicos_and_or_not
+      - operadores_asignacion_compuesta
+      - concatenacion_strings
+      - f_strings
+      - if_else
+      - elif
+      - condiciones_anidadas
+      - operador_ternario
+      - valores_truthy_falsy
+      - listas_creacion_acceso
+      - listas_modificacion_append_insert_remove_pop
+      - indexing_negativo
+      - slicing
+      - len_sum_min_max
+      - sort_reverse
+      - bucle_for
+      - range
+      - enumerate
+      - bucle_while
+      - break_continue
+      - funciones_def
+      - parametros_y_argumentos
+      - parametros_por_defecto
+      - return
+      - return_multiples_valores
+      - argumentos_con_nombre
+      - args_kwargs
+      - scope_local_global
+      - funciones_lambda
+      - docstrings
+
+  skills_assumed:
+    module-01: []  # No hay prerequisitos tecnicos - curso para principiantes
+
+  complexity_trajectory:
+    module-01:
+      lines_of_code: 2-15
+      datasets: 0
+      new_libraries: []
+      exercise_count_target: 13
+
+# ============================================================================
+# CONVENCIONES DE CODIGO - RESPETAR EN TODO EL CURSO
+# ============================================================================
+
+code_conventions:
+  variable_names:
+    generic_counter: contador
+    generic_total: total
+    loop_variable_numbers: numero
+    loop_variable_fruits: fruta
+    result: resultado
+    grade: calificacion
+    grade_input: nota
+    age: edad
+    name: nombre
+    fruits_list: frutas
+    numbers_list: numeros
+    message: mensaje
+    quantity: cantidad
+    price: precio
+    active: activo
+
+  import_style: |
+    # Modulo 1: Sin imports (Python puro)
+    # No se usa ningun import externo en este modulo
+
+  test_pattern: |
+    # Patron estandar para tests de ejercicios
+    assert 'variable' in dir(), "Debes crear una variable llamada 'variable'"
+    assert isinstance(variable, expected_type), "variable debe ser un tipo"
+    assert variable == expected_value, f"Esperado {expected_value}, obtuviste {variable}"
+
+  error_messages:
+    missing_variable: "Debes crear una variable llamada '{name}'"
+    wrong_type: "'{name}' debe ser {expected}, pero es {actual}"
+    wrong_value: "El valor de '{name}' es {actual}, pero esperabamos {expected}"
+    success: "Test pasado!"
+
+  style_notes:
+    - "Comentarios en espanol sin acentos"
+    - "Nombres de variables en espanol (nombre, edad, frutas, etc.)"
+    - "Mensajes de error directos sin emoji en el codigo YAML"
+    - "f-strings para interpolacion de variables en print()"
+    - "4 espacios de indentacion"
+
+# ============================================================================
+# REGISTRO DE EJERCICIOS COMPLETADOS CON DEPENDENCIAS
+# ============================================================================
+
+exercises_registry:
+  ex-01-hola-mundo:
+    module: module-01
+    lesson: lesson-01
+    concepts: [print_basico]
+    variables_created: []
+    depends_on: []
+    difficulty: beginner
+    points: 10
+
+  ex-02-variables-basicas:
+    module: module-01
+    lesson: lesson-01
+    concepts: [variables_y_asignacion, tipos_de_datos_str_int_float_bool]
+    variables_created: [nombre, edad]
+    depends_on: [ex-01-hola-mundo]
+    difficulty: beginner
+    points: 15
+
+  ex-03-tipos-datos:
+    module: module-01
+    lesson: lesson-01
+    concepts: [tipos_de_datos_str_int_float_bool, funcion_type]
+    variables_created: [mensaje, cantidad, precio, activo]
+    depends_on: [ex-02-variables-basicas]
+    difficulty: beginner
+    points: 20
+
+  ex-04-aritmetica:
+    module: module-01
+    lesson: lesson-02
+    concepts: [operadores_aritmeticos, f_strings]
+    variables_created: [suma, resta, producto, division, potencia]
+    depends_on: [ex-03-tipos-datos]
+    difficulty: beginner
+    points: 25
+
+  ex-05-comparaciones:
+    module: module-01
+    lesson: lesson-02
+    concepts: [operadores_comparacion]
+    variables_created: [es_igual, es_mayor, es_menor_igual, es_diferente]
+    depends_on: [ex-04-aritmetica]
+    difficulty: beginner
+    points: 20
+
+  ex-06-if-else:
+    module: module-01
+    lesson: lesson-03
+    concepts: [if_else]
+    variables_created: [resultado]
+    depends_on: [ex-05-comparaciones]
+    difficulty: beginner
+    points: 15
+
+  ex-07-elif:
+    module: module-01
+    lesson: lesson-03
+    concepts: [elif]
+    variables_created: [calificacion]
+    depends_on: [ex-06-if-else]
+    difficulty: beginner
+    points: 20
+
+  ex-08-crear-lista:
+    module: module-01
+    lesson: lesson-04
+    concepts: [listas_creacion_acceso, listas_modificacion_append_insert_remove_pop, indexing_negativo]
+    variables_created: [frutas]
+    depends_on: [ex-07-elif]
+    difficulty: beginner
+    points: 20
+
+  ex-09-for-loop:
+    module: module-01
+    lesson: lesson-04
+    concepts: [bucle_for, operadores_asignacion_compuesta]
+    variables_created: [total]
+    depends_on: [ex-08-crear-lista]
+    difficulty: beginner
+    points: 20
+
+  ex-10-while-loop:
+    module: module-01
+    lesson: lesson-04
+    concepts: [bucle_while]
+    variables_created: [contador]
+    depends_on: [ex-09-for-loop]
+    difficulty: beginner
+    points: 15
+
+  ex-11-funcion-simple:
+    module: module-01
+    lesson: lesson-05
+    concepts: [funciones_def]
+    variables_created: [saludar]
+    depends_on: [ex-10-while-loop]
+    difficulty: beginner
+    points: 15
+
+  ex-12-funcion-parametros:
+    module: module-01
+    lesson: lesson-05
+    concepts: [parametros_y_argumentos, f_strings]
+    variables_created: [saludar_persona]
+    depends_on: [ex-11-funcion-simple]
+    difficulty: beginner
+    points: 15
+
+  ex-13-funcion-return:
+    module: module-01
+    lesson: lesson-05
+    concepts: [return]
+    variables_created: [calcular_cuadrado, resultado]
+    depends_on: [ex-12-funcion-parametros]
+    difficulty: beginner
+    points: 20
+
+# ============================================================================
+# ESTILO PEDAGOGICO - MANTENER CONSISTENTE
+# ============================================================================
+
+pedagogical_style:
+  lesson_structure:
+    - "Introduccion breve (1-2 parrafos, directo al concepto)"
+    - "Codigo de ejemplo comentado con variables en espanol"
+    - "Tabla resumen de sintaxis cuando aplica (operadores, tipos, etc.)"
+    - "Ejercicio embebido <!-- exercise:id -->"
+    - "Tip o nota con > blockquote para advertencias importantes"
+    - "Resumen en formato lista al final de cada leccion"
+    - "Conexion explicita con la siguiente leccion"
+
+  exercise_difficulty_curve:
+    beginner: "Completar 1-3 lineas con plantilla y comentarios guia"
+    intermediate: "Completar logica con estructura parcial dada"
+    advanced: "Implementar desde cero con especificacion"
+
+  exercise_format:
+    - "starter_code con comentarios numerados indicando pasos"
+    - "Variables pre-declaradas con = sin valor (alumno completa)"
+    - "print() al final para retroalimentacion visual inmediata"
+    - "f-strings para mostrar resultados con contexto"
+
+  hints_policy:
+    count: 3-4
+    progression:
+      - "Concepto: que funcion/operador usar"
+      - "Sintaxis: como escribirlo exactamente"
+      - "Solucion casi completa o directa"
+
+  feedback_tone: "Directo, sin condescendencia. Mensajes de error descriptivos que guian al estudiante."
+
+  language: "Espanol neutro (tu, no vos). Sin acentos en comentarios de codigo. Terminos tecnicos en ingles cuando son estandar (string, float, bool, print, return)."
+
+  naming_convention: "Variables y funciones en espanol (nombre, edad, saludar, calcular_cuadrado). Solo se usa ingles para conceptos de Python (True, False, None, def, return)."

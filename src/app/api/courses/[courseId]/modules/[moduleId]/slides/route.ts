@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { requireAuth, isAuthError } from '@/lib/auth/helpers'
 import { createClient } from '@/lib/supabase/server'
 import { parseLesson } from '@/lib/slides/markdown-parser'
 import { generatePptx } from '@/lib/slides/generator'
@@ -122,12 +123,9 @@ function moduleDir(orderIndex: number): string {
 export async function GET(request: NextRequest, { params }: RouteParams) {
   const { courseId, moduleId } = await params
 
-  // Auth check
-  const supabase = await createClient()
-  const { data: { user } } = await supabase.auth.getUser()
-  if (!user) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-  }
+  const auth = await requireAuth()
+  if (isAuthError(auth)) return auth
+  const { supabase } = auth
 
   try {
     // Fetch course

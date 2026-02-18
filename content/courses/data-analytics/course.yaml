@@ -12,7 +12,7 @@ description: |
   Python, Pandas, Scikit-Learn y herramientas de visualización.
 
 slug: data-analytics
-thumbnail_url: "/images/courses/data-analytics-thumbnail.png"
+thumbnail_url: null  # TODO: generar hero image WebP
 is_published: false  # Cambiar a true cuando esté listo
 instructor_id: null  # Se asigna al migrar a Supabase
 

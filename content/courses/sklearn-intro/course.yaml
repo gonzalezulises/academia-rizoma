@@ -1,7 +1,7 @@
 slug: sklearn-intro
 title: "Introducción a Scikit-Learn"
 description: "De cero a entrenar y evaluar tu primer modelo de machine learning. Aprende el ecosistema sklearn, el patrón fit/predict, preprocesamiento de datos y evaluación de modelos con métricas de negocio."
-thumbnail: "/images/courses/sklearn-intro.jpg"
+thumbnail_url: null  # TODO: generar hero image WebP
 instructor: "EduPlatform"
 level: "intermedio"
 duration: "5 horas"

@@ -1,0 +1,413 @@
+# COURSE_STATE.yaml
+# Contrato de progresion pedagogica para Introduccion a Scikit-Learn
+# CRITICO: Claude Code DEBE leer este archivo antes de crear contenido
+
+meta:
+  course_id: sklearn-intro
+  last_updated: "2026-02-18"
+  last_module_completed: module-04
+  total_exercises_created: 10
+  course_status: "complete"
+
+# ============================================================================
+# PROGRESION PEDAGOGICA EXPLICITA
+# ============================================================================
+
+learning_progression:
+  concepts_introduced:
+    module-01:  # El ecosistema de Scikit-Learn
+      - tipos_problemas_ml (clasificacion, regresion, clustering, reduccion_dimensional)
+      - api_consistente_sklearn (estimator, fit, predict, transform)
+      - fit_transform_atajo
+      - sklearn_vs_alternativas (statsmodels, pytorch, tensorflow)
+      - base_estimator
+      - transformer_mixin
+      - classifier_mixin
+
+    module-02:  # El patron fit/predict
+      - train_test_split (test_size, random_state, stratify)
+      - overfitting_concepto
+      - logistic_regression_basica
+      - fit_con_X_train_y_train
+      - predict_con_X_test
+      - accuracy_score
+      - score_metodo_atajo
+      - accuracy_train_vs_test
+      - data_leakage_concepto
+      - make_classification_sintetico
+
+    module-03:  # Preprocesamiento de datos
+      - standard_scaler (media_0_std_1)
+      - min_max_scaler
+      - robust_scaler
+      - sensibilidad_escala_por_algoritmo
+      - one_hot_encoder (sparse_output, categorias_a_columnas_binarias)
+      - label_encoder (solo_para_target)
+      - simple_imputer (strategy_mean_median_most_frequent_constant)
+      - fit_solo_en_train (prevencion_data_leakage)
+      - orden_preprocesamiento (split_primero)
+
+    module-04:  # Evaluacion de modelos
+      - matriz_de_confusion (TP, TN, FP, FN)
+      - precision_score (TP_sobre_TP_FP)
+      - recall_score (TP_sobre_TP_FN)
+      - f1_score (media_armonica)
+      - elegir_metrica_segun_costo_negocio
+      - predict_proba
+      - umbral_de_decision
+      - ajuste_umbral_precision_recall_tradeoff
+      - roc_curve
+      - roc_auc_score
+      - classification_report
+
+  skills_assumed:
+    module-01: [python_intermedio, funciones, clases_basicas, numpy_basico, pandas_basico]
+    module-02: [tipos_problemas_ml, api_consistente_sklearn, fit_transform_atajo]
+    module-03: [train_test_split, logistic_regression_basica, fit_predict_pattern, accuracy_score]
+    module-04: [standard_scaler, one_hot_encoder, simple_imputer, fit_solo_en_train, train_test_split, logistic_regression_basica]
+
+  complexity_trajectory:
+    module-01:
+      lines_of_code: 3-8
+      datasets: 0
+      new_libraries: [sklearn.linear_model, sklearn.preprocessing]
+      exercise_count_target: 1
+      focus: "Conceptual, identificacion de problemas"
+
+    module-02:
+      lines_of_code: 10-25
+      datasets: 0
+      new_libraries: [sklearn.model_selection, sklearn.metrics, sklearn.datasets]
+      exercise_count_target: 3
+      focus: "Patron completo fit/predict, evaluacion basica"
+
+    module-03:
+      lines_of_code: 8-20
+      datasets: 0
+      new_libraries: [sklearn.preprocessing, sklearn.impute]
+      exercise_count_target: 3
+      focus: "Transformadores: scaler, encoder, imputer"
+
+    module-04:
+      lines_of_code: 10-25
+      datasets: 0
+      new_libraries: []
+      exercise_count_target: 3
+      focus: "Metricas avanzadas, umbral de decision, ROC/AUC"
+
+# ============================================================================
+# CONVENCIONES DE CODIGO - RESPETAR EN TODO EL CURSO
+# ============================================================================
+
+code_conventions:
+  variable_names:
+    features: X
+    target: y
+    train_features: X_train
+    train_target: y_train
+    test_features: X_test
+    test_target: y_test
+    model: modelo
+    predictions: y_pred
+    predictions_train: y_pred_train
+    predictions_test: y_pred_test
+    probabilities: y_proba
+    predictions_custom: y_pred_custom
+    scaler: scaler
+    encoder: encoder
+    imputer: imputer
+    scaled_train: X_train_scaled
+    scaled_test: X_test_scaled
+    clean_data: X_clean
+    encoded_data: colores_encoded
+    accuracy: accuracy
+    accuracy_train: accuracy_train
+    accuracy_test: accuracy_test
+    precision: precision
+    recall: recall
+    f1: f1
+    threshold: umbral
+    true_labels: y_true
+
+  import_style: |
+    # Modulo 1: Conceptual, sin imports en ejercicio
+
+    # Modulo 2: Modelo basico
+    from sklearn.model_selection import train_test_split
+    from sklearn.linear_model import LogisticRegression
+    from sklearn.metrics import accuracy_score
+    from sklearn.datasets import make_classification
+    import numpy as np
+
+    # Modulo 3: Preprocesamiento
+    from sklearn.preprocessing import StandardScaler
+    from sklearn.preprocessing import OneHotEncoder
+    from sklearn.impute import SimpleImputer
+
+    # Modulo 4: Metricas avanzadas
+    from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
+    from sklearn.metrics import classification_report
+    from sklearn.metrics import roc_curve, roc_auc_score
+
+  test_pattern: |
+    # Patron estandar para tests de ejercicios
+    assert variable is not None, "Mensaje descriptivo"
+    assert isinstance(variable, expected_type), "Tipo incorrecto"
+    assert condition, "Descripcion del error esperado"
+    # Sin emojis en mensajes de error de este curso (estilo directo)
+
+  error_messages:
+    missing_variable: "La variable '{name}' no esta definida"
+    wrong_type: "'{name}' deberia ser {expected}, pero es {actual}"
+    wrong_value: "El valor de '{name}' es {actual}, pero esperabamos {expected}"
+    success: "Test pasado"
+
+  dataset_strategy: |
+    # Este curso usa datasets sinteticos via sklearn.datasets
+    # No depende de archivos CSV externos
+    # make_classification() para clasificacion
+    # np.array() y np.random para preprocesamiento
+    # Esto simplifica la ejecucion en Pyodide (sin I/O de archivos)
+
+# ============================================================================
+# DATASETS DEL CURSO
+# ============================================================================
+
+datasets:
+  strategy: "sinteticos"
+  notes: |
+    Todos los ejercicios usan datos generados programaticamente.
+    No hay dependencia de archivos CSV en content/shared/datasets/.
+    Esto permite ejecucion standalone en Pyodide sin fetch de archivos.
+
+  module-01:
+    - name: "Ninguno"
+      description: "Ejercicio conceptual, sin datos"
+
+  module-02:
+    - name: "make_classification()"
+      source: "sklearn.datasets"
+      description: "Dataset sintetico de clasificacion binaria"
+      params: "n_samples=100-200, n_features=5-10, random_state=42"
+
+  module-03:
+    - name: "np.random + np.array"
+      source: "numpy"
+      description: "Datos sinteticos con escalas dispares, categorias y NaN"
+
+  module-04:
+    - name: "make_classification() + np.array"
+      source: "sklearn.datasets + numpy"
+      description: "Dataset sintetico + arrays manuales de y_true/y_pred"
+
+# ============================================================================
+# REGISTRO DE EJERCICIOS COMPLETADOS
+# ============================================================================
+
+exercises_registry:
+  # --- Module 01: El ecosistema de Scikit-Learn ---
+  ex-match-problems:
+    module: module-01
+    title: "Identificar tipos de problemas ML"
+    concepts: [tipos_problemas_ml, clasificacion, regresion, clustering, reduccion_dimensional]
+    difficulty: beginner
+    estimated_time_minutes: 5
+    points: 20
+    variables_created: [problemas]
+    depends_on: []
+    status: completed
+
+  # --- Module 02: El patron fit/predict ---
+  ex-train-test-split:
+    module: module-02
+    title: "Dividir datos con train_test_split"
+    concepts: [train_test_split, test_size, random_state, stratify]
+    difficulty: beginner
+    estimated_time_minutes: 5
+    points: 30
+    variables_created: [X_train, X_test, y_train, y_test]
+    depends_on: []
+    status: completed
+
+  ex-primer-modelo:
+    module: module-02
+    title: "Tu primer modelo de clasificacion"
+    concepts: [logistic_regression, fit, predict, accuracy_score]
+    difficulty: beginner
+    estimated_time_minutes: 10
+    points: 40
+    variables_created: [modelo, y_pred, accuracy]
+    depends_on: [ex-train-test-split]
+    status: completed
+
+  ex-accuracy-analysis:
+    module: module-02
+    title: "Analisis de Accuracy: Train vs Test"
+    concepts: [accuracy_train_vs_test, overfitting_deteccion]
+    difficulty: beginner
+    estimated_time_minutes: 8
+    points: 30
+    variables_created: [y_pred_train, y_pred_test, accuracy_train, accuracy_test]
+    depends_on: [ex-primer-modelo]
+    status: completed
+
+  # --- Module 03: Preprocesamiento de datos ---
+  ex-scaling:
+    module: module-03
+    title: "Escalar features con StandardScaler"
+    concepts: [standard_scaler, fit_transform, transform, data_leakage_prevencion]
+    difficulty: beginner
+    estimated_time_minutes: 8
+    points: 30
+    variables_created: [scaler, X_train_scaled, X_test_scaled]
+    depends_on: [ex-train-test-split]
+    status: completed
+
+  ex-encoding:
+    module: module-03
+    title: "Codificar variables categoricas"
+    concepts: [one_hot_encoder, sparse_output, categoricas_a_binarias]
+    difficulty: intermediate
+    estimated_time_minutes: 10
+    points: 30
+    variables_created: [encoder, colores_encoded]
+    depends_on: []
+    status: completed
+
+  ex-imputation:
+    module: module-03
+    title: "Imputar valores faltantes"
+    concepts: [simple_imputer, strategy_median, missing_values]
+    difficulty: beginner
+    estimated_time_minutes: 8
+    points: 30
+    variables_created: [imputer, X_clean]
+    depends_on: []
+    status: completed
+
+  # --- Module 04: Evaluacion de modelos ---
+  ex-metrics-calculation:
+    module: module-04
+    title: "Calcular metricas de clasificacion"
+    concepts: [accuracy_score, precision_score, recall_score, f1_score]
+    difficulty: intermediate
+    estimated_time_minutes: 10
+    points: 40
+    variables_created: [accuracy, precision, recall, f1]
+    depends_on: [ex-primer-modelo]
+    status: completed
+
+  ex-metric-selection:
+    module: module-04
+    title: "Elegir la metrica correcta"
+    concepts: [costo_de_errores, recall_vs_precision, metrica_segun_negocio]
+    difficulty: intermediate
+    estimated_time_minutes: 8
+    points: 30
+    variables_created: [escenarios]
+    depends_on: [ex-metrics-calculation]
+    status: completed
+
+  ex-threshold-tuning:
+    module: module-04
+    title: "Ajustar umbral de decision"
+    concepts: [predict_proba, umbral_de_decision, precision_recall_tradeoff]
+    difficulty: advanced
+    estimated_time_minutes: 12
+    points: 40
+    variables_created: [y_proba, y_pred_custom]
+    depends_on: [ex-primer-modelo, ex-metrics-calculation]
+    status: completed
+
+# ============================================================================
+# ESPECIFICACION DEL PROXIMO MODULO A CREAR
+# ============================================================================
+
+next_module_spec:
+  status: "course_complete"
+  notes: |
+    Los 4 modulos planificados estan completos (10 ejercicios total).
+    El curso cubre el ciclo completo de sklearn: ecosistema -> fit/predict ->
+    preprocesamiento -> evaluacion.
+
+    Posibles extensiones futuras:
+    - Module 05: Pipelines y ColumnTransformer (encadenar preprocesamiento + modelo)
+    - Module 06: Cross-validation y GridSearchCV (validacion robusta)
+    - Module 07: Arboles y ensembles (RandomForest, GradientBoosting)
+    - Module 08: Proyecto integrador (churn prediction end-to-end)
+
+  potential_module_05:
+    id: module-05
+    title: "Pipelines y ColumnTransformer"
+
+    prerequisites_from_previous:
+      - "standard_scaler, one_hot_encoder, simple_imputer"
+      - "fit solo en train, transform en ambos"
+      - "logistic_regression con fit/predict"
+      - "metricas de evaluacion (precision, recall, f1)"
+
+    new_concepts_to_introduce:
+      - pipeline_sklearn
+      - column_transformer
+      - make_pipeline
+      - encadenamiento_preprocesamiento_modelo
+      - feature_names_out
+
+    exercises_planned:
+      - id: ex-pipeline-basico
+        builds_on: ex-scaling
+        new_challenge: "Encadenar scaler + modelo en un Pipeline"
+
+      - id: ex-column-transformer
+        builds_on: ex-encoding
+        new_challenge: "Aplicar distinto preprocesamiento a columnas numericas vs categoricas"
+
+    estimated_exercises: 3
+    estimated_lessons: 1
+
+# ============================================================================
+# ESTILO PEDAGOGICO - MANTENER CONSISTENTE
+# ============================================================================
+
+pedagogical_style:
+  lesson_structure:
+    - "Objetivos de aprendizaje (lista breve)"
+    - "Hook motivador: escenario de negocio concreto"
+    - "Concepto erroneo comun (cuando aplica)"
+    - "Explicacion con tabla comparativa o diagrama ASCII"
+    - "Codigo de ejemplo comentado"
+    - "Ejercicio embebido <!-- exercise:id -->"
+    - "Tip o nota de buenas practicas"
+    - "Resumen con pregunta de reflexion"
+    - "Conexion con siguiente leccion"
+
+  exercise_difficulty_curve:
+    beginner: "Completar 1-4 lineas con TODO marcado y ejemplo visible en starter_code"
+    intermediate: "Completar multiples variables, requiere comprender API (ej: parametros de funciones)"
+    advanced: "Combinar conceptos previos, analizar trade-offs (ej: umbral de decision)"
+
+  hints_policy:
+    count: 2-4
+    progression:
+      - "Concepto: que funcion/metodo usar"
+      - "Sintaxis: como escribirlo (firma de la funcion)"
+      - "Solucion casi completa (cuando aplica)"
+    style: "Directo, una linea, sin explicacion extensa"
+
+  feedback_tone: "Directo, sin condescendencia. Mensajes de error descriptivos sin emojis."
+
+  language: "Espanol neutro (tu, no vos). Terminos tecnicos en ingles cuando son estandar (fit, predict, accuracy, recall, precision, threshold, overfitting, data leakage)."
+
+  code_style:
+    comments: "En espanol, breves, explicando el 'por que' no el 'que'"
+    print_format: "f-strings con :.2f o :.2% para metricas"
+    random_state: "Siempre 42 para reproducibilidad"
+    dataset_generation: "sklearn.datasets.make_classification o numpy manual"
+
+  ascii_diagrams: |
+    El curso usa diagramas ASCII extensivamente para explicar:
+    - Flujo train/test split -> fit -> predict -> evaluar
+    - Jerarquia de la API sklearn (BaseEstimator, TransformerMixin, ClassifierMixin)
+    - Orden de preprocesamiento (split primero, fit en train, transform ambos)
+    - Matriz de confusion
+    Las lecciones prefieren diagramas ASCII sobre imagenes para portabilidad.

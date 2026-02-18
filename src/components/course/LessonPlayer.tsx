@@ -44,17 +44,16 @@ export default function LessonPlayer({
     startTimeRef.current = now
 
     // Update course_progress.last_accessed_at and current_lesson_id
-    const updateAccess = async () => {
-      await supabase.from('course_progress').upsert({
-        user_id: userId,
-        course_id: courseId,
-        current_lesson_id: lesson.id,
-        last_accessed_at: new Date().toISOString()
-      }, {
-        onConflict: 'user_id,course_id'
-      })
-    }
-    updateAccess()
+    supabase.from('course_progress').upsert({
+      user_id: userId,
+      course_id: courseId,
+      current_lesson_id: lesson.id,
+      last_accessed_at: new Date().toISOString()
+    }, {
+      onConflict: 'user_id,course_id'
+    }).then(({ error }) => {
+      if (error) console.error('Failed to update course access:', error.message)
+    })
 
     // Track time every 30 seconds
     const interval = setInterval(() => {
@@ -71,7 +70,7 @@ export default function LessonPlayer({
           p_user_id: userId,
           p_course_id: courseId,
           p_delta: totalTime
-        })
+        }).then(() => {})
       }
     }
   }, [userId, courseId, lesson.id, supabase])

@@ -28,8 +28,8 @@ export default function Navbar() {
         if (profile && !profile.full_name) {
           const metaName = authUser.user_metadata?.full_name
           if (metaName) {
-            await supabase.from('profiles').update({ full_name: metaName }).eq('id', authUser.id)
-            profile.full_name = metaName
+            const { error } = await supabase.from('profiles').update({ full_name: metaName }).eq('id', authUser.id)
+            if (!error) profile.full_name = metaName
           }
         }
 

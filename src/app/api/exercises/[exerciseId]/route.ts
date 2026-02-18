@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { resolveExercise } from '@/lib/content/loaders'
 import { loadExerciseFromDB } from '@/lib/content/db-loaders'
-import { createClient } from '@/lib/supabase/server'
+import { requireAuth, isAuthError } from '@/lib/auth/helpers'
 import { promises as fs } from 'fs'
 import path from 'path'
 import yaml from 'js-yaml'
@@ -59,12 +59,8 @@ export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ exerciseId: string }> }
 ) {
-  // Auth check
-  const supabase = await createClient()
-  const { data: { user } } = await supabase.auth.getUser()
-  if (!user) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-  }
+  const auth = await requireAuth()
+  if (isAuthError(auth)) return auth
 
   const { exerciseId } = await params
   const searchParams = request.nextUrl.searchParams

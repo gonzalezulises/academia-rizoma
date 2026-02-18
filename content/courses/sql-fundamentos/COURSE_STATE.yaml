@@ -1,0 +1,417 @@
+# COURSE_STATE.yaml
+# Contrato de progresion pedagogica para SQL Fundamentos
+# CRITICO: Claude Code DEBE leer este archivo antes de crear contenido
+
+meta:
+  course_id: sql-fundamentos
+  last_updated: "2026-02-18"
+  last_module_completed: module-01
+  total_exercises_created: 16
+  content_source: filesystem
+
+# ============================================================================
+# PROGRESION PEDAGOGICA EXPLICITA
+# ============================================================================
+
+learning_progression:
+  concepts_introduced:
+    module-01:  # Fundamentos de SQL
+      - select_asterisco
+      - select_columnas_especificas
+      - from_tabla
+      - where_texto
+      - where_numerico
+      - where_compuesto_and
+      - operadores_comparacion
+      - order_by_asc
+      - order_by_desc
+      - limit
+      - order_by_limit_combinado
+      - count_asterisco
+      - count_as_alias
+      - sum
+      - avg
+      - group_by
+      - having
+      - alias_as
+
+  skills_assumed:
+    module-01: []  # No prerequisitos tecnicos, solo familiaridad con Excel/Sheets
+
+  complexity_trajectory:
+    module-01:
+      lines_of_code: 1-4
+      tables_used: [productos, vendedores, ventas]
+      new_keywords: [SELECT, FROM, WHERE, AND, OR, ORDER BY, ASC, DESC, LIMIT, COUNT, SUM, AVG, GROUP BY, HAVING, AS]
+      exercise_count_target: 16
+      schema_file: ventas_db.sql
+
+# ============================================================================
+# CONVENCIONES DE CODIGO - RESPETAR EN TODO EL CURSO
+# ============================================================================
+
+code_conventions:
+  sql_style:
+    keywords: "MAYUSCULAS (SELECT, FROM, WHERE, ORDER BY, etc.)"
+    identifiers: "minusculas_con_guion_bajo (vendedor_id, total_vendido)"
+    strings: "Comillas simples para texto: 'Perifericos'"
+    comments: "-- Comentario de una linea"
+    indentation: "Clausulas principales en lineas separadas para consultas largas"
+
+  alias_naming:
+    count_total: "total_[entidad] (total_productos, total_ventas)"
+    sum_total: "total_[metrica] (total_vendido, total_ventas)"
+    average: "ticket_promedio, precio_promedio"
+    general_pattern: "snake_case en espanol"
+
+  schema_conventions:
+    primary_key: "id INTEGER PRIMARY KEY"
+    foreign_key: "[tabla_singular]_id (vendedor_id, producto_id)"
+    text_fields: "TEXT NOT NULL"
+    numeric_fields: "REAL para precios/montos, INTEGER para cantidades"
+    dates: "DATE como texto ISO (YYYY-MM-DD)"
+
+  test_pattern: |
+    # Patron estandar para tests de ejercicios SQL
+    result = execute_query(user_code)
+    assert len(result.rows) == N, f"Mensaje descriptivo. Tu consulta retorna {len(result.rows)}"
+    assert len(result.columns) == N, f"Mensaje descriptivo"
+    assert result.rows[0]['columna'] == valor, f"Mensaje descriptivo"
+
+  error_messages:
+    wrong_count: "Hay N [entidad]. Tu consulta retorna {actual}"
+    wrong_column: "Falta la columna '[nombre]'"
+    wrong_order: "Debe estar ordenado de mayor a menor"
+    wrong_filter: "Encontre un [entidad] con [campo] '{valor}', que no cumple la condicion"
+    success_implicit: "Tests pasados = ejercicio completado (sin mensaje explicito de exito)"
+
+# ============================================================================
+# SCHEMA Y DATOS DEL CURSO
+# ============================================================================
+
+database_schema:
+  file: "content/shared/schemas/ventas_db.sql"
+  context: "Empresa de productos electronicos"
+  tables:
+    productos:
+      columns: [id, nombre, categoria, precio, stock]
+      rows: 8
+      categories: [Computadoras, Perifericos, Accesorios]
+
+    vendedores:
+      columns: [id, nombre, region, fecha_ingreso, activo]
+      rows: 5
+      regions: [Norte, Sur, Centro]
+
+    ventas:
+      columns: [id, vendedor_id, producto_id, cantidad, fecha, monto]
+      rows: 15
+      foreign_keys: [vendedor_id -> vendedores.id, producto_id -> productos.id]
+
+    clientes:
+      columns: [id, nombre, email, ciudad, tipo]
+      rows: 5
+      note: "Reservada para ejercicios avanzados (modulos futuros)"
+
+# ============================================================================
+# REGISTRO DE EJERCICIOS COMPLETADOS
+# ============================================================================
+
+exercises_registry:
+  # --- Leccion 1: Que es SQL y por que lo necesitas ---
+  ex-01-select-todo:
+    module: module-01
+    lesson: lesson-01
+    title: "Tu primera consulta SELECT"
+    concepts: [select_asterisco, from_tabla]
+    difficulty: beginner
+    points: 10
+    depends_on: []
+    status: completed
+
+  ex-02-select-tabla:
+    module: module-01
+    lesson: lesson-01
+    title: "Consultando vendedores"
+    concepts: [select_asterisco, from_tabla]
+    difficulty: beginner
+    points: 10
+    depends_on: [ex-01-select-todo]
+    status: completed
+
+  ex-03-select-ventas:
+    module: module-01
+    lesson: lesson-01
+    title: "Explorando transacciones"
+    concepts: [select_asterisco, from_tabla]
+    difficulty: beginner
+    points: 15
+    depends_on: [ex-02-select-tabla]
+    status: completed
+
+  # --- Leccion 2: Extrayendo datos: SELECT y WHERE ---
+  ex-04-columnas-especificas:
+    module: module-01
+    lesson: lesson-02
+    title: "Seleccionando columnas"
+    concepts: [select_columnas_especificas]
+    difficulty: beginner
+    points: 15
+    depends_on: [ex-03-select-ventas]
+    status: completed
+
+  ex-05-columnas-ventas:
+    module: module-01
+    lesson: lesson-02
+    title: "Columnas de ventas"
+    concepts: [select_columnas_especificas]
+    difficulty: beginner
+    points: 15
+    depends_on: [ex-04-columnas-especificas]
+    status: completed
+
+  ex-06-where-basico:
+    module: module-01
+    lesson: lesson-02
+    title: "Filtro de categoria"
+    concepts: [where_texto, operadores_comparacion]
+    difficulty: beginner
+    points: 20
+    depends_on: [ex-05-columnas-ventas]
+    status: completed
+
+  ex-07-where-numerico:
+    module: module-01
+    lesson: lesson-02
+    title: "Filtro numerico"
+    concepts: [where_numerico, operadores_comparacion]
+    difficulty: beginner
+    points: 20
+    depends_on: [ex-06-where-basico]
+    status: completed
+
+  ex-08-where-compuesto:
+    module: module-01
+    lesson: lesson-02
+    title: "Condiciones compuestas"
+    concepts: [where_compuesto_and]
+    difficulty: intermediate
+    points: 25
+    depends_on: [ex-07-where-numerico]
+    status: completed
+
+  # --- Leccion 3: Ordenando y limitando resultados ---
+  ex-09-order-asc:
+    module: module-01
+    lesson: lesson-03
+    title: "Ordenar por stock"
+    concepts: [order_by_asc]
+    difficulty: beginner
+    points: 15
+    depends_on: [ex-08-where-compuesto]
+    status: completed
+
+  ex-10-order-desc:
+    module: module-01
+    lesson: lesson-03
+    title: "Los mas caros primero"
+    concepts: [order_by_desc, select_columnas_especificas]
+    difficulty: beginner
+    points: 15
+    depends_on: [ex-09-order-asc]
+    status: completed
+
+  ex-11-limit:
+    module: module-01
+    lesson: lesson-03
+    title: "Primeros 5 productos"
+    concepts: [limit]
+    difficulty: beginner
+    points: 10
+    depends_on: [ex-10-order-desc]
+    status: completed
+
+  ex-12-top-n:
+    module: module-01
+    lesson: lesson-03
+    title: "Top 3 ventas"
+    concepts: [order_by_limit_combinado, order_by_desc, limit]
+    difficulty: intermediate
+    points: 25
+    depends_on: [ex-11-limit]
+    status: completed
+
+  # --- Leccion 4: Agregaciones y GROUP BY ---
+  ex-13-count:
+    module: module-01
+    lesson: lesson-04
+    title: "Contando registros"
+    concepts: [count_asterisco, count_as_alias, alias_as]
+    difficulty: beginner
+    points: 20
+    depends_on: [ex-12-top-n]
+    status: completed
+
+  ex-14-sum-avg:
+    module: module-01
+    lesson: lesson-04
+    title: "Totales y promedios"
+    concepts: [sum, avg, alias_as]
+    difficulty: beginner
+    points: 20
+    depends_on: [ex-13-count]
+    status: completed
+
+  ex-15-group-by:
+    module: module-01
+    lesson: lesson-04
+    title: "Ventas por vendedor"
+    concepts: [group_by, sum, order_by_desc, alias_as]
+    difficulty: intermediate
+    points: 25
+    depends_on: [ex-14-sum-avg]
+    status: completed
+
+  ex-16-group-having:
+    module: module-01
+    lesson: lesson-04
+    title: "Filtrar grupos con HAVING"
+    concepts: [having, group_by, sum, order_by_desc]
+    difficulty: intermediate
+    points: 30
+    depends_on: [ex-15-group-by]
+    status: completed
+
+# ============================================================================
+# ESPECIFICACION DEL PROXIMO MODULO A CREAR
+# ============================================================================
+
+next_module_spec:
+  id: module-02
+  title: "Conectando tablas con JOIN"
+
+  prerequisites_from_previous:
+    - select_asterisco
+    - select_columnas_especificas
+    - where_texto
+    - where_numerico
+    - where_compuesto_and
+    - order_by_asc
+    - order_by_desc
+    - limit
+    - count_asterisco
+    - sum
+    - avg
+    - group_by
+    - having
+    - alias_as
+
+  new_concepts_to_introduce:
+    - inner_join
+    - left_join
+    - right_join
+    - join_on_foreign_key
+    - table_aliases
+    - multi_table_select
+    - join_con_where
+    - join_con_group_by
+    - join_con_order_by
+
+  dataset_transition:
+    from: ventas_db.sql
+    to: ventas_db.sql
+    reason: "Mismo schema: ahora se conectan productos, vendedores y ventas via foreign keys. La tabla clientes tambien entra en juego."
+
+  exercises_planned:
+    - id: ex-17-inner-join-basico
+      title: "Tu primer JOIN"
+      concepts: [inner_join, join_on_foreign_key]
+      builds_on: ex-03-select-ventas
+      new_challenge: "Conectar ventas con vendedores para ver nombres en lugar de IDs"
+      difficulty: beginner
+
+    - id: ex-18-join-tres-columnas
+      title: "Ventas con detalle"
+      concepts: [inner_join, select_columnas_especificas]
+      builds_on: ex-17-inner-join-basico
+      new_challenge: "Seleccionar columnas especificas de dos tablas unidas"
+      difficulty: beginner
+
+    - id: ex-19-join-productos
+      title: "Ventas con nombre de producto"
+      concepts: [inner_join, table_aliases]
+      builds_on: ex-18-join-tres-columnas
+      new_challenge: "Conectar ventas con productos usando aliases de tabla"
+      difficulty: beginner
+
+    - id: ex-20-join-where
+      title: "Ventas filtradas con JOIN"
+      concepts: [join_con_where]
+      builds_on: ex-19-join-productos
+      new_challenge: "Combinar JOIN con WHERE para filtrar resultados de tablas unidas"
+      difficulty: intermediate
+
+    - id: ex-21-join-group-by
+      title: "Total por vendedor con nombre"
+      concepts: [join_con_group_by, inner_join]
+      builds_on: [ex-15-group-by, ex-17-inner-join-basico]
+      new_challenge: "Agrupar datos de tablas unidas para obtener resumenes con nombres reales"
+      difficulty: intermediate
+
+    - id: ex-22-left-join
+      title: "Vendedores sin ventas"
+      concepts: [left_join]
+      builds_on: ex-21-join-group-by
+      new_challenge: "Entender LEFT JOIN para incluir registros sin coincidencia"
+      difficulty: intermediate
+
+    - id: ex-23-multi-join
+      title: "Reporte completo de ventas"
+      concepts: [multi_table_select, inner_join]
+      builds_on: ex-22-left-join
+      new_challenge: "Unir 3 tablas en una sola consulta para un reporte de negocio completo"
+      difficulty: advanced
+
+    - id: ex-24-join-order-limit
+      title: "Top vendedores con nombre"
+      concepts: [join_con_order_by, inner_join, limit]
+      builds_on: [ex-12-top-n, ex-21-join-group-by]
+      new_challenge: "Combinar JOIN + GROUP BY + ORDER BY + LIMIT para ranking con nombres"
+      difficulty: advanced
+
+  estimated_exercises: 8
+  estimated_lessons: 3
+
+# ============================================================================
+# ESTILO PEDAGOGICO - MANTENER CONSISTENTE
+# ============================================================================
+
+pedagogical_style:
+  lesson_structure:
+    - "Connection: Escenario de negocio real (jefe pide algo) - 4-5 min"
+    - "Concepts: Explicacion con comparacion Excel/SQL y ejemplos visuales de tablas - 12-18 min"
+    - "Concrete Practice: Ejercicios embebidos <!-- exercise:id --> con dificultad gradual - 18-22 min"
+    - "Conclusions: Pregunta reflexiva + quiz + preview del siguiente tema - 4-5 min"
+
+  exercise_difficulty_curve:
+    beginner: "Completar 1 clausula con hint visible en starter_code (10-15 pts)"
+    intermediate: "Completar 2+ clausulas combinando conceptos anteriores (20-25 pts)"
+    advanced: "Escribir consulta completa combinando 3+ clausulas (25-30 pts)"
+
+  hints_policy:
+    count: 3
+    progression:
+      - "Concepto: que clausula/keyword SQL usar"
+      - "Sintaxis: estructura exacta de la clausula"
+      - "Solucion casi completa o completa"
+
+  feedback_tone: "Directo, sin condescendencia. Mensajes de error descriptivos que guian."
+
+  language: "Espanol neutro (tu, no vos). Terminos SQL siempre en ingles (SELECT, WHERE, JOIN)."
+
+  context_framing: "Todos los ejercicios usan escenarios de negocio reales: reportes para el jefe, datos para reuniones, analisis de ventas."
+
+  visual_aids:
+    - "Representaciones de tablas con bordes ASCII en lecciones"
+    - "Tablas comparativas Excel vs SQL"
+    - "Emojis para secciones: Connection, Concepts, Practice, Conclusions"

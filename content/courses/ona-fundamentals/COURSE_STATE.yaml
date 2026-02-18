@@ -1,0 +1,523 @@
+# COURSE_STATE.yaml
+# Contrato de progresion pedagogica para ONA Fundamentals
+# CRITICO: Claude Code DEBE leer este archivo antes de crear contenido
+#
+# NOTA: Este es un curso "Python invisible" - el codigo genera visualizaciones
+# pero el usuario NUNCA ve ni escribe codigo. La audiencia es HR, Talento y
+# lideres de negocio (NO tecnicos).
+
+meta:
+  course_id: ona-fundamentals
+  last_updated: "2026-02-18"
+  last_module_completed: module-02
+  total_exercises_created: 14
+  # 6 exercises M1 + 2 quizzes M1 + 4 exercises M2 + 1 quiz M2 + 1 quiz diagnostico
+  # Breakdown: ex-01 through ex-06, quiz-00, quiz-01, ex-07 through ex-10, quiz-final
+  course_status: complete  # All 2 modules created
+  content_source: filesystem
+  estimated_duration_hours: 3.5
+  difficulty: beginner
+  audience: "HR, Talento, Lideres de negocio (NO tecnicos)"
+
+# ============================================================================
+# PROGRESION PEDAGOGICA EXPLICITA
+# ============================================================================
+
+learning_progression:
+  concepts_introduced:
+    module-01:  # Entendiendo las Redes Ocultas
+      # Leccion 01: Organigrama vs Red
+      - organigrama_vs_red_informal
+      - estructura_formal_vs_informal
+      - nodo_y_enlace
+      - experto_oculto
+      - broker
+      - centralidad_grado_intuitiva
+      - betweenness_intuitiva
+      - fragmentacion
+      - riesgo_persona_clave
+      # Leccion 02: Metricas de Centralidad
+      - degree_centrality
+      - betweenness_centrality
+      - closeness_centrality
+      - interpretacion_metricas_conjunto
+      - cuello_de_botella
+      - eficiencia_de_red
+      # Leccion 03: Diseno de Encuesta
+      - diseno_encuesta_ona
+      - preguntas_ona_efectivas
+      - marco_temporal
+      - escala_frecuencia
+      - roster_vs_free_recall
+      - confidencialidad_anonimato
+      - tasa_respuesta_minima
+      - auditoria_encuesta
+
+    module-02:  # De Datos a Decisiones
+      # Leccion 04: Patrones Problematicos
+      - silos_organizacionales
+      - conexiones_inter_departamentales
+      - diagnostico_red
+      - hub_sobrecargado
+      - dependencia_critica
+      - riesgo_dependencia
+      - plan_sucesion
+      - transferencia_conocimiento
+      - simulacion_impacto
+      - what_if_analysis
+      - reorganizacion
+      # Leccion 05: Caso Integrador
+      - diagnostico_ejecutivo
+      - recomendaciones_intervencion
+      - framework_intervencion
+      - metricas_seguimiento
+
+  skills_assumed:
+    module-01: []  # Sin prerequisitos - curso para no tecnicos
+    module-02:
+      - organigrama_vs_red_informal
+      - degree_centrality
+      - betweenness_centrality
+      - closeness_centrality
+      - broker
+      - diseno_encuesta_ona
+      - cuello_de_botella
+
+  complexity_trajectory:
+    module-01:
+      bloom_levels: [remember, understand, apply]
+      duration_minutes: 120
+      lessons: 3
+      exercises: 8  # 6 interactive + 2 quizzes
+      datasets: 0  # Data embedded in exercises (Python invisible)
+      new_libraries: [networkx, matplotlib, pandas]
+      user_writes_code: false  # Python invisible principle
+
+    module-02:
+      bloom_levels: [analyze, evaluate, create]
+      duration_minutes: 95
+      lessons: 2
+      exercises: 5  # 4 interactive + 1 quiz final
+      datasets: 0  # Data embedded in exercises
+      new_libraries: [numpy]
+      user_writes_code: false
+
+# ============================================================================
+# CONVENCIONES DE CODIGO - RESPETAR EN TODO EL CURSO
+# ============================================================================
+# NOTA: El usuario NUNCA ve ni escribe codigo. Todo el Python se ejecuta
+# en background y solo se muestran visualizaciones y metricas.
+
+code_conventions:
+  python_invisible_principle: |
+    Este curso sigue el principio de "Python invisible":
+    - El codigo genera visualizaciones pero el usuario NUNCA lo ve
+    - ui_config.hide_code: true en TODOS los ejercicios
+    - ui_config.show_output_only: true
+    - Los ejercicios usan comprehension_questions (multiple choice)
+      en lugar de pedir al usuario que escriba codigo
+    - El usuario interactua con visualizaciones y responde preguntas
+
+  graph_library: networkx
+  visualization_library: matplotlib
+  data_library: pandas
+
+  color_palette:
+    produccion: "#3498db"      # Azul
+    calidad: "#2ecc71"         # Verde
+    logistica: "#e67e22"       # Naranja
+    marketing: "#9b59b6"       # Morado
+    gerencia: "#e67e22"        # Naranja
+    direccion: "#95a5a6"       # Gris
+    supervision: "#f1c40f"     # Amarillo
+    atencion: "#9b59b6"        # Morado
+    highlighted_node: "#e74c3c"  # Rojo (nodo resaltado / broker / riesgo)
+    edge_default: "#bdc3c7"    # Gris claro
+    edge_cross_dept: "#f39c12"  # Naranja (conexiones cross-departamento)
+
+  visualization_standards:
+    figsize_comparison: [16, 8]      # Side-by-side comparisons
+    figsize_dashboard: [18, 12]      # Multi-panel dashboards
+    figsize_standard: [14, 6]        # Standard single view
+    node_size_base: 1200
+    node_size_highlighted: 2500
+    font_size_labels: 7-9
+    font_weight: bold
+    layout_algorithm: spring_layout
+    layout_seed: 42  # Reproducible layouts
+
+  import_style: |
+    import networkx as nx
+    import matplotlib.pyplot as plt
+    import pandas as pd
+    import numpy as np
+
+  error_messages:
+    success: "Correcto! {message}"
+    incorrect: "{feedback_incorrect}"
+
+# ============================================================================
+# DATASETS DEL CURSO
+# ============================================================================
+# NOTA: No hay datasets CSV externos. Todos los datos estan embebidos
+# directamente en el starter_code de cada ejercicio, siguiendo el principio
+# de Python invisible (el usuario no carga archivos).
+
+datasets:
+  embedded_cases:
+    - name: "Manufactura Regional"
+      used_in: [ex-01-detectar-red, ex-02-identificar-broker]
+      description: "Planta con 120 empleados, 3 departamentos (Produccion, Calidad, Logistica)"
+      scale: "15 nodos representativos"
+
+    - name: "Red de Ejemplo (Ana, Bruno, etc.)"
+      used_in: [ex-03-calculadora-centralidad]
+      description: "Red pequena de 7 personas para ensenar metricas"
+      scale: "7 nodos"
+
+    - name: "Banco Regional del Sur"
+      used_in: [ex-04-caso-banco]
+      description: "2 sucursales comparadas (rapida vs lenta)"
+      scale: "6-7 nodos por sucursal"
+
+    - name: "Retail Multipais"
+      used_in: [ex-07-diagnostico-silos]
+      description: "Empresa retail con 4 departamentos (Compras, Ventas, Logistica, Marketing)"
+      scale: "15 nodos"
+
+    - name: "Equipo de Tecnologia"
+      used_in: [ex-08-riesgo-dependencia]
+      description: "15 empleados con roles tecnicos (Tech Lead, Dev, QA, DevOps, etc.)"
+      scale: "15 nodos"
+
+    - name: "Planta Manufacturera"
+      used_in: [ex-09-simulador-impacto]
+      description: "Planta con Produccion, Calidad y Mantenimiento"
+      scale: "13 nodos"
+
+    - name: "Aseguradora del Pacifico"
+      used_in: [ex-10-caso-aseguradora]
+      description: "Area de Claims con 25 personas en 4 departamentos + supervisores"
+      scale: "25 nodos"
+
+# ============================================================================
+# REGISTRO DE EJERCICIOS COMPLETADOS CON DEPENDENCIAS
+# ============================================================================
+
+exercises_registry:
+  # --- MODULE 01: Entendiendo las Redes Ocultas ---
+
+  quiz-00-intuicion:
+    module: module-01
+    lesson: lesson-01-01
+    type: quiz
+    title: "Prueba tu intuicion"
+    concepts: [misconceptions, conocimiento_previo]
+    difficulty: beginner
+    points: 40
+    depends_on: []
+    status: completed
+
+  ex-01-detectar-red:
+    module: module-01
+    lesson: lesson-01-01
+    type: code-python
+    title: "Detectando la red oculta"
+    concepts: [red-informal, estructura-formal, experto-oculto, centralidad-grado]
+    difficulty: beginner
+    points: 30
+    depends_on: [quiz-00-intuicion]
+    dataset: "Manufactura Regional"
+    comprehension_questions: 3
+    status: completed
+
+  ex-02-identificar-broker:
+    module: module-01
+    lesson: lesson-01-01
+    type: code-python
+    title: "Identificando al broker"
+    concepts: [broker, betweenness-centrality, fragmentacion, riesgo-clave]
+    difficulty: beginner
+    points: 30
+    depends_on: [ex-01-detectar-red]
+    dataset: "Manufactura Regional"
+    comprehension_questions: 3
+    status: completed
+
+  quiz-01-consolidacion:
+    module: module-01
+    lesson: lesson-01-01
+    type: quiz
+    title: "Verificacion de comprension: Organigrama vs Red"
+    concepts: [organigrama-vs-red, broker, influencia-informal, diseno-encuesta]
+    difficulty: intermediate
+    points: 90
+    depends_on: [ex-01-detectar-red, ex-02-identificar-broker]
+    questions: 6
+    bloom_levels: [remember, understand, apply]
+    status: completed
+
+  ex-03-calculadora-centralidad:
+    module: module-01
+    lesson: lesson-01-02
+    type: code-python
+    title: "Calculadora de centralidad"
+    concepts: [degree-centrality, betweenness-centrality, closeness-centrality]
+    difficulty: intermediate
+    points: 30
+    depends_on: [ex-02-identificar-broker]
+    dataset: "Red de Ejemplo"
+    comprehension_questions: 3
+    status: completed
+
+  ex-04-caso-banco:
+    module: module-01
+    lesson: lesson-01-02
+    type: code-python
+    title: "Caso Banco Regional"
+    concepts: [cuello-de-botella, intermediacion, eficiencia-red]
+    difficulty: intermediate
+    points: 30
+    depends_on: [ex-03-calculadora-centralidad]
+    dataset: "Banco Regional del Sur"
+    comprehension_questions: 3
+    status: completed
+
+  ex-05-constructor-preguntas:
+    module: module-01
+    lesson: lesson-01-03
+    type: quiz
+    title: "Constructor de preguntas ONA"
+    concepts: [diseno-encuesta, preguntas-ona]
+    difficulty: beginner
+    points: 30
+    depends_on: [ex-04-caso-banco]
+    questions: 3
+    status: completed
+
+  ex-06-auditor-encuestas:
+    module: module-01
+    lesson: lesson-01-03
+    type: quiz
+    title: "Auditor de encuestas ONA"
+    concepts: [auditoria-encuesta, calidad-datos, anonimato]
+    difficulty: intermediate
+    points: 40
+    depends_on: [ex-05-constructor-preguntas]
+    questions: 4
+    status: completed
+
+  # --- MODULE 02: De Datos a Decisiones ---
+
+  ex-07-diagnostico-silos:
+    module: module-02
+    lesson: lesson-02-01
+    type: code-python
+    title: "Diagnostico de silos"
+    concepts: [silos-organizacionales, conexiones-inter-departamentales, diagnostico-red]
+    difficulty: intermediate
+    points: 30
+    depends_on: [ex-06-auditor-encuestas]
+    dataset: "Retail Multipais"
+    comprehension_questions: 3
+    status: completed
+
+  ex-08-riesgo-dependencia:
+    module: module-02
+    lesson: lesson-02-01
+    type: code-python
+    title: "Riesgo de dependencia"
+    concepts: [riesgo-dependencia, plan-sucesion, transferencia-conocimiento]
+    difficulty: intermediate
+    points: 35
+    depends_on: [ex-07-diagnostico-silos]
+    dataset: "Equipo de Tecnologia"
+    comprehension_questions: 3
+    status: completed
+
+  ex-09-simulador-impacto:
+    module: module-02
+    lesson: lesson-02-01
+    type: code-python
+    title: "Simulador de impacto"
+    concepts: [simulacion-impacto, what-if-analysis, reorganizacion]
+    difficulty: intermediate
+    points: 35
+    depends_on: [ex-08-riesgo-dependencia]
+    dataset: "Planta Manufacturera"
+    comprehension_questions: 3
+    status: completed
+
+  ex-10-caso-aseguradora:
+    module: module-02
+    lesson: lesson-02-02
+    type: code-python
+    title: "Caso: Aseguradora del Pacifico"
+    concepts: [diagnostico-ejecutivo, silos, cuello-de-botella, recomendaciones]
+    difficulty: advanced
+    points: 50
+    depends_on: [ex-07-diagnostico-silos, ex-08-riesgo-dependencia, ex-09-simulador-impacto]
+    dataset: "Aseguradora del Pacifico"
+    comprehension_questions: 3
+    status: completed
+
+  quiz-final:
+    module: module-02
+    lesson: lesson-02-02
+    type: quiz
+    title: "Evaluacion Final - ONA Fundamentals"
+    concepts: [organigrama-vs-red, metricas-centralidad, diseno-encuesta, silos, dependencia, diagnostico]
+    difficulty: intermediate
+    points: 100
+    depends_on: [ex-10-caso-aseguradora]
+    questions: 10
+    passing_score: 70
+    time_limit_minutes: 30
+    status: completed
+
+# ============================================================================
+# ESPECIFICACION DEL PROXIMO MODULO A CREAR
+# ============================================================================
+# El curso esta completo (2 modulos). No hay proximo modulo planificado.
+
+next_module_spec: null  # Curso completo
+
+# Si se quisiera expandir, opciones posibles:
+# future_expansion_ideas:
+#   - module-03: "ONA en la Practica" (herramientas: Gephi, datos reales CSV)
+#   - module-04: "ONA Avanzado" (metricas de comunidad, temporal networks)
+#   - module-05: "ONA para Transformacion Digital"
+
+# ============================================================================
+# ESTILO PEDAGOGICO - MANTENER CONSISTENTE
+# ============================================================================
+
+pedagogical_style:
+  # Principio diferenciador: Python invisible
+  core_principle: |
+    Este curso es "Python invisible": el codigo genera visualizaciones
+    interactivas pero el usuario NUNCA ve, edita ni escribe codigo.
+    La audiencia son profesionales de HR, Talento y lideres de negocio
+    que necesitan interpretar resultados, no programar.
+
+  lesson_structure:
+    - "Introduccion breve con contexto de negocio (2-3 parrafos)"
+    - "Explicacion conceptual con tabla comparativa"
+    - "Ejemplo practico con caso LATAM"
+    - "Ejercicio interactivo embebido <!-- exercise:id --> (visualizacion + preguntas)"
+    - "Sintesis y conexion con siguiente tema"
+
+  exercise_format:
+    visualization: |
+      El ejercicio ejecuta codigo Python oculto que genera:
+      1. Graficos de red (networkx + matplotlib)
+      2. Tablas de metricas (pandas)
+      3. Texto de analisis con print()
+      El estudiante SOLO ve las visualizaciones y metricas.
+    interaction: |
+      Despues de la visualizacion, el estudiante responde
+      comprehension_questions (multiple choice) que evaluan
+      su capacidad de interpretar los resultados.
+    quiz: |
+      Quizzes de multiple choice que evaluan comprension conceptual.
+      No requieren codigo ni datos.
+
+  difficulty_curve:
+    module-01:
+      lesson-01: "Observar e identificar (remember/understand)"
+      lesson-02: "Interpretar metricas y comparar (understand/apply)"
+      lesson-03: "Evaluar calidad de encuestas (apply)"
+    module-02:
+      lesson-04: "Diagnosticar patrones problematicos (analyze)"
+      lesson-05: "Caso integrador completo (evaluate/create)"
+
+  bloom_progression:
+    module-01: [remember, understand, apply]
+    module-02: [analyze, evaluate, create]
+
+  hints_policy:
+    count: 3
+    progression:
+      - "Que observar en la visualizacion"
+      - "Que metrica o patron buscar"
+      - "Respuesta casi directa con explicacion"
+
+  feedback_tone: |
+    Directo, profesional, sin condescendencia.
+    Celebra brevemente el acierto. En caso de error,
+    redirige la atencion al elemento correcto de la visualizacion.
+    Tono adecuado para ejecutivos y profesionales de HR.
+
+  language: |
+    Espanol neutro (tu, no vos). Terminos tecnicos en ingles
+    cuando son estandar (degree, betweenness, closeness, broker, hub).
+    Contexto LATAM: casos en manufactura, banca, retail, seguros.
+
+  cases_and_context:
+    region: LATAM
+    companies:
+      - name: "Manufactura Regional"
+        description: "Planta de 120 empleados, 3 departamentos"
+        used_in: [module-01]
+      - name: "Banco Regional del Sur"
+        description: "Sucursales con diferentes tiempos de aprobacion"
+        used_in: [module-01]
+      - name: "Retail Multipais"
+        description: "Cadena con 4 departamentos"
+        used_in: [module-02]
+      - name: "Aseguradora del Pacifico"
+        description: "450 empleados, 3 paises, area de Claims"
+        used_in: [module-02]
+    scale: "50-500 personas"
+
+  4C_model_applied: |
+    La leccion 01 tiene un diseno 4C x Bloom completo
+    (archivo 01-organigrama-vs-red-4C.yaml):
+    - Connection (10%): Misconception check (quiz-00-intuicion)
+    - Construction (55%): Contenido + ejercicios interactivos
+    - Consolidation (25%): Quiz de verificacion (quiz-01-consolidacion)
+    - Conclusions (10%): Sintesis activa + transferencia
+
+# ============================================================================
+# METRICAS ONA CUBIERTAS EN EL CURSO
+# ============================================================================
+
+metrics_covered:
+  core_metrics:
+    - id: degree
+      name_es: "Grado"
+      name_en: "Degree Centrality"
+      question: "Quien es mas consultado?"
+      introduced_in: module-01
+      exercises: [ex-01-detectar-red, ex-03-calculadora-centralidad]
+
+    - id: betweenness
+      name_es: "Intermediacion"
+      name_en: "Betweenness Centrality"
+      question: "Quien conecta silos?"
+      introduced_in: module-01
+      exercises: [ex-02-identificar-broker, ex-03-calculadora-centralidad, ex-04-caso-banco]
+
+    - id: closeness
+      name_es: "Cercania"
+      name_en: "Closeness Centrality"
+      question: "Quien llega rapido a todos?"
+      introduced_in: module-01
+      exercises: [ex-03-calculadora-centralidad, ex-04-caso-banco]
+
+  derived_metrics:
+    - id: density
+      name_es: "Densidad"
+      introduced_in: module-02
+      exercises: [ex-09-simulador-impacto]
+
+    - id: connected_components
+      name_es: "Componentes conectados"
+      introduced_in: module-01
+      exercises: [ex-02-identificar-broker, ex-09-simulador-impacto]
+
+    - id: risk_score
+      name_es: "Score de riesgo"
+      description: "Combinacion ponderada de intermediacion y grado"
+      introduced_in: module-02
+      exercises: [ex-08-riesgo-dependencia]
