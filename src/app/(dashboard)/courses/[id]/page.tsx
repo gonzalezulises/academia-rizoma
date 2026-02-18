@@ -148,7 +148,19 @@ export default async function CoursePage({ params }: CoursePageProps) {
 
       {/* Course Header */}
       <div className="relative text-white">
-        <CourseHero title={course.title} slug={course.slug ?? undefined} size="detail" className="!h-auto absolute inset-0" />
+        {course.thumbnail_url ? (
+          <>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}${course.thumbnail_url}`}
+              alt=""
+              className="absolute inset-0 w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-black/50" />
+          </>
+        ) : (
+          <CourseHero title={course.title} slug={course.slug ?? undefined} size="detail" className="!h-auto absolute inset-0" />
+        )}
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <Link
             href="/courses"
