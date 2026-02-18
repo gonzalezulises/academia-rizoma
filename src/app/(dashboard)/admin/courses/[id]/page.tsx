@@ -414,7 +414,7 @@ export default function AdminCourseDetailPage({ params }: PageProps) {
                 {course?.thumbnail_url ? (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img
-                    src={course.thumbnail_url}
+                    src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}${course.thumbnail_url}`}
                     alt={course.title}
                     className="w-full h-48 object-cover rounded-lg border border-gray-200 dark:border-gray-700"
                   />

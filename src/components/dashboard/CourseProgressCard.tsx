@@ -46,7 +46,7 @@ export default function CourseProgressCard({ progress }: CourseProgressCardProps
           {course.thumbnail_url ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img
-              src={course.thumbnail_url}
+              src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}${course.thumbnail_url}`}
               alt={course.title}
               className="w-full h-full object-cover"
             />
