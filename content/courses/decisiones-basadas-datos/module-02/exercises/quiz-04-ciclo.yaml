@@ -1,0 +1,153 @@
+# Quiz: Ordena las etapas del ciclo
+# Módulo 2, Lección 4
+
+id: db-ex-04
+type: quiz
+title: "El ciclo de decisión en acción"
+description: "Evalúa tu comprensión del ciclo de decisión basada en datos y detecta cuándo se saltan etapas críticas."
+instructions: |
+  Cada pregunta presenta un escenario donde se aplica (o no) el ciclo de decisión.
+  Identifica la etapa correcta, el paso faltante o el error en el proceso.
+
+difficulty: intermediate
+estimated_time_minutes: 5
+points: 50
+
+config:
+  passing_score: 60
+  show_feedback: true
+  randomize_questions: false
+  allow_retry: true
+
+questions:
+  - id: ciclo-1
+    question: "Un equipo dice: 'Nuestras ventas están bajas, necesitamos más publicidad.' Inmediatamente lanzan una campaña de $50,000. ¿Qué etapa del ciclo saltaron primero?"
+    type: multiple_choice
+    bloom_level: analyze
+    points: 10
+    options:
+      - id: a
+        text: "Definir el problema — no acotaron por qué ni dónde caen las ventas"
+      - id: b
+        text: "Recopilar datos — no buscaron información antes de actuar"
+      - id: c
+        text: "Evaluar resultados — no midieron el impacto de la campaña"
+      - id: d
+        text: "Analizar evidencia — no compararon con benchmarks"
+    correct: a
+    feedback_correct: |
+      Correcto. "Las ventas están bajas" no es un problema definido — es un síntoma.
+      ¿Bajas respecto a qué? ¿En qué productos? ¿En qué región? ¿Desde cuándo?
+      Sin definir el problema, cualquier solución es un disparo al aire.
+    feedback_incorrect: |
+      La primera etapa que saltaron fue definir el problema. "Ventas bajas" es un
+      síntoma, no un problema definido. Sin saber por qué, dónde y desde cuándo
+      caen las ventas, más publicidad puede no ser la solución.
+
+  - id: ciclo-2
+    question: "Una empresa recopiló datos durante 6 meses sobre la rotación de personal. Tienen encuestas, entrevistas de salida y benchmarks del sector. Pero llevan 3 meses analizando sin tomar ninguna decisión. ¿Qué trampa del ciclo están experimentando?"
+    type: multiple_choice
+    bloom_level: analyze
+    points: 10
+    options:
+      - id: a
+        text: "Sesgo de confirmación"
+      - id: b
+        text: "Parálisis por análisis — no pasaron a la etapa de decidir"
+      - id: c
+        text: "Recopilaron datos insuficientes"
+      - id: d
+        text: "No definieron el problema correctamente"
+    correct: b
+    feedback_correct: |
+      Correcto. Tienen datos suficientes pero no avanzan a la etapa 4 (Decidir y actuar).
+      La regla del 70%: no necesitas información perfecta. Después de 6 meses de datos
+      y 3 de análisis, el costo de no decidir supera el beneficio de más análisis.
+    feedback_incorrect: |
+      Es parálisis por análisis. Con 6 meses de datos y 3 meses de análisis, el
+      problema no es falta de información — es incapacidad de pasar a la etapa 4
+      (Decidir). El análisis se convirtió en un sustituto de la acción.
+
+  - id: ciclo-3
+    question: "Un gerente define el problema como: 'Necesitamos mejorar la calidad.' ¿Qué está mal con esta definición?"
+    type: multiple_choice
+    bloom_level: evaluate
+    points: 10
+    options:
+      - id: a
+        text: "No es específica ni medible — ¿calidad de qué? ¿mejorar cuánto?"
+      - id: b
+        text: "No incluye el presupuesto disponible"
+      - id: c
+        text: "Debería ser una afirmación, no una necesidad"
+      - id: d
+        text: "No menciona a los competidores"
+    correct: a
+    feedback_correct: |
+      Correcto. Una buena definición del problema es específica y medible. "Mejorar
+      la calidad" es vago. Mejor: "Reducir la tasa de defectos en la línea de
+      producción X del 5% actual al 2% en los próximos 6 meses."
+    feedback_incorrect: |
+      El problema es que no es específica ni medible. "Mejorar la calidad" puede
+      significar cualquier cosa. ¿Calidad de qué producto? ¿Medida cómo? ¿Mejorar
+      de cuánto a cuánto? ¿En qué plazo?
+
+  - id: ciclo-4
+    question: "Una empresa lanzó un producto nuevo hace 6 meses. Las ventas superaron las proyecciones en un 25%. El equipo celebra y pasa al siguiente proyecto sin hacer revisión post-lanzamiento. ¿Qué etapa del ciclo ignoraron?"
+    type: multiple_choice
+    bloom_level: apply
+    points: 10
+    options:
+      - id: a
+        text: "Definir el problema"
+      - id: b
+        text: "Recopilar datos"
+      - id: c
+        text: "Analizar evidencia"
+      - id: d
+        text: "Evaluar resultados — no analizaron por qué funcionó"
+    correct: d
+    feedback_correct: |
+      Correcto. La etapa 5 (Evaluar) es la más ignorada, especialmente cuando las
+      cosas salen bien. Sin entender POR QUÉ funcionó, no pueden replicar el éxito.
+      ¿Fue su estrategia o fue suerte? ¿Los supuestos eran correctos?
+    feedback_incorrect: |
+      Ignoraron la etapa 5: Evaluar resultados. Es común saltarla cuando el resultado
+      es positivo ("¿para qué revisar si funcionó?"). Pero sin entender por qué
+      funcionó, no pueden replicar el éxito ni distinguir habilidad de suerte.
+
+  - id: ciclo-5
+    question: "Ordena correctamente las 5 etapas del ciclo de decisión basada en datos:"
+    type: multiple_choice
+    bloom_level: remember
+    points: 10
+    options:
+      - id: a
+        text: "Definir → Recopilar → Analizar → Decidir → Evaluar"
+      - id: b
+        text: "Recopilar → Definir → Analizar → Evaluar → Decidir"
+      - id: c
+        text: "Analizar → Recopilar → Definir → Decidir → Evaluar"
+      - id: d
+        text: "Definir → Analizar → Recopilar → Decidir → Evaluar"
+    correct: a
+    feedback_correct: |
+      Correcto. El orden es: (1) Definir el problema, (2) Recopilar datos,
+      (3) Analizar la evidencia, (4) Decidir y actuar, (5) Evaluar resultados.
+      El ciclo vuelve a la etapa 1 con lo aprendido.
+    feedback_incorrect: |
+      El orden correcto es: Definir → Recopilar → Analizar → Decidir → Evaluar.
+      Primero defines qué necesitas saber, luego buscas los datos, los analizas,
+      decides con base en el análisis y evalúas si funcionó.
+
+tags:
+  - ciclo-decision
+  - frameworks
+  - modulo-2
+
+total_points: 50
+
+conclusion: |
+  **Insight clave:** Philip Tetlock encontró que los mejores pronosticadores del mundo
+  no son los más inteligentes — son los que siguen un proceso disciplinado y actualizan
+  sus creencias con nueva evidencia. El ciclo es más importante que el genio.

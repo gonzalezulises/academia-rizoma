@@ -1,0 +1,155 @@
+# Quiz caso: Análisis de expansión
+# Módulo 3, Lección 7
+
+id: db-ex-07
+type: quiz
+title: "Caso: Análisis de expansión"
+description: "Analiza el caso de Distribuidora del Istmo y toma decisiones basadas en la evidencia presentada en la lección."
+instructions: |
+  Usa los datos del caso de la lección para responder cada pregunta.
+  Las respuestas correctas se basan en el análisis de la evidencia disponible.
+
+difficulty: intermediate
+estimated_time_minutes: 5
+points: 50
+
+config:
+  passing_score: 60
+  show_feedback: true
+  randomize_questions: false
+  allow_retry: true
+
+questions:
+  - id: expansion-1
+    question: "El CEO visitó San Pedro Sula y concluyó que 'la competencia es débil'. Los datos muestran 6 competidores con 78% de penetración de mercado. ¿Qué sesgo probablemente afectó al CEO?"
+    type: multiple_choice
+    bloom_level: apply
+    points: 10
+    options:
+      - id: a
+        text: "Sesgo de confirmación — buscó evidencia de oportunidad porque quería expandir"
+      - id: b
+        text: "Efecto Dunning-Kruger — sobreestima su conocimiento del mercado"
+      - id: c
+        text: "Sesgo de anclaje — se fijó en el primer dato que vio"
+      - id: d
+        text: "Ambos A y B son probables"
+    correct: d
+    feedback_correct: |
+      Correcto. El CEO probablemente buscó señales que confirmaran su deseo de
+      expandir (confirmación) y, con una visita de 2 días, sobreestimó su
+      comprensión de un mercado complejo (Dunning-Kruger). Ambos sesgos operan juntos.
+    feedback_incorrect: |
+      Ambos sesgos son probables. El CEO quería expandir y buscó evidencia que lo
+      confirmara (confirmación). Con solo 2 días de visita, sobreestimó su
+      entendimiento de un mercado con 6 competidores (Dunning-Kruger).
+
+  - id: expansion-2
+    question: "Ciudad C lleva 3 años sin alcanzar punto de equilibrio, tiene NPS de 45 y rotación de personal del 28%. Si la empresa abre San Pedro Sula sin resolver Ciudad C, ¿qué riesgo principal enfrenta?"
+    type: multiple_choice
+    bloom_level: analyze
+    points: 10
+    options:
+      - id: a
+        text: "Que San Pedro Sula sea más exitosa que Ciudad C"
+      - id: b
+        text: "Que diluyan recursos en dos operaciones problemáticas en vez de una"
+      - id: c
+        text: "Que los competidores copien su modelo"
+      - id: d
+        text: "Que el CEO pierda credibilidad"
+    correct: b
+    feedback_correct: |
+      Correcto. Con Ciudad C sin alcanzar punto de equilibrio y el equipo reportando
+      estar "al límite", abrir otra operación diluye atención, recursos y capital
+      entre dos frentes problemáticos — aumentando la probabilidad de fracaso en ambos.
+    feedback_incorrect: |
+      El riesgo principal es diluir recursos. Si Ciudad C no funciona después de 3
+      años y el equipo ya está al límite, abrir otra operación reparte recursos entre
+      dos problemas en vez de concentrarlos en resolver uno.
+
+  - id: expansion-3
+    question: "El escenario conservador proyecta ingresos de $35,000/mes vs. costos de $45,000/mes en San Pedro Sula. ¿Qué significa esto para la decisión?"
+    type: multiple_choice
+    bloom_level: evaluate
+    points: 10
+    options:
+      - id: a
+        text: "Es irrelevante porque el escenario optimista sí es rentable"
+      - id: b
+        text: "El escenario conservador genera pérdidas de $10K/mes — riesgo significativo"
+      - id: c
+        text: "Solo importa si la probabilidad del escenario conservador supera el 50%"
+      - id: d
+        text: "Hay que reducir costos operativos para que el escenario conservador sea viable"
+    correct: b
+    feedback_correct: |
+      Correcto. Un escenario conservador con pérdidas de $10K/mes ($120K/año) es una
+      señal de alarma seria. Si la realidad se acerca al escenario conservador, la
+      empresa pierde dinero que podría necesitar para sostener sus operaciones actuales.
+    feedback_incorrect: |
+      El escenario conservador con pérdidas de $10K/mes es un riesgo significativo.
+      No se puede ignorar el escenario pesimista porque "el optimista compensa" —
+      hay que evaluar si la empresa puede absorber esas pérdidas si ocurren.
+
+  - id: expansion-4
+    question: "¿Por qué la opción de fortalecer Ciudad C ($200K inversión) tiene mejor perfil de riesgo-retorno que abrir San Pedro Sula ($350K inversión)?"
+    type: multiple_choice
+    bloom_level: evaluate
+    points: 10
+    options:
+      - id: a
+        text: "Porque es más barata"
+      - id: b
+        text: "Porque Ciudad C ya tiene infraestructura, equipo y clientes — el retorno es más predecible"
+      - id: c
+        text: "Porque Honduras es un mercado más difícil"
+      - id: d
+        text: "Porque el CEO prefiere esta opción"
+    correct: b
+    feedback_correct: |
+      Correcto. Ciudad C tiene activos existentes (local, equipo, 165 clientes,
+      reconocimiento) que reducen la incertidumbre. Mejorar algo que existe es más
+      predecible que crear algo desde cero en un mercado desconocido.
+    feedback_incorrect: |
+      No es solo porque es más barata — es porque el retorno es más predecible.
+      Ciudad C ya tiene infraestructura, 165 clientes y un equipo operando. Mejorar
+      una operación existente tiene menos incertidumbre que crear una nueva.
+
+  - id: expansion-5
+    question: "El equipo decide: 'Invertir en Ciudad C primero y reconsiderar San Pedro Sula en 12-18 meses.' ¿Qué etapa del ciclo de decisión representa esta recomendación?"
+    type: multiple_choice
+    bloom_level: apply
+    points: 10
+    options:
+      - id: a
+        text: "Etapa 2 — Recopilar datos"
+      - id: b
+        text: "Etapa 3 — Analizar evidencia"
+      - id: c
+        text: "Etapa 4 — Decidir y actuar, con fecha de reevaluación"
+      - id: d
+        text: "Etapa 5 — Evaluar resultados"
+    correct: c
+    feedback_correct: |
+      Correcto. Es la etapa 4 (Decidir y actuar) bien ejecutada: toma una decisión
+      clara (invertir en Ciudad C), la comunica, y establece una fecha para evaluar
+      y reconsiderar la expansión (12-18 meses). Cierra el ciclo con una revisión planificada.
+    feedback_incorrect: |
+      Es la etapa 4: Decidir y actuar. La recomendación es una decisión explícita
+      con acción (invertir en Ciudad C) y una fecha de revisión (12-18 meses),
+      lo que demuestra un proceso de decisión disciplinado.
+
+tags:
+  - caso-practico
+  - expansion
+  - analisis-evidencia
+  - modulo-3
+
+total_points: 50
+
+conclusion: |
+  **Lección del caso:** Los datos no siempre dicen "sí" o "no" — a veces dicen
+  "todavía no". Posponer una decisión con criterios claros de reevaluación es una
+  decisión tan válida como aprobar o rechazar. Lo importante es que sea explícita,
+  documentada y con fecha de revisión.

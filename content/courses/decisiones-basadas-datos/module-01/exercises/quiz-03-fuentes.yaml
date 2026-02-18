@@ -1,0 +1,154 @@
+# Quiz: Clasifica la fuente de datos
+# Módulo 1, Lección 3
+
+id: db-ex-03
+type: quiz
+title: "Clasifica la fuente de datos"
+description: "Evalúa tu comprensión de los tipos de datos, fuentes de información y su nivel de confiabilidad."
+instructions: |
+  Para cada escenario, identifica el tipo de dato, fuente o error de interpretación
+  que se describe. Cada pregunta tiene una sola respuesta correcta.
+
+difficulty: beginner
+estimated_time_minutes: 4
+points: 50
+
+config:
+  passing_score: 60
+  show_feedback: true
+  randomize_questions: false
+  allow_retry: true
+
+questions:
+  - id: fuente-1
+    question: "Una empresa realiza 15 entrevistas en profundidad con clientes que cancelaron el servicio para entender sus razones. ¿Qué tipo de datos obtiene principalmente?"
+    type: multiple_choice
+    bloom_level: understand
+    points: 10
+    options:
+      - id: a
+        text: "Cuantitativos primarios"
+      - id: b
+        text: "Cualitativos primarios"
+      - id: c
+        text: "Cuantitativos secundarios"
+      - id: d
+        text: "Cualitativos secundarios"
+    correct: b
+    feedback_correct: |
+      Correcto. Son datos cualitativos (entrevistas, motivaciones, experiencias)
+      y primarios (recopilados directamente por la empresa para su pregunta específica).
+    feedback_incorrect: |
+      Son cualitativos primarios. Cualitativos porque buscan entender el "por qué"
+      a través de entrevistas (no números). Primarios porque la empresa los recopiló
+      directamente para responder su pregunta.
+
+  - id: fuente-2
+    question: "Un reporte dice: 'Los países que consumen más helado tienen mayores tasas de ahogamiento.' Alguien concluye que el helado causa ahogamientos. ¿Qué error de interpretación comete?"
+    type: multiple_choice
+    bloom_level: analyze
+    points: 10
+    options:
+      - id: a
+        text: "Sesgo de selección en la muestra"
+      - id: b
+        text: "Tamaño de muestra insuficiente"
+      - id: c
+        text: "Confundir correlación con causalidad"
+      - id: d
+        text: "Datos desactualizados"
+    correct: c
+    feedback_correct: |
+      Correcto. Ambas variables (consumo de helado y ahogamientos) correlacionan
+      con una tercera: la temperatura. En verano hace calor, se come más helado
+      y más personas nadan. El helado no causa ahogamientos.
+    feedback_incorrect: |
+      Es confundir correlación con causalidad. Que dos variables se muevan juntas
+      no significa que una cause la otra. Ambas son efecto de una tercera variable
+      (temperatura/estación del año).
+
+  - id: fuente-3
+    question: "Para evaluar si expandirse a un nuevo mercado, una empresa usa datos del censo nacional (2 años de antigüedad), un reporte de Euromonitor sobre el sector, y datos de su propio CRM sobre clientes en zonas similares. ¿Cuál de estas fuentes tiene mayor nivel de confiabilidad según la pirámide de evidencia?"
+    type: multiple_choice
+    bloom_level: evaluate
+    points: 10
+    options:
+      - id: a
+        text: "El censo nacional"
+      - id: b
+        text: "El reporte de Euromonitor"
+      - id: c
+        text: "Los datos del CRM propio"
+      - id: d
+        text: "Todas tienen el mismo nivel"
+    correct: c
+    feedback_correct: |
+      Correcto. Los datos operativos propios (CRM) están en el nivel 2 de la pirámide
+      — son verificables y específicos a tu contexto. El censo y Euromonitor son fuentes
+      secundarias (niveles 3-4), útiles pero con limitaciones de generalidad y metodología.
+    feedback_incorrect: |
+      Los datos del CRM propio son los más confiables para esta decisión. Están en
+      el nivel 2 de la pirámide (datos operativos verificables). El censo y Euromonitor
+      son fuentes secundarias útiles pero menos específicas a tu situación.
+
+  - id: fuente-4
+    question: "Una encuesta de satisfacción enviada por email tiene 12% de tasa de respuesta. El 92% de los que respondieron dicen estar satisfechos. ¿Cuál es el principal problema con este dato?"
+    type: multiple_choice
+    bloom_level: evaluate
+    points: 10
+    options:
+      - id: a
+        text: "Los datos son cualitativos, no cuantitativos"
+      - id: b
+        text: "Sesgo de selección — los insatisfechos probablemente no respondieron"
+      - id: c
+        text: "La encuesta debió hacerse por teléfono"
+      - id: d
+        text: "Falta comparar con benchmarks del sector"
+    correct: b
+    feedback_correct: |
+      Correcto. Con solo 12% de respuesta, la muestra no es representativa. Las
+      personas satisfechas son más propensas a responder encuestas de la empresa.
+      Los insatisfechos probablemente ignoraron el email o ya cancelaron.
+    feedback_incorrect: |
+      El problema principal es sesgo de selección. Con 12% de respuesta, solo
+      respondieron quienes estaban motivados — probablemente los más satisfechos.
+      El 88% que no respondió podría tener opiniones muy diferentes.
+
+  - id: fuente-5
+    question: "Un artículo de LinkedIn de un CEO reconocido dice: 'En mi experiencia, las empresas que adoptan trabajo remoto son 30% más productivas.' No cita ningún estudio. ¿En qué nivel de la pirámide de confiabilidad se ubica esta fuente?"
+    type: multiple_choice
+    bloom_level: evaluate
+    points: 10
+    options:
+      - id: a
+        text: "Nivel 1 — Evidencia experimental"
+      - id: b
+        text: "Nivel 3 — Estudio con metodología transparente"
+      - id: c
+        text: "Nivel 4 — Reporte de terceros"
+      - id: d
+        text: "Nivel 5 — Opinión de experto"
+    correct: d
+    feedback_correct: |
+      Correcto. Sin importar cuán reconocido sea el CEO, una opinión personal sin
+      datos ni metodología es nivel 5 — opinión de experto. Puede generar hipótesis
+      pero no debería ser la base de decisiones importantes.
+    feedback_incorrect: |
+      Es nivel 5: opinión de experto. Aunque el CEO sea reconocido, "en mi
+      experiencia" sin datos ni metodología es una anécdota personal. Útil para
+      generar hipótesis, insuficiente para tomar decisiones.
+
+tags:
+  - tipos-datos
+  - fuentes
+  - confiabilidad
+  - modulo-1
+
+total_points: 50
+
+conclusion: |
+  **Regla práctica:** Antes de usar cualquier dato para decidir, pregúntate tres cosas:
+  (1) ¿Quién lo recopiló y con qué propósito? (2) ¿Cuál es el tamaño y representatividad
+  de la muestra? (3) ¿Puedo verificar la metodología? Si no puedes responder las tres,
+  trata el dato como hipótesis, no como evidencia.

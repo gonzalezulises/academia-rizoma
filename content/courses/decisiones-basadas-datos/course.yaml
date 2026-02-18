@@ -1,0 +1,90 @@
+# Curso: Toma de Decisiones Basadas en Datos
+# Audiencia: Principiantes, líderes, analistas, cualquier profesional
+# Sin herramientas de programación — solo teoría, casos y quizzes
+
+id: decisiones-basadas-datos
+title: "Toma de Decisiones Basadas en Datos"
+description: |
+  Aprende a tomar decisiones más efectivas usando evidencia en lugar de intuición.
+
+  Este curso te enseñará a reconocer los sesgos cognitivos que distorsionan tus decisiones,
+  aplicar frameworks estructurados para evaluar opciones con datos, y analizar casos
+  reales donde la evidencia cambió el rumbo de una organización.
+
+  No requiere programación ni herramientas técnicas — solo pensamiento crítico.
+
+slug: decisiones-basadas-datos
+thumbnail_url: "/images/courses/decisiones-basadas-datos-hero.webp"
+is_published: true
+instructor_id: null
+content_source: 'database'
+
+# Configuración de ejercicios
+exercise_config:
+  default_runtime: null  # Sin código — solo quizzes
+  allow_solution_view: true
+  max_attempts: null
+
+# Módulos del curso (3 módulos, ~3 horas total)
+modules:
+  - id: module-01
+    title: "De la Intuición a la Evidencia"
+    description: "Sesgos cognitivos, qué significa basarse en datos y tipos de datos"
+    order: 1
+    strategy: interactive
+
+  - id: module-02
+    title: "Frameworks para Decidir con Datos"
+    description: "Ciclo de decisión, métricas relevantes y análisis costo-beneficio"
+    order: 2
+    strategy: interactive
+
+  - id: module-03
+    title: "Casos Prácticos"
+    description: "Aplicación a situaciones reales de negocio"
+    order: 3
+    strategy: interactive
+
+# Prerequisitos
+prerequisites:
+  - "Ninguno — curso diseñado para cualquier profesional"
+
+# Tags para búsqueda
+tags:
+  - decisiones
+  - datos
+  - sesgos-cognitivos
+  - analytics
+  - frameworks
+  - costo-beneficio
+  - liderazgo
+  - estrategia
+
+# Duración estimada
+estimated_duration_hours: 3
+difficulty: beginner
+
+# Promesa de aprendizaje
+learning_outcomes:
+  - "Identificar los sesgos cognitivos más comunes que distorsionan decisiones"
+  - "Distinguir entre decisiones basadas en evidencia y en intuición"
+  - "Clasificar tipos de datos y fuentes de información según su confiabilidad"
+  - "Aplicar el ciclo de decisión basada en datos a problemas reales"
+  - "Diferenciar métricas accionables de métricas decorativas"
+  - "Realizar análisis costo-beneficio simplificado"
+  - "Analizar casos de negocio usando frameworks de decisión"
+
+# Contexto LATAM
+context:
+  region: "LATAM"
+  language: "es"
+  cases:
+    - "Expansión de sucursal retail"
+    - "Optimización de recursos humanos"
+    - "Diseño de framework de decisión"
+  scale: "Cualquier tamaño de organización"
+
+# Origen del contenido
+source:
+  author: "Rizoma"
+  creation_date: "2026-02-17"

@@ -1,0 +1,156 @@
+# Quiz: Métrica accionable o decorativa
+# Módulo 2, Lección 5
+
+id: db-ex-05
+type: quiz
+title: "¿Métrica accionable o decorativa?"
+description: "Identifica si las métricas presentadas son accionables (generan decisiones) o decorativas (solo informan sin provocar acción)."
+instructions: |
+  Para cada métrica descrita, evalúa si cumple con las características de una métrica
+  accionable (umbral, dueño, frecuencia, conexión a decisión) o si es decorativa.
+
+difficulty: intermediate
+estimated_time_minutes: 5
+points: 60
+
+config:
+  passing_score: 60
+  show_feedback: true
+  randomize_questions: false
+  allow_retry: true
+
+questions:
+  - id: metrica-1
+    question: "'Número total de seguidores en redes sociales': se reporta mensualmente en la junta directiva. Cada mes crece un poco. No hay objetivo ni acción asociada."
+    type: multiple_choice
+    bloom_level: apply
+    points: 10
+    options:
+      - id: a
+        text: "Accionable"
+      - id: b
+        text: "Decorativa"
+    correct: b
+    feedback_correct: |
+      Correcto. Es una vanity metric clásica: crece naturalmente, no tiene umbral
+      ni acción definida, y no conecta con resultados de negocio. ¿Cuántos seguidores
+      se convierten en clientes? Eso sí sería accionable.
+    feedback_incorrect: |
+      Es decorativa. Los seguidores totales son una vanity metric: siempre crecen,
+      no tienen umbral de acción y no se conectan con decisiones de negocio.
+
+  - id: metrica-2
+    question: "'Tasa de abandono de carrito > 70%': activa revisión de UX por el Product Manager. Se verifica semanalmente con datos de analytics. Si supera 75%, se pausa el lanzamiento de nuevas features para priorizar conversión."
+    type: multiple_choice
+    bloom_level: apply
+    points: 10
+    options:
+      - id: a
+        text: "Accionable"
+      - id: b
+        text: "Decorativa"
+    correct: a
+    feedback_correct: |
+      Correcto. Cumple las 3+1 características: umbral (70% y 75%), dueño (Product
+      Manager), frecuencia (semanal) y acción definida (revisión UX, pausa de features).
+      Es una métrica que cambia comportamiento.
+    feedback_incorrect: |
+      Es accionable. Tiene umbral claro (70% trigger, 75% escalamiento), dueño
+      definido (Product Manager), frecuencia apropiada (semanal) y acciones
+      específicas cuando se cruzan los umbrales.
+
+  - id: metrica-3
+    question: "'Ingresos totales del trimestre': se presenta en la junta directiva con gráficas de tendencia. Se compara con el trimestre anterior y con el mismo trimestre del año pasado."
+    type: multiple_choice
+    bloom_level: apply
+    points: 10
+    options:
+      - id: a
+        text: "Accionable"
+      - id: b
+        text: "Decorativa"
+    correct: b
+    feedback_correct: |
+      Correcto. Es un indicador rezagado sin acción definida. Cuando ves los ingresos
+      trimestrales, ya es demasiado tarde para cambiar ese trimestre. Comparar con
+      el año pasado es informativo pero no dispara ninguna acción específica.
+    feedback_incorrect: |
+      Es decorativa tal como se describe. Los ingresos trimestrales son un indicador
+      rezagado (lagging) — ya pasó, no puedes cambiarlo. Sin umbral ni acción
+      definida, es información que se observa pero que no genera decisiones.
+
+  - id: metrica-4
+    question: "'Pipeline de ventas < $500K': alerta automática al VP de Ventas, quien activa campaña de prospección intensiva de 2 semanas con el equipo. Se revisa diariamente en el CRM.'"
+    type: multiple_choice
+    bloom_level: apply
+    points: 10
+    options:
+      - id: a
+        text: "Accionable"
+      - id: b
+        text: "Decorativa"
+    correct: a
+    feedback_correct: |
+      Correcto. Es un indicador adelantado (leading) con todas las características
+      de accionabilidad: umbral ($500K), dueño (VP Ventas), frecuencia (diaria),
+      y acción definida (campaña de prospección de 2 semanas).
+    feedback_incorrect: |
+      Es accionable. Es un indicador adelantado (predice ingresos futuros) con
+      umbral claro, dueño definido, frecuencia adecuada y acción específica.
+
+  - id: metrica-5
+    question: "'Horas de capacitación por empleado al año': se reporta en el informe anual de RRHH. El año pasado fueron 24 horas promedio. No hay objetivo definido."
+    type: multiple_choice
+    bloom_level: apply
+    points: 10
+    options:
+      - id: a
+        text: "Accionable"
+      - id: b
+        text: "Decorativa"
+    correct: b
+    feedback_correct: |
+      Correcto. Sin objetivo ni umbral, es solo un dato que se reporta. ¿24 horas es
+      bueno o malo? ¿Quién decide? ¿Qué pasa si baja a 15? Sin respuesta a estas
+      preguntas, la métrica es decorativa.
+    feedback_incorrect: |
+      Es decorativa. Sin objetivo, umbral ni acción definida, es un número que se
+      reporta por obligación. 24 horas no significa nada sin contexto de si es
+      suficiente, quién es responsable y qué se hace si cambia.
+
+  - id: metrica-6
+    question: "¿Cuál es la diferencia fundamental entre un indicador adelantado (leading) y un indicador rezagado (lagging)?"
+    type: multiple_choice
+    bloom_level: understand
+    points: 10
+    options:
+      - id: a
+        text: "Los adelantados son cuantitativos y los rezagados son cualitativos"
+      - id: b
+        text: "Los adelantados predicen resultados futuros; los rezagados miden resultados pasados"
+      - id: c
+        text: "Los adelantados son más precisos que los rezagados"
+      - id: d
+        text: "Los adelantados se usan en finanzas y los rezagados en operaciones"
+    correct: b
+    feedback_correct: |
+      Correcto. Un indicador adelantado (ej: pipeline de ventas) predice un resultado
+      futuro y permite actuar antes. Un indicador rezagado (ej: ingresos trimestrales)
+      confirma lo que ya pasó — útil para evaluar, pero tarde para actuar.
+    feedback_incorrect: |
+      La diferencia clave es temporal: los indicadores adelantados predicen resultados
+      futuros (puedes actuar), los rezagados confirman resultados pasados (solo puedes
+      aprender). Ambos tipos pueden ser cuantitativos y usarse en cualquier área.
+
+tags:
+  - metricas
+  - accionable-decorativa
+  - leading-lagging
+  - modulo-2
+
+total_points: 60
+
+conclusion: |
+  **Test de Bernard Marr:** Si una métrica desaparece de tu dashboard durante 3 semanas
+  y nadie pregunta por ella, elimínala. Las métricas que nadie extraña son las que
+  nunca informaron decisiones reales.

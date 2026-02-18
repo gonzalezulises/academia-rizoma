@@ -1,0 +1,234 @@
+# Quiz final: Integración de conceptos
+# Módulo 3, Lección 9
+
+id: db-ex-09
+type: quiz
+title: "Quiz final: Integración de conceptos"
+description: "Demuestra tu dominio de todos los conceptos del curso: sesgos, ciclo de decisión, métricas, costo-beneficio y casos prácticos."
+instructions: |
+  Este quiz integra conceptos de los 3 módulos del curso. Cada pregunta requiere
+  aplicar múltiples conceptos para llegar a la respuesta correcta.
+
+difficulty: advanced
+estimated_time_minutes: 8
+points: 80
+
+config:
+  passing_score: 60
+  show_feedback: true
+  randomize_questions: false
+  allow_retry: true
+
+questions:
+  - id: final-1
+    question: "Un director presenta un análisis de 50 páginas recomendando entrar a un nuevo mercado. Cuando le preguntan si evaluó la opción de no entrar, dice: 'No, esa no es una opción.' ¿Qué combinación de problemas tiene este proceso?"
+    type: multiple_choice
+    bloom_level: evaluate
+    points: 10
+    options:
+      - id: a
+        text: "Sesgo de confirmación + omitir el status quo en el ACB"
+      - id: b
+        text: "Sesgo de anclaje + parálisis por análisis"
+      - id: c
+        text: "Sesgo de supervivencia + métricas decorativas"
+      - id: d
+        text: "Efecto Dunning-Kruger + costos hundidos"
+    correct: a
+    feedback_correct: |
+      Correcto. El director solo evaluó la opción que ya prefería (confirmación) y
+      excluyó el status quo del análisis ("no es una opción"). Un buen ACB siempre
+      incluye "no hacer nada" como referencia — descartarla de entrada es un red flag.
+    feedback_incorrect: |
+      Es sesgo de confirmación (solo evaluó la opción preferida) combinado con
+      omitir el status quo (no consideró "no entrar" como opción válida). El
+      volumen del análisis (50 páginas) no compensa estos errores de proceso.
+
+  - id: final-2
+    question: "Una empresa tiene estas métricas en su dashboard: (1) Ingresos totales, (2) NPS trimestral, (3) Cycle time de tickets > 48h con alerta al Team Lead, (4) Seguidores en redes sociales. ¿Cuántas son genuinamente accionables?"
+    type: multiple_choice
+    bloom_level: evaluate
+    points: 10
+    options:
+      - id: a
+        text: "1 — solo la métrica 3"
+      - id: b
+        text: "2 — las métricas 1 y 3"
+      - id: c
+        text: "3 — las métricas 1, 2 y 3"
+      - id: d
+        text: "4 — todas son accionables"
+    correct: a
+    feedback_correct: |
+      Correcto. Solo la métrica 3 cumple las características de accionabilidad: umbral
+      (> 48h), dueño (Team Lead), frecuencia implícita y acción definida (investigar
+      bloqueos). Las demás son informativas pero sin umbral, dueño ni acción específica.
+    feedback_incorrect: |
+      Solo 1: la métrica de cycle time > 48h. Es la única con umbral (> 48h), dueño
+      (Team Lead) y acción (investigar). Ingresos totales y NPS son rezagados sin
+      acción. Seguidores es una vanity metric.
+
+  - id: final-3
+    question: "Estás evaluando si invertir $100K en un proyecto. El escenario optimista da +$200K (30% probabilidad), el probable da +$50K (50%), y el pesimista da -$80K (20%). ¿Cuál es el valor esperado y qué decisión tomarías?"
+    type: multiple_choice
+    bloom_level: apply
+    points: 10
+    options:
+      - id: a
+        text: "$69K positivo — el proyecto es viable"
+      - id: b
+        text: "$50K positivo — usar el escenario más probable"
+      - id: c
+        text: "$69K positivo, pero el 20% de chance de perder $80K requiere evaluar tolerancia al riesgo"
+      - id: d
+        text: "$56.67K — promedio simple de los 3 escenarios"
+    correct: c
+    feedback_correct: |
+      Correcto. VE = ($200K×0.30) + ($50K×0.50) + (-$80K×0.20) = $60K + $25K - $16K
+      = $69K. Es positivo, pero la decisión no es automática. Un 20% de probabilidad
+      de perder $80K puede ser inaceptable si la empresa no puede absorber esa pérdida.
+      El valor esperado informa, pero la tolerancia al riesgo decide.
+    feedback_incorrect: |
+      El VE es $69K [$60K + $25K - $16K], pero la decisión correcta considera también
+      el riesgo. Un 20% de perder $80K puede ser inaceptable dependiendo del contexto.
+      El valor esperado positivo no significa automáticamente "invertir".
+
+  - id: final-4
+    question: "Un equipo lleva 8 meses trabajando en un producto. Han invertido $400K. Los datos muestran que el mercado cambió y el producto ya no tiene demanda suficiente. Necesitarían $200K más para lanzar. ¿Cuál es la decisión correcta según los principios del curso?"
+    type: multiple_choice
+    bloom_level: evaluate
+    points: 10
+    options:
+      - id: a
+        text: "Continuar — ya invertimos $400K y estamos cerca de lanzar"
+      - id: b
+        text: "Evaluar si los $200K adicionales generarán retorno suficiente, ignorando los $400K ya invertidos"
+      - id: c
+        text: "Pedir más presupuesto para hacer el producto más competitivo"
+      - id: d
+        text: "Pausar y recopilar datos durante 6 meses más"
+    correct: b
+    feedback_correct: |
+      Correcto. Los $400K son costos hundidos — irrecuperables. La pregunta correcta
+      es: "¿Invertir $200K más generará retorno positivo dado que el mercado cambió?"
+      Si los datos dicen que la demanda ya no es suficiente, la respuesta probablemente
+      es no, sin importar cuánto se invirtió antes.
+    feedback_incorrect: |
+      La decisión correcta es evaluar solo los $200K futuros, ignorando los $400K
+      hundidos. "Ya invertimos mucho" es la falacia de costos hundidos. La pregunta
+      racional es: con el mercado actual, ¿$200K más generarán retorno? Si no, parar.
+
+  - id: final-5
+    question: "¿Qué distingue fundamentalmente a una decisión basada en datos de una decisión basada en intuición?"
+    type: multiple_choice
+    bloom_level: understand
+    points: 10
+    options:
+      - id: a
+        text: "Las decisiones basadas en datos siempre usan estadística avanzada"
+      - id: b
+        text: "Las decisiones basadas en datos son auditable, repetibles y mejorables"
+      - id: c
+        text: "Las decisiones basadas en datos nunca fallan"
+      - id: d
+        text: "Las decisiones basadas en datos toman más tiempo"
+    correct: b
+    feedback_correct: |
+      Correcto. La diferencia clave no es la complejidad ni la infalibilidad, sino
+      que el proceso es auditable (puedes revisar cómo se decidió), repetible (otros
+      pueden seguir el mismo proceso) y mejorable (aprendes de los resultados para
+      decidir mejor la próxima vez).
+    feedback_incorrect: |
+      Lo fundamental es que son auditables, repetibles y mejorables. No requieren
+      estadística avanzada, no son infalibles, y no siempre toman más tiempo.
+      La ventaja es que puedes revisar, replicar y aprender del proceso.
+
+  - id: final-6
+    question: "Un CEO dice: 'No necesitamos datos, yo conozco este negocio desde hace 20 años.' ¿Cuál es la mejor respuesta basada en lo aprendido en el curso?"
+    type: multiple_choice
+    bloom_level: evaluate
+    points: 10
+    options:
+      - id: a
+        text: "Tiene razón — 20 años de experiencia superan cualquier análisis"
+      - id: b
+        text: "Su experiencia es valiosa como hipótesis, pero debe validarse con datos actuales"
+      - id: c
+        text: "Está completamente equivocado — solo los datos importan"
+      - id: d
+        text: "Debería delegar todas las decisiones a analistas de datos"
+    correct: b
+    feedback_correct: |
+      Correcto. La experiencia de 20 años es nivel 1 del espectro (opinión informada)
+      — valiosa para generar hipótesis y detectar patrones, pero insuficiente por sí
+      sola. Los datos validan si la intuición experta sigue siendo correcta en el
+      contexto actual, que puede haber cambiado.
+    feedback_incorrect: |
+      La experiencia es valiosa como hipótesis pero debe validarse. 20 años de
+      experiencia son nivel 1 del espectro (opinión informada) — útiles para generar
+      hipótesis, pero el mercado de hace 20 años no es el de hoy. Los datos verifican
+      si la intuición experta sigue vigente.
+
+  - id: final-7
+    question: "Diseñas un framework de decisión para tu equipo. ¿Cuál es el orden correcto de los componentes?"
+    type: multiple_choice
+    bloom_level: remember
+    points: 10
+    options:
+      - id: a
+        text: "Clasificar → Definir → Recopilar → Verificar sesgos → Evaluar opciones → Documentar → Revisar"
+      - id: b
+        text: "Definir → Recopilar → Verificar sesgos → Clasificar → Evaluar → Revisar → Documentar"
+      - id: c
+        text: "Recopilar → Clasificar → Definir → Evaluar → Verificar sesgos → Documentar → Revisar"
+      - id: d
+        text: "Verificar sesgos → Definir → Clasificar → Recopilar → Evaluar → Documentar → Revisar"
+    correct: a
+    feedback_correct: |
+      Correcto. Primero clasificas (¿qué tipo de decisión es?), luego defines
+      el problema, recopilas datos con time-box, verificas sesgos antes de decidir,
+      evalúas opciones con matriz ponderada, documentas la decisión y programas revisión.
+    feedback_incorrect: |
+      El orden correcto es: Clasificar (tipo de decisión) → Definir (problema +
+      criterios) → Recopilar (datos con time-box) → Verificar (checklist anti-sesgos)
+      → Evaluar (matriz + ACB) → Documentar (decisión + supuestos) → Revisar (resultados).
+
+  - id: final-8
+    question: "¿Cuál es la 'regla del 70%' mencionada en el curso y qué problema resuelve?"
+    type: multiple_choice
+    bloom_level: understand
+    points: 10
+    options:
+      - id: a
+        text: "El 70% de las decisiones deben basarse en datos — resuelve el exceso de intuición"
+      - id: b
+        text: "Decide con el 70% de la información que desearías tener — resuelve la parálisis por análisis"
+      - id: c
+        text: "El 70% de los proyectos fracasan — resuelve el exceso de optimismo"
+      - id: d
+        text: "El 70% de las métricas son decorativas — resuelve el exceso de medición"
+    correct: b
+    feedback_correct: |
+      Correcto. Jeff Bezos propone que la mayoría de decisiones deberían tomarse con
+      ~70% de la información deseada. Si esperas al 90%, eres demasiado lento. Esta
+      regla resuelve la parálisis por análisis — el punto donde recopilar más datos
+      tiene menor valor que decidir con lo que tienes.
+    feedback_incorrect: |
+      La regla del 70% (Jeff Bezos): decide cuando tengas ~70% de la información que
+      desearías. Si esperas al 90%, la oportunidad puede haber pasado. Resuelve la
+      parálisis por análisis — el momento donde más datos no mejoran la decisión.
+
+tags:
+  - integracion
+  - quiz-final
+  - todos-los-modulos
+  - modulo-3
+
+total_points: 80
+
+conclusion: |
+  **Felicitaciones por completar el curso.** Recuerda: el objetivo no es eliminar la
+  intuición — es complementarla con evidencia. Los mejores tomadores de decisiones
+  combinan experiencia con datos, usan procesos que mitigan sesgos, y aprenden
+  sistemáticamente de los resultados. Tu framework personal es un organismo vivo:
+  úsalo, ajústalo y mejóralo con cada decisión que tomes.

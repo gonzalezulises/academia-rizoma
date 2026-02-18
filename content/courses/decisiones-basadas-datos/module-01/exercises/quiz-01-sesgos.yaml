@@ -1,0 +1,173 @@
+# Quiz: Identifica el sesgo cognitivo
+# Módulo 1, Lección 1
+
+id: db-ex-01
+type: quiz
+title: "Identifica el sesgo cognitivo"
+description: "Pon a prueba tu capacidad para reconocer los sesgos cognitivos más comunes en situaciones reales de negocio."
+instructions: |
+  Lee cada escenario e identifica qué sesgo cognitivo está operando.
+  Cada pregunta tiene una sola respuesta correcta.
+
+difficulty: beginner
+estimated_time_minutes: 5
+points: 60
+
+config:
+  passing_score: 50
+  show_feedback: true
+  randomize_questions: false
+  allow_retry: true
+
+questions:
+  - id: sesgo-1
+    question: "Un gerente lee un artículo sobre una startup exitosa que creció 300% con marketing en TikTok. Inmediatamente propone destinar el 50% del presupuesto de marketing a TikTok, ignorando que su público objetivo tiene 45-60 años. ¿Qué sesgo opera?"
+    type: multiple_choice
+    bloom_level: apply
+    points: 10
+    options:
+      - id: a
+        text: "Sesgo de confirmación"
+      - id: b
+        text: "Sesgo de disponibilidad"
+      - id: c
+        text: "Sesgo de anclaje"
+      - id: d
+        text: "Sesgo de supervivencia"
+    correct: b
+    feedback_correct: |
+      Correcto. El caso reciente y dramático (300% de crecimiento) está más "disponible"
+      en su mente y lo lleva a sobreestimar la probabilidad de que funcione para su contexto.
+    feedback_incorrect: |
+      Es sesgo de disponibilidad. El gerente sobreestima la relevancia de un caso
+      porque es reciente y dramático, no porque sea aplicable a su situación.
+
+  - id: sesgo-2
+    question: "Una directora de RRHH está convencida de que el teletrabajo reduce la productividad. Al revisar un estudio que muestra resultados mixtos, solo cita las secciones que confirman su posición. ¿Qué sesgo opera?"
+    type: multiple_choice
+    bloom_level: apply
+    points: 10
+    options:
+      - id: a
+        text: "Sesgo de confirmación"
+      - id: b
+        text: "Efecto Dunning-Kruger"
+      - id: c
+        text: "Sesgo de supervivencia"
+      - id: d
+        text: "Sesgo de anclaje"
+    correct: a
+    feedback_correct: |
+      Correcto. Busca y selecciona información que confirma su creencia preexistente,
+      ignorando evidencia contradictoria del mismo estudio.
+    feedback_incorrect: |
+      Es sesgo de confirmación. La directora filtra la información para que coincida
+      con lo que ya creía, ignorando las partes del estudio que no apoyan su posición.
+
+  - id: sesgo-3
+    question: "En una negociación con un proveedor, este menciona que el precio 'normal' es $50,000. Después de negociar, acuerdan $38,000 y el equipo celebra haber conseguido un 'gran descuento'. Ninguno investigó el precio de mercado real ($25,000). ¿Qué sesgo opera?"
+    type: multiple_choice
+    bloom_level: apply
+    points: 10
+    options:
+      - id: a
+        text: "Sesgo de disponibilidad"
+      - id: b
+        text: "Sesgo de confirmación"
+      - id: c
+        text: "Sesgo de anclaje"
+      - id: d
+        text: "Efecto Dunning-Kruger"
+    correct: c
+    feedback_correct: |
+      Correcto. El precio inicial de $50,000 funcionó como ancla. Toda la negociación
+      giró alrededor de ese número arbitrario, y $38,000 pareció razonable solo en
+      comparación con el ancla, no con el valor real de mercado.
+    feedback_incorrect: |
+      Es sesgo de anclaje. El primer número mencionado ($50,000) distorsionó toda la
+      negociación. El equipo evaluó el resultado vs. el ancla ($50K → $38K = ahorro)
+      en lugar de vs. el precio de mercado ($25K → $38K = sobrepago).
+
+  - id: sesgo-4
+    question: "Un inversionista analiza 10 startups exitosas y concluye que todas tenían fundadores menores de 30 años, por lo que solo invierte en fundadores jóvenes. No analizó las miles de startups con fundadores jóvenes que fracasaron. ¿Qué sesgo opera?"
+    type: multiple_choice
+    bloom_level: apply
+    points: 10
+    options:
+      - id: a
+        text: "Sesgo de confirmación"
+      - id: b
+        text: "Sesgo de anclaje"
+      - id: c
+        text: "Sesgo de disponibilidad"
+      - id: d
+        text: "Sesgo de supervivencia"
+    correct: d
+    feedback_correct: |
+      Correcto. Solo analizó los casos que "sobrevivieron" (startups exitosas)
+      e ignoró la base completa (startups que fracasaron). Las conclusiones de
+      una muestra de sobrevivientes son fundamentalmente engañosas.
+    feedback_incorrect: |
+      Es sesgo de supervivencia. Al analizar solo las startups exitosas, ignora
+      todas las que fracasaron — que podrían tener exactamente las mismas
+      características. La muestra está sesgada porque solo incluye sobrevivientes.
+
+  - id: sesgo-5
+    question: "Un analista junior que lleva 3 meses en la empresa presenta proyecciones de mercado con total certeza: 'Vamos a crecer 40% este año, sin duda.' Los directores con 15 años de experiencia son mucho más cautelosos con sus estimaciones. ¿Qué efecto se observa?"
+    type: multiple_choice
+    bloom_level: apply
+    points: 10
+    options:
+      - id: a
+        text: "Sesgo de disponibilidad"
+      - id: b
+        text: "Efecto Dunning-Kruger"
+      - id: c
+        text: "Sesgo de anclaje"
+      - id: d
+        text: "Sesgo de confirmación"
+    correct: b
+    feedback_correct: |
+      Correcto. El efecto Dunning-Kruger: la persona con menos experiencia
+      sobreestima su capacidad de predicción, mientras los expertos, conscientes
+      de la complejidad, son más cautelosos.
+    feedback_incorrect: |
+      Es el efecto Dunning-Kruger. Quienes menos saben sobre un tema tienden a
+      ser los más confiados en sus predicciones. Los expertos, que entienden la
+      complejidad real, expresan más incertidumbre.
+
+  - id: sesgo-6
+    question: "Después de que un cliente importante cancela su contrato por problemas de calidad, la empresa gasta $200,000 en un nuevo sistema de control de calidad. Los datos muestran que la tasa de defectos es 0.5% (industria: 2%) y que la cancelación se debió a un cambio de proveedor del cliente, no a calidad. ¿Qué sesgo operó?"
+    type: multiple_choice
+    bloom_level: analyze
+    points: 10
+    options:
+      - id: a
+        text: "Sesgo de supervivencia"
+      - id: b
+        text: "Efecto Dunning-Kruger"
+      - id: c
+        text: "Sesgo de disponibilidad"
+      - id: d
+        text: "Sesgo de anclaje"
+    correct: c
+    feedback_correct: |
+      Correcto. Un evento reciente y emocionalmente impactante (la cancelación)
+      llevó a sobreestimar un problema que los datos no respaldan. La decisión
+      se tomó por la vivacidad del evento, no por la evidencia.
+    feedback_incorrect: |
+      Es sesgo de disponibilidad. La cancelación fue un evento dramático y reciente
+      que hizo que la empresa sobreestimara un riesgo que los datos no soportaban
+      (su tasa de defectos era 4 veces mejor que la industria).
+
+tags:
+  - sesgos-cognitivos
+  - modulo-1
+  - identificacion
+
+total_points: 60
+
+conclusion: |
+  **Dato revelador:** En un meta-análisis de 800 decisiones de negocio, Lovallo y
+  Sibony (McKinsey, 2010) encontraron que los sesgos cognitivos afectaban negativamente
+  el resultado en el 75% de los casos donde no se mitigaron activamente.

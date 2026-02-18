@@ -1,0 +1,37 @@
+id: module-02
+title: "Frameworks para Decidir con Datos"
+description: |
+  Pasa de la teoría a la práctica con frameworks estructurados.
+  Domina el ciclo de decisión basada en datos, aprende a distinguir
+  métricas accionables de ruido y aplica análisis costo-beneficio
+  simplificado a decisiones reales.
+order: 2
+is_locked: false
+
+lessons:
+  - id: lesson-02-01
+    file: lessons/04-ciclo-decision.md
+    title: "El ciclo de decisión basada en datos"
+    type: text
+    order: 4
+    duration_minutes: 20
+    exercises:
+      - db-ex-04
+
+  - id: lesson-02-02
+    file: lessons/05-metricas-importan.md
+    title: "Métricas que importan vs. ruido"
+    type: text
+    order: 5
+    duration_minutes: 20
+    exercises:
+      - db-ex-05
+
+  - id: lesson-02-03
+    file: lessons/06-costo-beneficio.md
+    title: "Análisis costo-beneficio simplificado"
+    type: text
+    order: 6
+    duration_minutes: 15
+    exercises:
+      - db-ex-06

@@ -1,0 +1,133 @@
+# Quiz: Decisión con datos vs. sin datos
+# Módulo 1, Lección 2
+
+id: db-ex-02
+type: quiz
+title: "¿Con datos o sin datos?"
+description: "Identifica si las siguientes decisiones están realmente basadas en datos o son intuición disfrazada de análisis."
+instructions: |
+  Para cada escenario, evalúa si la decisión descrita está genuinamente basada en datos
+  o si es intuición con apariencia de análisis. Presta atención a los detalles del proceso.
+
+difficulty: beginner
+estimated_time_minutes: 4
+points: 50
+
+config:
+  passing_score: 60
+  show_feedback: true
+  randomize_questions: false
+  allow_retry: true
+
+questions:
+  - id: condatos-1
+    question: "El CEO decide expandir a un nuevo país porque 'el año pasado 3 competidores se expandieron y les fue bien'. No consultó datos de mercado, demografía ni costos de entrada."
+    type: multiple_choice
+    bloom_level: analyze
+    points: 10
+    options:
+      - id: a
+        text: "Decisión basada en datos"
+      - id: b
+        text: "Intuición disfrazada de análisis"
+    correct: b
+    feedback_correct: |
+      Correcto. Aunque menciona un "dato" (3 competidores), es un argumento anecdótico
+      sin análisis de su propia situación. Nivel 1 del espectro: opinión informada.
+    feedback_incorrect: |
+      Es intuición disfrazada. Citar lo que hicieron 3 competidores no es análisis —
+      es usar una anécdota para justificar una decisión ya tomada. No hay datos de
+      mercado, costos ni análisis de viabilidad propia.
+
+  - id: condatos-2
+    question: "El equipo de marketing realiza un A/B test con 5,000 usuarios durante 2 semanas. El resultado muestra que el diseño B aumenta la conversión en 12% (p < 0.05). Implementan el diseño B."
+    type: multiple_choice
+    bloom_level: analyze
+    points: 10
+    options:
+      - id: a
+        text: "Decisión basada en datos"
+      - id: b
+        text: "Intuición disfrazada de análisis"
+    correct: a
+    feedback_correct: |
+      Correcto. Es una decisión basada en datos de nivel 4: experimento controlado,
+      tamaño de muestra adecuado, resultado estadísticamente significativo y acción
+      directa basada en el resultado.
+    feedback_incorrect: |
+      Esta sí es una decisión genuinamente basada en datos. Tiene los elementos clave:
+      experimento controlado, muestra suficiente, resultado medible y significativo,
+      y la acción se toma directamente del resultado.
+
+  - id: condatos-3
+    question: "La junta directiva revisa un dashboard con 45 indicadores durante 2 horas cada mes. Al final, el CEO dice 'los números se ven bien' y no se toma ninguna acción específica."
+    type: multiple_choice
+    bloom_level: analyze
+    points: 10
+    options:
+      - id: a
+        text: "Decisión basada en datos"
+      - id: b
+        text: "Intuición disfrazada de análisis"
+    correct: b
+    feedback_correct: |
+      Correcto. Esto es teatro de datos. Hay un ritual de revisión de información,
+      pero no hay decisiones, no hay umbrales, no hay acciones. Los datos decoran
+      la reunión sin cambiar el comportamiento.
+    feedback_incorrect: |
+      Esto es teatro de datos, no decisión basada en datos. Revisar dashboards
+      sin tomar acciones, sin umbrales definidos y sin dueños de métricas es un
+      ritual que crea la ilusión de control sin generar decisiones reales.
+
+  - id: condatos-4
+    question: "Una empresa quiere lanzar un nuevo producto. Realizan 200 encuestas, analizan 3 años de datos de ventas de productos similares, consultan benchmarks del sector y modelan 3 escenarios (optimista, probable, pesimista). Deciden lanzar con un piloto limitado."
+    type: multiple_choice
+    bloom_level: analyze
+    points: 10
+    options:
+      - id: a
+        text: "Decisión basada en datos"
+      - id: b
+        text: "Intuición disfrazada de análisis"
+    correct: a
+    feedback_correct: |
+      Correcto. Múltiples fuentes de datos, análisis de escenarios y una decisión
+      prudente (piloto en lugar de lanzamiento masivo) que permite validar antes
+      de escalar. Nivel 4 del espectro.
+    feedback_incorrect: |
+      Esta es una decisión genuinamente basada en datos. Usa múltiples fuentes
+      (primarias y secundarias), modela escenarios y toma una acción medible
+      (piloto) que permite aprender antes de comprometer más recursos.
+
+  - id: condatos-5
+    question: "El director financiero prepara un análisis de 30 páginas que justifica cerrar una línea de negocio. Cuando otro director pregunta por qué no analizó la opción de reestructurar en vez de cerrar, responde: 'Esa opción no es viable' sin datos que lo sustenten."
+    type: multiple_choice
+    bloom_level: analyze
+    points: 10
+    options:
+      - id: a
+        text: "Decisión basada en datos"
+      - id: b
+        text: "Intuición disfrazada de análisis"
+    correct: b
+    feedback_correct: |
+      Correcto. Un análisis extenso no es lo mismo que un análisis completo. Si solo
+      evaluaste una opción (la que ya preferías) y descartaste alternativas sin datos,
+      usaste 30 páginas para justificar una decisión ya tomada por intuición.
+    feedback_incorrect: |
+      Es intuición disfrazada. A pesar de las 30 páginas, el análisis solo evaluó
+      una opción — la preferida. Descartar alternativas sin datos ("no es viable"
+      sin evidencia) es sesgo de confirmación con formato profesional.
+
+tags:
+  - decisiones
+  - datos-vs-intuicion
+  - modulo-1
+
+total_points: 50
+
+conclusion: |
+  **Clave:** La diferencia entre decidir con datos y la intuición disfrazada no está
+  en la cantidad de información, sino en si estás dispuesto a que los datos cambien
+  tu conclusión. Si buscas datos para confirmar, no para descubrir, es intuición con
+  formato de análisis.

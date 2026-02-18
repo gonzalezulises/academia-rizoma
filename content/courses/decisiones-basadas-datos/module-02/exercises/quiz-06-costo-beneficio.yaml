@@ -1,0 +1,155 @@
+# Quiz: Evalúa la decisión (costo-beneficio)
+# Módulo 2, Lección 6
+
+id: db-ex-06
+type: quiz
+title: "Evalúa la decisión con costo-beneficio"
+description: "Aplica los conceptos de análisis costo-beneficio para evaluar decisiones y detectar errores comunes."
+instructions: |
+  Cada escenario presenta una situación donde se aplica (o debería aplicarse) un
+  análisis costo-beneficio. Identifica la respuesta correcta.
+
+difficulty: intermediate
+estimated_time_minutes: 5
+points: 50
+
+config:
+  passing_score: 60
+  show_feedback: true
+  randomize_questions: false
+  allow_retry: true
+
+questions:
+  - id: acb-1
+    question: "Una empresa invirtió $300,000 en un sistema de inventario que no funciona bien. Ahora necesita $100,000 más para arreglarlo, o $150,000 para comprar un sistema nuevo que sí funciona. El gerente dice: 'Ya invertimos $300K, no podemos tirarlo a la basura.' ¿Qué error comete?"
+    type: multiple_choice
+    bloom_level: apply
+    points: 10
+    options:
+      - id: a
+        text: "Ignora el costo de oportunidad"
+      - id: b
+        text: "Cae en la falacia de costos hundidos"
+      - id: c
+        text: "No considera los costos indirectos"
+      - id: d
+        text: "Sobreestima los beneficios"
+    correct: b
+    feedback_correct: |
+      Correcto. Los $300,000 ya se gastaron y no se recuperan sin importar qué decida.
+      La decisión correcta compara: ¿$100K para un sistema mediocre o $150K para uno
+      que funciona? Los $300K no deberían influir — es dinero irrecuperable.
+    feedback_incorrect: |
+      Es la falacia de costos hundidos. Los $300K ya se gastaron — son irrecuperables.
+      La decisión racional compara solo las opciones futuras: $100K para arreglar vs.
+      $150K para reemplazar, evaluando cuál genera más valor hacia adelante.
+
+  - id: acb-2
+    question: "Una empresa evalúa automatizar un proceso. Solo consideran el costo del software ($50,000) y el ahorro en nómina ($80,000/año). No incluyen costos de capacitación, transición ni productividad perdida durante la implementación. ¿Qué tipo de costo están ignorando?"
+    type: multiple_choice
+    bloom_level: apply
+    points: 10
+    options:
+      - id: a
+        text: "Costos hundidos"
+      - id: b
+        text: "Costos indirectos"
+      - id: c
+        text: "Costo de oportunidad"
+      - id: d
+        text: "Costos directos"
+    correct: b
+    feedback_correct: |
+      Correcto. Capacitación, tiempo de transición y productividad perdida son costos
+      indirectos — no aparecen en la factura del software pero son consecuencias reales
+      de la decisión que afectan el cálculo de beneficio neto.
+    feedback_incorrect: |
+      Son costos indirectos. La capacitación del equipo, el tiempo de transición y la
+      productividad perdida durante la implementación son consecuencias reales de la
+      decisión que no aparecen en la factura directa del software.
+
+  - id: acb-3
+    question: "Un equipo evalúa 2 opciones para un proyecto, pero no incluye la opción de 'no hacer nada'. ¿Por qué es esto un error?"
+    type: multiple_choice
+    bloom_level: understand
+    points: 10
+    options:
+      - id: a
+        text: "Porque no hacer nada siempre es la mejor opción"
+      - id: b
+        text: "Porque sin el status quo como referencia, no sabes si alguna opción genera valor real"
+      - id: c
+        text: "Porque se necesitan mínimo 5 opciones para un buen análisis"
+      - id: d
+        text: "Porque el status quo elimina los sesgos cognitivos"
+    correct: b
+    feedback_correct: |
+      Correcto. El status quo es la línea base. Si no lo incluyes, podrías elegir
+      la "mejor" opción entre dos que ambas destruyen valor. A veces, no hacer nada
+      es genuinamente la mejor decisión — pero solo lo sabes si la evaluaste.
+    feedback_incorrect: |
+      Sin el status quo como referencia, no sabes si las opciones generan valor
+      real. Ambas opciones podrían ser peores que no hacer nada. El status quo
+      no siempre es la mejor opción, pero siempre debe evaluarse como referencia.
+
+  - id: acb-4
+    question: "Una tienda puede usar $20,000 para renovar el local (beneficio estimado: $8,000/año adicionales) o para crear una tienda online (beneficio estimado: $15,000/año adicionales). Deciden renovar el local. ¿Cuál es el costo de oportunidad?"
+    type: multiple_choice
+    bloom_level: apply
+    points: 10
+    options:
+      - id: a
+        text: "$20,000 — el costo de la renovación"
+      - id: b
+        text: "$15,000/año — lo que dejan de ganar al no crear la tienda online"
+      - id: c
+        text: "$8,000/año — el beneficio de la renovación"
+      - id: d
+        text: "$7,000/año — la diferencia entre ambas opciones"
+    correct: b
+    feedback_correct: |
+      Correcto. El costo de oportunidad es el valor de la mejor alternativa que
+      sacrificas. Al elegir renovar ($8K/año), dejas de ganar $15K/año de la tienda
+      online. El costo de oportunidad es $15K/año — lo que renuncias al decidir.
+    feedback_incorrect: |
+      El costo de oportunidad es $15,000/año — el beneficio de la mejor alternativa
+      no elegida (tienda online). No es la diferencia ni el costo de la opción
+      elegida, sino lo que dejas de ganar por no elegir la otra opción.
+
+  - id: acb-5
+    question: "Una empresa modela 3 escenarios para un proyecto: optimista ($200K beneficio, 20% probabilidad), probable ($80K beneficio, 60% probabilidad) y pesimista (-$30K pérdida, 20% probabilidad). ¿Cuál es el valor esperado?"
+    type: multiple_choice
+    bloom_level: apply
+    points: 10
+    options:
+      - id: a
+        text: "$80,000 — el escenario más probable"
+      - id: b
+        text: "$250,000 — la suma de todos los beneficios"
+      - id: c
+        text: "$82,000 — el promedio ponderado por probabilidad"
+      - id: d
+        text: "$83,333 — el promedio simple de los 3 escenarios"
+    correct: c
+    feedback_correct: |
+      Correcto. Valor esperado = ($200K × 0.20) + ($80K × 0.60) + (-$30K × 0.20)
+      = $40K + $48K + (-$6K) = $82,000. El valor esperado pondera cada escenario
+      por su probabilidad, no es un promedio simple.
+    feedback_incorrect: |
+      El valor esperado es $82,000, calculado como promedio ponderado:
+      ($200K × 20%) + ($80K × 60%) + (-$30K × 20%) = $40K + $48K - $6K = $82K.
+      No es el escenario más probable ni el promedio simple.
+
+tags:
+  - costo-beneficio
+  - costos-hundidos
+  - costo-oportunidad
+  - modulo-2
+
+total_points: 50
+
+conclusion: |
+  **Regla de oro del ACB:** Siempre incluye al menos 3 opciones (incluyendo no hacer
+  nada), siempre considera los 4 tipos de costos (directos, indirectos, de oportunidad,
+  hundidos — estos últimos para ignorarlos) y siempre usa al menos 3 escenarios para
+  ajustar por incertidumbre.

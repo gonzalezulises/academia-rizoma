@@ -1,0 +1,37 @@
+id: module-01
+title: "De la Intuición a la Evidencia"
+description: |
+  Descubre por qué la intuición nos engaña más de lo que creemos.
+  Aprende a reconocer los sesgos cognitivos que distorsionan decisiones,
+  entiende qué significa realmente decidir con datos y clasifica
+  las fuentes de información según su confiabilidad.
+order: 1
+is_locked: false
+
+lessons:
+  - id: lesson-01-01
+    file: lessons/01-por-que-fallamos.md
+    title: "Por qué fallamos al decidir"
+    type: text
+    order: 1
+    duration_minutes: 20
+    exercises:
+      - db-ex-01
+
+  - id: lesson-01-02
+    file: lessons/02-decidir-con-datos.md
+    title: "¿Qué significa decidir con datos?"
+    type: text
+    order: 2
+    duration_minutes: 15
+    exercises:
+      - db-ex-02
+
+  - id: lesson-01-03
+    file: lessons/03-tipos-datos-fuentes.md
+    title: "Tipos de datos y fuentes de información"
+    type: text
+    order: 3
+    duration_minutes: 15
+    exercises:
+      - db-ex-03

@@ -1,0 +1,159 @@
+# Quiz caso: Optimización de recursos
+# Módulo 3, Lección 8
+
+id: db-ex-08
+type: quiz
+title: "Caso: Optimización de recursos"
+description: "Analiza el caso de TechServ Panamá y evalúa las opciones de reducción vs. reasignación de personal."
+instructions: |
+  Usa los datos del caso de la lección para responder cada pregunta.
+  Las respuestas se basan en el análisis de la evidencia disponible.
+
+difficulty: intermediate
+estimated_time_minutes: 5
+points: 50
+
+config:
+  passing_score: 60
+  show_feedback: true
+  randomize_questions: false
+  allow_retry: true
+
+questions:
+  - id: recursos-1
+    question: "El departamento con el ratio ingreso/costo más alto es Ventas (3.33). El líder de ventas dice que con 3 vendedores más podría cerrar $400K en pipeline. ¿Qué tipo de dato respalda mejor esta afirmación?"
+    type: multiple_choice
+    bloom_level: evaluate
+    points: 10
+    options:
+      - id: a
+        text: "Dato cuantitativo primario — el pipeline de $400K está en el CRM"
+      - id: b
+        text: "Dato cualitativo primario — es la opinión del líder de ventas"
+      - id: c
+        text: "Ambos — el pipeline es cuantitativo y la estimación de impacto es cualitativa"
+      - id: d
+        text: "Dato secundario — viene de benchmarks del sector"
+    correct: c
+    feedback_correct: |
+      Correcto. El pipeline de $400K es un dato cuantitativo verificable en el CRM.
+      La estimación de que 3 vendedores adicionales podrían cerrarlo es cualitativa
+      (opinión experta del líder). Ambos se complementan pero deben ponderarse distinto.
+    feedback_incorrect: |
+      Son ambos tipos. El pipeline de $400K en el CRM es cuantitativo y verificable.
+      La estimación de que "3 vendedores más lo cerrarían" es cualitativa (juicio del
+      líder). La decisión debería pesar más el dato del CRM que la estimación.
+
+  - id: recursos-2
+    question: "El departamento de Capacitación tiene utilización de 45% y ratio ingreso/costo de 0.56. ¿Qué significa esto en términos de decisión?"
+    type: multiple_choice
+    bloom_level: analyze
+    points: 10
+    options:
+      - id: a
+        text: "Hay que eliminar el departamento inmediatamente"
+      - id: b
+        text: "Hay capacidad ociosa significativa que podría redirigirse a actividades de mayor valor"
+      - id: c
+        text: "El departamento es eficiente — genera $0.56 por cada $1 invertido"
+      - id: d
+        text: "Necesitan más presupuesto para mejorar su ratio"
+    correct: b
+    feedback_correct: |
+      Correcto. 45% de utilización significa que el 55% de la capacidad no se usa.
+      Un ratio de 0.56 indica que no genera suficiente para cubrir su costo. Pero
+      eliminar no es la única opción — redirigir esas personas a áreas con demanda
+      (ventas, soporte premium) puede generar más valor que despedirlas.
+    feedback_incorrect: |
+      Hay capacidad ociosa que puede redirigirse. 45% de utilización = 55% sin usar.
+      Ratio 0.56 = no se paga a sí mismo. Pero la decisión no es solo "eliminar" —
+      esas personas tienen habilidades (presentación, formación) transferibles a
+      áreas como ventas o soporte premium de clientes.
+
+  - id: recursos-3
+    question: "El director financiero propone despedir 12 personas para ahorrar $180K. Las liquidaciones en Panamá costarían ~$90K. En el primer año, ¿cuál es el ahorro neto real?"
+    type: multiple_choice
+    bloom_level: apply
+    points: 10
+    options:
+      - id: a
+        text: "$180,000 — el ahorro de nómina completo"
+      - id: b
+        text: "$90,000 — ahorro de nómina menos liquidaciones"
+      - id: c
+        text: "Menos de $90,000 — también hay caída de productividad en los sobrevivientes"
+      - id: d
+        text: "$270,000 — ahorro más las liquidaciones recuperadas"
+    correct: c
+    feedback_correct: |
+      Correcto. Ahorro nómina ($180K) - liquidaciones ($90K) = $90K. Pero estudios
+      muestran que la productividad cae 15-20% en los meses posteriores a despidos.
+      Si el 73% restante rinde 15% menos durante 6 meses, el costo real en
+      productividad perdida puede superar los $90K de ahorro neto.
+    feedback_incorrect: |
+      Es menos de $90K en el primer año. Los $180K de ahorro menos $90K de
+      liquidaciones da $90K. Pero la caída de productividad documentada (15-20%
+      por 3-6 meses) en los 73 empleados restantes erosiona incluso ese ahorro.
+
+  - id: recursos-4
+    question: "El caso muestra que Desarrollo tiene 92% de utilización con 8 semanas de backlog. ¿Por qué despedir desarrolladores sería especialmente dañino?"
+    type: multiple_choice
+    bloom_level: analyze
+    points: 10
+    options:
+      - id: a
+        text: "Porque los desarrolladores son más caros de reemplazar"
+      - id: b
+        text: "Porque están al tope de capacidad — menos personas significa rechazar proyectos que generan ingresos"
+      - id: c
+        text: "Porque la moral del equipo de desarrollo ya es baja (NPS 55)"
+      - id: d
+        text: "Las tres razones son válidas y se refuerzan entre sí"
+    correct: d
+    feedback_correct: |
+      Correcto. Las tres razones se refuerzan: (1) reemplazar un desarrollador cuesta
+      $15K, (2) están al 92% con backlog de 8 semanas — perder capacidad significa
+      rechazar ingresos, (3) la moral ya es frágil. Despedir en este departamento
+      tendría impacto triple: costo, ingresos y retención.
+    feedback_incorrect: |
+      Las tres razones son válidas. Desarrollo está al 92% con backlog (perder
+      personas = rechazar ingresos), reemplazar desarrolladores es costoso ($15K c/u),
+      y la moral ya es baja (NPS 55). Los tres factores se refuerzan mutuamente.
+
+  - id: recursos-5
+    question: "Comparando las opciones: Despedir 12 personas (ahorro $90K neto año 1) vs. Reasignar 8 personas (inversión $40K, ingreso adicional $300-500K/año). ¿Cuál aborda mejor la causa raíz del problema financiero?"
+    type: multiple_choice
+    bloom_level: evaluate
+    points: 10
+    options:
+      - id: a
+        text: "Despedir — reduce costos inmediatamente"
+      - id: b
+        text: "Reasignar — el problema es estancamiento de ingresos, no exceso de costos"
+      - id: c
+        text: "Ninguna — necesitan buscar financiamiento externo"
+      - id: d
+        text: "Ambas son igualmente válidas"
+    correct: b
+    feedback_correct: |
+      Correcto. La causa raíz es que los ingresos se estancaron mientras contrataron
+      30 personas. Despedir trata el síntoma (costos altos) pero no la causa (ingresos
+      insuficientes). Reasignar personas ociosas a áreas de ingreso (ventas, proyectos)
+      ataca la causa raíz y usa los recursos existentes.
+    feedback_incorrect: |
+      Reasignar aborda la causa raíz. El problema no es que tienen demasiadas personas
+      — es que tienen personas en áreas que no generan ingresos mientras hay demanda
+      insatisfecha en áreas que sí lo hacen. Reasignar convierte costo en ingreso.
+
+tags:
+  - caso-practico
+  - recursos-humanos
+  - costo-beneficio
+  - modulo-3
+
+total_points: 50
+
+conclusion: |
+  **Principio clave:** Antes de recortar, pregunta: "¿El problema es de costos o de
+  ingresos?" Si los ingresos están estancados, reducir costos es un parche temporal.
+  La solución sostenible es redirigir recursos hacia donde generan valor.

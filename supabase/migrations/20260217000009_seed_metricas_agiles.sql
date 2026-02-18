@@ -12,7 +12,7 @@ VALUES (
   'Métricas Ágiles — De la Medición a la Acción',
   'Aprende a diseñar métricas que realmente impulsen decisiones. Domina flujo de valor, Kanban, OKRs y las 4 métricas clave de equipos ágiles con casos reales de transformación en América Latina.',
   'metricas-agiles',
-  '/images/courses/metricas-agiles-thumbnail.svg',
+  '/images/courses/metricas-agiles-hero.webp',
   true,
   'database',
   'published'
@@ -21,6 +21,7 @@ ON CONFLICT (id) DO UPDATE SET
   title = EXCLUDED.title,
   description = EXCLUDED.description,
   slug = EXCLUDED.slug,
+  thumbnail_url = EXCLUDED.thumbnail_url,
   is_published = EXCLUDED.is_published,
   content_source = EXCLUDED.content_source,
   content_status = EXCLUDED.content_status;

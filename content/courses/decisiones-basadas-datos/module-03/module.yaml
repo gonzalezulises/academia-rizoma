@@ -1,0 +1,36 @@
+id: module-03
+title: "Casos Prácticos"
+description: |
+  Aplica todo lo aprendido a situaciones reales de negocio.
+  Analiza si conviene abrir una sucursal, decide sobre reasignación
+  de personal y diseña tu propio framework de decisión personalizado.
+order: 3
+is_locked: false
+
+lessons:
+  - id: lesson-03-01
+    file: lessons/07-caso-sucursal.md
+    title: "Caso: ¿Abrimos una nueva sucursal?"
+    type: text
+    order: 7
+    duration_minutes: 20
+    exercises:
+      - db-ex-07
+
+  - id: lesson-03-02
+    file: lessons/08-caso-personal.md
+    title: "Caso: ¿Reducimos o reasignamos personal?"
+    type: text
+    order: 8
+    duration_minutes: 20
+    exercises:
+      - db-ex-08
+
+  - id: lesson-03-03
+    file: lessons/09-framework-decision.md
+    title: "Diseñando tu framework de decisión"
+    type: text
+    order: 9
+    duration_minutes: 20
+    exercises:
+      - db-ex-09
