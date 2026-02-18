@@ -1,0 +1,36 @@
+id: module-02
+title: "IA Aplicada a Decisiones de Negocio"
+description: |
+  Pasa de la teoría a la práctica. Aprende a usar IA para analizar información,
+  crear contenido profesional y pensar estratégicamente. Cada lección incluye
+  casos reales con comparaciones entre Claude, Gemini y DeepSeek.
+order: 2
+is_locked: false
+
+lessons:
+  - id: lesson-02-01
+    file: lessons/04-ia-analisis.md
+    title: "IA para análisis y síntesis"
+    type: text
+    order: 4
+    duration_minutes: 20
+    exercises:
+      - ia-ex-04
+
+  - id: lesson-02-02
+    file: lessons/05-ia-contenido.md
+    title: "IA para contenido y comunicación"
+    type: text
+    order: 5
+    duration_minutes: 20
+    exercises:
+      - ia-ex-05
+
+  - id: lesson-02-03
+    file: lessons/06-ia-estrategia.md
+    title: "IA como sparring estratégico"
+    type: text
+    order: 6
+    duration_minutes: 15
+    exercises:
+      - ia-ex-06

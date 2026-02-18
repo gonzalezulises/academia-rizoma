@@ -1,0 +1,36 @@
+id: module-01
+title: "Entendiendo la IA Generativa"
+description: |
+  Desmitifica la inteligencia artificial generativa: qué es, qué no es y por qué importa.
+  Conoce los tres modelos que todo profesional debería manejar — Claude, Gemini y DeepSeek —
+  y aprende a escribir prompts que produzcan resultados útiles para tu trabajo.
+order: 1
+is_locked: false
+
+lessons:
+  - id: lesson-01-01
+    file: lessons/01-que-es-ia-generativa.md
+    title: "Qué es la IA generativa (y qué no es)"
+    type: text
+    order: 1
+    duration_minutes: 20
+    exercises:
+      - ia-ex-01
+
+  - id: lesson-01-02
+    file: lessons/02-tres-modelos.md
+    title: "Los tres modelos que debes conocer"
+    type: text
+    order: 2
+    duration_minutes: 20
+    exercises:
+      - ia-ex-02
+
+  - id: lesson-01-03
+    file: lessons/03-anatomia-prompt.md
+    title: "Anatomía de un buen prompt"
+    type: text
+    order: 3
+    duration_minutes: 15
+    exercises:
+      - ia-ex-03

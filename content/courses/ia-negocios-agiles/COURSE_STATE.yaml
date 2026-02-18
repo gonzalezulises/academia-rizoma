@@ -1,0 +1,159 @@
+# content/courses/ia-negocios-agiles/COURSE_STATE.yaml
+
+meta:
+  course_id: ia-negocios-agiles
+  last_updated: "2026-02-18"
+  last_module_completed: module-03
+  total_exercises_created: 9
+
+# Progresión pedagógica explícita
+learning_progression:
+  concepts_introduced:
+    module-01:
+      - ia_generativa
+      - llm_large_language_model
+      - tokens_y_contexto
+      - alucinaciones
+      - claude_anthropic
+      - gemini_google
+      - deepseek_open_source
+      - multimodalidad
+      - prompt_engineering
+      - zero_shot
+      - few_shot
+      - estructura_prompt
+    module-02:
+      - analisis_cualitativo_ia
+      - sintesis_informacion
+      - generacion_contenido
+      - revision_cruzada
+      - sparring_estrategico
+      - analisis_foda_ia
+      - red_team_ia
+      - pre_mortem_ia
+      - limitaciones_ia
+    module-03:
+      - caso_implementacion_pyme
+      - chatbot_atencion
+      - automatizacion_ventas
+      - documentacion_ia
+      - roi_ia
+      - riesgos_alucinaciones
+      - datos_confidenciales
+      - sesgo_outputs
+      - privacidad_modelos
+      - regulacion_latam
+      - roadmap_adopcion
+      - gestion_cambio
+
+  skills_assumed:
+    module-01: []
+    module-02:
+      - ia_generativa
+      - claude_anthropic
+      - gemini_google
+      - deepseek_open_source
+      - prompt_engineering
+      - estructura_prompt
+    module-03:
+      - analisis_cualitativo_ia
+      - generacion_contenido
+      - sparring_estrategico
+      - limitaciones_ia
+
+  complexity_trajectory:
+    module-01:
+      lines_of_code: 0
+      datasets: 0
+      new_libraries: []
+      exercise_count_target: 3
+    module-02:
+      lines_of_code: 0
+      datasets: 0
+      new_libraries: []
+      exercise_count_target: 3
+    module-03:
+      lines_of_code: 0
+      datasets: 0
+      new_libraries: []
+      exercise_count_target: 3
+
+# Sin código — curso teórico
+code_conventions:
+  variable_names: {}
+  import_style: "N/A — curso sin programación"
+  test_pattern: "N/A — solo quizzes"
+
+# Sin datasets
+datasets: {}
+
+# Registro de ejercicios completados
+exercises_registry:
+  ia-ex-01:
+    module: module-01
+    concepts: [ia_generativa, llm_large_language_model, alucinaciones]
+    difficulty: beginner
+    status: completed
+  ia-ex-02:
+    module: module-01
+    concepts: [claude_anthropic, gemini_google, deepseek_open_source]
+    difficulty: beginner
+    status: completed
+  ia-ex-03:
+    module: module-01
+    concepts: [prompt_engineering, estructura_prompt, zero_shot, few_shot]
+    difficulty: beginner
+    status: completed
+  ia-ex-04:
+    module: module-02
+    concepts: [analisis_cualitativo_ia, sintesis_informacion]
+    difficulty: intermediate
+    status: completed
+  ia-ex-05:
+    module: module-02
+    concepts: [generacion_contenido, revision_cruzada]
+    difficulty: intermediate
+    status: completed
+  ia-ex-06:
+    module: module-02
+    concepts: [sparring_estrategico, pre_mortem_ia, limitaciones_ia]
+    difficulty: intermediate
+    status: completed
+  ia-ex-07:
+    module: module-03
+    concepts: [caso_implementacion_pyme, roi_ia]
+    difficulty: intermediate
+    status: completed
+  ia-ex-08:
+    module: module-03
+    concepts: [riesgos_alucinaciones, datos_confidenciales, sesgo_outputs, privacidad_modelos]
+    difficulty: intermediate
+    status: completed
+  ia-ex-09:
+    module: module-03
+    concepts: [roadmap_adopcion, gestion_cambio]
+    difficulty: advanced
+    status: completed
+
+# Curso completo — no hay siguiente módulo
+next_module_spec: null
+
+# Estilo pedagógico del curso
+pedagogical_style:
+  lesson_structure:
+    - "Introducción directa con pregunta provocadora"
+    - "Marco conceptual con ejemplos prácticos de IA"
+    - "Tabla comparativa entre modelos o enfoques"
+    - "Ejercicio embebido (quiz)"
+    - "Conexión con siguiente tema"
+
+  exercise_difficulty_curve:
+    beginner: "Identificación y clasificación de conceptos"
+    intermediate: "Análisis y aplicación a escenarios"
+    advanced: "Evaluación e integración de múltiples conceptos"
+
+  hints_policy:
+    count: 0  # Quizzes con feedback automático
+    progression: []
+
+  feedback_tone: "Directo, práctico, con explicación del por qué"

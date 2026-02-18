@@ -1,0 +1,92 @@
+# Curso: Inteligencia Artificial para Negocios Ágiles
+# Audiencia: Cualquier profesional, líderes, emprendedores
+# Sin herramientas de programación — solo teoría, casos y quizzes
+
+id: ia-negocios-agiles
+title: "Inteligencia Artificial para Negocios Ágiles"
+description: |
+  Aprende a usar Claude, Gemini y DeepSeek como herramientas prácticas para tu trabajo diario.
+
+  Este curso desmitifica la IA generativa, te enseña a escribir prompts efectivos,
+  y te muestra cómo aplicar estos modelos a análisis, comunicación y decisiones
+  estratégicas. Incluye un caso completo de implementación en una PyME y un
+  roadmap de adopción de 90 días.
+
+  No requiere programación ni conocimientos técnicos previos.
+
+slug: ia-negocios-agiles
+thumbnail_url: "/images/courses/ia-negocios-agiles-hero.webp"
+is_published: true
+instructor_id: null
+content_source: 'database'
+
+# Configuración de ejercicios
+exercise_config:
+  default_runtime: null  # Sin código — solo quizzes
+  allow_solution_view: true
+  max_attempts: null
+
+# Módulos del curso (3 módulos, ~3 horas total)
+modules:
+  - id: module-01
+    title: "Entendiendo la IA Generativa"
+    description: "Desmitificar LLMs, conocer Claude/Gemini/DeepSeek y dominar el arte del prompting"
+    order: 1
+    strategy: interactive
+
+  - id: module-02
+    title: "IA Aplicada a Decisiones de Negocio"
+    description: "Usar IA para análisis, contenido y pensamiento estratégico"
+    order: 2
+    strategy: interactive
+
+  - id: module-03
+    title: "Implementación Responsable"
+    description: "Caso práctico de PyME, riesgos éticos y roadmap de adopción"
+    order: 3
+    strategy: interactive
+
+# Prerequisitos
+prerequisites:
+  - "Ninguno — curso diseñado para cualquier profesional"
+
+# Tags para búsqueda
+tags:
+  - inteligencia-artificial
+  - claude
+  - gemini
+  - deepseek
+  - prompts
+  - productividad
+  - negocios
+  - estrategia
+  - implementacion
+
+# Duración estimada
+estimated_duration_hours: 3
+difficulty: beginner
+
+# Promesa de aprendizaje
+learning_outcomes:
+  - "Entender qué es la IA generativa y qué puede (y no puede) hacer"
+  - "Comparar Claude, Gemini y DeepSeek para elegir el modelo correcto por tarea"
+  - "Escribir prompts efectivos con estructura profesional"
+  - "Usar IA para análisis de datos cualitativos y síntesis de información"
+  - "Generar contenido profesional de alta calidad con asistencia de IA"
+  - "Aplicar IA como sparring partner para decisiones estratégicas"
+  - "Diseñar un roadmap de adopción de IA de 90 días para tu organización"
+
+# Contexto LATAM
+context:
+  region: "LATAM"
+  language: "es"
+  cases:
+    - "Transformación digital de PyME distribuidora"
+    - "Análisis de encuestas con Claude"
+    - "Propuesta comercial con Gemini"
+  scale: "Cualquier tamaño de organización"
+
+# Origen del contenido
+source:
+  author: "Rizoma"
+  creation_date: "2026-02-18"

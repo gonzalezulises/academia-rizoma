@@ -1,0 +1,36 @@
+id: module-03
+title: "Implementación Responsable"
+description: |
+  Aplica todo lo aprendido a un caso real de implementación en una PyME.
+  Aprende a identificar riesgos, gestionar ética y gobernanza, y diseña
+  tu propio roadmap de adopción de IA de 90 días.
+order: 3
+is_locked: false
+
+lessons:
+  - id: lesson-03-01
+    file: lessons/07-caso-pyme.md
+    title: "Caso: Transformación de una PyME"
+    type: text
+    order: 7
+    duration_minutes: 20
+    exercises:
+      - ia-ex-07
+
+  - id: lesson-03-02
+    file: lessons/08-riesgos-etica.md
+    title: "Riesgos, ética y gobernanza"
+    type: text
+    order: 8
+    duration_minutes: 20
+    exercises:
+      - ia-ex-08
+
+  - id: lesson-03-03
+    file: lessons/09-roadmap-adopcion.md
+    title: "Tu roadmap de adopción"
+    type: text
+    order: 9
+    duration_minutes: 20
+    exercises:
+      - ia-ex-09
