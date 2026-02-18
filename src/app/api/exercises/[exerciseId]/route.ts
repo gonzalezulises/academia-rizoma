@@ -68,14 +68,14 @@ export async function GET(
 
   const { exerciseId } = await params
   const searchParams = request.nextUrl.searchParams
-  const courseSlug = searchParams.get('course') || 'python-data-science'
+  const courseSlug = searchParams.get('course')
   const moduleId = searchParams.get('module')
 
   // Input validation
   if (!SAFE_EXERCISE.test(exerciseId)) {
     return NextResponse.json({ error: 'Invalid exercise ID' }, { status: 400 })
   }
-  if (!SAFE_SLUG.test(courseSlug)) {
+  if (courseSlug && !SAFE_SLUG.test(courseSlug)) {
     return NextResponse.json({ error: 'Invalid course slug' }, { status: 400 })
   }
   if (moduleId && !SAFE_MODULE.test(moduleId)) {
@@ -102,21 +102,24 @@ export async function GET(
     let datasets = new Map<string, string>()
     let schema: string | undefined
 
-    // If module is provided, try to load with full resolver
-    if (moduleId) {
-      try {
-        const resolved = await resolveExercise(courseSlug, moduleId, exerciseId)
-        exercise = resolved.exercise
-        datasets = resolved.datasets
-        schema = resolved.schema
-      } catch {
-        // Fall back to direct loading
+    // File-based loading only if courseSlug is provided
+    if (courseSlug) {
+      // If module is provided, try to load with full resolver
+      if (moduleId) {
+        try {
+          const resolved = await resolveExercise(courseSlug, moduleId, exerciseId)
+          exercise = resolved.exercise
+          datasets = resolved.datasets
+          schema = resolved.schema
+        } catch {
+          // Fall back to direct loading
+        }
       }
-    }
 
-    // If no module or resolver failed, search all modules
-    if (!exercise) {
-      exercise = await loadExerciseDirectly(courseSlug, exerciseId)
+      // If no module or resolver failed, search all modules
+      if (!exercise) {
+        exercise = await loadExerciseDirectly(courseSlug, exerciseId)
+      }
     }
 
     if (!exercise) {

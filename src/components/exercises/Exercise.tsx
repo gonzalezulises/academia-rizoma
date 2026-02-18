@@ -80,16 +80,14 @@ export function Exercise({
     if (exercise) return
 
     async function loadExercise() {
-      if (!courseSlug || !moduleId) {
-        setError('Missing course or module information')
-        setIsLoading(false)
-        return
-      }
-
       try {
         // Use basePath for API calls in production
         const basePath = process.env.NEXT_PUBLIC_BASE_PATH || ''
-        const response = await fetch(`${basePath}/api/exercises/${exerciseId}?course=${courseSlug}&module=${moduleId}`)
+        const params = new URLSearchParams()
+        if (courseSlug) params.set('course', courseSlug)
+        if (moduleId) params.set('module', moduleId)
+        const qs = params.toString() ? `?${params.toString()}` : ''
+        const response = await fetch(`${basePath}/api/exercises/${exerciseId}${qs}`)
 
         if (!response.ok) {
           const errorData = await response.json().catch(() => ({}))
@@ -159,6 +157,51 @@ export function Exercise({
             progress={progress}
             onProgressUpdate={onProgressUpdate}
           />
+        )
+
+      case 'reflection':
+        return (
+          <div className="my-8 rounded-lg border border-purple-200 dark:border-purple-800 bg-purple-50 dark:bg-purple-900/20 overflow-hidden">
+            <div className="bg-purple-100 dark:bg-purple-900/40 px-4 py-3 border-b border-purple-200 dark:border-purple-800">
+              <h3 className="font-semibold text-purple-900 dark:text-purple-200">{exercise.title}</h3>
+            </div>
+            <div className="p-4 space-y-3">
+              {exercise.description && <p className="text-sm text-gray-700 dark:text-gray-300">{exercise.description}</p>}
+              <p className="text-gray-800 dark:text-gray-200 whitespace-pre-wrap">
+                {(exercise as { reflection_prompt?: string }).reflection_prompt || exercise.instructions}
+              </p>
+              <textarea
+                rows={5}
+                placeholder="Escribe tu reflexion aqui..."
+                className="w-full px-3 py-2 border border-purple-300 dark:border-purple-700 rounded-lg dark:bg-gray-800 dark:text-white resize-y"
+              />
+            </div>
+          </div>
+        )
+
+      case 'case-study':
+        return (
+          <div className="my-8 rounded-lg border border-amber-200 dark:border-amber-800 bg-amber-50 dark:bg-amber-900/20 overflow-hidden">
+            <div className="bg-amber-100 dark:bg-amber-900/40 px-4 py-3 border-b border-amber-200 dark:border-amber-800">
+              <h3 className="font-semibold text-amber-900 dark:text-amber-200">{exercise.title}</h3>
+            </div>
+            <div className="p-4 space-y-4">
+              {exercise.description && <p className="text-sm text-gray-700 dark:text-gray-300">{exercise.description}</p>}
+              <div className="prose prose-sm dark:prose-invert max-w-none">
+                <p className="whitespace-pre-wrap">{(exercise as { scenario_text?: string }).scenario_text || exercise.instructions}</p>
+              </div>
+              {(exercise as { analysis_questions?: string[] }).analysis_questions?.map((q: string, i: number) => (
+                <div key={i} className="space-y-1">
+                  <p className="text-sm font-medium text-gray-800 dark:text-gray-200">{i + 1}. {q}</p>
+                  <textarea
+                    rows={3}
+                    placeholder="Tu respuesta..."
+                    className="w-full px-3 py-2 text-sm border border-amber-300 dark:border-amber-700 rounded-lg dark:bg-gray-800 dark:text-white resize-y"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
         )
 
       default:
