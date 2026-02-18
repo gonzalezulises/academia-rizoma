@@ -206,14 +206,14 @@ export function computeValidation(state: LessonWizardState): ValidationResult {
     message: `${phasesPresent}/4 fases completas`,
   })
 
-  // 2. Practice ratio 40-50%
+  // 2. Practice ratio (informational — never blocks saving)
   const totalMinutes = state.metadata.durationMinutes || 1
   const exerciseMinutes = state.practice.exercises.reduce((sum, ex) => sum + ex.estimatedMinutes, 0)
   const practiceRatio = exerciseMinutes / totalMinutes
   rules.push({
     id: 'practice-ratio',
-    label: 'Ratio practica 40-50%',
-    status: practiceRatio >= 0.35 && practiceRatio <= 0.55 ? 'pass' : practiceRatio > 0 ? 'warning' : 'error',
+    label: 'Ratio practica (ideal 40-50%)',
+    status: practiceRatio >= 0.35 && practiceRatio <= 0.55 ? 'pass' : practiceRatio > 0 ? 'pass' : 'warning',
     message: `${Math.round(practiceRatio * 100)}% practica (${exerciseMinutes}/${totalMinutes} min)`,
   })
 

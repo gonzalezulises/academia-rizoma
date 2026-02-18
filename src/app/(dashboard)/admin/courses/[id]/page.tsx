@@ -34,6 +34,10 @@ export default function AdminCourseDetailPage({ params }: PageProps) {
   const [lessonDuration, setLessonDuration] = useState('')
   const [editingLesson, setEditingLesson] = useState<Lesson | null>(null)
 
+  // Thumbnail editing
+  const [editingThumbnail, setEditingThumbnail] = useState(false)
+  const [thumbnailUrl, setThumbnailUrl] = useState('')
+
   const [saving, setSaving] = useState(false)
   const [saveError, setSaveError] = useState<string | null>(null)
 
@@ -108,12 +112,29 @@ export default function AdminCourseDetailPage({ params }: PageProps) {
       }
 
       setCourse(courseData)
+      setThumbnailUrl(courseData.thumbnail_url || '')
       await loadModulesAndLessons()
       setLoading(false)
     }
 
     init()
   }, [supabase, router, courseId, loadModulesAndLessons])
+
+  // Thumbnail handler
+  const handleSaveThumbnail = async () => {
+    setSaving(true)
+    const newUrl = thumbnailUrl.trim() || null
+    const { error } = await supabase
+      .from('courses')
+      .update({ thumbnail_url: newUrl })
+      .eq('id', courseId)
+
+    if (!error && course) {
+      setCourse({ ...course, thumbnail_url: newUrl })
+    }
+    setEditingThumbnail(false)
+    setSaving(false)
+  }
 
   // Module handlers
   const handleSaveModule = async (e: React.FormEvent) => {
@@ -335,6 +356,69 @@ export default function AdminCourseDetailPage({ params }: PageProps) {
           >
             &larr; Volver a mis cursos
           </Link>
+
+          {/* Thumbnail */}
+          <div className="mb-4">
+            {editingThumbnail ? (
+              <div className="space-y-3">
+                {thumbnailUrl && (
+                  <img
+                    src={thumbnailUrl}
+                    alt="Preview"
+                    className="w-full max-w-md h-48 object-cover rounded-lg border border-gray-200 dark:border-gray-700"
+                  />
+                )}
+                <div className="flex gap-2 items-center max-w-md">
+                  <input
+                    type="url"
+                    value={thumbnailUrl}
+                    onChange={(e) => setThumbnailUrl(e.target.value)}
+                    placeholder="/images/courses/mi-curso.jpg o https://..."
+                    className="flex-1 px-3 py-2 text-sm border border-gray-300 dark:border-gray-700 rounded-lg dark:bg-gray-700 dark:text-white"
+                  />
+                  <button
+                    onClick={handleSaveThumbnail}
+                    disabled={saving}
+                    className="px-3 py-2 text-sm bg-rizoma-green text-white rounded-lg hover:bg-rizoma-green-dark disabled:opacity-50"
+                  >
+                    Guardar
+                  </button>
+                  <button
+                    onClick={() => { setThumbnailUrl(course?.thumbnail_url || ''); setEditingThumbnail(false) }}
+                    className="px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                  >
+                    Cancelar
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <div
+                onClick={() => setEditingThumbnail(true)}
+                className="cursor-pointer group relative w-full max-w-md"
+                title="Clic para editar imagen"
+              >
+                {course?.thumbnail_url ? (
+                  <img
+                    src={course.thumbnail_url}
+                    alt={course.title}
+                    className="w-full h-48 object-cover rounded-lg border border-gray-200 dark:border-gray-700"
+                  />
+                ) : (
+                  <div className="w-full h-48 bg-gradient-to-br from-rizoma-green to-rizoma-cyan rounded-lg flex items-center justify-center">
+                    <span className="text-white text-4xl font-bold">
+                      {course?.title.charAt(0)}
+                    </span>
+                  </div>
+                )}
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 rounded-lg transition-colors flex items-center justify-center">
+                  <span className="text-white text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity">
+                    Editar imagen
+                  </span>
+                </div>
+              </div>
+            )}
+          </div>
+
           <div className="flex justify-between items-start">
             <div>
               <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
