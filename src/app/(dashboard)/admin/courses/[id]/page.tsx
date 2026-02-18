@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useCallback, use } from 'react'
+import { useState, useEffect, useCallback, use, useRef } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
@@ -43,6 +43,7 @@ export default function AdminCourseDetailPage({ params }: PageProps) {
 
   const supabase = createClient()
   const router = useRouter()
+  const formRef = useRef<HTMLDivElement>(null)
 
   const loadModulesAndLessons = useCallback(async () => {
     // Get modules with lessons
@@ -197,6 +198,7 @@ export default function AdminCourseDetailPage({ params }: PageProps) {
     setModuleTitle(module.title)
     setModuleDescription(module.description || '')
     setShowModuleForm(true)
+    setTimeout(() => formRef.current?.scrollIntoView({ behavior: 'smooth' }), 50)
   }
 
   const resetModuleForm = () => {
@@ -314,12 +316,14 @@ export default function AdminCourseDetailPage({ params }: PageProps) {
     setLessonContent(lesson.content || '')
     setLessonDuration(lesson.duration_minutes?.toString() || '')
     setShowLessonForm(true)
+    setTimeout(() => formRef.current?.scrollIntoView({ behavior: 'smooth' }), 50)
   }
 
   const openLessonFormForModule = (moduleId: string | null) => {
     resetLessonForm()
     setLessonModuleId(moduleId)
     setShowLessonForm(true)
+    setTimeout(() => formRef.current?.scrollIntoView({ behavior: 'smooth' }), 50)
   }
 
   const resetLessonForm = () => {
@@ -447,7 +451,7 @@ export default function AdminCourseDetailPage({ params }: PageProps) {
 
         {/* Module Form */}
         {showModuleForm && (
-          <form onSubmit={handleSaveModule} className="bg-white dark:bg-gray-800 rounded-xl p-6 mb-8 shadow-sm">
+          <form ref={formRef as React.Ref<HTMLFormElement>} onSubmit={handleSaveModule} className="bg-white dark:bg-gray-800 rounded-xl p-6 mb-8 shadow-sm">
             <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
               {editingModule ? 'Editar modulo' : 'Nuevo modulo'}
             </h2>
@@ -499,7 +503,7 @@ export default function AdminCourseDetailPage({ params }: PageProps) {
 
         {/* Lesson Form */}
         {showLessonForm && (
-          <form onSubmit={handleSaveLesson} className="bg-white dark:bg-gray-800 rounded-xl p-6 mb-8 shadow-sm">
+          <form ref={formRef as React.Ref<HTMLFormElement>} onSubmit={handleSaveLesson} className="bg-white dark:bg-gray-800 rounded-xl p-6 mb-8 shadow-sm">
             <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
               {editingLesson ? 'Editar leccion' : 'Nueva leccion'}
             </h2>
