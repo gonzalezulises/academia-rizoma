@@ -149,15 +149,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
       {/* Course Header */}
       <div className="relative text-white">
         {course.thumbnail_url ? (
-          <>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}${course.thumbnail_url}`}
-              alt=""
-              className="absolute inset-0 w-full h-full object-cover"
-            />
-            <div className="absolute inset-0 bg-black/50" />
-          </>
+          <div className="absolute inset-0 bg-gray-900" />
         ) : (
           <CourseHero title={course.title} slug={course.slug ?? undefined} size="detail" className="!h-auto absolute inset-0" />
         )}
