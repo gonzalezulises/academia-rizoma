@@ -278,11 +278,8 @@ _figures_b64
     }
 
     const testResults: TestResult[] = []
-    let totalPoints = 0
-    let earnedPoints = 0
 
     for (const test of tests) {
-      totalPoints += test.points
       const testStartTime = performance.now()
 
       try {
@@ -295,7 +292,6 @@ _figures_b64
           points_earned: test.points,
           execution_time_ms: Math.round(performance.now() - testStartTime)
         })
-        earnedPoints += test.points
       } catch (err) {
         const errorMessage = err instanceof Error ? err.message : String(err)
         testResults.push({

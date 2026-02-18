@@ -199,7 +199,6 @@ export function QuizPlayground({
     return initial
   })
 
-  const [isCompleted, setIsCompleted] = useState(false)
   const [showResults, setShowResults] = useState(false)
 
   // Configuración del quiz
@@ -264,7 +263,6 @@ export function QuizPlayground({
 
   const handleShowResults = () => {
     setShowResults(true)
-    setIsCompleted(true)
 
     // Notificar progreso
     if (onProgressUpdate) {
@@ -285,7 +283,6 @@ export function QuizPlayground({
     })
     setQuestionStates(reset)
     setShowResults(false)
-    setIsCompleted(false)
   }
 
   return (

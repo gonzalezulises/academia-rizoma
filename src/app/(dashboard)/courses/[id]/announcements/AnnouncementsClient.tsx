@@ -25,9 +25,10 @@ export default function AnnouncementsClient({
   const supabase = createClient()
 
   const handleCreated = (newAnnouncement: Announcement) => {
+    if (!profile) return
     const announcementWithAuthor: AnnouncementWithAuthor = {
       ...newAnnouncement,
-      author: profile!
+      author: profile
     }
 
     // Add to list (pinned first, then by date)

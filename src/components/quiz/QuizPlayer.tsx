@@ -71,6 +71,8 @@ export default function QuizPlayer({
 
         if (!error && data) {
           setAttemptId(data.id)
+        } else if (error) {
+          console.error('Failed to create quiz attempt:', error.message)
         }
       }
       startTimeRef.current = Date.now()
@@ -195,7 +197,7 @@ export default function QuizPlayer({
 
     // Save to database
     if (attemptId) {
-      await supabase
+      const { error: saveError } = await supabase
         .from('quiz_attempts')
         .update({
           score: percentage,
@@ -206,6 +208,10 @@ export default function QuizPlayer({
           time_taken: timeTaken
         })
         .eq('id', attemptId)
+
+      if (saveError) {
+        console.error('Failed to save quiz results:', saveError.message)
+      }
     }
 
     onComplete?.(percentage, hasPassed)

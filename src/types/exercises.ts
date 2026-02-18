@@ -227,31 +227,3 @@ export interface LoadedExercise {
   schema?: string // SQL schema content
 }
 
-// Environment configuration
-export interface RuntimeConfig {
-  pyodide: {
-    version: string
-    cdn_url: string
-    default_packages: string[]
-  }
-  jupyterlite: {
-    base_url: string
-    enabled: boolean
-  }
-  colab: {
-    enabled: boolean
-  }
-  sql: {
-    version: string
-    cdn_url: string
-  }
-}
-
-// Course exercise configuration
-export interface CourseExerciseConfig {
-  course_id: string
-  default_runtime: RuntimeTier
-  allow_hints: boolean
-  show_solution_after_attempts: number
-  max_attempts?: number
-}
