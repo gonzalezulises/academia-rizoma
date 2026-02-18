@@ -31,6 +31,7 @@ export default function PostCard({ post, courseId }: PostCardProps) {
         {/* Avatar */}
         <div className="flex-shrink-0">
           {post.author.avatar_url ? (
+            // eslint-disable-next-line @next/next/no-img-element
             <img
               src={post.author.avatar_url}
               alt={post.author.full_name || 'Usuario'}

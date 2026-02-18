@@ -375,6 +375,7 @@ export default function AdminCourseDetailPage({ params }: PageProps) {
             {editingThumbnail ? (
               <div className="space-y-3">
                 {thumbnailUrl && (
+                  // eslint-disable-next-line @next/next/no-img-element
                   <img
                     src={thumbnailUrl}
                     alt="Preview"
@@ -411,6 +412,7 @@ export default function AdminCourseDetailPage({ params }: PageProps) {
                 title="Clic para editar imagen"
               >
                 {course?.thumbnail_url ? (
+                  // eslint-disable-next-line @next/next/no-img-element
                   <img
                     src={course.thumbnail_url}
                     alt={course.title}

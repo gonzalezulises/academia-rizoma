@@ -64,6 +64,7 @@ export default function ReplyThread({
         {/* Header */}
         <div className="flex items-center gap-3 mb-3">
           {reply.author.avatar_url ? (
+            // eslint-disable-next-line @next/next/no-img-element
             <img
               src={reply.author.avatar_url}
               alt={reply.author.full_name || 'Usuario'}

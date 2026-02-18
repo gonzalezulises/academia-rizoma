@@ -96,7 +96,6 @@ export default function Footer() {
             <a href={BASE} className="inline-block">
               <picture>
                 <source srcSet={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ''}/images/brand/logo-plenos-blanco-optimized.webp`} type="image/webp" />
-                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ''}/images/brand/logo-plenos-blanco-optimized.png`}
                   alt="Rizoma"

@@ -67,6 +67,7 @@ export default function ReplyForm({
     <form onSubmit={handleSubmit} className="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-4">
       <div className="flex items-start gap-3">
         {currentUser.avatar_url ? (
+          // eslint-disable-next-line @next/next/no-img-element
           <img
             src={currentUser.avatar_url}
             alt={currentUser.full_name || 'Usuario'}

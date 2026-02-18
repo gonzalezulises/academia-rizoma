@@ -151,6 +151,7 @@ export default function ForumThreadClient({
         {/* Author info */}
         <div className="flex items-center gap-3 mb-6 pb-4 border-b border-gray-200 dark:border-gray-700">
           {post.author.avatar_url ? (
+            // eslint-disable-next-line @next/next/no-img-element
             <img
               src={post.author.avatar_url}
               alt={post.author.full_name || 'Usuario'}

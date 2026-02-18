@@ -43,6 +43,7 @@ export default function CourseProgressCard({ progress }: CourseProgressCardProps
         {/* Thumbnail */}
         <div className="w-32 h-32 flex-shrink-0">
           {course.thumbnail_url ? (
+            // eslint-disable-next-line @next/next/no-img-element
             <img
               src={course.thumbnail_url}
               alt={course.title}

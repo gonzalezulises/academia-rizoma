@@ -63,6 +63,7 @@ export default function ResourceUpload({
     if (e.dataTransfer.files && e.dataTransfer.files[0]) {
       validateAndSetFile(e.dataTransfer.files[0])
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const validateAndSetFile = (selectedFile: File) => {

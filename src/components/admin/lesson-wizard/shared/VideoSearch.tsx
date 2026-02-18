@@ -114,6 +114,7 @@ export default function VideoSearch({ onSelect, title, objectives, currentUrl }:
                   : 'hover:bg-gray-50 dark:hover:bg-gray-800 border border-transparent'
               }`}
             >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={video.thumbnail}
                 alt={video.title}

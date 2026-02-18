@@ -172,6 +172,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
                 <div className="flex items-center gap-3 mb-6">
                   <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center">
                     {course.instructor.avatar_url ? (
+                      // eslint-disable-next-line @next/next/no-img-element
                       <img
                         src={course.instructor.avatar_url}
                         alt={course.instructor.full_name || ''}
@@ -239,6 +240,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
             <div className="lg:w-80">
               <div className="bg-white dark:bg-gray-800 rounded-xl shadow-xl overflow-hidden">
                 {course.thumbnail_url ? (
+                  // eslint-disable-next-line @next/next/no-img-element
                   <img
                     src={course.thumbnail_url}
                     alt={course.title}

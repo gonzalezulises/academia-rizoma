@@ -504,6 +504,7 @@ export function CodePlayground({
                   <div className="space-y-4">
                     {figures.map((fig, index) => (
                       <div key={index} className="bg-white rounded-lg p-2 shadow-sm">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
                           src={`data:image/png;base64,${fig}`}
                           alt={`Figura ${index + 1}`}

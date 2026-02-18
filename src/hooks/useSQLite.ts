@@ -126,6 +126,7 @@ export function useSQLite(options: UseSQLiteOptions = {}): UseSQLiteReturn {
     } finally {
       setIsLoading(false)
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loadSqlJsScript, schema, csvData, onLoad, onError])
 
   // Parse CSV to rows
