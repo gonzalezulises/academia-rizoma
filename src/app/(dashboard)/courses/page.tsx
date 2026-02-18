@@ -1,6 +1,7 @@
 import { createClient } from '@/lib/supabase/server'
 import Link from 'next/link'
 import Navbar from '@/components/Navbar'
+import CourseHero from '@/components/course/CourseHero'
 
 export default async function CoursesPage() {
   const supabase = await createClient()
@@ -41,11 +42,7 @@ export default async function CoursesPage() {
                   className="w-full h-48 object-cover"
                 />
               ) : (
-                <div className="w-full h-48 bg-gradient-to-br from-rizoma-green to-rizoma-cyan flex items-center justify-center">
-                  <span className="text-white text-4xl font-bold">
-                    {course.title.charAt(0)}
-                  </span>
-                </div>
+                <CourseHero title={course.title} slug={course.slug ?? undefined} size="card" />
               )}
               <div className="p-6">
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">

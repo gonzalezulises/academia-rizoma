@@ -4,6 +4,7 @@ import { revalidatePath } from 'next/cache'
 import Link from 'next/link'
 import Navbar from '@/components/Navbar'
 import CourseMap from '@/components/course/CourseMap'
+import CourseHero from '@/components/course/CourseHero'
 import type { Lesson } from '@/types'
 
 interface CoursePageProps {
@@ -146,8 +147,9 @@ export default async function CoursePage({ params }: CoursePageProps) {
       <Navbar />
 
       {/* Course Header */}
-      <div className="bg-gradient-to-br from-rizoma-green to-rizoma-cyan-dark text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="relative text-white">
+        <CourseHero title={course.title} slug={course.slug ?? undefined} size="detail" className="!h-auto absolute inset-0" />
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <Link
             href="/courses"
             className="inline-flex items-center text-white/80 hover:text-white mb-6"
@@ -247,11 +249,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
                     className="w-full h-44 object-cover"
                   />
                 ) : (
-                  <div className="w-full h-44 bg-gradient-to-br from-rizoma-green-light to-rizoma-cyan/50 flex items-center justify-center">
-                    <span className="text-white text-6xl font-bold">
-                      {course.title.charAt(0)}
-                    </span>
-                  </div>
+                  <CourseHero title={course.title} slug={course.slug ?? undefined} size="card" className="!h-44" />
                 )}
                 <div className="p-6">
                   {user ? (

@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import ProgressBar from './ProgressBar'
+import CourseHero from '@/components/course/CourseHero'
 import type { CourseProgressWithDetails } from '@/types'
 
 interface CourseProgressCardProps {
@@ -50,11 +51,7 @@ export default function CourseProgressCard({ progress }: CourseProgressCardProps
               className="w-full h-full object-cover"
             />
           ) : (
-            <div className="w-full h-full bg-gradient-to-br from-rizoma-green to-rizoma-cyan flex items-center justify-center">
-              <span className="text-white text-3xl font-bold">
-                {course.title.charAt(0)}
-              </span>
-            </div>
+            <CourseHero title={course.title} slug={course.slug ?? undefined} size="banner" />
           )}
         </div>
 

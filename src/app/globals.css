@@ -76,6 +76,12 @@
   --shadow-button: 0 2px 8px -2px rgba(40, 148, 72, 0.3);
 }
 
+/* Mermaid diagram responsive */
+.mermaid-diagram svg {
+  max-width: 100%;
+  height: auto;
+}
+
 /* Fix prose overriding code block styles from highlight.js */
 .prose pre {
   background-color: transparent !important;
