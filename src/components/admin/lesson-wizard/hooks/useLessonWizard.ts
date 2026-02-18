@@ -1,6 +1,6 @@
 'use client'
 
-import { useReducer, useMemo, useCallback } from 'react'
+import { useReducer, useMemo, useCallback, useEffect, useRef } from 'react'
 import type {
   LessonWizardState,
   WizardAction,
@@ -253,8 +253,46 @@ export function computeValidation(state: LessonWizardState): ValidationResult {
   return { rules, isValid }
 }
 
-export function useLessonWizard(initialState?: LessonWizardState) {
+const AUTOSAVE_PREFIX = 'wizard-draft-'
+const AUTOSAVE_DEBOUNCE_MS = 1500
+
+export function useLessonWizard(initialState?: LessonWizardState, storageKey?: string) {
   const [state, dispatch] = useReducer(wizardReducer, initialState || INITIAL_STATE)
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const hydratedRef = useRef(false)
+
+  // Restore from localStorage on mount (only if no initialState provided)
+  useEffect(() => {
+    if (initialState || !storageKey || hydratedRef.current) return
+    hydratedRef.current = true
+    try {
+      const saved = localStorage.getItem(AUTOSAVE_PREFIX + storageKey)
+      if (saved) {
+        const parsed = JSON.parse(saved) as LessonWizardState
+        if (parsed.metadata?.title) {
+          dispatch({ type: 'HYDRATE', state: parsed })
+        }
+      }
+    } catch { /* ignore corrupt data */ }
+  }, [storageKey, initialState])
+
+  // Auto-save to localStorage on every dirty change (debounced)
+  useEffect(() => {
+    if (!storageKey || !state.isDirty) return
+    if (timerRef.current) clearTimeout(timerRef.current)
+    timerRef.current = setTimeout(() => {
+      try {
+        localStorage.setItem(AUTOSAVE_PREFIX + storageKey, JSON.stringify(state))
+      } catch { /* quota exceeded — ignore */ }
+    }, AUTOSAVE_DEBOUNCE_MS)
+    return () => { if (timerRef.current) clearTimeout(timerRef.current) }
+  }, [state, storageKey])
+
+  const clearDraft = useCallback(() => {
+    if (storageKey) {
+      localStorage.removeItem(AUTOSAVE_PREFIX + storageKey)
+    }
+  }, [storageKey])
 
   const validation = useMemo(() => computeValidation(state), [state])
 
@@ -293,5 +331,6 @@ export function useLessonWizard(initialState?: LessonWizardState) {
     goToStep,
     nextStep,
     prevStep,
+    clearDraft,
   }
 }

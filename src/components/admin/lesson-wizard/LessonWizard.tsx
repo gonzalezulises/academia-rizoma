@@ -28,8 +28,11 @@ export default function LessonWizard({ courseId, lessonId }: LessonWizardProps) 
   const [saving, setSaving] = useState(false)
   const [saveError, setSaveError] = useState<string | null>(null)
 
-  const { state, dispatch, validation, canProceed, markdownPreview, goToStep, nextStep, prevStep } =
-    useLessonWizard()
+  // storageKey: use lessonId for edits, courseId+new for new lessons
+  const storageKey = lessonId ? `edit-${lessonId}` : `new-${courseId}`
+
+  const { state, dispatch, validation, canProceed, markdownPreview, goToStep, nextStep, prevStep, clearDraft } =
+    useLessonWizard(undefined, storageKey)
 
   // Load course data and modules
   useEffect(() => {
@@ -280,6 +283,7 @@ export default function LessonWizard({ courseId, lessonId }: LessonWizardProps) 
         .from('lesson_metadata')
         .upsert(metadataPayload, { onConflict: 'lesson_id' })
 
+      clearDraft()
       router.push(`/admin/courses/${courseId}`)
     } catch (err) {
       console.error('Save error:', err)
@@ -287,7 +291,7 @@ export default function LessonWizard({ courseId, lessonId }: LessonWizardProps) 
     } finally {
       setSaving(false)
     }
-  }, [state, courseId, lessonId, validation, supabase, router])
+  }, [state, courseId, lessonId, validation, supabase, router, clearDraft])
 
   const handleSaveDraft = useCallback(async () => {
     setSaving(true)
@@ -331,13 +335,14 @@ export default function LessonWizard({ courseId, lessonId }: LessonWizardProps) 
           wizard_state: state,
         }, { onConflict: 'lesson_id' })
 
+      clearDraft()
       router.push(`/admin/courses/${courseId}`)
     } catch (err) {
       setSaveError(err instanceof Error ? err.message : 'Error al guardar borrador')
     } finally {
       setSaving(false)
     }
-  }, [state, courseId, lessonId, supabase, router])
+  }, [state, courseId, lessonId, supabase, router, clearDraft])
 
   const renderStep = () => {
     switch (state.currentStep) {
@@ -370,6 +375,22 @@ export default function LessonWizard({ courseId, lessonId }: LessonWizardProps) 
 
   return (
     <div className="max-w-7xl mx-auto">
+      {/* Draft auto-save indicator */}
+      {state.isDirty && (
+        <div className="flex items-center justify-between mb-3 px-3 py-2 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-lg text-sm">
+          <span className="text-amber-700 dark:text-amber-400">
+            Borrador guardado automaticamente
+          </span>
+          <button
+            type="button"
+            onClick={() => { clearDraft(); dispatch({ type: 'RESET' }) }}
+            className="text-amber-600 dark:text-amber-400 hover:underline text-xs"
+          >
+            Descartar borrador
+          </button>
+        </div>
+      )}
+
       {/* Step indicator */}
       <div className="flex items-center mb-8 overflow-x-auto pb-2">
         {WIZARD_STEPS.map((step, i) => (

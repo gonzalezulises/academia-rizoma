@@ -46,8 +46,18 @@ export function useAIGeneration<T = unknown>(): AIGenerationResult<T> {
       }
 
       if (!res.ok) {
-        const data = await res.json()
-        throw new Error(data.error || `Error ${res.status}`)
+        let errorMsg = `Error ${res.status}`
+        try {
+          const text = await res.text()
+          // Try parsing as JSON first, fall back to raw text
+          try {
+            const data = JSON.parse(text)
+            errorMsg = data.error || errorMsg
+          } catch {
+            errorMsg = text.slice(0, 200) || errorMsg
+          }
+        } catch { /* ignore read errors */ }
+        throw new Error(errorMsg)
       }
 
       const data = await res.json()
