@@ -1,0 +1,36 @@
+id: module-03
+title: "De la Teoría a tu Organización"
+description: |
+  Pasa de la teoría a la práctica: aprende métodos accesibles para hacer ONA sin ser
+  data scientist, gestiona la política y ética inevitable de revelar redes de poder,
+  y diseña tu plan de implementación de 90 días con un canvas de proyecto listo para usar.
+order: 3
+is_locked: false
+
+lessons:
+  - id: lesson-03-01
+    file: lessons/07-metodos-accesibles.md
+    title: "Cómo hacer ONA sin ser data scientist"
+    type: text
+    order: 7
+    duration_minutes: 20
+    exercises:
+      - ona-s-ex-07
+
+  - id: lesson-03-02
+    file: lessons/08-politica-etica.md
+    title: "La política del ONA"
+    type: text
+    order: 8
+    duration_minutes: 20
+    exercises:
+      - ona-s-ex-08
+
+  - id: lesson-03-03
+    file: lessons/09-plan-90-dias.md
+    title: "Tu plan de implementación de 90 días"
+    type: text
+    order: 9
+    duration_minutes: 20
+    exercises:
+      - ona-s-ex-09

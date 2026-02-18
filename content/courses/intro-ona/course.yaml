@@ -1,0 +1,104 @@
+# Curso: Introducción al Análisis de Redes Organizacionales (ONA)
+# Audiencia: HR, talento, líderes de negocio
+# Sin herramientas de programación — solo teoría, casos LATAM y quizzes
+# Diferenciación de ona-fundamentals: estratégico ("por qué") vs técnico ("cómo")
+
+id: intro-ona
+title: "Introducción al Análisis de Redes Organizacionales (ONA)"
+description: |
+  Descubre por qué el organigrama no refleja cómo realmente funciona tu organización
+  y cómo el Análisis de Redes Organizacionales (ONA) revela los patrones invisibles
+  que impulsan — o frenan — la colaboración, la innovación y el talento.
+
+  A través de casos reales de organizaciones en Latinoamérica, aprenderás a identificar
+  roles ocultos, diagnosticar silos y dependencias críticas, y diseñar un plan de
+  implementación de ONA sin necesidad de ser data scientist.
+
+  No requiere programación ni conocimientos técnicos previos.
+
+slug: intro-ona
+thumbnail_url: "/images/courses/intro-ona-hero.webp"
+is_published: true
+instructor_id: null
+content_source: 'database'
+
+# Configuración de ejercicios
+exercise_config:
+  default_runtime: null  # Sin código — solo quizzes
+  allow_solution_view: true
+  max_attempts: null
+
+# Módulos del curso (3 módulos, ~3 horas total)
+modules:
+  - id: module-01
+    title: "La Organización Invisible"
+    description: "Del organigrama a la red real: roles ocultos y el caso de negocio para ONA"
+    order: 1
+    strategy: interactive
+
+  - id: module-02
+    title: "Los Patrones que Frenan (y Aceleran) tu Organización"
+    description: "Silos, dependencias críticas y las señales de una red organizacional saludable"
+    order: 2
+    strategy: interactive
+
+  - id: module-03
+    title: "De la Teoría a tu Organización"
+    description: "Métodos accesibles, ética del ONA y tu plan de implementación de 90 días"
+    order: 3
+    strategy: interactive
+
+# Prerequisitos
+prerequisites:
+  - "Ninguno — curso diseñado para profesionales de HR, talento y líderes de negocio"
+
+# Tags para búsqueda
+tags:
+  - ona
+  - redes-organizacionales
+  - hr
+  - talento
+  - liderazgo
+  - colaboracion
+  - silos
+  - organizaciones
+  - capital-social
+  - gestion-talento
+
+# Duración estimada
+estimated_duration_hours: 3
+difficulty: beginner
+
+# Promesa de aprendizaje
+learning_outcomes:
+  - "Explicar qué revela ONA que el organigrama no muestra"
+  - "Identificar los cinco roles de red invisibles y sus implicaciones para talento"
+  - "Construir el caso de negocio para ONA con ROI cuantificado"
+  - "Diagnosticar silos, puentes rotos y dependencias críticas en una organización"
+  - "Distinguir los patrones de una red organizacional saludable"
+  - "Diseñar un proyecto ONA con métodos accesibles (sin programación)"
+  - "Gestionar la política y ética del ONA en contextos sensibles"
+  - "Crear un plan de implementación de ONA de 90 días"
+
+# Contexto LATAM
+context:
+  region: "LATAM"
+  language: "es"
+  cases:
+    - "TechCorp Colombia: fusión de departamentos y puentes informales"
+    - "Banco Pichincha Ecuador: energizantes ocultos en transformación digital"
+    - "Grupo Bimbo México: lazos débiles post-pandemia entre plantas"
+    - "CEMEX México/Colombia: post-adquisición y conectores transnacionales"
+    - "Mercado Libre Argentina: squads, guildas y capital social"
+    - "Conglomerado familiar Panamá: ONA y política organizacional"
+  scale: "50-5000+ personas"
+
+# Relación con otros cursos
+related_courses:
+  - slug: ona-fundamentals
+    relationship: "Continuación técnica — Python + visualizaciones"
+
+# Origen del contenido
+source:
+  author: "Rizoma"
+  creation_date: "2026-02-19"

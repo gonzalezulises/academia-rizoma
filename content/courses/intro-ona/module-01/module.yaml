@@ -1,0 +1,37 @@
+id: module-01
+title: "La Organización Invisible"
+description: |
+  Descubre por qué el organigrama es una ficción administrativa y cómo el Análisis
+  de Redes Organizacionales (ONA) revela la estructura real de colaboración, influencia
+  y conocimiento. Conoce los cinco roles invisibles que determinan el éxito o fracaso
+  de tu organización y construye el caso de negocio para implementar ONA.
+order: 1
+is_locked: false
+
+lessons:
+  - id: lesson-01-01
+    file: lessons/01-organigrama-miente.md
+    title: "El organigrama miente"
+    type: text
+    order: 1
+    duration_minutes: 20
+    exercises:
+      - ona-s-ex-01
+
+  - id: lesson-01-02
+    file: lessons/02-cinco-roles.md
+    title: "Los cinco roles que el organigrama no ve"
+    type: text
+    order: 2
+    duration_minutes: 20
+    exercises:
+      - ona-s-ex-02
+
+  - id: lesson-01-03
+    file: lessons/03-caso-negocio.md
+    title: "El caso de negocio para ONA"
+    type: text
+    order: 3
+    duration_minutes: 20
+    exercises:
+      - ona-s-ex-03

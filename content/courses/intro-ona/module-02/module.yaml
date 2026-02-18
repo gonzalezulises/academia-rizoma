@@ -1,0 +1,36 @@
+id: module-02
+title: "Los Patrones que Frenan (y Aceleran) tu Organización"
+description: |
+  Aprende a diagnosticar los patrones de red que destruyen productividad — silos,
+  puentes rotos y dependencias críticas — y descubre las señales de una red
+  organizacional saludable. Con casos reales de CEMEX, Mercado Libre y más.
+order: 2
+is_locked: false
+
+lessons:
+  - id: lesson-02-01
+    file: lessons/04-silos-puentes.md
+    title: "Silos, puentes rotos y la ilusión de la colaboración"
+    type: text
+    order: 4
+    duration_minutes: 20
+    exercises:
+      - ona-s-ex-04
+
+  - id: lesson-02-02
+    file: lessons/05-dependencia-critica.md
+    title: "Dependencia crítica: cuando una sola persona sostiene la organización"
+    type: text
+    order: 5
+    duration_minutes: 20
+    exercises:
+      - ona-s-ex-05
+
+  - id: lesson-02-03
+    file: lessons/06-redes-saludables.md
+    title: "Patrones de redes saludables"
+    type: text
+    order: 6
+    duration_minutes: 20
+    exercises:
+      - ona-s-ex-06

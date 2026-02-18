@@ -1,0 +1,174 @@
+# content/courses/intro-ona/COURSE_STATE.yaml
+# Contrato de continuidad pedagógica para el curso Intro ONA
+
+meta:
+  course_id: intro-ona
+  last_updated: "2026-02-19"
+  last_module_completed: module-03
+  total_exercises_created: 9
+
+learning_progression:
+  concepts_introduced:
+    module-01:
+      - estructura_formal_vs_informal
+      - definicion_ona
+      - historia_ona_moreno_granovetter_cross
+      - trabajo_hibrido_erosion_lazos
+      - hub_conector_central
+      - broker_puente
+      - energizante
+      - periferico
+      - influenciador_oculto
+      - sobrecarga_colaborativa
+      - caso_negocio_ona
+      - ona_vs_clima_360_analytics
+      - roi_ona
+      - cuando_no_hacer_ona
+    module-02:
+      - silos_geografico_funcional_generacional_adquisicion
+      - costo_oculto_silos
+      - puentes_rotos
+      - redundancia_puentes
+      - intervenciones_efectivas_vs_inefectivas
+      - dependencia_operativa_relacional_estrategica
+      - heroe_organizacional_punto_fallo
+      - mito_plan_sucesion_tradicional
+      - capital_social_transferencia
+      - densidad_red
+      - diversidad_lazos
+      - reciprocidad
+      - periferia_conectada
+      - capital_social_organizacional_nahapiet_ghoshal
+      - benchmarks_cualitativos_salud_red
+    module-03:
+      - espectro_metodos_ona_nivel_0_a_3
+      - preguntas_universales_ona
+      - diseno_encuesta_ona
+      - herramientas_accesibles
+      - sponsorship_ejecutivo
+      - resistencia_ona
+      - cuatro_miedos_comunes
+      - principios_eticos_no_negociables
+      - comunicacion_resultados
+      - silo_del_ceo
+      - roadmap_5_fases_90_dias
+      - tres_errores_fatales
+      - integracion_otras_iniciativas
+      - canvas_proyecto_ona
+
+  skills_assumed:
+    module-01: []
+    module-02:
+      - estructura_formal_vs_informal
+      - definicion_ona
+      - hub_conector_central
+      - broker_puente
+      - energizante
+      - periferico
+      - influenciador_oculto
+      - caso_negocio_ona
+    module-03:
+      - silos_geografico_funcional_generacional_adquisicion
+      - dependencia_operativa_relacional_estrategica
+      - capital_social_organizacional_nahapiet_ghoshal
+      - densidad_red
+      - diversidad_lazos
+      - redundancia_puentes
+
+  complexity_trajectory:
+    module-01:
+      lines_of_code: 0
+      datasets: 0
+      new_libraries: []
+      exercise_count_target: 3
+      bloom_levels: [remember, understand]
+    module-02:
+      lines_of_code: 0
+      datasets: 0
+      new_libraries: []
+      exercise_count_target: 3
+      bloom_levels: [understand, apply, analyze]
+    module-03:
+      lines_of_code: 0
+      datasets: 0
+      new_libraries: []
+      exercise_count_target: 3
+      bloom_levels: [apply, analyze, evaluate, create]
+
+code_conventions:
+  variable_names: {}
+  import_style: "N/A — curso sin programación"
+  test_pattern: "N/A — solo quizzes"
+
+datasets: {}
+
+exercises_registry:
+  ona-s-ex-01:
+    module: module-01
+    concepts: [estructura_formal_vs_informal, definicion_ona, historia_ona]
+    difficulty: beginner
+    status: completed
+  ona-s-ex-02:
+    module: module-01
+    concepts: [hub_conector_central, broker_puente, energizante, periferico, influenciador_oculto]
+    difficulty: beginner
+    status: completed
+  ona-s-ex-03:
+    module: module-01
+    concepts: [caso_negocio_ona, ona_vs_clima_360_analytics, roi_ona, cuando_no_hacer_ona]
+    difficulty: intermediate
+    status: completed
+  ona-s-ex-04:
+    module: module-02
+    concepts: [silos_geografico_funcional_generacional_adquisicion, costo_oculto_silos, intervenciones_efectivas]
+    difficulty: intermediate
+    status: completed
+  ona-s-ex-05:
+    module: module-02
+    concepts: [dependencia_operativa_relacional_estrategica, heroe_organizacional, mito_sucesion]
+    difficulty: intermediate
+    status: completed
+  ona-s-ex-06:
+    module: module-02
+    concepts: [densidad_red, diversidad_lazos, redundancia_puentes, reciprocidad, capital_social_organizacional]
+    difficulty: intermediate
+    status: completed
+  ona-s-ex-07:
+    module: module-03
+    concepts: [espectro_metodos_ona, preguntas_universales_ona, diseno_encuesta, sponsorship_ejecutivo]
+    difficulty: intermediate
+    status: completed
+  ona-s-ex-08:
+    module: module-03
+    concepts: [resistencia_ona, principios_eticos, comunicacion_resultados, silo_del_ceo]
+    difficulty: intermediate
+    status: completed
+  ona-s-ex-09:
+    module: module-03
+    concepts: [roadmap_5_fases, errores_fatales, canvas_proyecto_ona, integracion_iniciativas]
+    difficulty: advanced
+    status: completed
+
+next_module_spec: null  # Curso completo
+
+pedagogical_style:
+  lesson_structure:
+    - "Pregunta provocadora o paradoja como gancho"
+    - "Marco conceptual con citas académicas (Cross, Granovetter, Burt)"
+    - "Tabla comparativa o framework visual"
+    - "Caso LATAM detallado con datos específicos"
+    - "Ejercicio embebido (quiz)"
+    - "Referencias académicas"
+  exercise_difficulty_curve:
+    beginner: "Identificación y distinción (formal vs informal, roles de red)"
+    intermediate: "Diagnóstico y análisis (tipo de silo, nivel de dependencia, salud de red)"
+    advanced: "Evaluación integrada y diseño (quiz final multi-decisión)"
+  hints_policy:
+    count: 0
+    progression: []
+  feedback_tone: "Directo, con explicación conceptual del por qué. Conecta con casos reales."
+
+differentiation_from_ona_fundamentals:
+  this_course: "Estratégico — por qué ONA importa, cómo implementarlo, para quién"
+  ona_fundamentals: "Técnico — Python, NetworkX, visualizaciones, métricas de centralidad"
+  recommended_sequence: "intro-ona → ona-fundamentals"
