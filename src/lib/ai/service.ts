@@ -17,8 +17,12 @@ async function callLocal(system: string, user: string): Promise<string> {
   const model = process.env.AI_LOCAL_MODEL || 'qwen2.5:72b'
   const apiKey = process.env.AI_LOCAL_API_KEY || ''
 
+  // 8s on Vercel (Hobby plan = 10s limit), 120s in dev (DGX via Tailscale)
+  const isVercel = !!process.env.VERCEL
+  const timeoutMs = isVercel ? 8000 : 120000
+
   const controller = new AbortController()
-  const timeout = setTimeout(() => controller.abort(), 8000) // 8s — fail fast so cloud fallback can run within Vercel's function limit
+  const timeout = setTimeout(() => controller.abort(), timeoutMs)
 
   try {
     const res = await fetch(`${endpoint}/chat/completions`, {
