@@ -58,6 +58,7 @@ const nextConfig: NextConfig = {
   // Incluir archivos de contenido en el bundle serverless
   outputFileTracingIncludes: {
     '/api/exercises/[exerciseId]': ['./content/**/*', './config/**/*'],
+    '/api/courses/[courseId]/modules/[moduleId]/slides': ['./content/**/*'],
   },
 
   async headers() {

@@ -469,3 +469,9 @@ Next steps:
 - Close the Playwright browser after screenshots: `playwright_close`
 - Quiz `correct` field uses option **IDs** (strings), not array indices
 - SQL exercises use `solution_query` (not `solution_code`)
+
+### Course Detail Page Background
+
+- When `thumbnail_url` is set, the course detail page header uses a solid dark background (`bg-gray-900`), NOT the thumbnail image. The hero image only appears in the sidebar enrollment card.
+- The `CourseHero` generative SVG is only used when `thumbnail_url` is null.
+- Hero images should be designed to look good at card size (320x176px).
