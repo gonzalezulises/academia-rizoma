@@ -46,7 +46,7 @@ export async function POST(request: Request) {
 
     return NextResponse.json({
       data: parsed,
-      provider: ai.getProvider(),
+      provider: ai.getLastUsedProvider(),
     })
   } catch (error) {
     console.error('AI generate error:', error)

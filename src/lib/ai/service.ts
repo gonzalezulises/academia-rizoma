@@ -1,10 +1,13 @@
 // AI Service — dual provider: local DGX (OpenAI-compatible) → Claude API fallback
 
+type Provider = 'local' | 'cloud' | 'none'
+
 interface AIService {
   generate(system: string, user: string): Promise<string>
   parseJSONResponse<T = unknown>(raw: string): T
   isAvailable(): boolean
-  getProvider(): 'local' | 'cloud' | 'none'
+  getProvider(): Provider
+  getLastUsedProvider(): Provider
 }
 
 async function callLocal(system: string, user: string): Promise<string> {
@@ -183,18 +186,23 @@ function parseJSONResponse<T = unknown>(raw: string): T {
 export function createAIService(): AIService {
   const hasLocal = !!process.env.AI_LOCAL_ENDPOINT
   const hasCloud = !!process.env.ANTHROPIC_API_KEY
+  let lastUsed: Provider = 'none'
 
   return {
     async generate(system: string, user: string): Promise<string> {
       if (hasLocal) {
         try {
-          return await callLocal(system, user)
+          const result = await callLocal(system, user)
+          lastUsed = 'local'
+          return result
         } catch {
           // Fall through to cloud
         }
       }
       if (hasCloud) {
-        return await callCloud(system, user)
+        const result = await callCloud(system, user)
+        lastUsed = 'cloud'
+        return result
       }
       throw new Error('No AI provider configured')
     },
@@ -205,10 +213,14 @@ export function createAIService(): AIService {
       return hasLocal || hasCloud
     },
 
-    getProvider(): 'local' | 'cloud' | 'none' {
+    getProvider(): Provider {
       if (hasLocal) return 'local'
       if (hasCloud) return 'cloud'
       return 'none'
+    },
+
+    getLastUsedProvider(): Provider {
+      return lastUsed
     },
   }
 }
