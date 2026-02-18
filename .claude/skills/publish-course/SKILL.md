@@ -306,23 +306,29 @@ Look at existing migrations (e.g., `20251226000001_seed_data_analytics_course.sq
 -- =====================================================
 -- Seed: Curso {title}
 -- {N} modules, {M} lessons, {P} exercises
+-- content_source = '{filesystem|database}'
 -- =====================================================
 
 -- 1. Insert course
-INSERT INTO courses (id, title, description, slug, thumbnail_url, is_published)
+INSERT INTO courses (id, title, description, slug, thumbnail_url, is_published, content_source, content_status)
 VALUES (
   '{course-uuid}',
   '{title}',
   '{description}',
   '{slug}',
-  '{thumbnail_url}',
-  false  -- Always start unpublished; admin enables manually
+  '/images/courses/{slug}-hero.webp',
+  false,  -- Always start unpublished; admin enables manually
+  '{filesystem|database}',
+  'published'
 )
 ON CONFLICT (id) DO UPDATE SET
   title = EXCLUDED.title,
   description = EXCLUDED.description,
   slug = EXCLUDED.slug,
-  is_published = EXCLUDED.is_published;
+  thumbnail_url = EXCLUDED.thumbnail_url,
+  is_published = EXCLUDED.is_published,
+  content_source = EXCLUDED.content_source,
+  content_status = EXCLUDED.content_status;
 
 -- 2. Insert modules
 INSERT INTO modules (id, course_id, title, description, order_index, is_locked)
@@ -337,19 +343,61 @@ ON CONFLICT (id) DO UPDATE SET
 INSERT INTO lessons (id, course_id, module_id, title, content, lesson_type, order_index, duration_minutes, is_required, video_url)
 VALUES
   ('{lesson-uuid}', '{course-uuid}', '{module-uuid}', '{title}',
-   'Ver archivo: content/courses/{slug}/{module-id}/lessons/{filename}.md',
+   $CONTENT$
+   -- Markdown content here (inline for database courses, or reference for filesystem)
+   $CONTENT$,
    'text', {order}, {duration}, true, null)
   -- ... one row per lesson
 ON CONFLICT (id) DO UPDATE SET
   title = EXCLUDED.title,
   content = EXCLUDED.content;
+
+-- 4. Insert exercises (ONLY for content_source='database' courses)
+-- For filesystem courses, exercises load from YAML files — skip this step.
+INSERT INTO course_exercises (id, course_id, module_id, lesson_id, exercise_id, exercise_type, exercise_data, order_index)
+VALUES (
+  gen_random_uuid(),
+  '{course-uuid}', '{module-uuid}', '{lesson-uuid}',
+  '{exercise-id}',   -- Must match <!-- exercise:{exercise-id} --> in lesson content
+  'quiz',
+  '{
+    "id": "{exercise-id}",
+    "exercise_type": "quiz",
+    "title": "Quiz Title",
+    "description": "Description",
+    "difficulty": "beginner",
+    "estimated_duration_minutes": 10,
+    "total_points": 50,
+    "passing_score": 60,
+    "questions": [
+      {
+        "question": "Question text?",
+        "options": ["Option A", "Option B", "Option C", "Option D"],
+        "correct": 0,
+        "explanation": "Why A is correct"
+      }
+    ]
+  }'::jsonb,
+  1
+)
+ON CONFLICT (exercise_id) DO UPDATE SET exercise_data = EXCLUDED.exercise_data;
 ```
+
+**CRITICAL — ON CONFLICT must include `thumbnail_url`:**
+Without it, re-running migrations won't update hero images. Always include all mutable fields.
+
+**Database course JSONB quiz format:**
+- `exercise_type` (not `type`) — the loader `db-loaders.ts` normalizes this
+- `questions[].options`: `string[]` (not `{id, text}[]`) — normalized automatically
+- `questions[].correct`: integer index (not string ID) — normalized automatically
+- See `CLAUDE_COURSE_GUIDE.md` "Opcion B" for full format reference
 
 **Notes:**
 - Use `$CONTENT$...$CONTENT$` dollar quoting for multiline content
 - Use `ON CONFLICT (id) DO UPDATE SET` for idempotency
 - Set `is_published = false` — admin enables manually
-- Lesson `content` points to the file path (the platform loads from filesystem first, DB second)
+- For filesystem courses, lesson `content` can reference the file path
+- For database courses, lesson `content` must contain the full markdown inline
 
 ---
 

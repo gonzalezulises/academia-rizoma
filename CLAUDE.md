@@ -26,11 +26,26 @@ Plataforma educativa con cursos, lecciones, **ejercicios interactivos de codigo*
 
 ## Sistema de Ejercicios Interactivos
 
-### Arquitectura
+### Dos modos de contenido
+
+| Modo | `content_source` | Ejercicios en | Ejemplo |
+|------|-------------------|---------------|---------|
+| **Filesystem** | `'filesystem'` | Archivos YAML en disco | `python-data-science`, `ona-fundamentals` |
+| **Database** | `'database'` | JSONB en tabla `course_exercises` | `metricas-agiles`, `decisiones-basadas-datos` |
+
+### Arquitectura Filesystem
 ```
 content/courses/[curso]/module-XX/
 ├── lessons/       # Markdown con <!-- exercise:id -->
 └── exercises/     # YAML con codigo, tests, hints
+```
+
+### Arquitectura Database
+```
+supabase/migrations/YYYYMMDD_seed_[curso].sql
+├── INSERT INTO courses (content_source='database')
+├── INSERT INTO lessons (content markdown inline)
+└── INSERT INTO course_exercises (exercise_data JSONB)
 ```
 
 ### Componentes Clave
@@ -39,8 +54,9 @@ content/courses/[curso]/module-XX/
 | `src/components/exercises/CodePlayground.tsx` | Editor + runner Python |
 | `src/components/exercises/SQLPlayground.tsx` | Editor + runner SQL |
 | `src/hooks/usePyodide.ts` | Carga Pyodide |
-| `src/lib/content/loaders.ts` | Carga YAML |
-| `src/app/api/exercises/[id]/route.ts` | API de ejercicios |
+| `src/lib/content/loaders.ts` | Carga YAML (filesystem) |
+| `src/lib/content/db-loaders.ts` | Carga JSONB + normaliza formato (database) |
+| `src/app/api/exercises/[id]/route.ts` | API: intenta DB primero, filesystem despues |
 
 ### Crear Nuevo Curso
 **Ver:** `CLAUDE_COURSE_GUIDE.md` para instrucciones completas.
@@ -49,10 +65,11 @@ Resumen rapido:
 1. Crear carpetas en `content/courses/[slug]/module-01/{lessons,exercises}`
 2. Crear `course.yaml` y `module.yaml`
 3. Crear lecciones `.md` con embeds `<!-- exercise:id -->`
-4. Crear ejercicios `.yaml`
-5. Crear migracion SQL en `supabase/migrations/`
-6. Aplicar: `source .env.local && supabase db push --linked`
-7. Push a main para deploy
+4. Crear ejercicios `.yaml` (o JSONB en migracion si `content_source='database'`)
+5. Generar hero image WebP con Playwright (ver SKILL publish-course Step 8)
+6. Crear migracion SQL en `supabase/migrations/` (**incluir `thumbnail_url` en ON CONFLICT**)
+7. Aplicar: `source .env.local && supabase db push --linked`
+8. Push a main para deploy
 
 ---
 

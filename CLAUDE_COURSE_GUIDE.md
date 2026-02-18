@@ -583,7 +583,14 @@ INSERT INTO usuarios (id, nombre, edad) VALUES
 
 ## Agregar a la Base de Datos
 
-### Opcion A: Migracion SQL (Recomendado)
+### Dos modos de contenido
+
+| Modo | `content_source` | Contenido markdown | Ejercicios | Cuando usar |
+|------|-------------------|--------------------|------------|-------------|
+| **Filesystem** | `'filesystem'` (default) | Archivos `.md` en disco | Archivos `.yaml` en disco | Cursos con ejercicios de código (Python, SQL) |
+| **Database** | `'database'` | Inline en la migración SQL (columna `content`) | JSONB en tabla `course_exercises` | Cursos solo teoría/quizzes, generados por IA |
+
+### Opcion A: Migracion SQL — Filesystem (curso con ejercicios de codigo)
 
 Crear archivo en `supabase/migrations/`:
 
@@ -591,17 +598,20 @@ Crear archivo en `supabase/migrations/`:
 -- supabase/migrations/20251225000010_seed_[curso].sql
 
 -- 1. Insertar curso
-INSERT INTO courses (id, title, description, thumbnail_url, is_published)
+INSERT INTO courses (id, title, description, slug, thumbnail_url, is_published)
 VALUES (
   'uuid-del-curso',
   'Titulo del Curso',
   'Descripcion completa del curso...',
-  'https://url-del-thumbnail.png',
+  'slug-del-curso',
+  '/images/courses/slug-del-curso-hero.webp',
   true
 )
 ON CONFLICT (id) DO UPDATE SET
   title = EXCLUDED.title,
   description = EXCLUDED.description,
+  slug = EXCLUDED.slug,
+  thumbnail_url = EXCLUDED.thumbnail_url,
   is_published = EXCLUDED.is_published;
 
 -- 2. Insertar modulo
@@ -618,7 +628,7 @@ ON CONFLICT (id) DO UPDATE SET
   title = EXCLUDED.title,
   description = EXCLUDED.description;
 
--- 3. Insertar lecciones
+-- 3. Insertar lecciones (contenido apunta al archivo .md en disco)
 INSERT INTO lessons (id, course_id, module_id, title, content, lesson_type, order_index, duration_minutes, is_required, video_url)
 VALUES
   (
@@ -647,6 +657,99 @@ ON CONFLICT (id) DO UPDATE SET
 ```
 
 **NOTA:** Usa `$CONTENT$...$CONTENT$` para contenido multilinea con caracteres especiales.
+
+### Opcion B: Migracion SQL — Database (curso sin codigo, solo quizzes)
+
+Para cursos `content_source = 'database'`, **todo** el contenido vive en la migracion SQL.
+Los ejercicios se insertan en la tabla `course_exercises` como JSONB.
+
+```sql
+-- 1. Insertar curso con content_source = 'database'
+INSERT INTO courses (id, title, description, slug, thumbnail_url, is_published, content_source, content_status)
+VALUES (
+  'uuid-del-curso',
+  'Titulo del Curso',
+  'Descripcion...',
+  'slug-del-curso',
+  '/images/courses/slug-del-curso-hero.webp',
+  true,
+  'database',
+  'published'
+)
+ON CONFLICT (id) DO UPDATE SET
+  title = EXCLUDED.title,
+  description = EXCLUDED.description,
+  slug = EXCLUDED.slug,
+  thumbnail_url = EXCLUDED.thumbnail_url,
+  is_published = EXCLUDED.is_published,
+  content_source = EXCLUDED.content_source,
+  content_status = EXCLUDED.content_status;
+
+-- 2. Insertar modulos (igual que filesystem)
+
+-- 3. Insertar lecciones con markdown INLINE (no referencia a archivo)
+INSERT INTO lessons (id, course_id, module_id, title, content, lesson_type, order_index, duration_minutes, is_required)
+VALUES (
+  'uuid-leccion-1', 'uuid-del-curso', 'uuid-del-modulo',
+  'Titulo de la Leccion',
+  $CONTENT$
+# Titulo
+
+Contenido markdown completo aqui, incluye embeds:
+
+<!-- exercise:ex-id-01 -->
+$CONTENT$,
+  'text', 1, 15, true
+)
+ON CONFLICT (id) DO UPDATE SET title = EXCLUDED.title, content = EXCLUDED.content;
+
+-- 4. Insertar ejercicios en course_exercises (SOLO para database courses)
+INSERT INTO course_exercises (id, course_id, module_id, lesson_id, exercise_id, exercise_type, exercise_data, order_index)
+VALUES (
+  gen_random_uuid(),
+  'uuid-del-curso',
+  'uuid-del-modulo',
+  'uuid-leccion-1',
+  'ex-id-01',          -- Debe coincidir con <!-- exercise:ex-id-01 -->
+  'quiz',
+  '{
+    "id": "ex-id-01",
+    "exercise_type": "quiz",
+    "title": "Titulo del Quiz",
+    "description": "Descripcion",
+    "difficulty": "beginner",
+    "estimated_duration_minutes": 10,
+    "total_points": 50,
+    "passing_score": 60,
+    "questions": [
+      {
+        "question": "Pregunta aqui?",
+        "options": ["Opcion A", "Opcion B", "Opcion C", "Opcion D"],
+        "correct": 0,
+        "explanation": "Explicacion de por que es A"
+      }
+    ]
+  }'::jsonb,
+  1
+)
+ON CONFLICT (exercise_id) DO UPDATE SET exercise_data = EXCLUDED.exercise_data;
+```
+
+**IMPORTANTE — Formato JSONB de quizzes en `course_exercises`:**
+
+| Campo JSONB | Tipo | Notas |
+|-------------|------|-------|
+| `exercise_type` | string | Usa `exercise_type`, NO `type` |
+| `questions[].options` | `string[]` | Array de strings, NO objetos `{id, text}` |
+| `questions[].correct` | `number` | Indice entero (0-based), NO string ID |
+| `questions[].explanation` | `string` | Opcional, se muestra como feedback |
+| `estimated_duration_minutes` | number | Usa este nombre, NO `estimated_time_minutes` |
+| `total_points` | number | Usa este nombre, NO `points` |
+
+El loader `src/lib/content/db-loaders.ts` normaliza automaticamente este formato
+al formato canonico TypeScript (`options[].{id, text}`, `correct: string`).
+
+**Referencia real:** `supabase/migrations/20260217000009_seed_metricas_agiles.sql`
 
 ### Aplicar Migracion
 
@@ -720,9 +823,16 @@ El deploy es automatico. Verificar en:
 
 ### Error "Exercise not found"
 
+**Para cursos filesystem:**
 1. Revisar consola del navegador para ver la URL de la API
 2. Verificar que el archivo YAML existe y tiene sintaxis correcta
 3. Probar la API directamente: `/api/exercises/[id]?course=[slug]&module=module-01`
+
+**Para cursos `content_source='database'`:**
+1. Verificar que el `exercise_id` en `course_exercises` coincide con el embed `<!-- exercise:id -->`
+2. Verificar que `exercise_data` JSONB contiene `id`, `exercise_type` y `title` (los 3 son requeridos)
+3. Si es quiz, verificar que `questions` es un array no vacio con `question`, `options` y `correct`
+4. El loader `db-loaders.ts` normaliza el formato — si falla, el ejercicio devuelve null y cae al fallback filesystem
 
 ### Pyodide no carga
 
@@ -759,15 +869,25 @@ Si la migracion SQL falla por RLS:
 ### Contenido
 - [ ] Crear carpetas: `content/courses/[slug]/module-01/{lessons,exercises}`
 - [ ] Crear `course.yaml` con metadata
+- [ ] Crear `COURSE_STATE.yaml` (contrato pedagogico)
 - [ ] Crear `module.yaml` con lista de lecciones y ejercicios
 - [ ] Crear archivos `.md` para cada leccion
 - [ ] Crear archivos `.yaml` para cada ejercicio
 - [ ] Insertar `<!-- exercise:id -->` en las lecciones
+- [ ] Verificar que cada exercise ID en markdown tiene su YAML correspondiente
+
+### Hero Image
+- [ ] Crear HTML 1200x630 en `/tmp/hero-images/{slug}.html` (ver SKILL publish-course Step 8)
+- [ ] Renderizar con Playwright MCP: `playwright_navigate` + `playwright_screenshot`
+- [ ] Convertir a WebP: `cwebp -q 85 input.png -o public/images/courses/{slug}-hero.webp`
+- [ ] Actualizar `thumbnail_url` en `course.yaml` y migracion SQL
 
 ### Base de Datos (Supabase)
 - [ ] Verificar link: `cat supabase/.temp/project-ref` (debe mostrar tu project-ref)
 - [ ] Si no esta linkeado: `source .env.local && supabase link --project-ref $SUPABASE_PROJECT_REF`
 - [ ] Crear migracion SQL en `supabase/migrations/YYYYMMDDHHMMSS_seed_[curso].sql`
+- [ ] **Verificar que `ON CONFLICT` incluye `thumbnail_url`** (sin esto, re-runs no actualizan la imagen)
+- [ ] Si es curso `content_source='database'`: insertar ejercicios en `course_exercises` con JSONB
 - [ ] Aplicar: `source .env.local && supabase db push --linked`
 - [ ] Verificar: `source .env.local && supabase migration list`
 
