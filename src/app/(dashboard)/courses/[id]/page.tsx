@@ -18,19 +18,23 @@ export default async function CoursePage({ params }: CoursePageProps) {
   // Get current user
   const { data: { user } } = await supabase.auth.getUser()
 
-  // Get course with instructor
+  // Get course with instructor (support both UUID and slug)
+  const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id)
   const { data: course, error: courseError } = await supabase
     .from('courses')
     .select(`
       *,
       instructor:profiles!courses_instructor_id_fkey(id, full_name, avatar_url)
     `)
-    .eq('id', id)
+    .eq(isUuid ? 'id' : 'slug', id)
     .single()
 
   if (courseError || !course) {
     notFound()
   }
+
+  // Use the real UUID for all subsequent queries
+  const courseId = course.id as string
 
   // Check if course is published or user is the instructor
   const isInstructor = user?.id === course.instructor_id
@@ -45,14 +49,14 @@ export default async function CoursePage({ params }: CoursePageProps) {
       *,
       lessons(*)
     `)
-    .eq('course_id', id)
+    .eq('course_id', courseId)
     .order('order_index', { ascending: true })
 
   // Get lessons that don't belong to any module
   const { data: orphanLessons } = await supabase
     .from('lessons')
     .select('*')
-    .eq('course_id', id)
+    .eq('course_id', courseId)
     .is('module_id', null)
     .order('order_index', { ascending: true })
 
@@ -66,7 +70,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
       .from('enrollments')
       .select('*')
       .eq('user_id', user.id)
-      .eq('course_id', id)
+      .eq('course_id', courseId)
       .single()
 
     enrollment = enrollmentData
@@ -96,7 +100,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
 
     await supabase.from('enrollments').insert({
       user_id: user.id,
-      course_id: id
+      course_id: courseId
     })
 
     revalidatePath(`/courses/${id}`)
@@ -119,7 +123,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
   if (orphanLessons && orphanLessons.length > 0) {
     formattedModules.unshift({
       id: 'general',
-      course_id: id,
+      course_id: courseId,
       title: 'Lecciones Generales',
       description: 'Lecciones sin modulo asignado',
       order_index: -1,
@@ -229,7 +233,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
               {user && enrollment && (
                 <div className="flex items-center gap-3 mt-6">
                   <Link
-                    href={`/courses/${id}/forum`}
+                    href={`/courses/${courseId}/forum`}
                     className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg transition-colors"
                   >
                     <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -238,7 +242,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
                     <span>Foro</span>
                   </Link>
                   <Link
-                    href={`/courses/${id}/announcements`}
+                    href={`/courses/${courseId}/announcements`}
                     className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg transition-colors"
                   >
                     <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -281,7 +285,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
                           </div>
                         </div>
                         <Link
-                          href={`/courses/${id}/lessons/${formattedModules[0]?.lessons?.[0]?.id || ''}`}
+                          href={`/courses/${courseId}/lessons/${formattedModules[0]?.lessons?.[0]?.id || ''}`}
                           className="block w-full py-3 bg-green-600 text-white text-center rounded-lg font-medium hover:bg-green-700 transition-colors"
                         >
                           {progressPercent > 0 ? 'Continuar curso' : 'Comenzar curso'}
@@ -324,7 +328,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
 
         <CourseMap
           modules={formattedModules}
-          courseId={id}
+          courseId={courseId}
           userProgress={userProgress}
         />
       </div>
