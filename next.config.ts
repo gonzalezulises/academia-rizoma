@@ -41,20 +41,7 @@ const securityHeaders = [
   }
 ];
 
-// Determina si estamos en producción (Vercel) o desarrollo local
-const isProduction = process.env.VERCEL_ENV === 'production' || process.env.NODE_ENV === 'production';
-const basePath = isProduction ? '/academia' : '';
-
 const nextConfig: NextConfig = {
-  // Base path para servir desde rizo.ma/academia
-  basePath,
-  assetPrefix: basePath,
-
-  // Exponer basePath a componentes cliente
-  env: {
-    NEXT_PUBLIC_BASE_PATH: basePath,
-  },
-
   // Incluir archivos de contenido en el bundle serverless
   outputFileTracingIncludes: {
     '/api/exercises/[exerciseId]': ['./content/**/*', './config/**/*'],
