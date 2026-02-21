@@ -158,7 +158,7 @@ function repairTruncatedJSON(raw: string): string {
 }
 
 function parseJSONResponse<T = unknown>(raw: string): T {
-  // Strip Qwen3 thinking tags
+  // Strip LLM thinking tags
   let cleaned = raw.replace(/<think>[\s\S]*?<\/think>/g, '').trim()
   // Strip markdown code fences if present
   if (cleaned.startsWith('```json')) {
