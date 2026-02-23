@@ -48,6 +48,21 @@ const nextConfig: NextConfig = {
     '/api/courses/[courseId]/modules/[moduleId]/slides': ['./content/**/*'],
   },
 
+  async redirects() {
+    return [
+      {
+        source: '/academia',
+        destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/academia/:path*',
+        destination: '/:path*',
+        permanent: true,
+      },
+    ];
+  },
+
   async headers() {
     return [
       {
