@@ -37,7 +37,7 @@ export default async function CoursesPage() {
               {course.thumbnail_url ? (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
-                  src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}${course.thumbnail_url}`}
+                  src={course.thumbnail_url}
                   alt={course.title}
                   className="w-full h-48 object-cover"
                 />
