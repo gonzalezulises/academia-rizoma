@@ -46,4 +46,8 @@ updates:
       prefix: "chore(deps)"
     labels:
       - "dependencies"
-    open-pull-requests-limit: 5
+    # 0 apaga las de *version* y deja pasar las de seguridad, que no estan sujetas a este
+    # limite. Es deliberado: este repo no tiene .github/workflows, asi que un bump de version
+    # no tendria quien lo verifique. Al poner 5, Dependabot abrio cinco PRs de version en
+    # minutos, uno de ellos un mayor de mermaid. Se enciende cuando el repo tenga su CI.
+    open-pull-requests-limit: 0
