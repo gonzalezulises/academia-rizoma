@@ -1,4 +1,19 @@
 version: 2
+
+# Este repo tenia 78 alertas abiertas y CERO PRs de Dependabot: el job no corria. Dos
+# defectos de esta configuracion lo abortaban, y los dos se arreglan abajo.
+#
+# 1. Habia una entrada `github-actions` y el repo no tiene .github/workflows (en .github
+#    solo esta este archivo). Una entrada para un ecosistema ausente aborta el job entero.
+#
+# 2. Habia un registro `github-npm` con `token: ${{ secrets.GITHUB_TOKEN }}`. Dependabot no
+#    resuelve esa expresion: necesita un *secreto de Dependabot*. Era config muerta, ademas:
+#    el package.json no declara ningun `@rizoma/*` y no hay .npmrc. Se retira el registro y
+#    la referencia que lo usaba, porque dejar la referencia sin el bloque invalida el archivo.
+#
+# Se conserva todo lo demas a proposito: el horario diario con zona de Panama, los grupos, el
+# prefijo de commit, las etiquetas y el limite. El grupo `rizoma-ui` apunta a `@rizoma/*`, que
+# hoy no es dependencia de este repo; se deja como estaba, solo se señala.
 updates:
   # Dependencias npm
   - package-ecosystem: npm
@@ -8,6 +23,11 @@ updates:
       time: "09:00"
       timezone: "America/Panama"
     groups:
+      # Las de seguridad llegan en un solo PR por tanda, no una por vulnerabilidad.
+      security:
+        applies-to: security-updates
+        patterns:
+          - "*"
       # Actualizar @rizoma/ui automáticamente
       rizoma-ui:
         patterns:
@@ -27,22 +47,3 @@ updates:
     labels:
       - "dependencies"
     open-pull-requests-limit: 5
-    registries:
-      - github-npm
-
-  # GitHub Actions
-  - package-ecosystem: github-actions
-    directory: /
-    schedule:
-      interval: weekly
-    commit-message:
-      prefix: "chore(ci)"
-    labels:
-      - "ci"
-
-registries:
-  github-npm:
-    type: npm-registry
-    url: https://npm.pkg.github.com
-    token: ${{ secrets.GITHUB_TOKEN }}
-    replaces-base: false
