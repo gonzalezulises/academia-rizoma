@@ -17,6 +17,9 @@ version: 2
 updates:
   # Dependencias npm
   - package-ecosystem: npm
+    # Siete días de madurez antes de proponer una versión.
+    cooldown:
+      default-days: 7
     directory: /
     schedule:
       interval: daily
